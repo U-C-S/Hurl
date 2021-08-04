@@ -8,24 +8,36 @@ namespace skim
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-            Console.WriteLine(RuntimeInformation.OSDescription);
-            Console.WriteLine(RuntimeInformation.OSArchitecture);
-            Console.WriteLine(RuntimeInformation.FrameworkDescription);
+            Console.WriteLine(RuntimeInformation.OSDescription + " " + RuntimeInformation.OSArchitecture);
 
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                using (RegistryKey key = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run"))
+            Browserlist.getlist();
+            // Console.WriteLine(x);
+            // Console.WriteLine(RuntimeInformation.FrameworkDescription);
+        }
+
+        class Browserlist
+        {
+            public static void getlist()
+            {
+                Console.WriteLine("The list of Browsers: ");
+                using (RegistryKey key = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Clients\\StartMenuInternet"))
                 {
-                    if (key != null)
+                    string[] x = key.GetSubKeyNames();
+                    for (int i = 0; i < x.Length; i++)
                     {
-                        Object o = key.GetValue("OneDrive");
-                        Console.WriteLine(o.ToString());
+                        //Console.WriteLine(x[i]);
+                        using (RegistryKey subkey = key.OpenSubKey(x[i] + "\\Capabilities"))
+                        {
+                            if (subkey != null)
+                            {
+                                object y = subkey.GetValue("ApplicationName");
+                                Console.WriteLine("- " + y.ToString());
+                            }
+                        }
                     }
-                    else
-                    {
-                        Console.WriteLine("Key is null");
-                    }
+
                 }
+            }
         }
     }
 }
