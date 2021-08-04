@@ -2,7 +2,21 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <PublishTrimmed>true</PublishTrimmed>
+    <TrimMode>link</TrimMode>
+    <PublishSingleFile>true</PublishSingleFile>
+    <PublishReadyToRun>true</PublishReadyToRun>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+
+    <Title>skimpick</Title>
+    <Product>skimpick</Product>
+    <PackageId>skimpick</PackageId>
+    <Description>Still testing what it is</Description>
+    <Version>0.0.1</Version>
+    <Authors>Chanakya</Authors>
+    <RepositoryUrl>https://github.com/U-C-S/Skimpick</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>

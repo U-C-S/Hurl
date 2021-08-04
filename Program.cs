@@ -10,6 +10,8 @@ namespace skim
         {
             Console.WriteLine("Hello World!");
             Console.WriteLine(RuntimeInformation.OSDescription);
+            Console.WriteLine(RuntimeInformation.OSArchitecture);
+            Console.WriteLine(RuntimeInformation.FrameworkDescription);
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 using (RegistryKey key = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run"))
@@ -18,6 +20,10 @@ namespace skim
                     {
                         Object o = key.GetValue("OneDrive");
                         Console.WriteLine(o.ToString());
+                    }
+                    else
+                    {
+                        Console.WriteLine("Key is null");
                     }
                 }
         }

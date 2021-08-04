@@ -19,9 +19,8 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/skim.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
+                "-o",
+                "${workspaceFolder}/publish/"
             ],
             "problemMatcher": "$msCompile"
         },
