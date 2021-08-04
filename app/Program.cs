@@ -9,7 +9,7 @@ namespace app
         {
             Console.WriteLine(RuntimeInformation.OSDescription + " " + RuntimeInformation.OSArchitecture);
 
-            browserlist.getlist();
+            BrowsersList.InitalGetList();
             // Console.WriteLine(x);
             // Console.WriteLine(RuntimeInformation.FrameworkDescription);
         }
