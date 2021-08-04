@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/skim.csproj",
+                "${workspaceFolder}/app/app.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -20,7 +20,7 @@
             "args": [
                 "publish",
                 "-o",
-                "${workspaceFolder}/publish/"
+                "${workspaceFolder}/app/publish/"
             ],
             "problemMatcher": "$msCompile"
         },
@@ -31,7 +31,7 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/skim.csproj",
+                "${workspaceFolder}/app/app.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
