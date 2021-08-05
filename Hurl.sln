@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31521.260
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hurl", "App\Hurl.csproj", "{3BE97F54-29E7-406D-9D7C-4EDD137BBCEC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		Description = A prototype
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3BE97F54-29E7-406D-9D7C-4EDD137BBCEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BE97F54-29E7-406D-9D7C-4EDD137BBCEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BE97F54-29E7-406D-9D7C-4EDD137BBCEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BE97F54-29E7-406D-9D7C-4EDD137BBCEC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C7C5406A-8696-404B-8F67-652210578B41}
+	EndGlobalSection
+EndGlobal
