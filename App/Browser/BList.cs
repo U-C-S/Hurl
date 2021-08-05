@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.Win32;
 
-namespace Hurl.Browsers
+namespace Hurl.Browser
 {
-    public class BList : List<Browser>
+    public class BList : List<BrowserObject>
     {
         public static BList InitalGetList()
         {
@@ -26,7 +26,7 @@ namespace Hurl.Browsers
                         {
                             object y = subkey.GetValue("ApplicationName");
                             name = y.ToString();
-                            Console.WriteLine($"{i}. {name}");
+                            //Console.WriteLine($"{i}. {name}");
                         }
                     }
 
@@ -36,11 +36,11 @@ namespace Hurl.Browsers
                         {
                             object y = subkey.GetValue(null); //to get (Default) value
                             exepath = y.ToString();
-                            Console.WriteLine("-- " + exepath);
+                            //Console.WriteLine("-- " + exepath);
                         }
                     }
 
-                    Browser b = new Browser(name, exepath);
+                    BrowserObject b = new BrowserObject(name, exepath);
                     browsers.Add(b);
                 }
             }
@@ -49,7 +49,7 @@ namespace Hurl.Browsers
         }
 
 
-        public BList(List<Browser> browsers)
+        public BList(List<BrowserObject> browsers)
         {
 
         }
@@ -57,13 +57,13 @@ namespace Hurl.Browsers
         public BList() { }
     }
 
-    public class Browser
+    public class BrowserObject
     {
         public string Name { get; set; }
         public string ExePath { get; set; }
 
 
-        public Browser(string name, string exePath)
+        public BrowserObject(string name, string exePath)
         {
             Name = name;
             ExePath = exePath;

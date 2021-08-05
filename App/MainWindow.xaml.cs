@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Diagnostics;
+using Hurl.Browser;
+using System;
 
 namespace Hurl
 {
@@ -23,6 +14,36 @@ namespace Hurl
         public MainWindow()
         {
             InitializeComponent();
+            
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            BList x = BList.InitalGetList();
+            foreach (BrowserObject i in x)
+            {
+                if (i.Name != null)
+                {
+                    Button button = new();
+                    button.Content = i.Name;
+                    button.Tag = i.ExePath;
+                    button.Click += BroClick;
+                    stacky.Children.Add(button);
+                }
+
+            }
+
+            (sender as Button).IsEnabled = false;
+            if(Environment.GetCommandLineArgs().Length > 1)
+            {
+                argss.Text = Environment.GetCommandLineArgs()[1];
+            }
+        }
+
+        private void BroClick(object sender, RoutedEventArgs e)
+        {
+            string path = (sender as Button).Tag.ToString();
+            _ = Process.Start(path, "https://github.com/U-C-S/Hurl");
         }
     }
 }
