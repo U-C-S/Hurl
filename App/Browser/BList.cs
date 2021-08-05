@@ -1,8 +1,8 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Microsoft.Win32;
 
-namespace App.Browser
+namespace Hurl.Browsers
 {
     public class BList : List<Browser>
     {
@@ -55,5 +55,18 @@ namespace App.Browser
         }
 
         public BList() { }
+    }
+
+    public class Browser
+    {
+        public string Name { get; set; }
+        public string ExePath { get; set; }
+
+
+        public Browser(string name, string exePath)
+        {
+            Name = name;
+            ExePath = exePath;
+        }
     }
 }
