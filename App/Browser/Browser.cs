@@ -1,6 +1,6 @@
 using System;
 
-namespace app.Browser
+namespace App.Browser
 {
     public class Browser
     {

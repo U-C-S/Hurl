@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Win32;
 
-namespace app.Browser
+namespace App.Browser
 {
     public class BList : List<Browser>
     {

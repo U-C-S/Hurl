@@ -2,9 +2,9 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-using app.Browser;
+using App.Browser;
 
-namespace app
+namespace App
 {
     class Program
     {
