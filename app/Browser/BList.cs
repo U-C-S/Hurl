@@ -2,18 +2,18 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Win32;
 
-namespace app
+namespace app.Browser
 {
-    public class BrowsersList: List<Browser>
+    public class BList : List<Browser>
     {
-        public static BrowsersList InitalGetList()
+        public static BList InitalGetList()
         {
-            BrowsersList browsers;
+            BList browsers;
             Console.WriteLine("The list of Browsers: ");
 
             using (RegistryKey key = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Clients\\StartMenuInternet"))
             {
-                browsers = new BrowsersList();
+                browsers = new BList();
                 string[] x = key.GetSubKeyNames();
                 for (int i = 0; i < x.Length; i++)
                 {
@@ -26,7 +26,7 @@ namespace app
                         {
                             object y = subkey.GetValue("ApplicationName");
                             name = y.ToString();
-                            Console.WriteLine("- " + name);
+                            Console.WriteLine($"{i}. {name}");
                         }
                     }
 
@@ -48,9 +48,12 @@ namespace app
             return browsers;
         }
 
-        public BrowsersList()
+
+        public BList(List<Browser> browsers)
         {
 
         }
+
+        public BList() { }
     }
 }

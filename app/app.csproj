@@ -9,13 +9,13 @@
     <PublishReadyToRun>true</PublishReadyToRun>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
 
-    <Title>SkimPick</Title>
-    <Product>SkimPick</Product>
-    <PackageId>SkimPick</PackageId>
+    <Title>Hurl</Title>
+    <Product>Hurl</Product>
+    <PackageId>Hurl</PackageId>
     <Description>Still testing what it is</Description>
-    <Version>0.0.1</Version>
+    <Version>0.0.2</Version>
     <Authors>Chanakya</Authors>
-    <RepositoryUrl>https://github.com/U-C-S/Skimpick</RepositoryUrl>
+    <RepositoryUrl>https://github.com/U-C-S/Hurl</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
