@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
-using Microsoft.Win32;
 
 namespace Hurl.Browser
 {
@@ -40,8 +40,11 @@ namespace Hurl.Browser
                         }
                     }
 
-                    BrowserObject b = new BrowserObject(name, exepath);
-                    browsers.Add(b);
+                    if (name != null & exepath != null)
+                    {
+                        BrowserObject b = new BrowserObject(name, exepath);
+                        browsers.Add(b);
+                    }
                 }
             }
 

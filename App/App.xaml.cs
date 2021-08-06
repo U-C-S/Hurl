@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using Hurl.Views;
+using System;
+using System.Windows;
 
 namespace Hurl
 {
@@ -7,5 +9,13 @@ namespace Hurl
     /// </summary>
     public partial class App : Application
     {
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            string[] x = e.Args;
+            //Console.WriteLine(x.Length);
+            MainWindow window = new MainWindow(x);
+            window.Show();
+
+        }
     }
 }

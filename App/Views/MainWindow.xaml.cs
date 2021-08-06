@@ -14,13 +14,14 @@ namespace Hurl.Views
     {
         private string arg;
 
-        public MainWindow()
+        public MainWindow(string[] x)
         {
             InitializeComponent();
-            if (Environment.GetCommandLineArgs().Length > 1)
+            if(x.Length >= 1)
             {
-                arg = argss.Text = Environment.GetCommandLineArgs()[1];
+                arg = argss.Text = x[0];
             }
+            //Environment.GetCommandLineArgs()[0] + 
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -45,7 +46,7 @@ namespace Hurl.Views
 
         private void BroClick(object sender, RoutedEventArgs e)
         {
-            if(sender != null)
+            if (sender != null)
             {
                 string path = (sender as Button)!.Tag.ToString()!;
                 if (arg != null)
