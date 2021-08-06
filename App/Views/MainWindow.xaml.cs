@@ -1,40 +1,38 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using System.Diagnostics;
-using Hurl.Browser;
+﻿using Hurl.Browser;
 using System;
+using System.Diagnostics;
+using System.Windows;
+using System.Windows.Controls;
 
-namespace Hurl
+namespace Hurl.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-            
-        }
+        public MainWindow() => InitializeComponent();
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             BList x = BList.InitalGetList();
             foreach (BrowserObject i in x)
             {
                 if (i.Name != null)
                 {
-                    Button button = new();
-                    button.Content = i.Name;
-                    button.Tag = i.ExePath;
+                    Button button = new()
+                    {
+                        Padding = new Thickness(5),
+                        Content = i.Name,
+                        Tag = i.ExePath,
+                    };
                     button.Click += BroClick;
-                    stacky.Children.Add(button);
+                    _ = stacky.Children.Add(button);
                 }
 
             }
 
-            (sender as Button).IsEnabled = false;
-            if(Environment.GetCommandLineArgs().Length > 1)
+            if (Environment.GetCommandLineArgs().Length > 1)
             {
                 argss.Text = Environment.GetCommandLineArgs()[1];
             }
