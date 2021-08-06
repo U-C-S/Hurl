@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:v="clr-namespace:Hurl.Views"
         mc:Ignorable="d" ResizeMode="NoResize" Topmost="True" WindowStartupLocation="CenterScreen"
-        Title="Hurl" Width="400" Height="200" Loaded="Window_Loaded">
+        Title="Hurl" Width="360" Height="200" Loaded="Window_Loaded">
     <Grid>
-        <StackPanel x:Name="stacky" HorizontalAlignment="Center" Width="200" Margin="0,0,0,10" Height="120" VerticalAlignment="Center" />
-        <TextBlock x:Name="argss" VerticalAlignment="Bottom" Background="Black" Foreground="White" />
+        <StackPanel x:Name="stacky" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="120" Margin="0,0,0,10" />
+        <TextBlock x:Name="argss" Text="No Link Opened" VerticalAlignment="Bottom" Background="#FF444444" Foreground="White" 
+                   Padding="5,2,5,3" FontFamily="Segoe UI Light" TextAlignment="Center" FontSize="11"/>
     </Grid>
 </Window>

@@ -1,6 +1,7 @@
 ﻿using Hurl.Browser;
 using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -11,7 +12,16 @@ namespace Hurl.Views
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow() => InitializeComponent();
+        private string arg;
+
+        public MainWindow()
+        {
+            InitializeComponent();
+            if (Environment.GetCommandLineArgs().Length > 1)
+            {
+                arg = argss.Text = Environment.GetCommandLineArgs()[1];
+            }
+        }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -31,17 +41,23 @@ namespace Hurl.Views
                 }
 
             }
-
-            if (Environment.GetCommandLineArgs().Length > 1)
-            {
-                argss.Text = Environment.GetCommandLineArgs()[1];
-            }
         }
 
         private void BroClick(object sender, RoutedEventArgs e)
         {
-            string path = (sender as Button).Tag.ToString();
-            _ = Process.Start(path, "https://github.com/U-C-S/Hurl");
+            if(sender != null)
+            {
+                string path = (sender as Button)!.Tag.ToString()!;
+                if (arg != null)
+                {
+                    _ = Process.Start(path, arg);
+                }
+                else
+                {
+                    _ = Process.Start(path, "https://github.com/U-C-S/Hurl");
+                }
+            }
+
         }
     }
 }
