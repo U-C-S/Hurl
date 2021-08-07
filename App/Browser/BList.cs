@@ -1,36 +1,69 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace Hurl.Browser
 {
+    /// <summary>
+    /// Store all info about a browser
+    /// </summary>
+    /// <param name="Name">Browser Name</param>
+    /// <param name="ExePath">The location of the Executable</param>
+    public class BrowserObject
+    {
+        public string Name;
+        public string ExePath;
+
+        public BrowserObject(string Name, string ExePath)
+        {
+            this.Name = Name;
+            this.ExePath = ExePath;
+        }
+        
+        public Icon getIcon
+        {
+            get
+            {
+                return Icon.ExtractAssociatedIcon(ExePath)!;
+            }
+        }
+
+    }
+
     public class BList : List<BrowserObject>
     {
+        public BList(List<BrowserObject> browsers)
+        {
+
+        }
+
+        public BList() { }
+
         public static BList InitalGetList()
         {
             BList browsers;
-            Console.WriteLine("The list of Browsers: ");
 
-            using (RegistryKey key = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Clients\\StartMenuInternet"))
+            using (RegistryKey? key = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Clients\\StartMenuInternet"))
             {
                 browsers = new BList();
-                string[] x = key.GetSubKeyNames();
+                string[] x = key!.GetSubKeyNames();
                 for (int i = 0; i < x.Length; i++)
                 {
                     //Console.WriteLine(x[i]);
-                    string name = null;
-                    string exepath = null;
-                    using (RegistryKey subkey = key.OpenSubKey(x[i] + "\\Capabilities"))
+                    string? name = null;
+                    string? exepath = null;
+                    using (RegistryKey? subkey = key.OpenSubKey(x[i] + "\\Capabilities"))
                     {
                         if (subkey != null)
                         {
-                            object y = subkey.GetValue("ApplicationName");
+                            object? y = subkey.GetValue("ApplicationName");
                             name = y.ToString();
                             //Console.WriteLine($"{i}. {name}");
                         }
                     }
 
-                    using (RegistryKey subkey = key.OpenSubKey(x[i] + "\\shell\\open\\command"))
+                    using (RegistryKey? subkey = key.OpenSubKey(x[i] + "\\shell\\open\\command"))
                     {
                         if (subkey != null)
                         {
@@ -42,7 +75,7 @@ namespace Hurl.Browser
 
                     if (name != null & exepath != null)
                     {
-                        BrowserObject b = new BrowserObject(name, exepath);
+                        BrowserObject b = new(name, exepath);
                         browsers.Add(b);
                     }
                 }
@@ -50,26 +83,6 @@ namespace Hurl.Browser
 
             return browsers;
         }
-
-
-        public BList(List<BrowserObject> browsers)
-        {
-
-        }
-
-        public BList() { }
     }
 
-    public class BrowserObject
-    {
-        public string Name { get; set; }
-        public string ExePath { get; set; }
-
-
-        public BrowserObject(string name, string exePath)
-        {
-            Name = name;
-            ExePath = exePath;
-        }
-    }
 }

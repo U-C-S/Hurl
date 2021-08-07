@@ -11,10 +11,18 @@ namespace Hurl
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            string[] x = e.Args;
-            //Console.WriteLine(x.Length);
-            MainWindow window = new MainWindow(x);
-            window.Show();
+            string[] Arguments = e.Args;
+
+            if (Arguments.Length != 0)
+            {
+                var window = new MainWindow(Arguments);
+                window.Show();
+            }
+            else
+            {
+                var window = new NoArgsWindow();
+                window.Show();
+            }
 
         }
     }

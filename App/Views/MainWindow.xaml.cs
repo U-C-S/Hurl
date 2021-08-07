@@ -1,4 +1,5 @@
 ﻿using Hurl.Browser;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
@@ -12,16 +13,24 @@ namespace Hurl.Views
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string arg;
+        private string? arg = null;
 
         public MainWindow(string[] x)
         {
             InitializeComponent();
-            if(x.Length >= 1)
+            if (x.Length >= 1)
             {
                 arg = argss.Text = x[0];
             }
+
+            //What does \"%1\" mean in Registry ? 
+            //https://www.tek-tips.com/viewthread.cfm?qid=382878
             //Environment.GetCommandLineArgs()[0] + 
+        }
+
+        public MainWindow()
+        {
+            InitializeComponent();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -34,9 +43,12 @@ namespace Hurl.Views
                     Button button = new()
                     {
                         Padding = new Thickness(5),
+                        Margin = new Thickness(2),
                         Content = i.Name,
                         Tag = i.ExePath,
+                        Style = (Style) FindResource("MDIXButton")
                     };
+                     
                     button.Click += BroClick;
                     _ = stacky.Children.Add(button);
                 }
@@ -58,7 +70,14 @@ namespace Hurl.Views
                     _ = Process.Start(path, "https://github.com/U-C-S/Hurl");
                 }
             }
+            
 
         }
     }
 }
+
+
+/*
+//TODO
+- https://stackoverflow.com/questions/11483655/icon-inside-of-button/11483844
+*/
