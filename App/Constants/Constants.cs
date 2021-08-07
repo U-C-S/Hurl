@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 
 namespace Hurl.Constants
 {
-    public static class Constants
+    public class Constants
     {
-        public static string NAME = "Hurl";
-        public static string DESCRIPTION = "Hurl - A tool to select the browsers dynamically";
-        public static string URLAssociations = "HandleURL3721";
-        static string VERSION = "v0.1.0";
-
-
+        public const string NAME = "Hurl";
+        public const string DESCRIPTION = "Hurl - A tool to select the browsers dynamically";
+        public const string URLAssociations = "HandleURL3721";
+        public const string VERSION = "0.1.0";
     }
 
     static class Errors

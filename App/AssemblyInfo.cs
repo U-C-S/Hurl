@@ -1,4 +1,7 @@
+using Hurl.Constants;
+using System.Reflection;
 using System.Windows;
+using System.Runtime.Versioning;
 
 [assembly: ThemeInfo(
     ResourceDictionaryLocation.None, //where theme specific resource dictionaries are located
@@ -8,3 +11,12 @@ using System.Windows;
                                               //(used if a resource is not found in the page,
                                               // app, or any theme specific resource dictionaries)
 )]
+[assembly: AssemblyTitle(Constants.NAME)]
+[assembly: AssemblyProduct(Constants.NAME)]
+[assembly: AssemblyDescription(Constants.DESCRIPTION)]
+[assembly: AssemblyVersion(Constants.VERSION)]
+[assembly: AssemblyFileVersion(Constants.VERSION)]
+[assembly: AssemblyCompany("Chanakya")]
+[assembly: AssemblyMetadata("Author", "Chanakya")]
+[assembly: AssemblyCopyright("@2021 MIT License")]
+[assembly: SupportedOSPlatform("windows")]

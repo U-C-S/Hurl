@@ -42,6 +42,8 @@ namespace Hurl.Views
                 }
 
             }
+            // https://stackoverflow.com/a/909859
+            EnvPath.Text = Environment.GetCommandLineArgs()[0];
         }
 
         private void Install_Button(object sender, RoutedEventArgs e)

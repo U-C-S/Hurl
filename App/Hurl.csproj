@@ -6,7 +6,8 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <MinimumPlatformVersion>10.0.18362.0</MinimumPlatformVersion>
-    <AssemblyName>Hurl</AssemblyName>
+	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	<DebugType>full</DebugType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

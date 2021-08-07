@@ -9,7 +9,7 @@ namespace Hurl.Constants
         private static RegistryKey root = Registry.CurrentUser;
         private static readonly string startMenuInternet_Key = @"Software\Clients\StartMenuInternet\" + Constants.NAME;
         private static readonly string urlAssociate_Key = @"Software\Classes\" + Constants.URLAssociations;
-        private static string Location = @"D:\lolx\Hurl.exe";
+        private static string Location = Environment.GetCommandLineArgs()[0];
 
         /// <summary>
         /// Installs the tool
