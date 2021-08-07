@@ -43,5 +43,15 @@ namespace Hurl.Views
 
             }
         }
+
+        private void Install_Button(object sender, RoutedEventArgs e)
+        {
+            Constants.Setup.Install();
+        }
+
+        private void Uninstall_Button(object sender, RoutedEventArgs e)
+        {
+            Constants.Setup.Uninstall();
+        }
     }
 }

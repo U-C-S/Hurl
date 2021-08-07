@@ -1,5 +1,4 @@
 ﻿using Hurl.Browser;
-using MaterialDesignThemes.Wpf;
 using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
@@ -46,7 +45,7 @@ namespace Hurl.Views
                         Margin = new Thickness(2),
                         Content = i.Name,
                         Tag = i.ExePath,
-                        Style = (Style) FindResource("MDIXButton")
+                        //Style = (Style) FindResource("MDIXButton")
                     };
                      
                     button.Click += BroClick;
