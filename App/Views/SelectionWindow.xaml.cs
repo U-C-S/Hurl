@@ -4,19 +4,22 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Hurl.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class SelectionWindow : Window
     {
         private string? arg = null;
 
-        public MainWindow(string[] x)
+        public SelectionWindow(string[] x)
         {
             InitializeComponent();
+            PreviewKeyDown += new KeyEventHandler(Window_Esc);
+
             if (x.Length >= 1)
             {
                 arg = argss.Text = x[0];
@@ -27,10 +30,16 @@ namespace Hurl.Views
             //Environment.GetCommandLineArgs()[0] + 
         }
 
-        public MainWindow()
+        private void Window_Esc(object sender, KeyEventArgs e)
         {
-            InitializeComponent();
+            if (e.Key == Key.Escape)
+            {
+                Close();
+            }
         }
+
+        private void Window_Deactivated(object sender, EventArgs e) => Close();
+
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -42,12 +51,12 @@ namespace Hurl.Views
                     Button button = new()
                     {
                         Padding = new Thickness(5),
-                        Margin = new Thickness(2),
+                        Margin = new Thickness(20, 5, 20, 0),
                         Content = i.Name,
                         Tag = i.ExePath,
                         //Style = (Style) FindResource("MDIXButton")
                     };
-                     
+
                     button.Click += BroClick;
                     _ = stacky.Children.Add(button);
                 }
@@ -57,21 +66,13 @@ namespace Hurl.Views
 
         private void BroClick(object sender, RoutedEventArgs e)
         {
-            if (sender != null)
+            if (arg != null)
             {
                 string path = (sender as Button)!.Tag.ToString()!;
-                if (arg != null)
-                {
-                    _ = Process.Start(path, arg);
-                }
-                else
-                {
-                    _ = Process.Start(path, "https://github.com/U-C-S/Hurl");
-                }
+                _ = Process.Start(path, arg);
             }
-            
-
         }
+
     }
 }
 

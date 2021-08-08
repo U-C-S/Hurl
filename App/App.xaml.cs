@@ -15,7 +15,7 @@ namespace Hurl
 
             if (Arguments.Length != 0)
             {
-                var window = new MainWindow(Arguments);
+                var window = new SelectionWindow(Arguments);
                 window.Show();
             }
             else

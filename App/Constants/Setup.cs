@@ -46,6 +46,8 @@ namespace Hurl.Constants
                 key.SetValue(null, $"{Constants.NAME} URL");
                 key.CreateSubKey(@"shell\open\command").SetValue(null, $"\"{Location}\" \"%1\"");  //change
             }
+
+            Debug.WriteLine("Installed the EXE");
         }
 
         /// <summary>
@@ -53,11 +55,11 @@ namespace Hurl.Constants
         /// </summary>
         public static void Uninstall()
         {
-            Debug.WriteLine("Uninstalled the exe");
-
             root.DeleteSubKeyTree(startMenuInternet_Key, false);
             root.DeleteSubKeyTree(urlAssociate_Key, false);
             root.OpenSubKey(@"Software\RegisteredApplications", true)!.DeleteValue(Constants.NAME, false);
+
+            Debug.WriteLine("Uninstalled the EXE");
         }
     }
 }
