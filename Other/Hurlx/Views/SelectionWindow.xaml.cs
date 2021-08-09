@@ -67,7 +67,28 @@ namespace Hurlx.Views
                     };
 
                     button.Click += BroClick;
-                    _ = stacky.Children.Add(button);
+                    stacky.Children.Add(button);
+                    //stacky.Children.Add(button);
+                }
+
+            }
+
+            foreach (BrowserObject i in x)
+            {
+                if (i.Name != null)
+                {
+                    Button button = new Button()
+                    {
+                        Padding = new Thickness(5),
+                        Margin = new Thickness(20, 5, 20, 0),
+                        Content = i.Name,
+                        Tag = i.ExePath,
+                        //Style = (Style) FindResource("MDIXButton")
+                    };
+
+                    button.Click += BroClick;
+                    stacky.Children.Add(button);
+                    //stacky.Children.Add(button);
                 }
 
             }
