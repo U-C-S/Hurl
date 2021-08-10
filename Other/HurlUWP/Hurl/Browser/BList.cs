@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HurlUWP.Browser
+namespace Hurl.Browser
 {
     /// <summary>
     /// Store all info about a browser
@@ -24,13 +24,13 @@ namespace HurlUWP.Browser
             this.ExePath = ExePath;
         }
 
-        public Icon getIcon
-        {
-            get
-            {
-                return Icon.ExtractAssociatedIcon(ExePath);
-            }
-        }
+        //public Icon getIcon
+        //{
+        //    get
+        //    {
+        //        return Icon.ExtractAssociatedIcon(ExePath);
+        //    }
+        //}
 
     }
 
