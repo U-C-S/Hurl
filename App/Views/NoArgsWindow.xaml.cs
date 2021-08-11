@@ -1,18 +1,7 @@
 ﻿using Hurl.Browser;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Hurl.Views
 {
@@ -33,7 +22,7 @@ namespace Hurl.Views
             {
                 if (i.Name != null)
                 {
-                    TextBlock text = new()
+                    TextBlock text = new TextBlock()
                     {
                         Padding = new Thickness(2),
                         Text = $"- {i.Name}"
@@ -43,17 +32,19 @@ namespace Hurl.Views
 
             }
             // https://stackoverflow.com/a/909859
-            EnvPath.Text = Environment.GetCommandLineArgs()[0];
         }
 
         private void Install_Button(object sender, RoutedEventArgs e)
         {
             Constants.Setup.Install();
+            MessageBox.Show("Installed with Root: " + Environment.GetCommandLineArgs()[0]);
         }
 
         private void Uninstall_Button(object sender, RoutedEventArgs e)
         {
             Constants.Setup.Uninstall();
+            MessageBox.Show("Uninstalled from Registry");
+
         }
     }
 }

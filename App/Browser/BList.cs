@@ -2,6 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Hurl.Browser
 {
@@ -20,14 +23,8 @@ namespace Hurl.Browser
             this.Name = Name;
             this.ExePath = ExePath;
         }
-        
-        public Icon getIcon
-        {
-            get
-            {
-                return Icon.ExtractAssociatedIcon(ExePath)!;
-            }
-        }
+
+        public Icon getIcon => Icon.ExtractAssociatedIcon(ExePath);
 
     }
 
@@ -44,26 +41,26 @@ namespace Hurl.Browser
         {
             BList browsers;
 
-            using (RegistryKey? key = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Clients\\StartMenuInternet"))
+            using (RegistryKey key = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Clients\\StartMenuInternet"))
             {
                 browsers = new BList();
-                string[] x = key!.GetSubKeyNames();
+                string[] x = key.GetSubKeyNames();
                 for (int i = 0; i < x.Length; i++)
                 {
                     //Console.WriteLine(x[i]);
-                    string? name = null;
-                    string? exepath = null;
-                    using (RegistryKey? subkey = key.OpenSubKey(x[i] + "\\Capabilities"))
+                    string name = null;
+                    string exepath = null;
+                    using (RegistryKey subkey = key.OpenSubKey(x[i] + "\\Capabilities"))
                     {
                         if (subkey != null)
                         {
-                            object? y = subkey.GetValue("ApplicationName");
+                            object y = subkey.GetValue("ApplicationName");
                             name = y.ToString();
                             //Console.WriteLine($"{i}. {name}");
                         }
                     }
 
-                    using (RegistryKey? subkey = key.OpenSubKey(x[i] + "\\shell\\open\\command"))
+                    using (RegistryKey subkey = key.OpenSubKey(x[i] + "\\shell\\open\\command"))
                     {
                         if (subkey != null)
                         {
@@ -75,7 +72,7 @@ namespace Hurl.Browser
 
                     if (name != null & exepath != null)
                     {
-                        BrowserObject b = new(name, exepath);
+                        BrowserObject b = new BrowserObject(name, exepath);
                         browsers.Add(b);
                     }
                 }

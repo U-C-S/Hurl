@@ -5,29 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Hurl.Views"
         mc:Ignorable="d" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
-        Title="Hurl" Width="360" Height="200" Loaded="Window_Loaded">
+        Title="Hurl" Width="260" Height="200" Loaded="Window_Loaded">
     <Grid>
-        <StackPanel Margin="0,0,180,0">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Width="180" Height="130">
             <TextBlock Text="Available Browsers" TextAlignment="Center" Foreground="White" Background="Black" />
-            <StackPanel x:Name="stacky" Background="#FF777777"/>
+            <StackPanel x:Name="stacky"/>
         </StackPanel>
-        <TextBlock x:Name="EnvPath" Margin="185,25,10,76" TextWrapping="Wrap" FontSize="10" />
 
-        <Grid Margin="0,0,1,0" Width="180" Height="60" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+        <Grid Width="180" Height="50" VerticalAlignment="Bottom" HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="5*"/>
-                <RowDefinition Height="5*"/>
-                <RowDefinition Height="16"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-            <Button Width="90" Content="Install" Click="Install_Button"/>
-            <Button Width="90" Content="Uninstall" Grid.Row="1" Click="Uninstall_Button"/>
-            <Button Width="90" Content="Settings" Grid.Column="1"/>
-            <Button Width="90" Content="About" Grid.Column="1" Grid.Row="1"/>
-            <TextBlock Grid.Row="2" Grid.ColumnSpan="3" FontSize="10" TextAlignment="Center">Chanakya</TextBlock>
+            <Button Content="Install" Click="Install_Button"/>
+            <Button Content="Uninstall" Grid.Row="1" Click="Uninstall_Button"/>
+            <Button Content="Settings" Grid.Column="1"/>
+            <Button Content="About" Grid.Column="1" Grid.Row="1"/>
         </Grid>
     </Grid>
 </Window>

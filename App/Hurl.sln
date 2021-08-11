@@ -3,24 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31521.260
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hurl", "App\Hurl.csproj", "{3BE97F54-29E7-406D-9D7C-4EDD137BBCEC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hurl", "Hurl.csproj", "{D3CA31A0-8360-4F08-9F88-FAE89681BCC7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-		Description = A prototype
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3BE97F54-29E7-406D-9D7C-4EDD137BBCEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3BE97F54-29E7-406D-9D7C-4EDD137BBCEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3BE97F54-29E7-406D-9D7C-4EDD137BBCEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3BE97F54-29E7-406D-9D7C-4EDD137BBCEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3CA31A0-8360-4F08-9F88-FAE89681BCC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3CA31A0-8360-4F08-9F88-FAE89681BCC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3CA31A0-8360-4F08-9F88-FAE89681BCC7}.Release|Any CPU.ActiveCfg = Release|x64
+		{D3CA31A0-8360-4F08-9F88-FAE89681BCC7}.Release|Any CPU.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {C7C5406A-8696-404B-8F67-652210578B41}
+		SolutionGuid = {299E3247-F9EE-4E48-9886-7FC70BBA9BF4}
 	EndGlobalSection
 EndGlobal

@@ -1,7 +1,6 @@
 ﻿using Hurl.Browser;
 using System;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -9,11 +8,11 @@ using System.Windows.Input;
 namespace Hurl.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for SelectionWindow.xaml
     /// </summary>
     public partial class SelectionWindow : Window
     {
-        private string? arg = null;
+        private string arg = null;
 
         public SelectionWindow(string[] x)
         {
@@ -48,7 +47,7 @@ namespace Hurl.Views
             {
                 if (i.Name != null)
                 {
-                    Button button = new()
+                    Button button = new Button()
                     {
                         Padding = new Thickness(5),
                         Margin = new Thickness(20, 5, 20, 0),
@@ -58,7 +57,8 @@ namespace Hurl.Views
                     };
 
                     button.Click += BroClick;
-                    _ = stacky.Children.Add(button);
+                    stacky.Children.Add(button);
+                    //stacky.Children.Add(button);
                 }
 
             }
@@ -68,16 +68,10 @@ namespace Hurl.Views
         {
             if (arg != null)
             {
-                string path = (sender as Button)!.Tag.ToString()!;
+                string path = (sender as Button).Tag.ToString();
                 _ = Process.Start(path, arg);
             }
         }
 
     }
 }
-
-
-/*
-//TODO
-- https://stackoverflow.com/questions/11483655/icon-inside-of-button/11483844
-*/
