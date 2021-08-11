@@ -53,6 +53,7 @@ namespace Hurl.Views
                         Margin = new Thickness(20, 5, 20, 0),
                         Content = i.Name,
                         Tag = i.ExePath,
+                        ContextMenu = FindResource("extraOptions") as ContextMenu
                         //Style = (Style) FindResource("MDIXButton")
                     };
 
@@ -73,5 +74,22 @@ namespace Hurl.Views
             }
         }
 
+        private void Incognito_Click(object sender, RoutedEventArgs e)
+        {
+            if (arg != null)
+            {
+                MenuItem menuItem = e.Source as MenuItem;
+                ContextMenu parent = menuItem.Parent as ContextMenu;
+                Button SrcButton = parent.PlacementTarget as Button;
+
+                string path = SrcButton.Tag.ToString();
+                string theArgs = $"--incognito {arg}";
+                _ = Process.Start(path, theArgs);
+            }
+            else
+            {
+                MessageBox.Show("No link to open");
+            }
+        }
     }
 }

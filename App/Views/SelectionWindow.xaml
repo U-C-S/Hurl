@@ -2,13 +2,20 @@
     <Window.Clip>
         <RectangleGeometry Rect="0,0,300,200" RadiusX="15" RadiusY="15" />
     </Window.Clip>
+    <Window.Resources>
+        <ContextMenu x:Key="extraOptions">
+            <MenuItem Header="Incognito" Click="Incognito_Click" />
+            <Separator />
+            <MenuItem Header="Profile" />
+        </ContextMenu>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="25" />
         </Grid.RowDefinitions>
-        <TextBlock x:Name="header" Padding="2,3,2,3" TextAlignment="Center" FontSize="14" Background="White">Select a Browser</TextBlock>
+        <TextBlock x:Name="header" Padding="2,2,2,3" TextAlignment="Center" FontSize="14" Background="White">Select a Browser</TextBlock>
         <StackPanel Background="#FFE02B47" x:Name="stacky" Grid.Row="1" />
         <TextBlock x:Name="argss" Padding="2,5,2,3" TextAlignment="Center" FontSize="10" Grid.Row="2" Background="White">No Link Opened</TextBlock>
     </Grid>
