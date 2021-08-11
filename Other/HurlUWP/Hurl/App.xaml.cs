@@ -1,8 +1,10 @@
 ﻿using Hurl.Views;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -72,21 +74,54 @@ namespace Hurl
                     rootFrame.Navigate(typeof(BrowserSelectPage), e.Arguments);
                 }
 
-                ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
-                ApplicationView.PreferredLaunchViewSize = new Size(400, 200);
-                ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(400, 200));
-
-                ApplicationViewTitleBar TBar = ApplicationView.GetForCurrentView().TitleBar;
-                TBar.ButtonBackgroundColor = Windows.UI.Colors.Transparent;
-                TBar.BackgroundColor = Windows.UI.Colors.Transparent;
-                TBar.ForegroundColor = Windows.UI.Colors.White;
-                TBar.ButtonForegroundColor = Windows.UI.Colors.White;
-
-                CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
+                PreLaunch();
 
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
+        }
+
+        protected override void OnActivated(IActivatedEventArgs args)
+        {
+
+            Frame rootFrame = Window.Current.Content as Frame;
+            if (rootFrame.Content == null)
+            {
+                rootFrame.Navigate(typeof(BrowserSelectPage));
+            }
+
+            PreLaunch();
+            Window.Current.Activate();
+
+            //if (args.Kind == ActivationKind.Protocol)
+            //{
+            //    ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
+            //    var x = eventArgs.Uri.AbsoluteUri;
+
+            //    Frame rootFrame = Window.Current.Content as Frame;
+            //    if (rootFrame.Content == null)
+            //    {
+            //        rootFrame.Navigate(typeof(BrowserSelectPage));
+            //    }
+
+            //    PreLaunch();
+            //    Window.Current.Activate();
+            //}
+        }
+
+        private void PreLaunch()
+        {
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
+            ApplicationView.PreferredLaunchViewSize = new Size(400, 200);
+            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(400, 200));
+
+            ApplicationViewTitleBar TBar = ApplicationView.GetForCurrentView().TitleBar;
+            TBar.ButtonBackgroundColor = Windows.UI.Colors.Transparent;
+            TBar.BackgroundColor = Windows.UI.Colors.Transparent;
+            TBar.ForegroundColor = Windows.UI.Colors.White;
+            TBar.ButtonForegroundColor = Windows.UI.Colors.White;
+
+            CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
         }
 
         /// <summary>

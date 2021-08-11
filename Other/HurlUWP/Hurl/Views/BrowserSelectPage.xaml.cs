@@ -32,12 +32,13 @@ namespace Hurl.Views
         {
             InitializeComponent();
 
-            var x = Environment.GetCommandLineArgs();
-            if (x.Length >= 2)
+            string[] x = Environment.GetCommandLineArgs();
+            if (x.Length > 0)
             {
-                arg = argss.Text = x[1];
+                arg = argss.Text = x[0];
             }
         }
+
         private string arg = null;
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -65,31 +66,29 @@ namespace Hurl.Views
 
         private async void BroClickAsync(object sender, RoutedEventArgs e)
         {
-            if (arg != null)
+
+            string path = (sender as Button).Tag.ToString();
+            argss.Text = path;
+            _ = Process.Start(path);
+            //_ = ProcessLauncher.RunToCompletionAsync(path, arg);
+            //Uri uri = new Uri(path);
+            //_ = await Launcher.LaunchUriAsync(uri);
+            //await ProcessLauncher.RunToCompletionAsync("ChromeGroup","mow");
+
+            if (ApiInformation.IsApiContractPresent("Windows.ApplicationModel.FullTrustAppContract", 1, 0))
             {
-                string path = (sender as Button).Tag.ToString();
-                argss.Text = path;
-                _ = Process.Start(path);
-                //_ = ProcessLauncher.RunToCompletionAsync(path, arg);
-                //Uri uri = new Uri(path);
-                //_ = await Launcher.LaunchUriAsync(uri);
-                //await ProcessLauncher.RunToCompletionAsync("ChromeGroup","mow");
-
-                if (ApiInformation.IsApiContractPresent("Windows.ApplicationModel.FullTrustAppContract", 1, 0))
-                {
-                    // store command line parameters in local settings
-                    // so the Lancher can retrieve them and pass them on
-                    ApplicationData.Current.LocalSettings.Values["browser"] = path;
-                    //ApplicationData.Current.LocalSettings.Values["args"] = argss;
+                // store command line parameters in local settings
+                // so the Lancher can retrieve them and pass them on
+                ApplicationData.Current.LocalSettings.Values["browser"] = path;
+                //ApplicationData.Current.LocalSettings.Values["args"] = argss;
 
 
-                    await FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppAsync();
+                await FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppAsync();
 
-                    // Thanks to:
-                    // https://stefanwick.com/2018/04/06/uwp-with-desktop-extension-part-1/
-                }
-
+                // Thanks to:
+                // https://stefanwick.com/2018/04/06/uwp-with-desktop-extension-part-1/
             }
+
         }
     }
 }

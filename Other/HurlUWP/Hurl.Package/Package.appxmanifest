@@ -4,6 +4,7 @@
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+  xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
   IgnorableNamespaces="uap rescap">
 
   <Identity
@@ -40,24 +41,24 @@
         <uap:SplashScreen Image="Images\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
-	    <desktop:Extension xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10" 
-						   Category="windows.fullTrustProcess" Executable="BrowserStarter\BrowserStarter.exe" />
-	    <uap:Extension Category="windows.protocol" Executable="Hurl.exe" EntryPoint="..\Hurl\Hurl.csproj">
-	    <uap:Protocol Name="http" DesiredView="useMinimum">
-	    <uap:DisplayName>HurlUWPP</uap:DisplayName>
-	    </uap:Protocol>
-	    </uap:Extension>
-	    <uap:Extension Category="windows.protocol" Executable="Hurl.exe" EntryPoint="..\Hurl\Hurl.csproj">
-	    <uap:Protocol Name="https" DesiredView="useMinimum">
-	    <uap:DisplayName>HurlUWPP</uap:DisplayName>
-	    </uap:Protocol>
-	    </uap:Extension>
+	    <desktop:Extension Category="windows.fullTrustProcess" Executable="BrowserStarter\BrowserStarter.exe" />
+	    <uap:Extension Category="windows.protocol">
+			<uap:Protocol Name="http" DesiredView="useMinimum">
+				<uap:DisplayName>HurlUWPP</uap:DisplayName>
+			</uap:Protocol>
+		</uap:Extension>
+		<uap:Extension Category="windows.protocol" EntryPoint="Hurl.App">
+			<uap:Protocol Name="https" DesiredView="useMinimum">
+				<uap:DisplayName>HurlUWPP</uap:DisplayName>
+			</uap:Protocol>
+		</uap:Extension>
       </Extensions>
     </Application>
   </Applications>
 
   <Capabilities>
-    <Capability Name="internetClient" />
     <rescap:Capability Name="runFullTrust" />
+    <Capability Name="internetClientServer"/>
+    <Capability Name="privateNetworkClientServer"/>
   </Capabilities>
 </Package>
