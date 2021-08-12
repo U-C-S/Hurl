@@ -53,8 +53,8 @@ namespace Hurl.Views
                         Margin = new Thickness(20, 5, 20, 0),
                         Content = i.Name,
                         Tag = i.ExePath,
-                        ContextMenu = FindResource("extraOptions") as ContextMenu
-                        //Style = (Style) FindResource("MDIXButton")
+                        ContextMenu = FindResource("extraOptions") as ContextMenu,
+                        Style = (Style) FindResource("BrowserBtnStyle"),
                     };
 
                     button.Click += BroClick;
@@ -90,6 +90,11 @@ namespace Hurl.Views
             {
                 MessageBox.Show("No link to open");
             }
+        }
+
+        private void OpenSettings(object sender, RoutedEventArgs e)
+        {
+            new SettingsWindow().Show();
         }
     }
 }

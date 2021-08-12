@@ -7,6 +7,9 @@
         mc:Ignorable="d" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         Title="Hurl Settings" Width="600" Height="400">
     <TabControl Background="Azure">
+        <TabItem Header="About" Padding="10,5,10,5">
+            <Grid></Grid>
+        </TabItem>
         <TabItem Header="Setup" Padding="10,5,10,5">
             <Grid>
                 <TextBlock Text="Setting up" />
@@ -16,9 +19,6 @@
         </TabItem>
         <TabItem Header="Browser" Padding="10,5,10,5">
             <Grid/>
-        </TabItem>
-        <TabItem Header="About" Padding="10,5,10,5">
-            <Grid />
         </TabItem>
     </TabControl>
 

@@ -34,6 +34,10 @@ namespace Hurl.Views
             // https://stackoverflow.com/a/909859
         }
 
-        private void OpenSettings(object sender, RoutedEventArgs e) => new SettingsWindow().ShowDialog();
+        private void OpenSettings(object sender, RoutedEventArgs e)
+        {
+            //Application.Current.MainWindow.Width = 420;
+            new SettingsWindow().ShowDialog();
+        }
     }
 }

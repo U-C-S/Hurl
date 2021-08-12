@@ -12,17 +12,16 @@ namespace Hurl
         {
             string[] Arguments = e.Args;
 
-            if (Arguments.Length != 0)
-            {
-                SelectionWindow window = new SelectionWindow(Arguments);
-                window.Show();
-            }
-            else
+            if (Arguments.Length == 0)
             {
                 NoArgsWindow window = new NoArgsWindow();
                 window.Show();
             }
-
+            else
+            {
+                SelectionWindow window = new SelectionWindow(Arguments);
+                window.Show();
+            }
         }
     }
 }

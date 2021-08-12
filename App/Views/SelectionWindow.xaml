@@ -4,10 +4,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:local="clr-namespace:Hurl.Views" mc:Ignorable="d" 
         ResizeMode="NoResize" Topmost="True" WindowStartupLocation="CenterScreen" 
-        Title="Hurl - Select a Browser" Width="300" Height="200" WindowStyle="None" AllowsTransparency="True" 
+        Title="Hurl - Select a Browser" Width="320" Height="210" WindowStyle="None" AllowsTransparency="True" 
         Loaded="Window_Loaded" Deactivated="Window_Deactivated" Background="{x:Null}">
     <Window.Clip>
-        <RectangleGeometry Rect="0,0,300,200" RadiusX="15" RadiusY="15" />
+        <RectangleGeometry Rect="0,0,320,210" RadiusX="15" RadiusY="15" />
     </Window.Clip>
     <Window.Resources>
         <ContextMenu x:Key="extraOptions">
@@ -15,6 +15,13 @@
             <Separator />
             <MenuItem Header="Profile" />
         </ContextMenu>
+
+        <Style x:Key="BrowserBtnStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="White" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="BorderThickness" Value="1" />
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -22,8 +29,11 @@
             <RowDefinition Height="1*" />
             <RowDefinition Height="25" />
         </Grid.RowDefinitions>
-        <TextBlock x:Name="header" Padding="2,2,2,3" TextAlignment="Center" FontSize="14" Background="White">Select a Browser</TextBlock>
+        <Grid>
+            <TextBlock x:Name="header" Padding="15,2,0,0" FontSize="14" Background="White" Foreground="#FFE02B47">Select a Browser</TextBlock>
+            <Button HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,18,0" FontSize="10" Click="OpenSettings" Padding="5,2,5,2" BorderBrush="Black" Background="White">Settings</Button>
+        </Grid>
         <StackPanel Background="#FFE02B47" x:Name="stacky" Grid.Row="1" />
-        <TextBlock x:Name="argss" Padding="2,5,2,3" TextAlignment="Center" FontSize="10" Grid.Row="2" Background="White">No Link Opened</TextBlock>
+        <TextBlock x:Name="argss" Padding="2,6,2,3" TextAlignment="Center" FontSize="10" Grid.Row="2" Background="White" FontFamily="Calibri">No Link Opened</TextBlock>
     </Grid>
 </Window>
