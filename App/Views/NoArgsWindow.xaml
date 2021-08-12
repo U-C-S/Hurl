@@ -12,19 +12,7 @@
             <StackPanel x:Name="stacky"/>
         </StackPanel>
 
-        <Grid Width="180" Height="50" VerticalAlignment="Bottom" HorizontalAlignment="Center">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-            </Grid.RowDefinitions>
-            <Button Content="Install" Click="Install_Button"/>
-            <Button Content="Uninstall" Grid.Row="1" Click="Uninstall_Button"/>
-            <Button Content="Settings" Grid.Column="1"/>
-            <Button Content="About" Grid.Column="1" Grid.Row="1"/>
-        </Grid>
+        <Button Content="Settings" Click="OpenSettings" Width="150" Height="40" 
+                VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,2"/>
     </Grid>
 </Window>

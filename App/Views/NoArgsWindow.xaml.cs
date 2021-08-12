@@ -34,17 +34,6 @@ namespace Hurl.Views
             // https://stackoverflow.com/a/909859
         }
 
-        private void Install_Button(object sender, RoutedEventArgs e)
-        {
-            Constants.Setup.Install();
-            MessageBox.Show("Installed with Root: " + Environment.GetCommandLineArgs()[0]);
-        }
-
-        private void Uninstall_Button(object sender, RoutedEventArgs e)
-        {
-            Constants.Setup.Uninstall();
-            MessageBox.Show("Uninstalled from Registry");
-
-        }
+        private void OpenSettings(object sender, RoutedEventArgs e) => new SettingsWindow().ShowDialog();
     }
 }
