@@ -14,7 +14,7 @@ namespace Hurl
 
             if (Arguments.Length == 0)
             {
-                NoArgsWindow window = new NoArgsWindow();
+                SettingsWindow window = new SettingsWindow();
                 window.Show();
             }
             else

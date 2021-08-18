@@ -17,6 +17,7 @@ namespace Hurl.Browser
     {
         public string Name;
         public string ExePath;
+        private string IncognitoArg = null;
 
         public BrowserObject(string Name, string ExePath)
         {

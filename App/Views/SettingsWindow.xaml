@@ -17,8 +17,10 @@
                 <Button Content="Uninstall" Click="Uninstall_Button" Width="80" Height="40" Margin="100,50,0,0" VerticalAlignment="Top"/>
             </Grid>
         </TabItem>
-        <TabItem Header="Browser" Padding="10,5,10,5">
-            <Grid/>
+        <TabItem Header="Browsers" Padding="10,5,10,5">
+            <Grid>
+                <StackPanel x:Name="StackSystemBrowsers"/>
+            </Grid>
         </TabItem>
     </TabControl>
 

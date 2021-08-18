@@ -110,9 +110,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Views\NoArgsWindow.xaml.cs">
-      <DependentUpon>NoArgsWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\SelectionWindow.xaml.cs">
       <DependentUpon>SelectionWindow.xaml</DependentUpon>
     </Compile>
@@ -126,10 +123,6 @@
     <Compile Include="Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\NoArgsWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\SelectionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

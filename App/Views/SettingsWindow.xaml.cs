@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Hurl.Browser;
+using System;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Hurl.Views
 {
@@ -11,6 +13,27 @@ namespace Hurl.Views
         public SettingsWindow()
         {
             InitializeComponent();
+
+            LoadSystemBrowserList();
+        }
+
+        public void LoadSystemBrowserList()
+        {
+            BList x = BList.InitalGetList();
+
+            foreach (BrowserObject i in x)
+            {
+                if (i.Name != null)
+                {
+                    TextBlock text = new TextBlock()
+                    {
+                        Padding = new Thickness(2),
+                        Text = $"{i.Name} -- {i.ExePath}"
+                    };
+                    _ = StackSystemBrowsers.Children.Add(text);
+                }
+
+            }
         }
 
         private void Install_Button(object sender, RoutedEventArgs e)

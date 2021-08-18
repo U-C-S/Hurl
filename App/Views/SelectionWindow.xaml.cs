@@ -12,16 +12,15 @@ namespace Hurl.Views
     /// </summary>
     public partial class SelectionWindow : Window
     {
-        private string arg = null;
+        private string OpenedLink = null;
 
         public SelectionWindow(string[] x)
         {
             InitializeComponent();
-            PreviewKeyDown += new KeyEventHandler(Window_Esc);
 
             if (x.Length >= 1)
             {
-                arg = argss.Text = x[0];
+                OpenedLink = linkpreview.Text = x[0];
             }
 
             //What does \"%1\" mean in Registry ? 
@@ -67,23 +66,23 @@ namespace Hurl.Views
 
         private void BroClick(object sender, RoutedEventArgs e)
         {
-            if (arg != null)
+            if (OpenedLink != null)
             {
                 string path = (sender as Button).Tag.ToString();
-                _ = Process.Start(path, arg);
+                _ = Process.Start(path, OpenedLink);
             }
         }
 
         private void Incognito_Click(object sender, RoutedEventArgs e)
         {
-            if (arg != null)
+            if (OpenedLink != null)
             {
                 MenuItem menuItem = e.Source as MenuItem;
                 ContextMenu parent = menuItem.Parent as ContextMenu;
                 Button SrcButton = parent.PlacementTarget as Button;
 
                 string path = SrcButton.Tag.ToString();
-                string theArgs = $"--incognito {arg}";
+                string theArgs = $"--incognito {OpenedLink}";
                 _ = Process.Start(path, theArgs);
             }
             else
@@ -95,6 +94,11 @@ namespace Hurl.Views
         private void OpenSettings(object sender, RoutedEventArgs e)
         {
             new SettingsWindow().Show();
+        }
+
+        private void LinkCopyBtn(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(OpenedLink);
         }
     }
 }
