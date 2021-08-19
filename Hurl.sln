@@ -3,9 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31521.260
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hurl", "Hurl.csproj", "{D3CA31A0-8360-4F08-9F88-FAE89681BCC7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hurl", "App\Hurl.csproj", "{D3CA31A0-8360-4F08-9F88-FAE89681BCC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Installer", "Installer\Installer.csproj", "{BAB831B4-7F23-4B44-8E6C-95ADCADAF192}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared", "Shared\Shared.shproj", "{EAA5CDF8-B519-4388-873E-3FC907F9D091}"
 EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Shared\Shared.projitems*{eaa5cdf8-b519-4388-873e-3fc907f9d091}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -15,6 +22,10 @@ Global
 		{D3CA31A0-8360-4F08-9F88-FAE89681BCC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3CA31A0-8360-4F08-9F88-FAE89681BCC7}.Release|Any CPU.ActiveCfg = Release|x64
 		{D3CA31A0-8360-4F08-9F88-FAE89681BCC7}.Release|Any CPU.Build.0 = Release|x64
+		{BAB831B4-7F23-4B44-8E6C-95ADCADAF192}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAB831B4-7F23-4B44-8E6C-95ADCADAF192}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAB831B4-7F23-4B44-8E6C-95ADCADAF192}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAB831B4-7F23-4B44-8E6C-95ADCADAF192}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
