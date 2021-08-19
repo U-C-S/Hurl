@@ -36,8 +36,11 @@
 
         <TabItem Header="Browsers" Padding="10,5,10,5">
             <StackPanel>
-                <TextBlock FontSize="18">From Registry</TextBlock>
+                <TextBlock FontSize="18" TextAlignment="Center">From Registry</TextBlock>
                 <StackPanel x:Name="StackSystemBrowsers" Margin="5" />
+
+                <TextBlock FontSize="18" TextAlignment="Center">Custom</TextBlock>
+                <StackPanel x:Name="StackUserBrowsers" Margin="5" />
             </StackPanel>
         </TabItem>
     </TabControl>

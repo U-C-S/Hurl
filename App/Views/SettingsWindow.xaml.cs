@@ -33,7 +33,8 @@ namespace Hurl.Views
                     {
                         BrowserName = i.Name,
                         BrowserPath = i.ExePath,
-                        EditEnabled = false,
+                        EditEnabled = true,
+                        BackColor = "#FFFFDAAD",
                         Margin = new Thickness(0, 4, 0, 0),
                     };
                     _ = StackSystemBrowsers.Children.Add(comp);

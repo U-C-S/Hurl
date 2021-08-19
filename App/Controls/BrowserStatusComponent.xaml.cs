@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Hurl.Views;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +32,36 @@ namespace Hurl.Controls
         public string BrowserName { get; set; }
         public string BrowserPath { get; set; }
         public bool EditEnabled { get; set; } = true;
+        public string BackColor { get; set; } = "Black";
 
+        private void CopyPath(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(BrowserPath);
+        }
+
+        private void OpenExe(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Process.Start(BrowserPath);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void EditTheBrowser(object sender, RoutedEventArgs e)
+        {
+            BrowserForm x = new BrowserForm()
+            {
+                BrowserName = BrowserName,
+                BrowserPath = BrowserPath,
+            };
+            if(x.ShowDialog() == true)
+            {
+
+            }
+        }
     }
 }

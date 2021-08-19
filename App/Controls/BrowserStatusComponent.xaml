@@ -6,13 +6,13 @@
              xmlns:local="clr-namespace:Hurl.Controls"
              mc:Ignorable="d" d:DesignWidth="570" d:DesignHeight="32" >
     <Border BorderThickness="1" BorderBrush="Black">
-        <StackPanel Orientation="Horizontal" Background="#FFFFDAAD" Height="30">
+        <StackPanel Orientation="Horizontal" Background="{Binding BackColor}" Height="30">
             <TextBlock Text="{Binding BrowserName}" Width="180" VerticalAlignment="Center" Margin="5,0,0,0" Padding="2" Background="White" ToolTip="{Binding BrowserName}"/>
             <!--  <TextBlock Text="{Binding BrowserPath}" Width="325" VerticalAlignment="Center" Margin="5,0,0,0" Padding="2" Background="White" ToolTip="{Binding BrowserPath}"/> -->
-            <Button Padding="10,2,10,2" VerticalAlignment="Center" Margin="148,0,0,0" Tag="{Binding BrowserPath}">Copy Path</Button>
-            <Button Padding="10,2,10,2" VerticalAlignment="Center" Margin="5,0,0,0">Open</Button>
+            <Button Padding="10,2,10,2" VerticalAlignment="Center" Margin="148,0,0,0" Tag="{Binding BrowserPath}" Click="CopyPath">Copy Path</Button>
+            <Button Padding="10,2,10,2" VerticalAlignment="Center" Margin="5,0,0,0" Click="OpenExe">Open</Button>
             <Button Padding="10,2,10,2" VerticalAlignment="Center" Margin="5,0,0,0">Hide</Button>
-            <Button Padding="10,2,10,2" VerticalAlignment="Center" Margin="5,0,0,0" IsEnabled="{Binding EditEnabled}">Edit</Button>
+            <Button Padding="10,2,10,2" VerticalAlignment="Center" Margin="5,0,0,0" IsEnabled="{Binding EditEnabled}" Click="EditTheBrowser" >Edit</Button>
         </StackPanel>
     </Border>
 </UserControl>
