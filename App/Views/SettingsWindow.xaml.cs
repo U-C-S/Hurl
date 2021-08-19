@@ -1,4 +1,5 @@
 ﻿using Hurl.Browser;
+using Hurl.Controls;
 using System;
 using System.IO;
 using System.Windows;
@@ -28,12 +29,14 @@ namespace Hurl.Views
             {
                 if (i.Name != null)
                 {
-                    TextBlock text = new TextBlock()
+                    var comp = new BrowserStatusComponent
                     {
-                        Padding = new Thickness(2),
-                        Text = $"{i.Name} -- {i.ExePath}"
+                        BrowserName = i.Name,
+                        BrowserPath = i.ExePath,
+                        EditEnabled = false,
+                        Margin = new Thickness(0, 4, 0, 0),
                     };
-                    _ = StackSystemBrowsers.Children.Add(text);
+                    _ = StackSystemBrowsers.Children.Add(comp);
                 }
 
             }
