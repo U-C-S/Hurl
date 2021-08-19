@@ -1,7 +1,9 @@
 ﻿using Hurl.Browser;
 using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 
 namespace Hurl.Views
 {
@@ -15,6 +17,7 @@ namespace Hurl.Views
             InitializeComponent();
 
             LoadSystemBrowserList();
+            InstallPathTextBox.Text = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Hurl";
         }
 
         public void LoadSystemBrowserList()
@@ -34,19 +37,6 @@ namespace Hurl.Views
                 }
 
             }
-        }
-
-        private void Install_Button(object sender, RoutedEventArgs e)
-        {
-            Constants.Setup.Install();
-            MessageBox.Show("Installed with Root: " + Environment.GetCommandLineArgs()[0]);
-        }
-
-        private void Uninstall_Button(object sender, RoutedEventArgs e)
-        {
-            Constants.Setup.Uninstall();
-            MessageBox.Show("Uninstalled from Registry");
-
         }
     }
 }

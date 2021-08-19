@@ -8,19 +8,37 @@
         Title="Hurl Settings" Width="600" Height="400">
     <TabControl Background="Azure">
         <TabItem Header="About" Padding="10,5,10,5">
-            <Grid></Grid>
+            <Grid>
+                
+            </Grid>
         </TabItem>
+
         <TabItem Header="Setup" Padding="10,5,10,5">
-            <Grid>
-                <TextBlock Text="Setting up" />
-                <Button Content="Install" Click="Install_Button" Width="80" Height="40" Margin="0,50,100,0" VerticalAlignment="Top"/>
-                <Button Content="Uninstall" Click="Uninstall_Button" Width="80" Height="40" Margin="100,50,0,0" VerticalAlignment="Top"/>
-            </Grid>
+            <StackPanel>
+                <!--Default App Status-->
+                <StackPanel Margin="10,10,10,0" Orientation="Horizontal" Background="#FFB7B7B7" Height="36">
+                    <TextBlock VerticalAlignment="Center" Padding="5">Hurl is currently not set as default application for http/https links handling.</TextBlock>
+                    <Button Padding="10,5,10,5" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="56,0,0,0" Background="Azure" BorderBrush="Black" >Set as Default</Button>
+                </StackPanel>
+                <!--Installation Status-->
+                <StackPanel Margin="10,10,10,0" Background="LightSkyBlue" Height="65" Visibility="Visible">
+                    <TextBlock TextAlignment="Center" Padding="7">Choose the Path that the Application will be installed at...</TextBlock>
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <Button Padding="0" MouseDoubleClick="InstallPathSelect">
+                            <TextBox x:Name="InstallPathTextBox" Width="320" Padding="4"></TextBox>
+                        </Button>
+                        <Button Content="Install" Click="Install_Button" Width="80" Margin="10,0,0,0" Background="AntiqueWhite"/>
+                    </StackPanel>
+                </StackPanel>
+                <Button Content="Uninstall" Click="Uninstall_Button" Width="80" Height="30" Margin="0,160,20,0" Background="#FFF05E5E" Foreground="White" HorizontalAlignment="Right"/>
+            </StackPanel>
         </TabItem>
+
         <TabItem Header="Browsers" Padding="10,5,10,5">
-            <Grid>
+            <StackPanel>
+                <TextBlock FontSize="18">From Registry</TextBlock>
                 <StackPanel x:Name="StackSystemBrowsers"/>
-            </Grid>
+            </StackPanel>
         </TabItem>
     </TabControl>
 
