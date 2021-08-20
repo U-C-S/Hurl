@@ -9,6 +9,9 @@
     <Import_RootNamespace>Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Browser\BList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Constants\Constants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Constants\Setup.cs" />
