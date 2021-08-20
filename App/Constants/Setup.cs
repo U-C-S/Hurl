@@ -1,6 +1,5 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Diagnostics;
 using System.IO;
 
 namespace Hurl.Constants
@@ -16,9 +15,11 @@ namespace Hurl.Constants
         /// <summary>
         /// Installs the tool
         /// </summary>
-        public void Install(string InstallPath)
+        public void Install(string InstallPath, System.Windows.Controls.TextBox LogBox)
         {
             Uninstall();
+            LogBox.Text += "Removed the Traces of previous installation from Registry";
+            
             if (!InstallPath.Equals(""))
             {
                 InstallLocation = InstallPath + "\\Hurl.exe";
@@ -58,8 +59,10 @@ namespace Hurl.Constants
                 key.CreateSubKey(@"shell\open\command").SetValue(null, $"\"{InstallLocation}\" \"%1\"");  //change
             }
 
-            Debug.WriteLine("Installed the EXE");
+            LogBox.Text += "installated Successfully";
         }
+
+
 
         /// <summary>
         /// For Uninstalling the software from Registry
@@ -69,8 +72,6 @@ namespace Hurl.Constants
             root.DeleteSubKeyTree(startMenuInternet_Key, false);
             root.DeleteSubKeyTree(urlAssociate_Key, false);
             root.OpenSubKey(@"Software\RegisteredApplications", true).DeleteValue(Constants.NAME, false);
-
-            Debug.WriteLine("Uninstalled the EXE");
         }
     }
 }

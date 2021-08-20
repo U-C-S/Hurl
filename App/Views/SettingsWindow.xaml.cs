@@ -16,6 +16,7 @@ namespace Hurl.Views
         public SettingsWindow()
         {
             InitializeComponent();
+            DataContext = this;
 
             LoadSystemBrowserList();
             InstallPathTextBox.Text = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Hurl";

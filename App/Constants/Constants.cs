@@ -11,7 +11,7 @@ namespace Hurl.Constants
         public const string NAME = "Hurl";
         public const string DESCRIPTION = "Hurl - A tool to select the browsers dynamically";
         public const string URLAssociations = "HandleURL3721";
-        public const string VERSION = "0.1.1";
+        public const string VERSION = "0.2.0";
     }
 
     static class Errors

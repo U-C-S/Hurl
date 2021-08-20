@@ -7,13 +7,13 @@
         mc:Ignorable="d" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         Title="Hurl Settings" Width="600" Height="400">
     <TabControl Background="Azure">
-        <TabItem Header="About" Padding="10,5,10,5">
+        <TabItem Header="About" Padding="5" Width="70">
             <Grid>
-
+                <TextBlock>HURL</TextBlock>
             </Grid>
         </TabItem>
 
-        <TabItem Header="Setup" Padding="10,5,10,5">
+        <TabItem Header="Setup" Padding="5" Width="70">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="10"/>
@@ -42,12 +42,12 @@
                         <Button Content="Install" Click="Install_Button" Width="80" Margin="10,0,0,0" Background="AntiqueWhite"/>
                     </StackPanel>
                 </StackPanel>
-                <TextBox Grid.Row="4" Grid.Column="1" Padding="2" Margin="0,15,0,0" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" IsReadOnly="True"/>
+                <TextBox x:Name="LogTextBox" Text="{Binding SetupLog}" Grid.Row="4" Grid.Column="1" Padding="2" Margin="0,15,0,0" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" IsReadOnly="True"/>
                 <Button Content="Uninstall" Click="Uninstall_Button" Width="80" Height="30" Background="#FFF05E5E" Foreground="White" Grid.Row="4" Grid.Column="2" VerticalAlignment="Bottom"/>
             </Grid>
         </TabItem>
 
-        <TabItem Header="Browsers" Padding="10,5,10,5">
+        <TabItem Header="Browsers" Padding="5" Width="70">
             <StackPanel>
                 <TextBlock FontSize="18" TextAlignment="Center">From Registry</TextBlock>
                 <StackPanel x:Name="StackSystemBrowsers" Margin="5" />
@@ -57,7 +57,7 @@
             </StackPanel>
         </TabItem>
 
-        <TabItem Header="Debug" Padding="10,5,10,5">
+        <TabItem Header="Debug" Padding="5" Width="70">
             <StackPanel>
                 <DataGrid Height="200"/>
 
