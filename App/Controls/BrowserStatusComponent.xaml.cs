@@ -33,6 +33,7 @@ namespace Hurl.Controls
         public string BrowserPath { get; set; }
         public bool EditEnabled { get; set; } = true;
         public string BackColor { get; set; } = "Black";
+        //public RoutedEventHandler DeleteItem;
 
         private void CopyPath(object sender, RoutedEventArgs e)
         {
@@ -60,7 +61,18 @@ namespace Hurl.Controls
             };
             if(x.ShowDialog() == true)
             {
-
+                string name = x.BrowserName;
+                string path = x.BrowserPath;
+                if (name.Equals("") && path.Equals(""))
+                {
+                    ((StackPanel)this.Parent).Children.Remove(this);
+                }
+                else
+                {
+                    this.BrowserName = name;
+                    this.BrowserPath = path;
+                    BrowserNameTextBlock.Text = BrowserName;
+                }
             }
         }
     }

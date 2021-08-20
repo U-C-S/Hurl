@@ -37,6 +37,7 @@ namespace Hurl.Views
                         BackColor = "#FFFFDAAD",
                         Margin = new Thickness(0, 4, 0, 0),
                     };
+                    //comp.DeleteItem += DeleteBrowser;
                     _ = StackSystemBrowsers.Children.Add(comp);
                 }
 

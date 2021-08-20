@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hurl.Constants;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,13 +27,13 @@ namespace Hurl.Views
 
         private void Install_Button(object sender, RoutedEventArgs e)
         {
-            Constants.Setup.Install();
+            new Setup().Install(InstallPathTextBox.Text);
             System.Windows.MessageBox.Show("Installed with Root: " + Environment.GetCommandLineArgs()[0]);
         }
 
         private void Uninstall_Button(object sender, RoutedEventArgs e)
         {
-            Constants.Setup.Uninstall();
+            Setup.Uninstall();
             System.Windows.MessageBox.Show("Uninstalled from Registry");
 
         }

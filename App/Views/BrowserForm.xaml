@@ -13,8 +13,9 @@
         <TextBox Text="{Binding BrowserPath}"/>
 
         <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-            <Button Width="70">Cancel</Button>
-            <Button Width="70" Margin="110,0,0,0">Save</Button>
+            <Button Width="70" Click="CancelClick">Cancel</Button>
+            <Button Width="70" Click="RemoveBtn" Margin="23,0,0,0">Remove</Button>
+            <Button Width="70" Margin="22,0,0,0" Click="SaveButton">Save</Button>
         </StackPanel>
     </StackPanel>
 </Window>
