@@ -3,41 +3,64 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Hurl.Views"
+        xmlns:uc="clr-namespace:Hurl.Controls" xmlns:local="clr-namespace:Hurl.Views"
         mc:Ignorable="d" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         Title="Hurl Settings" Width="600" Height="400">
     <TabControl Background="Azure">
-        <TabItem Header="About" Padding="10,5,10,5">
+        <TabItem Header="About" Padding="5" Width="70">
             <Grid>
-                
+                <TextBlock>HURL</TextBlock>
             </Grid>
         </TabItem>
 
-        <TabItem Header="Setup" Padding="10,5,10,5">
-            <StackPanel>
+        <TabItem Header="Setup" Padding="5" Width="70">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="12*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="10"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="36"/>
+                    <RowDefinition Height="15"/>
+                    <RowDefinition Height="65"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="10"/>
+                </Grid.RowDefinitions>
                 <!--Default App Status-->
-                <StackPanel Margin="10,10,10,0" Orientation="Horizontal" Background="#FFB7B7B7" Height="36">
+                <StackPanel Orientation="Horizontal" Background="#FFB7B7B7" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
                     <TextBlock VerticalAlignment="Center" Padding="5">Hurl is currently not set as default application for http/https links handling.</TextBlock>
                     <Button Padding="10,5,10,5" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="56,0,0,0" Background="Azure" BorderBrush="Black" >Set as Default</Button>
                 </StackPanel>
                 <!--Installation Status-->
-                <StackPanel Margin="10,10,10,0" Background="LightSkyBlue" Height="65" Visibility="Visible">
+                <StackPanel Background="LightSkyBlue" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">
                     <TextBlock TextAlignment="Center" Padding="7">Choose the Path that the Application will be installed at...</TextBlock>
                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                        <Button Padding="0" MouseDoubleClick="InstallPathSelect">
-                            <TextBox x:Name="InstallPathTextBox" Width="320" Padding="4"></TextBox>
-                        </Button>
+                        <TextBox x:Name="InstallPathTextBox" Width="320" Padding="4" MouseDoubleClick="InstallPathSelect"></TextBox>
                         <Button Content="Install" Click="Install_Button" Width="80" Margin="10,0,0,0" Background="AntiqueWhite"/>
                     </StackPanel>
                 </StackPanel>
-                <Button Content="Uninstall" Click="Uninstall_Button" Width="80" Height="30" Margin="0,160,20,0" Background="#FFF05E5E" Foreground="White" HorizontalAlignment="Right"/>
+                <TextBox x:Name="LogTextBox" Text="{Binding SetupLog}" Grid.Row="4" Grid.Column="1" Padding="2" Margin="0,15,0,0" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" IsReadOnly="True"/>
+                <Button Content="Uninstall" Click="Uninstall_Button" Width="80" Height="30" Background="#FFF05E5E" Foreground="White" Grid.Row="4" Grid.Column="2" VerticalAlignment="Bottom"/>
+            </Grid>
+        </TabItem>
+
+        <TabItem Header="Browsers" Padding="5" Width="70">
+            <StackPanel>
+                <TextBlock FontSize="18" TextAlignment="Center">From Registry</TextBlock>
+                <StackPanel x:Name="StackSystemBrowsers" Margin="5" />
+
+                <TextBlock FontSize="18" TextAlignment="Center">Custom</TextBlock>
+                <StackPanel x:Name="StackUserBrowsers" Margin="5" />
             </StackPanel>
         </TabItem>
 
-        <TabItem Header="Browsers" Padding="10,5,10,5">
+        <TabItem Header="Debug" Padding="5" Width="70">
             <StackPanel>
-                <TextBlock FontSize="18">From Registry</TextBlock>
-                <StackPanel x:Name="StackSystemBrowsers"/>
+                <DataGrid Height="200"/>
+
             </StackPanel>
         </TabItem>
     </TabControl>

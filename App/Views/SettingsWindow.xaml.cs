@@ -1,4 +1,5 @@
 ﻿using Hurl.Browser;
+using Hurl.Controls;
 using System;
 using System.IO;
 using System.Windows;
@@ -15,6 +16,7 @@ namespace Hurl.Views
         public SettingsWindow()
         {
             InitializeComponent();
+            DataContext = this;
 
             LoadSystemBrowserList();
             InstallPathTextBox.Text = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Hurl";
@@ -28,12 +30,16 @@ namespace Hurl.Views
             {
                 if (i.Name != null)
                 {
-                    TextBlock text = new TextBlock()
+                    var comp = new BrowserStatusComponent
                     {
-                        Padding = new Thickness(2),
-                        Text = $"{i.Name} -- {i.ExePath}"
+                        BrowserName = i.Name,
+                        BrowserPath = i.ExePath,
+                        EditEnabled = true,
+                        BackColor = "#FFFFDAAD",
+                        Margin = new Thickness(0, 4, 0, 0),
                     };
-                    _ = StackSystemBrowsers.Children.Add(text);
+                    //comp.DeleteItem += DeleteBrowser;
+                    _ = StackSystemBrowsers.Children.Add(comp);
                 }
 
             }

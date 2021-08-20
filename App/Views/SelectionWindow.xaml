@@ -22,6 +22,7 @@
             <Setter Property="BorderThickness" Value="1" />
         </Style>
     </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25" />
@@ -29,7 +30,7 @@
             <RowDefinition Height="25" />
         </Grid.RowDefinitions>
         <Grid>
-            <TextBlock x:Name="header" Padding="15,2,0,0" FontSize="14" Background="White" Foreground="#FFE02B47">Select a Browser</TextBlock>
+            <TextBlock x:Name="header" Padding="15,3,0,0" FontSize="14" Background="White" Foreground="#FFE02B47" FontFamily="Verdana">Select a Browser</TextBlock>
             <Button HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,18,0" FontSize="10" Click="OpenSettings" Padding="5,2,5,2" BorderBrush="Black" Background="White">Settings</Button>
             <Button HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,72,0" FontSize="10" Click="LinkCopyBtn" Padding="5,2,5,2" BorderBrush="Black" Background="White">Copy Link</Button>
         </Grid>
