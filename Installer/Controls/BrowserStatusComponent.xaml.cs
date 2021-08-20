@@ -1,4 +1,4 @@
-﻿using Hurl.Views;
+﻿using Installer.Views;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Hurl.Controls
+namespace Installer.Controls
 {
     /// <summary>
     /// Interaction logic for BrowserStatusComponent.xaml

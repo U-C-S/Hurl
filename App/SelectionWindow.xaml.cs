@@ -1,11 +1,11 @@
-﻿using Hurl.Browser;
+﻿using Browser;
 using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Hurl.Views
+namespace Hurl
 {
     /// <summary>
     /// Interaction logic for SelectionWindow.xaml
@@ -53,7 +53,7 @@ namespace Hurl.Views
                         Content = i.Name,
                         Tag = i.ExePath,
                         ContextMenu = FindResource("extraOptions") as ContextMenu,
-                        Style = (Style) FindResource("BrowserBtnStyle"),
+                        Style = (Style)FindResource("BrowserBtnStyle"),
                     };
 
                     button.Click += BroClick;
@@ -91,9 +91,10 @@ namespace Hurl.Views
             }
         }
 
+        // TODO
         private void OpenSettings(object sender, RoutedEventArgs e)
         {
-            new SettingsWindow().Show();
+            //    new SettingsWindow().Show();
         }
 
         private void LinkCopyBtn(object sender, RoutedEventArgs e)

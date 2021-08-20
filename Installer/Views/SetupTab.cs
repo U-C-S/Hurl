@@ -1,10 +1,10 @@
-﻿using Hurl.Constants;
-using Hurl.Services;
+﻿using Constants;
+//using Installer.Services;
 using System;
 using System.Windows;
 using System.Windows.Forms;
 
-namespace Hurl.Views
+namespace Installer.Views
 {
     public partial class SettingsWindow : Window
     {

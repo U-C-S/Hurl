@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hurl.Browser
+namespace Browser
 {
     /// <summary>
     /// Store all info about a browser

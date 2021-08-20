@@ -114,40 +114,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Controls\BrowserStatusComponent.xaml.cs">
-      <DependentUpon>BrowserStatusComponent.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Services\Logger.cs" />
-    <Compile Include="Views\BrowserForm.xaml.cs">
-      <DependentUpon>BrowserForm.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\SelectionWindow.xaml.cs">
+    <Compile Include="SelectionWindow.xaml.cs">
       <DependentUpon>SelectionWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Browser\BList.cs" />
-    <Compile Include="Constants\Constants.cs" />
-    <Compile Include="Constants\Setup.cs" />
-    <Compile Include="Views\SettingsWindow.xaml.cs">
-      <DependentUpon>SettingsWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\SetupTab.cs" />
-    <Page Include="Controls\BrowserStatusComponent.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\BrowserForm.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\SelectionWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\SettingsWindow.xaml">
+    <Page Include="SelectionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -193,5 +168,6 @@
   <ItemGroup>
     <Resource Include="internet.ico" />
   </ItemGroup>
+  <Import Project="..\Shared\Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
