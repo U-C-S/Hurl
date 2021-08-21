@@ -5,14 +5,22 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Installer.Controls"
              mc:Ignorable="d" d:DesignWidth="570" d:DesignHeight="32" >
+    <UserControl.Resources>
+        <Style x:Key="Buttons" TargetType="Button">
+            <Setter Property="Padding" Value="10,2,10,2" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Background" Value="Azure" />
+        </Style>
+    </UserControl.Resources>
+
     <Border BorderThickness="1" BorderBrush="Black">
         <StackPanel Orientation="Horizontal" Background="{Binding BackColor}" Height="30">
-            <TextBlock x:Name="BrowserNameTextBlock" Text="{Binding BrowserName}" Width="180" VerticalAlignment="Center" Margin="5,0,0,0" Padding="3" Background="White" ToolTip="{Binding BrowserName}"/>
+            <TextBlock x:Name="BrowserNameTextBlock" Text="{Binding BrowserName}" Width="180" VerticalAlignment="Center" Margin="5,0,0,0" Padding="3" ToolTip="{Binding BrowserName}"/>
             <!--  <TextBlock Text="{Binding BrowserPath}" Width="325" VerticalAlignment="Center" Margin="5,0,0,0" Padding="2" Background="White" ToolTip="{Binding BrowserPath}"/> -->
-            <Button Padding="10,2,10,2" VerticalAlignment="Center" Margin="148,0,0,0" Tag="{Binding BrowserPath}" Click="CopyPath">Copy Path</Button>
-            <Button Padding="10,2,10,2" VerticalAlignment="Center" Margin="5,0,0,0" Click="OpenExe">Open</Button>
-            <Button Padding="10,2,10,2" VerticalAlignment="Center" Margin="5,0,0,0">Hide</Button>
-            <Button Padding="10,2,10,2" VerticalAlignment="Center" Margin="5,0,0,0" IsEnabled="{Binding EditEnabled}" Click="EditTheBrowser">Edit</Button>
+            <Button Style="{StaticResource Buttons}" Margin="100,0,0,0" Tag="{Binding BrowserPath}" Click="CopyPath">Copy Path</Button>
+            <Button Style="{StaticResource Buttons}" Margin="5,0,0,0" Click="OpenExe">Open</Button>
+            <Button Style="{StaticResource Buttons}" Margin="5,0,0,0">Hide</Button>
+            <Button Style="{StaticResource Buttons}" Margin="5,0,0,0" IsEnabled="{Binding EditEnabled}" Click="EditTheBrowser">Edit</Button>
         </StackPanel>
     </Border>
 </UserControl>

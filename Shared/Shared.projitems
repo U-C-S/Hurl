@@ -15,5 +15,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Browser\BList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Constants\Constants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Constants\Setup.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Logger.cs" />
   </ItemGroup>
 </Project>
