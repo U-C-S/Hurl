@@ -19,7 +19,7 @@ namespace Hurl.Constants
         {
             Uninstall();
             LogBox.Text += "Removed the Traces of previous installation from Registry";
-            
+
             if (!InstallPath.Equals(""))
             {
                 InstallLocation = InstallPath + "\\Hurl.exe";
@@ -59,6 +59,15 @@ namespace Hurl.Constants
                 key.CreateSubKey(@"shell\open\command").SetValue(null, $"\"{InstallLocation}\" \"%1\"");  //change
             }
 
+            // FOR PROTOCOL REGISTRING
+            string Name_lower = Constants.NAME.ToLower();
+            using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(Name_lower, true))
+            {
+                key.SetValue(null, $"URL:{Name_lower}");
+                key.SetValue("URL Protocol", "");
+                key.CreateSubKey(@"shell\open\command").SetValue(null, $"\"{InstallLocation}\" \"%1\"");  //change
+            }
+
             LogBox.Text += "installated Successfully";
         }
 
@@ -72,6 +81,8 @@ namespace Hurl.Constants
             root.DeleteSubKeyTree(startMenuInternet_Key, false);
             root.DeleteSubKeyTree(urlAssociate_Key, false);
             root.OpenSubKey(@"Software\RegisteredApplications", true).DeleteValue(Constants.NAME, false);
+
+            Registry.ClassesRoot.DeleteSubKeyTree(Constants.NAME.ToLower(), false);
         }
     }
 }

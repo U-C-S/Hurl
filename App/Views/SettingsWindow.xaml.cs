@@ -17,6 +17,17 @@ namespace Hurl.Views
 
             LoadSystemBrowserList();
             InstallPathTextBox.Text = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Hurl";
+
+            // Future: Maybe just dont register the protocol, instead of preventing the user from installing
+            if (IsAdministrator())
+            {
+                InstallButton.IsEnabled = true;
+            }
+            else
+            {
+                InstallInfo.Text = "Run the Application as Adminstrator to Install";
+                InstallInfo.FontWeight = FontWeights.Bold;
+            }
         }
 
         public void LoadSystemBrowserList()

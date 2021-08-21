@@ -1,6 +1,7 @@
 ﻿using Hurl.Constants;
 //using Hurl.Services;
 using System;
+using System.Security.Principal;
 using System.Windows;
 using System.Windows.Forms;
 
@@ -9,6 +10,14 @@ namespace Hurl.Views
     public partial class SettingsWindow : Window
     {
         public string SetupLog = "";
+
+        //Move this to Constants class
+        private static bool IsAdministrator()
+        {
+            var identity = WindowsIdentity.GetCurrent();
+            var principal = new WindowsPrincipal(identity);
+            return principal.IsInRole(WindowsBuiltInRole.Administrator);
+        }
 
         private void InstallPathSelect(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {

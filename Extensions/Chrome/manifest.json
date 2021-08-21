@@ -1,0 +1,7 @@
+{
+  "name": "Hurl Extension",
+  "description": "Lets you open tabs in other Browsers",
+  "version": "0.2.0",
+  "manifest_version": 3,
+  "Permissions": []
+}

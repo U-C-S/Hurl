@@ -46,10 +46,10 @@
                 </StackPanel>
                 <!--Installation Status-->
                 <StackPanel Background="LightSkyBlue" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">
-                    <TextBlock TextAlignment="Center" Padding="7">Choose the Path that the Application will be installed at...</TextBlock>
+                    <TextBlock x:Name="InstallInfo" TextAlignment="Center" Padding="7">Choose the Path that the Application will be installed at...</TextBlock>
                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                         <TextBox x:Name="InstallPathTextBox" Width="320" Padding="4" MouseDoubleClick="InstallPathSelect"></TextBox>
-                        <Button Content="Install" Click="Install_Button" Width="80" Margin="10,0,0,0" Background="AntiqueWhite"/>
+                        <Button x:Name="InstallButton" Content="Install" Click="Install_Button" Width="80" Margin="10,0,0,0" Background="AntiqueWhite" IsEnabled="False"/>
                     </StackPanel>
                 </StackPanel>
                 <TextBox x:Name="LogTextBox" Text="{Binding SetupLog}" Grid.Row="4" Grid.Column="1" Padding="2" Margin="0,15,0,0" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" IsReadOnly="True"/>
