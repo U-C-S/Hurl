@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace Constants
+namespace Hurl.Constants
 {
     public class Setup
     {

@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using System.Xml.Linq;
 
-namespace Services
+namespace Hurl.Services
 {
     class SettingsStore
     {

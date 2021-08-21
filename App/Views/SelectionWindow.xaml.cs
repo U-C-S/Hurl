@@ -1,11 +1,11 @@
-﻿using Browser;
+﻿using Hurl.Browser;
 using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Hurl
+namespace Hurl.Views
 {
     /// <summary>
     /// Interaction logic for SelectionWindow.xaml

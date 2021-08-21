@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Hurl.Views;
+using System.Windows;
 
 namespace Hurl
 {
@@ -10,7 +11,17 @@ namespace Hurl
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             string[] Arguments = e.Args;
-            new SelectionWindow(Arguments).Show();
+
+            if (Arguments.Length == 0)
+            {
+                SettingsWindow window = new SettingsWindow();
+                window.Show();
+            }
+            else
+            {
+                SelectionWindow window = new SelectionWindow(Arguments);
+                window.Show();
+            }
         }
     }
 }

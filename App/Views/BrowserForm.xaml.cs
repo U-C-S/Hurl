@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Forms;
 
-namespace Installer.Views
+namespace Hurl.Views
 {
     /// <summary>
     /// Interaction logic for BrowserForm.xaml

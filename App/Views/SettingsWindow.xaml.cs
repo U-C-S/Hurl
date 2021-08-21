@@ -1,9 +1,9 @@
-﻿using Browser;
-using Installer.Controls;
+﻿using Hurl.Browser;
+using Hurl.Controls;
 using System;
 using System.Windows;
 
-namespace Installer.Views
+namespace Hurl.Views
 {
     /// <summary>
     /// Interaction logic for SettingsWindow.xaml
