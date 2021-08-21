@@ -25,8 +25,14 @@ namespace Browser
             this.ExePath = ExePath;
         }
 
-        public Icon getIcon => Icon.ExtractAssociatedIcon(ExePath);
-
+        public Icon GetIcon
+        {
+            get
+            {
+                string x = ExePath.Trim().Substring(1, ExePath.Length - 2);
+                return Icon.ExtractAssociatedIcon(x);
+            }
+        }
     }
 
     public class BList : List<BrowserObject>

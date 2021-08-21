@@ -57,6 +57,16 @@ namespace Hurl
                     };
 
                     button.Click += BroClick;
+                    /*
+                    Bitmap bi = i.GetIcon.ToBitmap();
+                    bi.MakeTransparent();
+                    var im = new System.Windows.Controls.Image()
+                    {
+                        Width = 70,
+                        Height = 70,
+                        Source = BitmapToImageSource(bi)
+                    };
+                    */
                     stacky.Children.Add(button);
                     //stacky.Children.Add(button);
                 }
@@ -94,7 +104,7 @@ namespace Hurl
         // TODO
         private void OpenSettings(object sender, RoutedEventArgs e)
         {
-            //    new SettingsWindow().Show();
+            Process.Start(Environment.CurrentDirectory + "\\Hurl_Installer.exe");
         }
 
         private void LinkCopyBtn(object sender, RoutedEventArgs e)

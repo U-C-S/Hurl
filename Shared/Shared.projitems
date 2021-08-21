@@ -16,5 +16,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Constants\Constants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Constants\Setup.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Logger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\SettingsStore.cs" />
   </ItemGroup>
 </Project>
