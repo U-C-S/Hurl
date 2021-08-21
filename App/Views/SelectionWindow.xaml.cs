@@ -104,7 +104,7 @@ namespace Hurl.Views
         // TODO
         private void OpenSettings(object sender, RoutedEventArgs e)
         {
-            Process.Start(Environment.CurrentDirectory + "\\Hurl_Installer.exe");
+            new SettingsWindow().Show();
         }
 
         private void LinkCopyBtn(object sender, RoutedEventArgs e)
