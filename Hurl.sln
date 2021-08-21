@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31521.260
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hurl", "Hurl.csproj", "{D3CA31A0-8360-4F08-9F88-FAE89681BCC7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hurl", "App\Hurl.csproj", "{D3CA31A0-8360-4F08-9F88-FAE89681BCC7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,8 +13,8 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{D3CA31A0-8360-4F08-9F88-FAE89681BCC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D3CA31A0-8360-4F08-9F88-FAE89681BCC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D3CA31A0-8360-4F08-9F88-FAE89681BCC7}.Release|Any CPU.ActiveCfg = Release|x64
-		{D3CA31A0-8360-4F08-9F88-FAE89681BCC7}.Release|Any CPU.Build.0 = Release|x64
+		{D3CA31A0-8360-4F08-9F88-FAE89681BCC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3CA31A0-8360-4F08-9F88-FAE89681BCC7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

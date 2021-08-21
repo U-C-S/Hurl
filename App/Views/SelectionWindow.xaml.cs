@@ -53,10 +53,20 @@ namespace Hurl.Views
                         Content = i.Name,
                         Tag = i.ExePath,
                         ContextMenu = FindResource("extraOptions") as ContextMenu,
-                        Style = (Style) FindResource("BrowserBtnStyle"),
+                        Style = (Style)FindResource("BrowserBtnStyle"),
                     };
 
                     button.Click += BroClick;
+                    /*
+                    Bitmap bi = i.GetIcon.ToBitmap();
+                    bi.MakeTransparent();
+                    var im = new System.Windows.Controls.Image()
+                    {
+                        Width = 70,
+                        Height = 70,
+                        Source = BitmapToImageSource(bi)
+                    };
+                    */
                     stacky.Children.Add(button);
                     //stacky.Children.Add(button);
                 }
@@ -91,6 +101,7 @@ namespace Hurl.Views
             }
         }
 
+        // TODO
         private void OpenSettings(object sender, RoutedEventArgs e)
         {
             new SettingsWindow().Show();

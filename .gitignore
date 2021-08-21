@@ -1,6 +1,7 @@
 publish
 solution-explorer
 _dump
+_bin
 
 
 ## Ignore Visual Studio temporary files, build results, and

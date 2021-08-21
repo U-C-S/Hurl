@@ -9,7 +9,17 @@
     <TabControl Background="Azure">
         <TabItem Header="About" Padding="5" Width="70">
             <Grid>
-                <TextBlock>HURL</TextBlock>
+                <Rectangle >
+                    <Rectangle.Fill>
+                        <LinearGradientBrush  StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Color="#de6262"/>
+                            <GradientStop Color="#ffb88c" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <Grid>
+                    <TextBlock Text="Hurl" FontFamily="Georgia" FontSize="32" FontStyle="Italic" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0" />
+                </Grid>
             </Grid>
         </TabItem>
 
@@ -48,13 +58,15 @@
         </TabItem>
 
         <TabItem Header="Browsers" Padding="5" Width="70">
-            <StackPanel>
-                <TextBlock FontSize="18" TextAlignment="Center">From Registry</TextBlock>
-                <StackPanel x:Name="StackSystemBrowsers" Margin="5" />
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock FontSize="18" TextAlignment="Center">From Registry</TextBlock>
+                    <StackPanel x:Name="StackSystemBrowsers" Margin="20,5" />
 
-                <TextBlock FontSize="18" TextAlignment="Center">Custom</TextBlock>
-                <StackPanel x:Name="StackUserBrowsers" Margin="5" />
-            </StackPanel>
+                    <TextBlock FontSize="18" TextAlignment="Center">Custom</TextBlock>
+                    <StackPanel x:Name="StackUserBrowsers" Margin="5" />
+                </StackPanel>
+            </ScrollViewer>
         </TabItem>
 
         <TabItem Header="Debug" Padding="5" Width="70">
