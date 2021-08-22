@@ -1,5 +1,4 @@
-﻿using Hurl.Views;
-using System.Windows;
+﻿using System.Windows;
 
 namespace Hurl
 {
@@ -19,7 +18,7 @@ namespace Hurl
             }
             else
             {
-                SelectionWindow window = new SelectionWindow(Arguments);
+                MainWindow window = new MainWindow(Arguments);
                 window.Show();
             }
         }
