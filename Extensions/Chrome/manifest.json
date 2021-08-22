@@ -3,5 +3,18 @@
   "description": "Lets you open tabs in other Browsers",
   "version": "0.2.0",
   "manifest_version": 3,
-  "Permissions": []
+  "icons": {
+    "16": "icons/internet16.png",
+    "32": "icons/internet32.png",
+    "128": "icons/internet128.png"
+  },
+
+  "background": {
+    "service_worker": "background.js"
+  },
+
+  "permissions": ["contextMenus"],
+
+  "homepage_url": "https://github.com/U-C-S/Hurl",
+  "author": "Chanakya"
 }
