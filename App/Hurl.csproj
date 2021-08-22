@@ -123,5 +123,11 @@
   <ItemGroup>
     <Resource Include="internet.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icons8-add-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icons8-refresh-30.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

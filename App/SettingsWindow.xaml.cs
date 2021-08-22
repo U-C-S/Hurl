@@ -1,6 +1,7 @@
 ﻿using Hurl.Constants;
 using Hurl.Controls;
 using Hurl.Models;
+using Hurl.Views;
 using System;
 using System.Security.Principal;
 using System.Windows;
@@ -93,6 +94,31 @@ namespace Hurl
             Setup.Uninstall();
             System.Windows.MessageBox.Show("Uninstalled from Registry");
 
+        }
+
+        //Add browsers
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            BrowserForm f = new BrowserForm();
+            if (f.ShowDialog() == true)
+            {
+                var comp = new BrowserStatusComponent
+                {
+                    BrowserName = f.BrowserName,
+                    BrowserPath = f.BrowserPath,
+                    EditEnabled = true,
+                    BackColor = "#FFFFDAAD",
+                    Margin = new Thickness(0, 4, 0, 0),
+                };
+                StackUserBrowsers.Children.Add(comp);
+
+            }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            StackSystemBrowsers.Children.Clear();
+            LoadSystemBrowserList();
         }
     }
 }
