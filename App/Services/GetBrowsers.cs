@@ -1,12 +1,8 @@
 ﻿using Microsoft.Win32;
-using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Hurl.Browser
+namespace Hurl.Services
 {
     /// <summary>
     /// Store all info about a browser
@@ -35,22 +31,22 @@ namespace Hurl.Browser
         }
     }
 
-    public class BList : List<BrowserObject>
+    public class GetBrowsers : List<BrowserObject>
     {
-        public BList(List<BrowserObject> browsers)
+        public GetBrowsers(List<BrowserObject> browsers)
         {
 
         }
 
-        public BList() { }
+        public GetBrowsers() { }
 
-        public static BList InitalGetList()
+        public static GetBrowsers InitalGetList()
         {
-            BList browsers;
+            GetBrowsers browsers;
 
             using (RegistryKey key = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Clients\\StartMenuInternet"))
             {
-                browsers = new BList();
+                browsers = new GetBrowsers();
                 string[] x = key.GetSubKeyNames();
                 for (int i = 0; i < x.Length; i++)
                 {

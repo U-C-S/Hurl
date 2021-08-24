@@ -78,14 +78,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Browser\BList.cs" />
-    <Compile Include="Constants\Constants.cs" />
-    <Compile Include="Constants\Setup.cs" />
+    <Compile Include="Constants\OtherStrings.cs" />
+    <Compile Include="Services\GetBrowsers.cs" />
+    <Compile Include="Constants\MetaStrings.cs" />
     <Compile Include="Controls\BrowserStatusComponent.xaml.cs">
       <DependentUpon>BrowserStatusComponent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SelectionWindow.xaml.cs">
-      <DependentUpon>SelectionWindow.xaml</DependentUpon>
+    <Compile Include="Services\Installer.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -96,15 +97,14 @@
     <Compile Include="Views\BrowserForm.xaml.cs">
       <DependentUpon>BrowserForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SettingsWindow.xaml.cs">
+    <Compile Include="SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SetupTab.cs" />
     <Page Include="Controls\BrowserStatusComponent.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\SelectionWindow.xaml">
+    <Page Include="MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -112,7 +112,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\SettingsWindow.xaml">
+    <Page Include="SettingsWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -122,6 +122,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="internet.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icons8-add-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icons8-refresh-30.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
