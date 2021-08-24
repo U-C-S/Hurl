@@ -27,7 +27,7 @@
 			<Grid>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="10"/>
-					<ColumnDefinition Width="12*"/>
+					<ColumnDefinition Width="18*"/>
 					<ColumnDefinition Width="5*"/>
 					<ColumnDefinition Width="10"/>
 				</Grid.ColumnDefinitions>
@@ -57,12 +57,12 @@
                                  Width="320" Padding="4" MouseDoubleClick="InstallPathSelect" />
                         <Button x:Name="InstallButton" Content="Install" 
                                 Click="Install_Button" 
-                                Width="80" Margin="10,0,0,0" Background="AntiqueWhite" IsEnabled="False"/>
+                                Width="80" Margin="10,0,0,0" Background="AntiqueWhite"/>
 					</StackPanel>
 				</StackPanel>
 				<TextBox x:Name="LogTextBox" Text="{Binding SetupLog}" 
                          Grid.Row="4" Grid.Column="1" Padding="2" Margin="0,15,0,0" 
-                         TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" IsReadOnly="True"/>
+                         TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" IsReadOnly="True" FontSize="10"/>
 				<Button Content="Uninstall" Click="Uninstall_Button"
                         Width="80" Height="30" Background="#FFF05E5E" Foreground="White" 
                         Grid.Row="4" Grid.Column="2" VerticalAlignment="Bottom"/>

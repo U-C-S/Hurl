@@ -78,13 +78,13 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Models\Browsers.cs" />
-    <Compile Include="Constants\Constants.cs" />
-    <Compile Include="Constants\Setup.cs" />
+    <Compile Include="Constants\OtherStrings.cs" />
+    <Compile Include="Services\GetBrowsers.cs" />
+    <Compile Include="Constants\MetaStrings.cs" />
     <Compile Include="Controls\BrowserStatusComponent.xaml.cs">
       <DependentUpon>BrowserStatusComponent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\InstallationStatus.cs" />
+    <Compile Include="Services\Installer.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>

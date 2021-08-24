@@ -1,6 +1,6 @@
 ﻿using Hurl.Constants;
 using Hurl.Controls;
-using Hurl.Models;
+using Hurl.Services;
 using Hurl.Views;
 using System;
 using System.Security.Principal;
@@ -21,22 +21,11 @@ namespace Hurl
 
             LoadSystemBrowserList();
             InstallPathTextBox.Text = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Hurl";
-
-            // Future: Maybe just dont register the protocol, instead of preventing the user from installing
-            if (IsAdministrator())
-            {
-                InstallButton.IsEnabled = true;
-            }
-            else
-            {
-                InstallInfo.Text = "Run the Application as Adminstrator to Install";
-                InstallInfo.FontWeight = FontWeights.Bold;
-            }
         }
 
         public void LoadSystemBrowserList()
         {
-            BList x = BList.InitalGetList();
+            GetBrowsers x = GetBrowsers.InitalGetList();
 
             foreach (BrowserObject i in x)
             {
@@ -60,14 +49,6 @@ namespace Hurl
 
         public string SetupLog = "";
 
-        //Move this to Constants class
-        private static bool IsAdministrator()
-        {
-            var identity = WindowsIdentity.GetCurrent();
-            var principal = new WindowsPrincipal(identity);
-            return principal.IsInRole(WindowsBuiltInRole.Administrator);
-        }
-
         private void InstallPathSelect(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             var dialog = new FolderBrowserDialog
@@ -84,16 +65,15 @@ namespace Hurl
 
         private void Install_Button(object sender, RoutedEventArgs e)
         {
-            //Logger x = new Logger(SetupLog);
-            new Setup().Install(InstallPathTextBox.Text, LogTextBox);
-            System.Windows.MessageBox.Show("Installed with Root: " + Environment.GetCommandLineArgs()[0]);
+            new Installer(LogTextBox)
+                .Install(InstallPathTextBox.Text);
+            // System.Windows.MessageBox.Show("Installed with Root: " + Environment.GetCommandLineArgs()[0]);
         }
 
         private void Uninstall_Button(object sender, RoutedEventArgs e)
         {
-            Setup.Uninstall();
-            System.Windows.MessageBox.Show("Uninstalled from Registry");
-
+            new Installer().Uninstall();
+            //System.Windows.MessageBox.Show("Uninstalled from Registry");
         }
 
         //Add browsers

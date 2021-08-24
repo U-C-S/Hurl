@@ -1,4 +1,4 @@
-﻿using Hurl.Models;
+﻿using Hurl.Services;
 using System;
 using System.Diagnostics;
 using System.Windows;
@@ -41,7 +41,7 @@ namespace Hurl
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            BList x = BList.InitalGetList();
+            GetBrowsers x = GetBrowsers.InitalGetList();
             foreach (BrowserObject i in x)
             {
                 if (i.Name != null)

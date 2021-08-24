@@ -1,26 +1,48 @@
-﻿using System;
+﻿using Hurl.Constants;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace Hurl.Services
 {
-    class Logger
+    public class Logger
     {
-        private string LogString;
-        private StringBuilder LogBuilder;
+        protected TextBox _logbox;
+        private bool isSubLog;
 
-        public Logger(string TargetString)
+        public Logger(TextBox LogBox)
         {
-            LogString = TargetString;
-            LogBuilder = new StringBuilder();
+            _logbox = LogBox;
         }
 
-        public void Add(string log)
+        private void AppendText(string text)
         {
-            LogBuilder.AppendLine(log);
-            LogString = LogBuilder.ToString();
+            _logbox.Text += text;
+        }
+
+        public void write(string log)
+        {
+            string prefix = "";
+            if (isSubLog)
+            {
+                prefix = "- ";
+            }
+            AppendText(prefix + log + Environment.NewLine);
+        }
+
+        public void Start(string message)
+        {
+            AppendText("===== " + message + Environment.NewLine);
+            isSubLog = true;
+        }
+
+        public void Stop()
+        {
+            AppendText(Environment.NewLine + "===== " + Environment.NewLine);
+            isSubLog = false;
         }
     }
 }
