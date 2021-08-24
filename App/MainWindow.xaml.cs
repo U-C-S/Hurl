@@ -20,7 +20,16 @@ namespace Hurl
 
             if (x.Length >= 1)
             {
-                OpenedLink = linkpreview.Text = x[0];
+                string link = x[0];
+                if (link.StartsWith("hurl://"))
+                {
+                    OpenedLink = linkpreview.Text = link.Substring(7);
+                }
+                else
+                {
+                    OpenedLink = linkpreview.Text = x[0];
+
+                }
             }
 
             //What does \"%1\" mean in Registry ? 
