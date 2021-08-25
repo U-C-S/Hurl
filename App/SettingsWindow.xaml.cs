@@ -14,12 +14,15 @@ namespace Hurl
     /// </summary>
     public partial class SettingsWindow : Window
     {
+        private Installer InstallerService;
+
         public SettingsWindow()
         {
             InitializeComponent();
             DataContext = this;
 
             LoadSystemBrowserList();
+            InstallerService = new Installer(LogTextBox);
             InstallPathTextBox.Text = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Hurl";
         }
 
@@ -46,9 +49,6 @@ namespace Hurl
             }
         }
 
-
-        public string SetupLog = "";
-
         private void InstallPathSelect(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             var dialog = new FolderBrowserDialog
@@ -63,16 +63,22 @@ namespace Hurl
             }
         }
 
+
+        private void SetAsDefualt(object sender, RoutedEventArgs e)
+        {
+            InstallerService.SetDefault();
+        }
+
         private void Install_Button(object sender, RoutedEventArgs e)
         {
-            new Installer(LogTextBox)
-                .Install(InstallPathTextBox.Text);
+
+            InstallerService.Install(InstallPathTextBox.Text);
             // System.Windows.MessageBox.Show("Installed with Root: " + Environment.GetCommandLineArgs()[0]);
         }
 
         private void Uninstall_Button(object sender, RoutedEventArgs e)
         {
-            new Installer().Uninstall();
+            InstallerService.Uninstall();
             //System.Windows.MessageBox.Show("Uninstalled from Registry");
         }
 

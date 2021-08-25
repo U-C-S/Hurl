@@ -23,25 +23,23 @@ namespace Hurl.Services
             _logbox.Text += text;
         }
 
-        public void write(string log)
+        public void Write(string log)
         {
             string prefix = "";
-            if (isSubLog)
-            {
-                prefix = "- ";
-            }
+            if (isSubLog) { prefix = "- "; }
+
             AppendText(prefix + log + Environment.NewLine);
         }
 
         public void Start(string message)
         {
-            AppendText("===== " + message + Environment.NewLine);
+            AppendText("===== " + message + " =====" + Environment.NewLine);
             isSubLog = true;
         }
 
         public void Stop()
         {
-            AppendText(Environment.NewLine + "===== " + Environment.NewLine);
+            AppendText(Environment.NewLine + "===========" + Environment.NewLine);
             isSubLog = false;
         }
     }

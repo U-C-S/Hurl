@@ -1,5 +1,6 @@
 ﻿using Hurl.Services;
 using System;
+using System.Configuration;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
