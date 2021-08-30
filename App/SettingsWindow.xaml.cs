@@ -19,13 +19,39 @@ namespace Hurl
         public SettingsWindow()
         {
             InitializeComponent();
-            DataContext = this;
 
             LoadSystemBrowserList();
             InstallerService = new Installer(LogTextBox);
             InstallPathTextBox.Text = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Hurl";
+
+            if (InstallerService.isDefault)
+            {
+                DefaultInfo.Text = "Hurl is currently set as the default handler for http/https links";
+            }
         }
 
+        //Setup Tab
+        private void InstallPathSelect(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var dialog = new FolderBrowserDialog
+            {
+                Description = "Select the Destination Folder where the Application Files and Settings will be Stored",
+                SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                ShowNewFolderButton = true
+            };
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                InstallPathTextBox.Text = dialog.SelectedPath;
+            }
+        }
+
+        private void SetAsDefualt(object sender, RoutedEventArgs e) => InstallerService.SetDefault();
+
+        private void Install_Button(object sender, RoutedEventArgs e) => InstallerService.Install(InstallPathTextBox.Text);
+
+        private void Uninstall_Button(object sender, RoutedEventArgs e) => InstallerService.Uninstall();
+
+        //Browsers Tab
         public void LoadSystemBrowserList()
         {
             GetBrowsers x = GetBrowsers.InitalGetList();
@@ -47,39 +73,6 @@ namespace Hurl
                 }
 
             }
-        }
-
-        private void InstallPathSelect(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            var dialog = new FolderBrowserDialog
-            {
-                Description = "Select the Destination Folder where the Application Files and Settings will be Stored",
-                SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                ShowNewFolderButton = true
-            };
-            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                InstallPathTextBox.Text = dialog.SelectedPath;
-            }
-        }
-
-
-        private void SetAsDefualt(object sender, RoutedEventArgs e)
-        {
-            InstallerService.SetDefault();
-        }
-
-        private void Install_Button(object sender, RoutedEventArgs e)
-        {
-
-            InstallerService.Install(InstallPathTextBox.Text);
-            // System.Windows.MessageBox.Show("Installed with Root: " + Environment.GetCommandLineArgs()[0]);
-        }
-
-        private void Uninstall_Button(object sender, RoutedEventArgs e)
-        {
-            InstallerService.Uninstall();
-            //System.Windows.MessageBox.Show("Uninstalled from Registry");
         }
 
         //Add browsers

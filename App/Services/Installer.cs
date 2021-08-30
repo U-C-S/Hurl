@@ -28,16 +28,16 @@ namespace Hurl.Services
 
         public Installer() { Initialize(); }
 
+        private RegistryKey HKCU = Registry.CurrentUser;
+        private readonly string startMenuInternet_Key = @"Software\Clients\StartMenuInternet\" + MetaStrings.NAME;
+        private readonly string urlAssociate_Key = @"Software\Classes\" + MetaStrings.URLAssociations;
+        private readonly string OpenedFrom = Environment.GetCommandLineArgs()[0];
+
         private void Initialize()
         {
             GetDefaultStatus();
             GetInstallationStatus();
         }
-
-        private RegistryKey HKCU = Registry.CurrentUser;
-        private readonly string startMenuInternet_Key = @"Software\Clients\StartMenuInternet\" + MetaStrings.NAME;
-        private readonly string urlAssociate_Key = @"Software\Classes\" + MetaStrings.URLAssociations;
-        private readonly string OpenedFrom = Environment.GetCommandLineArgs()[0];
 
         /// <summary>
         /// Installs the tool
@@ -175,7 +175,5 @@ namespace Hurl.Services
                 return principal.IsInRole(WindowsBuiltInRole.Administrator);
             }
         }
-
-
     }
 }
