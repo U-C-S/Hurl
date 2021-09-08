@@ -40,50 +40,50 @@
 					<RowDefinition Height="10"/>
 				</Grid.RowDefinitions>
 				<!--Default App Status-->
-				<StackPanel Orientation="Horizontal" Background="#FFB7B7B7" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
+				<Grid Background="#FFB7B7B7" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
 					<TextBlock x:Name="DefaultInfo" VerticalAlignment="Center" Padding="5">Hurl is currently not set as default application for http/https links handling.</TextBlock>
-					<Button Padding="10,5,10,5" 
-                            HorizontalAlignment="Right" VerticalAlignment="Center" Margin="56,0,0,0" 
-                            Background="Azure" BorderBrush="Black" Click="SetAsDefualt">Set as Default</Button>
-				</StackPanel>
+					<Button Padding="10,5,10,5" x:Name="DefaultSetButton"
+							HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0" 
+							Background="White" BorderBrush="Black" Click="SetAsDefualt">Set as Default</Button>
+                </Grid>
 
 				<!--Installation Status-->
 				<StackPanel Background="LightSkyBlue" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">
-                    <TextBlock x:Name="InstallInfo" 
-                               Text="Choose the Path that the Application will be installed at..." 
-                               TextAlignment="Center" Padding="7" />
-                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                        <TextBox x:Name="InstallPathTextBox" 
-                                 Width="320" Padding="4" MouseDoubleClick="InstallPathSelect" />
-                        <Button x:Name="InstallButton" Content="Install" 
-                                Click="Install_Button" 
-                                Width="80" Margin="10,0,0,0" Background="AntiqueWhite"/>
+					<TextBlock x:Name="InstallInfo" 
+							   Text="Choose the Path that the Application will be installed at..." 
+							   TextAlignment="Center" Padding="7" />
+					<StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+						<TextBox x:Name="InstallPathTextBox" 
+								 Width="320" Padding="4" MouseDoubleClick="InstallPathSelect" />
+						<Button x:Name="InstallButton" Content="Install" 
+								Click="Install_Button" 
+								Width="80" Margin="10,0,0,0" Background="AntiqueWhite"/>
 					</StackPanel>
 				</StackPanel>
 				<TextBox x:Name="LogTextBox" 
-                         Grid.Row="4" Grid.Column="1" Padding="2" Margin="0,15,0,0" 
-                         TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" IsReadOnly="True" FontSize="10"/>
+						 Grid.Row="4" Grid.Column="1" Padding="2" Margin="0,15,0,0" 
+						 TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" IsReadOnly="True" FontSize="10"/>
 				<Button Content="Uninstall" Click="Uninstall_Button"
-                        Width="80" Height="30" Background="#FFF05E5E" Foreground="White" 
-                        Grid.Row="4" Grid.Column="2" VerticalAlignment="Bottom"/>
+						Width="80" Height="30" Background="#FFF05E5E" Foreground="White" 
+						Grid.Row="4" Grid.Column="2" VerticalAlignment="Bottom"/>
 			</Grid>
 		</TabItem>
 
 		<TabItem Header="Browsers" Padding="5" Width="70">
-            <ScrollViewer VerticalScrollBarVisibility="Auto" Background="FloralWhite">
+			<ScrollViewer VerticalScrollBarVisibility="Auto" Background="FloralWhite">
 				<StackPanel Margin="5">
-                    <Border CornerRadius="5" Padding="10,3,10,7"
-                            Background="AntiqueWhite" BorderBrush="Coral" BorderThickness="2">
+					<Border CornerRadius="5" Padding="10,3,10,7"
+							Background="AntiqueWhite" BorderBrush="Coral" BorderThickness="2">
 						<StackPanel>
 							<Grid Height="30">
 								<TextBlock Text="From Registry"
 										   FontSize="18" TextAlignment="Center" 
 										   HorizontalAlignment="Left" VerticalAlignment="Center" />
-                                <Button HorizontalAlignment="Right" VerticalAlignment="Center" Padding="3"
-                                        Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click_1">
-                                    <Image Source="/Images/icons8-refresh-30.png" />
-                                </Button>
-                            </Grid>
+								<Button HorizontalAlignment="Right" VerticalAlignment="Center" Padding="3"
+										Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click_1">
+									<Image Source="/Images/icons8-refresh-30.png" />
+								</Button>
+							</Grid>
 							<StackPanel x:Name="StackSystemBrowsers" />
 						</StackPanel>
 						<Border.Effect>
@@ -91,24 +91,24 @@
 						</Border.Effect>
 					</Border>
 
-                    <Border CornerRadius="5" Padding="10,3,10,7" Margin="0,15,0,0"
-                            Background="LightSeaGreen"  BorderBrush="Beige" BorderThickness="2">
-                        <StackPanel>
-                            <Grid Height="30">
-                                <TextBlock Text="Custom" FontSize="18" TextAlignment="Center" 
-                                           HorizontalAlignment="Left" VerticalAlignment="Center" />
-                                <Button HorizontalAlignment="Right" VerticalAlignment="Center" 
-                                        Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click">
-                                    <Image Source="/Images/icons8-add-32.png" />
-                                </Button>
-                            </Grid>
-                            <StackPanel x:Name="StackUserBrowsers" />
-                        </StackPanel>
-                        <Border.Effect>
-                            <DropShadowEffect Color="Black" Opacity="0.5" Direction="240" BlurRadius="10"/>
-                        </Border.Effect>
-                    </Border>
-                </StackPanel>
+					<Border CornerRadius="5" Padding="10,3,10,7" Margin="0,15,0,0"
+							Background="LightSeaGreen"  BorderBrush="Beige" BorderThickness="2">
+						<StackPanel>
+							<Grid Height="30">
+								<TextBlock Text="Custom" FontSize="18" TextAlignment="Center" 
+										   HorizontalAlignment="Left" VerticalAlignment="Center" />
+								<Button HorizontalAlignment="Right" VerticalAlignment="Center" 
+										Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click">
+									<Image Source="/Images/icons8-add-32.png" />
+								</Button>
+							</Grid>
+							<StackPanel x:Name="StackUserBrowsers" />
+						</StackPanel>
+						<Border.Effect>
+							<DropShadowEffect Color="Black" Opacity="0.5" Direction="240" BlurRadius="10"/>
+						</Border.Effect>
+					</Border>
+				</StackPanel>
 			</ScrollViewer>
 		</TabItem>
 

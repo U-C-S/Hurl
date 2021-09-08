@@ -113,6 +113,7 @@ namespace Hurl.Services
                     }
                 }
 
+                log.Write("INSTALL SUCCESS");
                 log.Stop();
             }
             catch (Exception err)
@@ -120,7 +121,9 @@ namespace Hurl.Services
                 if (stage >= 1) File.Delete(installLocation);
                 if (stage >= 2) Uninstall();
 
-                MessageBox.Show(err.Message);
+                log.Write(err.Message);
+                log.Stop();
+                //MessageBox.Show(err.Message);
             }
         }
 

@@ -26,7 +26,8 @@ namespace Hurl
 
             if (InstallerService.isDefault)
             {
-                DefaultInfo.Text = "Hurl is currently set as the default handler for http/https links";
+                DefaultInfo.Text = "Hurl is currently the default handler for http/https links";
+                DefaultSetButton.IsEnabled = false;
             }
         }
 
