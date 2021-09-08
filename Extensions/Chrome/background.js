@@ -13,10 +13,23 @@ chrome.runtime.onInstalled.addListener(function () {
   });
 });
 
+function OpenHurl(link) {
+  console.log("lol");
+  let anchor = document.createElement("a");
+  anchor.href = link;
+  anchor.click();
+}
+
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
   chrome.tabs.create({
-    url: "hurl://" + info.pageUrl,
+    url: "hurl://" + info.linkUrl,
   });
+
+  // chrome.scripting.executeScript({
+  //   target: null,
+  //   func: OpenHurl,
+  //   args: [info.pageUrl],
+  // });
 });
 
 // chrome.contextMenus.create({
