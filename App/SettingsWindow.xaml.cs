@@ -29,6 +29,12 @@ namespace Hurl
                 DefaultInfo.Text = "Hurl is currently the default handler for http/https links";
                 DefaultSetButton.IsEnabled = false;
             }
+
+            if(InstallerService.isInstalled)
+            {
+                InstallInfo.Text = "Hurl is already installed at the following Location.";
+                InstallButton.IsEnabled = false;
+            }
         }
 
         //Setup Tab
@@ -50,7 +56,10 @@ namespace Hurl
 
         private void Install_Button(object sender, RoutedEventArgs e) => InstallerService.Install(InstallPathTextBox.Text);
 
-        private void Uninstall_Button(object sender, RoutedEventArgs e) => InstallerService.Uninstall();
+        private void Uninstall_Button(object sender, RoutedEventArgs e)
+        {
+            InstallerService.Uninstall();
+        }
 
         //Browsers Tab
         public void LoadSystemBrowserList()
@@ -77,7 +86,7 @@ namespace Hurl
         }
 
         //Add browsers
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void AddBrowser(object sender, RoutedEventArgs e)
         {
             BrowserForm f = new BrowserForm();
             if (f.ShowDialog() == true)
@@ -95,7 +104,7 @@ namespace Hurl
             }
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void RefreshBrowserList(object sender, RoutedEventArgs e)
         {
             StackSystemBrowsers.Children.Clear();
             LoadSystemBrowserList();

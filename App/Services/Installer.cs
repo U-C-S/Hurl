@@ -146,7 +146,7 @@ namespace Hurl.Services
             isDefault = Default.Equals(MetaStrings.URLAssociations);
         }
 
-        public void GetInstallationStatus()
+        private void GetInstallationStatus()
         {
             var key1 = Registry.CurrentUser.OpenSubKey(startMenuInternet_Key);
             var key2 = Registry.CurrentUser.OpenSubKey(urlAssociate_Key);
