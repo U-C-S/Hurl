@@ -2,6 +2,6 @@
   "private": true,
   "name": "extensions",
   "devDependencies": {
-    "@types/chrome": "^0.0.154"
+    "@types/chrome": "^0.0.157"
   }
 }
