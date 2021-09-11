@@ -13,7 +13,8 @@
     "service_worker": "background.js"
   },
 
-  "permissions": ["contextMenus", "scripting"],
+  "permissions": ["contextMenus", "scripting", "activeTab"],
+  "host_permissions": ["<all_urls>"],
 
   "homepage_url": "https://github.com/U-C-S/Hurl",
   "author": "Chanakya"

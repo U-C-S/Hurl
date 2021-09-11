@@ -8,29 +8,45 @@
 chrome.runtime.onInstalled.addListener(function () {
   chrome.contextMenus.create({
     title: "Hurl the Page",
-    contexts: ["page", "link"],
-    id: "myContextMenuId",
+    contexts: ["page"],
+    id: "hurl_page",
+  });
+
+  chrome.contextMenus.create({
+    title: "Hurl the Link",
+    contexts: ["link"],
+    id: "hurl_link",
   });
 });
 
 function OpenHurl(link) {
-  console.log("lol");
+  //console.log("lol");
   let anchor = document.createElement("a");
-  anchor.href = link;
+  anchor.href = "hurl://" + link;
   anchor.click();
 }
 
-chrome.contextMenus.onClicked.addListener(function (info, tab) {
-  chrome.tabs.create({
-    url: "hurl://" + info.linkUrl,
-  });
+async function getCurrentTab() {
+  let queryOptions = { active: true, currentWindow: true };
+  let [tab] = await chrome.tabs.query(queryOptions);
+  return tab;
+}
 
-  // chrome.scripting.executeScript({
-  //   target: null,
-  //   func: OpenHurl,
-  //   args: [info.pageUrl],
-  // });
+chrome.contextMenus.onClicked.addListener(async function (info, tab) {
+  let LINK = info.linkUrl || info.pageUrl;
+
+  let currentTab = await getCurrentTab();
+
+  chrome.scripting.executeScript({
+    target: { tabId: currentTab.id },
+    func: OpenHurl,
+    args: [LINK],
+  });
 });
+
+// chrome.tabs.create({
+//   url: "hurl://" + info.linkUrl,
+// });
 
 // chrome.contextMenus.create({
 //   contexts: ["page", "link", "page_action"],
