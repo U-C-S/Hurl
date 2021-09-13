@@ -12,10 +12,10 @@ A Experimental Windows Utility that lets you open links in the selected Browser
 
 ## Features
 
-- [x] Easy Install and Uninstallation
-- [x] Can be set as Default Browser
-- [x] Opens the links in selected browser
-- [x] Manual addition and Deletion
-- [ ] Browser Extenstion to quickly open the link in another browser
+- ✅ Easy Install and Uninstallation
+- ✅ Can be set as Default Browser
+- ✅ Opens the links in selected browser
+- ✅ Manual addition and Deletion
+- ✅ Browser Extenstion to quickly open the link in another browser
 - [ ] Browser profiles, incognito....
 - [ ] Small Binary Sizes

@@ -15,6 +15,7 @@ namespace Hurl.Services
 
         public Logger(TextBox LogBox)
         {
+            // A feature turn off the log
             _logbox = LogBox;
         }
 
