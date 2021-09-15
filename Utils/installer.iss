@@ -1,4 +1,5 @@
 #define MyAppName "Hurl"
+#define NameSmall "hurl"
 #define MyAppVersion "0.2.0"
 #define MyAppPublisher "The 3721 Tools"
 #define MyAppURL "https://github.com/U-C-S/Hurl"
@@ -13,10 +14,11 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
+SetupIconFile=.\internet.ico
 
 DefaultDirName={autopf}\{#MyAppName}
 DisableProgramGroupPage=yes
-PrivilegesRequiredOverridesAllowed=commandline
+PrivilegesRequired=admin
 
 OutputDir=.
 OutputBaseFilename=Hurl_Installer
@@ -54,13 +56,17 @@ Root: {#SoftwareClassesRootKey}; Subkey: "Software\Clients\StartMenuInternet\{#M
 Root: {#SoftwareClassesRootKey}; Subkey: "Software\Clients\StartMenuInternet\{#MyAppName}\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\{#MyAppExeName},0"; Flags: uninsdeletekey
 Root: {#SoftwareClassesRootKey}; Subkey: "Software\Clients\StartMenuInternet\{#MyAppName}\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"""; Flags: uninsdeletekey
 
-
 Root: {#SoftwareClassesRootKey}; Subkey: "Software\Classes\{#URLAssociate}"; ValueType: string; ValueName: ""; ValueData: "{#MyAppName} URL"; Flags: uninsdeletekey
 Root: {#SoftwareClassesRootKey}; Subkey: "Software\Classes\{#URLAssociate}\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""; Flags: uninsdeletekey
 ;Root: {#SoftwareClassesRootKey}; Subkey: "Software\Classes\{#URLAssociate}\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\{#MyAppExeName},0"; Flags: uninsdeletekey
 
 Root: {#SoftwareClassesRootKey}; Subkey: "Software\RegisteredApplications"; ValueType: string; ValueName: "{#MyAppName}"; ValueData: "Software\Clients\StartMenuInternet\{#MyAppName}\Capabilities"; Flags: deletevalue
 
+Root: HKCR ; Subkey: "{#NameSmall}"; ValueType: string; ValueName: ""; ValueData: "URL:{#NameSmall}"; Tasks: protocol; Flags: uninsdeletekey
+Root: HKCR ; Subkey: "{#NameSmall}"; ValueType: string; ValueName: "URL Protocol"; ValueData: ""; Tasks: protocol; Flags: uninsdeletekey
+Root: HKCR ; Subkey: "{#NameSmall}\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""; Tasks: protocol; Flags: uninsdeletekey
+
+
 [CustomMessages]
 OtherOptions=Other Options
-CreateProtocol=Create Protocol (which is used for Extension)
+CreateProtocol=Create Protocol (Required for Extension)
