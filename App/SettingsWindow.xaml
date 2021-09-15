@@ -63,7 +63,10 @@
 				<TextBox x:Name="LogTextBox" 
 						 Grid.Row="4" Grid.Column="1" Padding="2" Margin="0,15,0,0" 
 						 TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" IsReadOnly="True" FontSize="10"/>
-				<Button Content="Uninstall" Click="Uninstall_Button"
+                <Button Content="Register Protocol" Click="Protocol_Button"
+						Width="110" Height="30" Background="#FFF0EC5E" Foreground="Black" 
+						Grid.Row="4" Grid.Column="2" VerticalAlignment="Center"/>
+                <Button Content="Uninstall" Click="Uninstall_Button"
 						Width="80" Height="30" Background="#FFF05E5E" Foreground="White" 
 						Grid.Row="4" Grid.Column="2" VerticalAlignment="Bottom"/>
 			</Grid>

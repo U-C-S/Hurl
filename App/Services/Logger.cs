@@ -10,6 +10,7 @@ namespace Hurl.Services
 {
     public class Logger
     {
+        // Create a interface the _logbox so that you can choose wherever you want to log the text.
         protected TextBox _logbox;
         private bool isSubLog;
 
@@ -26,16 +27,24 @@ namespace Hurl.Services
 
         public void Write(string log)
         {
-            string prefix = "";
-            if (isSubLog) { prefix = "- "; }
-
-            AppendText(prefix + log + Environment.NewLine);
+            if (isSubLog)
+            {
+                AppendText(" - " + log + Environment.NewLine);
+            }
         }
 
-        public void Start(string message)
+        public void writeRaw(string log)
         {
-            AppendText("===== " + message + " =====" + Environment.NewLine);
-            isSubLog = true;
+            AppendText("-> " + log + Environment.NewLine);
+        }
+
+        public void Start(string message, bool dontLog = false)
+        {
+            if (!dontLog)
+            {
+                AppendText("===== " + message + " =====" + Environment.NewLine);
+                isSubLog = true;
+            }
         }
 
         public void Stop()

@@ -56,10 +56,9 @@ namespace Hurl
 
         private void Install_Button(object sender, RoutedEventArgs e) => InstallerService.Install(InstallPathTextBox.Text);
 
-        private void Uninstall_Button(object sender, RoutedEventArgs e)
-        {
-            InstallerService.Uninstall();
-        }
+        private void Uninstall_Button(object sender, RoutedEventArgs e) => InstallerService.Uninstall();
+
+        private void Protocol_Button(object sender, RoutedEventArgs e) => InstallerService.ProtocolRegister();
 
         //Browsers Tab
         public void LoadSystemBrowserList()

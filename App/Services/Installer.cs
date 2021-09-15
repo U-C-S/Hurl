@@ -42,9 +42,9 @@ namespace Hurl.Services
         /// <summary>
         /// Installs the tool
         /// </summary>
-        public void Install(string InstallPath)
+        public void Install(string InstallPath, bool dontLog = false)
         {
-            log.Start("Install");
+            log.Start("Install", dontLog);
             Uninstall();
             log.Write("Removed the Traces of previous installation from Registry");
 
@@ -85,11 +85,12 @@ namespace Hurl.Services
 
                     key.CreateSubKey(@"shell\open\command").SetValue(null, $"\"{installLocation}\""); //change
 
-                    log.Write($"Added the Subkey: {key} to Registry");
+                    log.Write($"Added Registry Key at: {key}");
                 }
 
                 stage++;
-                HKCU.OpenSubKey(@"Software\RegisteredApplications", true).SetValue(MetaStrings.NAME, $"Software\\Clients\\StartMenuInternet\\{MetaStrings.NAME}\\Capabilities");
+                HKCU.OpenSubKey(@"Software\RegisteredApplications", true)
+                    .SetValue(MetaStrings.NAME, $"Software\\Clients\\StartMenuInternet\\{MetaStrings.NAME}\\Capabilities");
 
                 stage++;
                 using (RegistryKey key = HKCU.CreateSubKey(urlAssociate_Key))
@@ -97,20 +98,7 @@ namespace Hurl.Services
                     key.SetValue(null, $"{MetaStrings.NAME} URL");
                     key.CreateSubKey(@"shell\open\command").SetValue(null, $"\"{installLocation}\" \"%1\"");  //change
 
-                    log.Write($"Added the Subkey: {key} to Registry");
-                }
-
-                stage++;
-                // FOR PROTOCOL REGISTRING
-                if (IsAdministrator)
-                {
-                    string Name_lower = MetaStrings.NAME.ToLower();
-                    using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(Name_lower, true))
-                    {
-                        key.SetValue(null, $"URL:{Name_lower}");
-                        key.SetValue("URL Protocol", "");
-                        key.CreateSubKey(@"shell\open\command").SetValue(null, $"\"{installLocation}\" \"%1\"");  //change
-                    }
+                    log.Write($"Added Registry Key at: {key}");
                 }
 
                 log.Write("INSTALL SUCCESS");
@@ -137,6 +125,34 @@ namespace Hurl.Services
             HKCU.OpenSubKey(@"Software\RegisteredApplications", true).DeleteValue(MetaStrings.NAME, false);
 
             Registry.ClassesRoot.DeleteSubKeyTree(MetaStrings.NAME.ToLower(), false);
+        }
+
+        /// <summary>
+        /// To Register the Protocol
+        /// i.e here it registers `hurl://` which can be used by Extension
+        /// </summary>
+        public void ProtocolRegister(bool dontLog = false)
+        {
+            log.Start("Protocol Register: " + MetaStrings.NAME.ToLower() + "://", dontLog);
+            if (IsAdministrator)
+            {
+                log.Write("App is in Running Admin Mode");
+                string Name_lower = MetaStrings.NAME.ToLower();
+
+                using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(Name_lower, true))
+                {
+                    key.SetValue(null, $"URL:{Name_lower}");
+                    key.SetValue("URL Protocol", "");
+                    key.CreateSubKey(@"shell\open\command").SetValue(null, $"\"{installLocation}\" \"%1\"");  //change
+
+                    log.Write("Added Registry key: " + key.ToString());
+                }
+            }
+            else
+            {
+                log.Write("FAILED! Run the App in Adminstrator Mode to Register the Hurl Protocol");
+            }
+            log.Stop();
         }
 
         private void GetDefaultStatus()
