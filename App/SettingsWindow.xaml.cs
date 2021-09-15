@@ -28,30 +28,7 @@ namespace Hurl
                 DefaultInfo.Text = "Hurl is currently the default handler for http/https links";
                 DefaultSetButton.IsEnabled = false;
             }
-
-            //InstallPathTextBox.Text = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Hurl";
-            //if (InstallerService.isInstalled)
-            //{
-            //    InstallInfo.Text = "Hurl is already installed at the following Location.";
-            //    InstallButton.IsEnabled = false;
-            //}
         }
-
-        //Setup Tab
-        //private void InstallPathSelect(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        //{
-        //    var dialog = new FolderBrowserDialog
-        //    {
-        //        Description = "Select the Destination Folder where the Application Files and Settings will be Stored",
-        //        SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        //        ShowNewFolderButton = true
-        //    };
-        //    if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-        //    {
-        //        InstallPathTextBox.Text = dialog.SelectedPath;
-        //    }
-        //}
-        //private void Install_Button(object sender, RoutedEventArgs e) => InstallerService.Install(InstallPathTextBox.Text);
 
         //private void Uninstall_Button(object sender, RoutedEventArgs e) => InstallerService.Uninstall();
 

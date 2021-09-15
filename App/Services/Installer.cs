@@ -35,71 +35,9 @@ namespace Hurl.Services
         }
 
         /// <summary>
-        /// Installs the tool by -
-        /// Registering it directly into the Windows Registry
-        /// </summary>
-        public void Install(string InstallPath, bool dontLog = false)
-        {
-            Uninstall(true);
-
-            if (!InstallPath.Equals(""))
-            {
-                installLocation = InstallPath + "\\Hurl.exe";
-            }
-
-            int stage = 0;
-            //Add to registry code starts from here
-            try
-            {
-                stage = 1;
-                File.Copy(OpenedFrom, installLocation, true);
-
-                stage = 2;
-                using (RegistryKey key = HKCU.CreateSubKey(startMenuInternet_Key))
-                {
-                    key.SetValue(null, MetaStrings.NAME);
-
-                    using (RegistryKey Cap = key.CreateSubKey("Capabilities"))
-                    {
-                        Cap.SetValue("ApplicationName", MetaStrings.NAME);
-                        Cap.SetValue("ApplicationDescription", MetaStrings.DESCRIPTION);
-                        Cap.SetValue("ApplicationIcon", $"{installLocation},0"); //change
-
-                        RegistryKey sm = Cap.CreateSubKey("StartMenu");
-                        sm.SetValue("StartMenuInternet", MetaStrings.NAME);
-
-                        RegistryKey ua = Cap.CreateSubKey("URLAssociations");
-                        ua.SetValue("http", MetaStrings.URLAssociations);
-                        ua.SetValue("https", MetaStrings.URLAssociations);
-                    }
-
-                    key.CreateSubKey("DefaultIcon").SetValue(null, $"{installLocation},0"); //change
-
-                    key.CreateSubKey(@"shell\open\command").SetValue(null, $"\"{installLocation}\""); //change
-                }
-
-                stage++;
-                HKCU.OpenSubKey(@"Software\RegisteredApplications", true)
-                    .SetValue(MetaStrings.NAME, $"Software\\Clients\\StartMenuInternet\\{MetaStrings.NAME}\\Capabilities");
-
-                stage++;
-                using (RegistryKey key = HKCU.CreateSubKey(urlAssociate_Key))
-                {
-                    key.SetValue(null, $"{MetaStrings.NAME} URL");
-                    key.CreateSubKey(@"shell\open\command").SetValue(null, $"\"{installLocation}\" \"%1\"");  //change
-                }
-            }
-            catch (Exception err)
-            {
-                if (stage >= 1) File.Delete(installLocation);
-                if (stage >= 2) Uninstall();
-            }
-        }
-
-        /// <summary>
         /// For Uninstalling the software from Registry
         /// </summary>
-        public void Uninstall(bool dontLog = false)
+        public void Uninstall()
         {
             void RemoveNonAdminKeys()
             {
@@ -124,9 +62,6 @@ namespace Hurl.Services
             {
                 RemoveNonAdminKeys();
             }
-
-            //log.Stop();
-
         }
 
         /// <summary>
