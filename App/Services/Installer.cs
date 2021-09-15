@@ -18,6 +18,8 @@ namespace Hurl.Services
         public string installLocation;
         public bool isInstalled = false;
         public bool isDefault = false;
+        public bool hasProtocol = false;
+
         private Logger log;
 
         public Installer(TextBox LogBox)
@@ -37,15 +39,17 @@ namespace Hurl.Services
         {
             GetDefaultStatus();
             GetInstallationStatus();
+            GetProtocolStatus();
         }
 
         /// <summary>
-        /// Installs the tool
+        /// Installs the tool by -
+        /// Registering it directly into the Windows Registry
         /// </summary>
         public void Install(string InstallPath, bool dontLog = false)
         {
             log.Start("Install", dontLog);
-            Uninstall();
+            Uninstall(true);
             log.Write("Removed the Traces of previous installation from Registry");
 
             if (!InstallPath.Equals(""))
@@ -109,22 +113,53 @@ namespace Hurl.Services
                 if (stage >= 1) File.Delete(installLocation);
                 if (stage >= 2) Uninstall();
 
+                log.Write("Error at stage: " + stage);
                 log.Write(err.Message);
                 log.Stop();
-                //MessageBox.Show(err.Message);
             }
         }
 
         /// <summary>
         /// For Uninstalling the software from Registry
         /// </summary>
-        public void Uninstall()
+        public void Uninstall(bool dontLog = false)
         {
-            HKCU.DeleteSubKeyTree(startMenuInternet_Key, false);
-            HKCU.DeleteSubKeyTree(urlAssociate_Key, false);
-            HKCU.OpenSubKey(@"Software\RegisteredApplications", true).DeleteValue(MetaStrings.NAME, false);
+            log.Start("Uninstall", dontLog);
 
-            Registry.ClassesRoot.DeleteSubKeyTree(MetaStrings.NAME.ToLower(), false);
+            void RemoveNonAdminKeys()
+            {
+                HKCU.DeleteSubKeyTree(startMenuInternet_Key, false);
+                log.Write("Remove Registry Key: " + startMenuInternet_Key);
+
+                HKCU.DeleteSubKeyTree(urlAssociate_Key, false);
+                log.Write("Remove Registry Key: " + urlAssociate_Key);
+
+                HKCU.OpenSubKey(@"Software\RegisteredApplications", true).DeleteValue(MetaStrings.NAME, false);
+                log.Write("Unregistered the Application");
+            }
+
+            // Need to be in admin mode to remove protocol
+            if (hasProtocol)
+            {
+                if (IsAdministrator)
+                {
+                    RemoveNonAdminKeys();
+
+                    Registry.ClassesRoot.DeleteSubKeyTree(MetaStrings.NAME.ToLower(), false);
+                    log.Write("Unregistered the Application Protocol");
+                }
+                else
+                {
+                    log.Write("ERROR! Run the App in Adminstrator to uninstall");
+                }
+            }
+            else
+            {
+                RemoveNonAdminKeys();
+            }
+
+            //log.Stop();
+
         }
 
         /// <summary>
@@ -155,6 +190,20 @@ namespace Hurl.Services
             log.Stop();
         }
 
+        public void SetDefault()
+        {
+            if (isInstalled)
+            {
+                Registry.CurrentUser
+                    .OpenSubKey(@"Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice", true)
+                    .SetValue("ProgID", MetaStrings.URLAssociations);
+            }
+            else
+            {
+                //TODO
+            }
+        }
+
         private void GetDefaultStatus()
         {
             var httpDefaultKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice", false);
@@ -170,21 +219,12 @@ namespace Hurl.Services
             isInstalled = key1 != null && key2 != null;
         }
 
-        public void SetDefault()
+        private void GetProtocolStatus()
         {
-            if (isInstalled)
-            {
-                Registry.CurrentUser
-                    .OpenSubKey(@"Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice", true)
-                    .SetValue("ProgID", MetaStrings.URLAssociations);
-            }
-            else
-            {
-                //TODO
-            }
+            RegistryKey key = Registry.ClassesRoot.OpenSubKey(MetaStrings.NAME.ToLower());
+            hasProtocol = key != null;
         }
 
-        // Future: Maybe just dont register the protocol, instead of preventing the user from installing
         public static bool IsAdministrator
         {
             get
