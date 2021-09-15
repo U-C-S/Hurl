@@ -21,7 +21,7 @@ namespace Hurl
             InitializeComponent();
 
             LoadSystemBrowserList();
-            InstallerService = new Installer(LogTextBox);
+            InstallerService = new Installer();
             InstallPathTextBox.Text = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Hurl";
 
             if (InstallerService.isDefault)
@@ -30,7 +30,7 @@ namespace Hurl
                 DefaultSetButton.IsEnabled = false;
             }
 
-            if(InstallerService.isInstalled)
+            if (InstallerService.isInstalled)
             {
                 InstallInfo.Text = "Hurl is already installed at the following Location.";
                 InstallButton.IsEnabled = false;
