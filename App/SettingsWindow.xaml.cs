@@ -6,6 +6,8 @@ using System;
 using System.Security.Principal;
 using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Interop;
+using System.Windows.Media.Imaging;
 
 namespace Hurl
 {
@@ -51,16 +53,23 @@ namespace Hurl
             {
                 if (i.Name != null)
                 {
+                    var image = Imaging.CreateBitmapSourceFromHBitmap(i.GetIcon.ToBitmap().GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
                     var comp = new BrowserStatusComponent
                     {
                         BrowserName = i.Name,
                         BrowserPath = i.ExePath,
+                        Img = image,
                         EditEnabled = true,
                         BackColor = "#FFFFDAAD",
                         Margin = new Thickness(0, 4, 0, 0),
                     };
                     //comp.DeleteItem += DeleteBrowser;
                     _ = StackSystemBrowsers.Children.Add(comp);
+                }
+
+                if(i.GetIcon == null)
+                {
+                    System.Windows.Forms.MessageBox.Show("lol");
                 }
 
             }

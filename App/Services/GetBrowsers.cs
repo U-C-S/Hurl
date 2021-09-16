@@ -1,6 +1,8 @@
 ﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 
 namespace Hurl.Services
 {
@@ -25,10 +27,12 @@ namespace Hurl.Services
         {
             get
             {
-                string x = ExePath.Trim().Substring(1, ExePath.Length - 2);
-                return Icon.ExtractAssociatedIcon(x);
+                return IconExtractor.FromFile(ExePath.Substring(1, ExePath.Length - 2));
+                //string x = ExePath.Trim().Substring(1, ExePath.Length - 2);
+                //return Icon.ExtractAssociatedIcon(x);
             }
         }
+
     }
 
     public class GetBrowsers : List<BrowserObject>

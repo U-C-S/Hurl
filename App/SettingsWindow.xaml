@@ -63,7 +63,7 @@
             <TabItem Header="Browsers" Padding="5" Width="70">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Background="FloralWhite">
                     <StackPanel Margin="5">
-                        <Border CornerRadius="5" Padding="10,3,10,7"
+                        <Border CornerRadius="5" Padding="20,3,20,7"
 							    Background="AntiqueWhite" BorderBrush="Coral" BorderThickness="2">
                             <StackPanel>
                                 <Grid Height="30">
@@ -82,7 +82,7 @@
                             </Border.Effect>
                         </Border>
 
-                        <Border CornerRadius="5" Padding="10,3,10,7" Margin="0,15,0,0"
+                        <Border CornerRadius="5" Padding="20,3,20,7" Margin="0,15,0,0"
 							    Background="LightSeaGreen"  BorderBrush="Beige" BorderThickness="2">
                             <StackPanel>
                                 <Grid Height="30">

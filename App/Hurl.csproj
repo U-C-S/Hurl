@@ -85,6 +85,7 @@
     <Compile Include="Controls\BrowserStatusComponent.xaml.cs">
       <DependentUpon>BrowserStatusComponent.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\IconExtractor.cs" />
     <Compile Include="Services\Installer.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
