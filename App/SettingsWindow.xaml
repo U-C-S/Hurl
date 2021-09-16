@@ -27,25 +27,25 @@
                     <Grid>
                         <TextBlock Text="Hurl" FontFamily="Georgia" FontSize="32" FontStyle="Italic" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0" />
 
-                        <Border CornerRadius="5" Padding="5" Width="200" Height="100" Margin="0,0,350,12"
+                        <Border CornerRadius="5" Padding="5" Width="200" Height="95" Margin="0,0,350,12"
                                 VerticalAlignment="Bottom"
 							    Background="AntiqueWhite" BorderBrush="Black" BorderThickness="2">
                             <Grid>
-                                <TextBlock x:Name="DefaultInfo" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center">Hurl is currently not set as default application for http/https links handling.</TextBlock>
-                                <Button x:Name="DefaultSetButton"
-							            HorizontalAlignment="Center" VerticalAlignment="Bottom" Padding="10,5,10,5"
-							            Background="White" BorderBrush="Black" Click="SetAsDefualt">Set as Default</Button>
+                                <TextBlock x:Name="DefaultInfo" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center">You need to set hurl as default handler for http/https</TextBlock>
+                                <Button x:Name="DefaultSetButton" Click="SetAsDefualt"
+							            Width="120" Height="30" VerticalAlignment="Bottom"
+							            Background="Azure" BorderBrush="Black" >Set as Default</Button>
                             </Grid>
                         </Border>
 
-                        <Border CornerRadius="5" Padding="5" Width="200" Height="100" Margin="350,0,0,12"
+                        <Border CornerRadius="5" Padding="5" Width="200" Height="90" Margin="350,0,0,12"
                                 VerticalAlignment="Bottom"
 							    Background="AntiqueWhite" BorderBrush="Black" BorderThickness="2">
                             <Grid>
                                 <TextBlock x:Name="ProtocolInfo" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center">Useful for Extensions</TextBlock>
-                                <Button Content="Register Protocol" Click="Protocol_Button"
-							            Width="110" Height="30" Background="#FFF0EC5E" Foreground="Black" 
-							            VerticalAlignment="Bottom"/>
+                                <Button x:Name="ProtocolSetButton" Click="Protocol_Button"
+							            Width="120" Height="30" VerticalAlignment="Bottom"
+                                        Background="Azure" BorderBrush="Black">Register Protocol</Button>
                             </Grid>
                         </Border>
                     </Grid>

@@ -19,14 +19,20 @@ namespace Hurl
         public SettingsWindow()
         {
             InitializeComponent();
-
             LoadSystemBrowserList();
+
             InstallerService = new Installer();
 
             if (InstallerService.isDefault)
             {
                 DefaultInfo.Text = "Hurl is currently the default handler for http/https links";
                 DefaultSetButton.IsEnabled = false;
+            }
+
+            if (InstallerService.hasProtocol)
+            {
+                ProtocolInfo.Text = "Protocol is installed and Avaliable through hurl://";
+                ProtocolSetButton.IsEnabled = false;
             }
         }
 
