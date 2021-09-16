@@ -35,36 +35,6 @@ namespace Hurl.Services
         }
 
         /// <summary>
-        /// For Uninstalling the software from Registry
-        /// </summary>
-        public void Uninstall()
-        {
-            void RemoveNonAdminKeys()
-            {
-                HKCU.DeleteSubKeyTree(startMenuInternet_Key, false);
-
-                HKCU.DeleteSubKeyTree(urlAssociate_Key, false);
-
-                HKCU.OpenSubKey(@"Software\RegisteredApplications", true).DeleteValue(MetaStrings.NAME, false);
-            }
-
-            // Need to be in admin mode to remove protocol
-            if (hasProtocol)
-            {
-                if (IsAdministrator)
-                {
-                    RemoveNonAdminKeys();
-
-                    Registry.ClassesRoot.DeleteSubKeyTree(MetaStrings.NAME.ToLower(), false);
-                }
-            }
-            else
-            {
-                RemoveNonAdminKeys();
-            }
-        }
-
-        /// <summary>
         /// To Register the Protocol
         /// i.e here it registers `hurl://` which can be used by Extension
         /// </summary>
