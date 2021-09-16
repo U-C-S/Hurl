@@ -9,48 +9,35 @@ namespace Hurl.Services
     /// <summary>
     /// Store all info about a browser
     /// </summary>
-    /// <param name="Name">Browser Name</param>
-    /// <param name="ExePath">The location of the Executable</param>
     public class BrowserObject
     {
         public string Name;
         public string ExePath;
+        public BrowserSourceType SourceType;
+        public Icon GetIcon => IconExtractor.FromFile(ExePath.Substring(1, ExePath.Length - 2));
         //private string IncognitoArg = null;
+    }
 
-        public BrowserObject(string Name, string ExePath)
-        {
-            this.Name = Name;
-            this.ExePath = ExePath;
-        }
+    public enum BrowserSourceType
+    {
+        Registry,
+        User
+    }
 
-        public Icon GetIcon
-        {
-            get
-            {
-                return IconExtractor.FromFile(ExePath.Substring(1, ExePath.Length - 2));
-                //string x = ExePath.Trim().Substring(1, ExePath.Length - 2);
-                //return Icon.ExtractAssociatedIcon(x);
-            }
-        }
+    public class BrowsersList : List<BrowserObject>
+    {
 
     }
 
-    public class GetBrowsers : List<BrowserObject>
+    public class GetBrowsers
     {
-        public GetBrowsers(List<BrowserObject> browsers)
+        public static BrowsersList FromRegistry()
         {
-
-        }
-
-        public GetBrowsers() { }
-
-        public static GetBrowsers InitalGetList()
-        {
-            GetBrowsers browsers;
+            BrowsersList browsers;
 
             using (RegistryKey key = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Clients\\StartMenuInternet"))
             {
-                browsers = new GetBrowsers();
+                browsers = new BrowsersList();
                 string[] x = key.GetSubKeyNames();
                 for (int i = 0; i < x.Length; i++)
                 {
@@ -79,7 +66,12 @@ namespace Hurl.Services
 
                     if (name != null & exepath != null)
                     {
-                        BrowserObject b = new BrowserObject(name, exepath);
+                        BrowserObject b = new BrowserObject()
+                        {
+                            Name = name,
+                            ExePath = exepath,
+                            SourceType = BrowserSourceType.Registry,
+                        };
                         browsers.Add(b);
                     }
                 }
@@ -87,6 +79,11 @@ namespace Hurl.Services
 
             return browsers;
         }
+
+        //public static BrowsersList FromSettings()
+        //{
+
+        //}
     }
 
 }

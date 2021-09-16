@@ -47,7 +47,7 @@ namespace Hurl
         //Browsers Tab
         public void LoadSystemBrowserList()
         {
-            GetBrowsers x = GetBrowsers.InitalGetList();
+            BrowsersList x = GetBrowsers.FromRegistry();
 
             foreach (BrowserObject i in x)
             {
@@ -81,6 +81,12 @@ namespace Hurl
             BrowserForm f = new BrowserForm();
             if (f.ShowDialog() == true)
             {
+                BrowserObject newBrowser = new BrowserObject()
+                {
+                    Name = f.BrowserName,
+                    ExePath = f.BrowserPath,
+                    SourceType = BrowserSourceType.User,
+                };
                 var comp = new BrowserStatusComponent
                 {
                     BrowserName = f.BrowserName,

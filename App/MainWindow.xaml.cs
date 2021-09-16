@@ -51,7 +51,7 @@ namespace Hurl
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            GetBrowsers x = GetBrowsers.InitalGetList();
+            BrowsersList x = GetBrowsers.FromRegistry();
             foreach (BrowserObject i in x)
             {
                 if (i.Name != null)
