@@ -55,6 +55,7 @@ namespace Hurl.Services
             }
             catch (Exception ex)
             {
+                //TODO: On error, use a default icon
                 MessageBox.Show(ex.ToString());
                 return null;
             }

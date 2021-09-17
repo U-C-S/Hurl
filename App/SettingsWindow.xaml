@@ -10,7 +10,7 @@
         <Border BorderBrush="#de6262" BorderThickness="2"
 				VerticalAlignment="Top" HorizontalAlignment="Right" 
                 Height="24" Padding="10,3" Margin="0,2,10,0">
-            <TextBlock Text="v0.2-alpha"  FontFamily="Calibri"/>
+            <TextBlock Text="v0.2-beta"  FontFamily="Calibri"/>
         </Border>
 
         <TabControl>

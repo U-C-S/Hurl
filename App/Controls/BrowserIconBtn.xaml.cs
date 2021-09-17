@@ -28,15 +28,6 @@ namespace Hurl.Controls
             DataContext = this;
         }
 
-        //public BrowserObject BrowserData
-        //{
-        //    set
-        //    {
-        //        BrowserName = value.Name;
-        //        BrowserIcon = value.GetIcon;
-        //        ExePath = value.ExePath;
-        //    }
-        //}
         public string BrowserName { get; set; } = "null";
         public ImageSource BrowserIcon { get; set; }
         public string ExePath { get; set; }

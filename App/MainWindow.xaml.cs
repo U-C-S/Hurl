@@ -65,10 +65,21 @@ namespace Hurl
                         URL = OpenedLink
                     };
 
+                    var separator = new System.Windows.Shapes.Rectangle()
+                    {
+                        Width = 1,
+                        Height = 40,
+                        Margin = new Thickness(3, 0, 3, 20),
+                        Fill = System.Windows.Media.Brushes.AliceBlue
+                    };
+
                     _ = stacky.Children.Add(browserUC);
+                    _ = stacky.Children.Add(separator);
                 }
 
             }
+
+            stacky.Children.RemoveAt(stacky.Children.Count - 1);
         }
 
         private void Incognito_Click(object sender, RoutedEventArgs e)
