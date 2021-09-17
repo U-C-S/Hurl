@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="128" align="center" src="Utils/internet.ico">
+  <img width="128" align="center" src="App/internet.ico">
 </p>
 <h1 align="center">
   Hurl
@@ -24,23 +24,24 @@
 
 ## What is Hurl and why am I making it?
 
-The **Default Browser War** in Windows Platform is one of the reasons for creation of Hurl. Hurl is used to let you choose the browser everytime you click a link (links outside of browser). So naturally, It acts as default browser to do that. And hurl can be powered up with a *browser extension* to let you open a browser tab in another browser. 
+The **Default Browser War** in Windows is one of the reasons for creation of Hurl or Sometimes you might need to open a link in a browser of your choice, instead of the default one. Hurl is used to let you choose the browser everytime you click a link (links outside of browser). So naturally, It acts as default browser to do that. And hurl can be powered up with a _browser extension_ to let you open a browser tab in another browser.
 
-* Fast startup and lightweight.
-* Custom browsers support.
-* Web Extension to open browser tabs in Hurl.
+- Fast startup and lightweight.
+- Custom browsers support.
+- Web Extension to open browser tabs in Hurl.
 
 <p align="center">******* 📣 Hurl is still under active development *******</p>
 
 ## Dependencies and Tools:
-* [Visual Studio 2022](https://visualstudio.microsoft.com/vs/preview/)
-* [Windows Presentation Foundation](https://docs.microsoft.com/en-us/visualstudio/designers/getting-started-with-wpf?view=vs-2022) - .NET Framework 4.8
-* [C#](https://dotnet.microsoft.com/languages/csharp)
-* [Inno Setup](https://jrsoftware.org/isinfo.php)
 
+- [Visual Studio 2022](https://visualstudio.microsoft.com/vs/preview/)
+- [Windows Presentation Foundation](https://docs.microsoft.com/en-us/visualstudio/designers/getting-started-with-wpf?view=vs-2022) - .NET Framework 4.8
+- [C#](https://dotnet.microsoft.com/languages/csharp)
+- [Inno Setup](https://jrsoftware.org/isinfo.php)
 
 ## Contributing
 
 Hurl is free and open source, if you like my work, please consider:
-  * Star this project
-  * Contributing....
+
+- Starring this project
+- Contributing....

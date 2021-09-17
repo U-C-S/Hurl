@@ -15,7 +15,7 @@ AppPublisherURL="https://github.com/U-C-S/Hurl"
 AppSupportURL="https://github.com/U-C-S/Hurl/issues"
 AppUpdatesURL="https://github.com/U-C-S/Hurl/releases"
 AppReadmeFile="https://github.com/U-C-S/Hurl#README"
-SetupIconFile=.\internet.ico
+SetupIconFile=..\App\internet.ico
 LicenseFile=..\LICENSE
 
 UsePreviousAppDir=yes
