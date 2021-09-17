@@ -53,12 +53,11 @@ namespace Hurl
             {
                 if (i.Name != null)
                 {
-                    var image = Imaging.CreateBitmapSourceFromHBitmap(i.GetIcon.ToBitmap().GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
                     var comp = new BrowserStatusComponent
                     {
                         BrowserName = i.Name,
                         BrowserPath = i.ExePath,
-                        Img = image,
+                        Img = i.GetIcon,
                         EditEnabled = true,
                         BackColor = "#FFFFDAAD",
                         Margin = new Thickness(0, 4, 0, 0),
@@ -94,6 +93,7 @@ namespace Hurl
                     EditEnabled = true,
                     BackColor = "#FFFFDAAD",
                     Margin = new Thickness(0, 4, 0, 0),
+                    Img = newBrowser.GetIcon,
                 };
                 StackUserBrowsers.Children.Add(comp);
 

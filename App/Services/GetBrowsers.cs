@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
+using System.Windows.Media;
 
 namespace Hurl.Services
 {
@@ -11,10 +11,20 @@ namespace Hurl.Services
     /// </summary>
     public class BrowserObject
     {
-        public string Name;
-        public string ExePath;
-        public BrowserSourceType SourceType;
-        public Icon GetIcon => IconExtractor.FromFile(ExePath.Substring(1, ExePath.Length - 2));
+        public string Name { get; set; }
+        public string ExePath { get; set; }
+        public BrowserSourceType SourceType { get; set; }
+        public ImageSource GetIcon
+        {
+            get
+            {
+                Icon x = ExePath.StartsWith('"'.ToString())
+                    ? IconExtractor.FromFile(ExePath.Substring(1, ExePath.Length - 2))
+                    : IconExtractor.FromFile(ExePath);
+
+                return IconUtilites.ToImageSource(x);
+            }
+        }
         //private string IncognitoArg = null;
     }
 
