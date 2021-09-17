@@ -3,11 +3,9 @@ using Hurl.Controls;
 using Hurl.Services;
 using Hurl.Views;
 using System;
+using System.Diagnostics;
 using System.Security.Principal;
 using System.Windows;
-using System.Windows.Forms;
-using System.Windows.Interop;
-using System.Windows.Media.Imaging;
 
 namespace Hurl
 {
@@ -104,6 +102,17 @@ namespace Hurl
         {
             StackSystemBrowsers.Children.Clear();
             LoadSystemBrowserList();
+        }
+
+        private void LaunchDebugHurlBtn(object sender, RoutedEventArgs e)
+        {
+            Process.Start(MetaStrings.APP_LAUNCH_PATH,URLBox.Text);
+        }
+
+        private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+            e.Handled = true;
         }
     }
 }

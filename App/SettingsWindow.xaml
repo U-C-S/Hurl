@@ -25,40 +25,31 @@
                         </Rectangle.Fill>
                     </Rectangle>
                     <Grid>
-                        <TextBlock Text="Hurl" FontFamily="Georgia" FontSize="32" FontStyle="Italic" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0" />
-
-                        <Border CornerRadius="5" Padding="5" Width="200" Height="95" Margin="0,0,350,12"
-                                VerticalAlignment="Bottom"
-							    Background="AntiqueWhite" BorderBrush="Black" BorderThickness="2">
-                            <Grid>
-                                <TextBlock x:Name="DefaultInfo" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center">You need to set hurl as default handler for http/https</TextBlock>
-                                <Button x:Name="DefaultSetButton" Click="SetAsDefualt"
-							            Width="120" Height="30" VerticalAlignment="Bottom"
-							            Background="Azure" BorderBrush="Black" >Set as Default</Button>
-                            </Grid>
-                        </Border>
-
-                        <Border CornerRadius="5" Padding="5" Width="200" Height="90" Margin="350,0,0,12"
-                                VerticalAlignment="Bottom"
-							    Background="AntiqueWhite" BorderBrush="Black" BorderThickness="2">
-                            <Grid>
-                                <TextBlock x:Name="ProtocolInfo" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center">Useful for Extensions</TextBlock>
-                                <Button x:Name="ProtocolSetButton" Click="Protocol_Button"
-							            Width="120" Height="30" VerticalAlignment="Bottom"
-                                        Background="Azure" BorderBrush="Black">Register Protocol</Button>
-                            </Grid>
+                        <Border HorizontalAlignment="Center" VerticalAlignment="Center" Width="255" Padding="15"
+                                CornerRadius="10" Background="#99F0F8FF">
+                            <StackPanel>
+                                <Grid>
+                                    <Image Source="/Images/internet128.png" 
+                                           Height="64" Width="64" HorizontalAlignment="Left" Margin="15,0"/>
+                                    <TextBlock Text="Hurl" FontFamily="Georgia" FontSize="48" FontStyle="Italic" 
+                                               HorizontalAlignment="Right" VerticalAlignment="Center" Margin="15,0" />
+                                </Grid>
+                                <Separator Background="Black" Height="2" Margin="10,5"/>
+                                <TextBlock FontSize="14" TextWrapping="Wrap" TextAlignment="Center">A utility that lets you choose the browser on the click of a link</TextBlock>
+                            </StackPanel>
                         </Border>
                     </Grid>
+                    <TextBlock VerticalAlignment="Bottom">
+                        <Hyperlink NavigateUri="https://github.com/U-C-S/Hurl" Foreground="Black" RequestNavigate="Hyperlink_RequestNavigate">
+                            Source Code
+                        </Hyperlink>
+                        <LineBreak />
+                        <Hyperlink NavigateUri="https://github.com/U-C-S/Hurl/issues" Foreground="Black" RequestNavigate="Hyperlink_RequestNavigate">
+                            Report an Issue
+                        </Hyperlink>
+                    </TextBlock>
                 </Grid>
             </TabItem>
-
-            <!--<TabItem Header="Setup" Padding="5" Width="70">
-                <Grid>
-                    <Button Content="Uninstall" Click="Uninstall_Button"
-						    Width="80" Height="30" Background="#FFF05E5E" Foreground="White" 
-						    Grid.Row="4" Grid.Column="2" VerticalAlignment="Bottom"/>
-                </Grid>
-		    </TabItem>-->
 
             <TabItem Header="Browsers" Padding="5" Width="70">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Background="FloralWhite">
@@ -104,8 +95,38 @@
             </TabItem>
 
             <TabItem Header="Debug" Padding="5" Width="70">
-                <StackPanel>
-                    <DataGrid Height="200"/>
+                <StackPanel Background="Azure">
+                    <Grid Height="90" Margin="0,10">
+                        <Border CornerRadius="5" Padding="5" Width="200" HorizontalAlignment="Left" Margin="30,0"
+							    Background="AntiqueWhite" BorderBrush="Black" BorderThickness="1">
+                            <Grid>
+                                <TextBlock x:Name="DefaultInfo" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center">You need to set hurl as default handler for http/https</TextBlock>
+                                <Button x:Name="DefaultSetButton" Click="SetAsDefualt"
+							            Width="120" Height="30" VerticalAlignment="Bottom"
+							            Background="Azure" BorderBrush="Black" >Set as Default</Button>
+                            </Grid>
+                        </Border>
+
+                        <Border CornerRadius="5" Padding="5" Width="200" HorizontalAlignment="Right" Margin="30,0"
+							    Background="AntiqueWhite" BorderBrush="Black" BorderThickness="1">
+                            <Grid>
+                                <TextBlock x:Name="ProtocolInfo" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center">Useful for Extensions</TextBlock>
+                                <Button x:Name="ProtocolSetButton" Click="Protocol_Button"
+							            Width="120" Height="30" VerticalAlignment="Bottom"
+                                        Background="Azure" BorderBrush="Black">Register Protocol</Button>
+                            </Grid>
+                        </Border>
+                    </Grid>
+
+                    <Border CornerRadius="5" BorderThickness="1" Background="AntiqueWhite" Height="36" HorizontalAlignment="Center" BorderBrush="Black">
+                        <StackPanel  Orientation="Horizontal" >
+                            <TextBox x:Name="URLBox" 
+								 Width="320" Height="24" Padding="2" Margin="10,0,0,0" />
+                            <Button x:Name="InstallButton" Content="Launch URL" 
+								    Click="LaunchDebugHurlBtn" 
+								    Width="90" Height="24" Margin="10,0,10,0" Background="Azure"/>
+                        </StackPanel>
+                    </Border>
                 </StackPanel>
             </TabItem>
         </TabControl>
