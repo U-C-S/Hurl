@@ -25,6 +25,9 @@ namespace Hurl.Services
                 return IconUtilites.ToImageSource(x);
             }
         }
+
+        public bool Hidden { get; set; } = false;
+        public string[] Arguments { get; set; }
         //private string IncognitoArg = null;
     }
 
@@ -51,35 +54,26 @@ namespace Hurl.Services
                 string[] x = key.GetSubKeyNames();
                 for (int i = 0; i < x.Length; i++)
                 {
-                    //Console.WriteLine(x[i]);
-                    string name = null;
-                    string exepath = null;
+                    string Name = null;
+                    string ExePath = null;
                     using (RegistryKey subkey = key.OpenSubKey(x[i] + "\\Capabilities"))
                     {
                         if (subkey != null)
                         {
-                            object y = subkey.GetValue("ApplicationName");
-                            name = y.ToString();
-                            //Console.WriteLine($"{i}. {name}");
+                            string path = subkey.GetValue("ApplicationIcon").ToString();
+                            char comma = ',';
+
+                            ExePath = path.Split(comma)[0];
+                            Name = subkey.GetValue("ApplicationName").ToString();
                         }
                     }
 
-                    using (RegistryKey subkey = key.OpenSubKey(x[i] + "\\shell\\open\\command"))
-                    {
-                        if (subkey != null)
-                        {
-                            object y = subkey.GetValue(null); //to get (Default) value
-                            exepath = y.ToString();
-                            //Console.WriteLine("-- " + exepath);
-                        }
-                    }
-
-                    if (name != null & exepath != null)
+                    if (Name != null & ExePath != null)
                     {
                         BrowserObject b = new BrowserObject()
                         {
-                            Name = name,
-                            ExePath = exepath,
+                            Name = Name,
+                            ExePath = ExePath,
                             SourceType = BrowserSourceType.Registry,
                         };
                         browsers.Add(b);
