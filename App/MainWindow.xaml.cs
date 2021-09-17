@@ -1,4 +1,5 @@
-﻿using Hurl.Services;
+﻿using Hurl.Controls;
+using Hurl.Services;
 using System;
 using System.Configuration;
 using System.Diagnostics;
@@ -56,40 +57,17 @@ namespace Hurl
             {
                 if (i.Name != null)
                 {
-                    Button button = new Button()
+                    BrowserIconBtn browserUC = new BrowserIconBtn()
                     {
-                        Padding = new Thickness(5),
-                        Margin = new Thickness(20, 5, 20, 0),
-                        Content = i.Name,
-                        Tag = i.ExePath,
-                        ContextMenu = FindResource("extraOptions") as ContextMenu,
-                        Style = (Style)FindResource("BrowserBtnStyle"),
+                        BrowserName = i.Name,
+                        BrowserIcon = i.GetIcon,
+                        ExePath = i.ExePath,
+                        URL = OpenedLink
                     };
 
-                    button.Click += BroClick;
-                    /*
-                    Bitmap bi = i.GetIcon.ToBitmap();
-                    bi.MakeTransparent();
-                    var im = new System.Windows.Controls.Image()
-                    {
-                        Width = 70,
-                        Height = 70,
-                        Source = BitmapToImageSource(bi)
-                    };
-                    */
-                    stacky.Children.Add(button);
-                    //stacky.Children.Add(button);
+                    _ = stacky.Children.Add(browserUC);
                 }
 
-            }
-        }
-
-        private void BroClick(object sender, RoutedEventArgs e)
-        {
-            if (OpenedLink != null)
-            {
-                string path = (sender as Button).Tag.ToString();
-                _ = Process.Start(path, OpenedLink);
             }
         }
 

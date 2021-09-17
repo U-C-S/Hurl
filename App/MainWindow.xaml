@@ -3,7 +3,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:local="clr-namespace:Hurl" mc:Ignorable="d" 
         ResizeMode="NoResize" Topmost="True" WindowStyle="None" WindowStartupLocation="CenterScreen" 
-        Title="Hurl - Select a Browser" Width="320" Height="210" AllowsTransparency="True" Background="{x:Null}"  
+        Title="Hurl - Select a Browser" Width="400" Height="210" AllowsTransparency="True" Background="{x:Null}"  
         Loaded="Window_Loaded" Deactivated="Window_Deactivated" KeyDown="Window_Esc">
     <Window.Resources>
         <ContextMenu x:Key="extraOptions">
@@ -40,7 +40,7 @@
                             FontSize="10">Copy Link</Button>
                 </Grid>
                 
-                <StackPanel x:Name="stacky" Background="#FFE02B47" Grid.Row="1" />
+                <StackPanel x:Name="stacky" Background="#FFE02B47" Grid.Row="1" Orientation="Horizontal" />
                 <TextBlock x:Name="linkpreview" 
                            Padding="2,6,2,3" Grid.Row="2"
                            TextAlignment="Center" FontSize="10" FontFamily="Calibri">No Link Opened</TextBlock>
