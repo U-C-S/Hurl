@@ -1,4 +1,4 @@
-/// <reference path="../../node_modules/@types/chrome/index.d.ts"/>
+/// <reference path="../node_modules/@types/chrome/index.d.ts"/>
 
 // chrome.runtime.onInstalled.addListener(async () => {
 //   let url = "hurl://";

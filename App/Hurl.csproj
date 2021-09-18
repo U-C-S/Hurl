@@ -85,6 +85,7 @@
     <Compile Include="Controls\BrowserStatusComponent.xaml.cs">
       <DependentUpon>BrowserStatusComponent.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\IconExtractor.cs" />
     <Compile Include="Services\Installer.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -93,8 +94,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Services\Logger.cs" />
-    <Compile Include="Services\SettingsStore.cs" />
     <Compile Include="Views\BrowserForm.xaml.cs">
       <DependentUpon>BrowserForm.xaml</DependentUpon>
     </Compile>

@@ -1,181 +1,104 @@
 ﻿using Hurl.Constants;
 using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Forms;
-using TextBox = System.Windows.Controls.TextBox;
+using System.Windows;
 
 namespace Hurl.Services
 {
     public class Installer
     {
         public string installLocation;
-        public bool isInstalled = false;
-        public bool isDefault = false;
-        private Logger log;
 
-        public Installer(TextBox LogBox)
+        public Installer()
         {
-            log = new Logger(LogBox);
-            Initialize();
+            installLocation = IsInstalled();
         }
 
-        public Installer() { Initialize(); }
-
-        private RegistryKey HKCU = Registry.CurrentUser;
-        private readonly string startMenuInternet_Key = @"Software\Clients\StartMenuInternet\" + MetaStrings.NAME;
-        private readonly string urlAssociate_Key = @"Software\Classes\" + MetaStrings.URLAssociations;
-        private readonly string OpenedFrom = Environment.GetCommandLineArgs()[0];
-
-        private void Initialize()
+        public bool IsDefault
         {
-            GetDefaultStatus();
-            GetInstallationStatus();
-        }
-
-        /// <summary>
-        /// Installs the tool
-        /// </summary>
-        public void Install(string InstallPath)
-        {
-            log.Start("Install");
-            Uninstall();
-            log.Write("Removed the Traces of previous installation from Registry");
-
-            if (!InstallPath.Equals(""))
+            get
             {
-                installLocation = InstallPath + "\\Hurl.exe";
-                log.Write("Installation location: " + installLocation);
-            }
+                var httpDefaultKey = Registry.CurrentUser
+                    .OpenSubKey(@"Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice", false)
+                    .GetValue("ProgID");
 
-            int stage = 0;
-            //Add to registry code starts from here
-            try
-            {
-                stage = 1;
-                File.Copy(OpenedFrom, installLocation, true);
-                log.Write($"Copied file from {OpenedFrom} to install Location.");
-
-                stage = 2;
-                using (RegistryKey key = HKCU.CreateSubKey(startMenuInternet_Key))
-                {
-                    key.SetValue(null, MetaStrings.NAME);
-
-                    using (RegistryKey Cap = key.CreateSubKey("Capabilities"))
-                    {
-                        Cap.SetValue("ApplicationName", MetaStrings.NAME);
-                        Cap.SetValue("ApplicationDescription", MetaStrings.DESCRIPTION);
-                        Cap.SetValue("ApplicationIcon", $"{installLocation},0"); //change
-
-                        RegistryKey sm = Cap.CreateSubKey("StartMenu");
-                        sm.SetValue("StartMenuInternet", MetaStrings.NAME);
-
-                        RegistryKey ua = Cap.CreateSubKey("URLAssociations");
-                        ua.SetValue("http", MetaStrings.URLAssociations);
-                        ua.SetValue("https", MetaStrings.URLAssociations);
-                    }
-
-                    key.CreateSubKey("DefaultIcon").SetValue(null, $"{installLocation},0"); //change
-
-                    key.CreateSubKey(@"shell\open\command").SetValue(null, $"\"{installLocation}\""); //change
-
-                    log.Write($"Added the Subkey: {key} to Registry");
-                }
-
-                stage++;
-                HKCU.OpenSubKey(@"Software\RegisteredApplications", true).SetValue(MetaStrings.NAME, $"Software\\Clients\\StartMenuInternet\\{MetaStrings.NAME}\\Capabilities");
-
-                stage++;
-                using (RegistryKey key = HKCU.CreateSubKey(urlAssociate_Key))
-                {
-                    key.SetValue(null, $"{MetaStrings.NAME} URL");
-                    key.CreateSubKey(@"shell\open\command").SetValue(null, $"\"{installLocation}\" \"%1\"");  //change
-
-                    log.Write($"Added the Subkey: {key} to Registry");
-                }
-
-                stage++;
-                // FOR PROTOCOL REGISTRING
-                if (IsAdministrator)
-                {
-                    string Name_lower = MetaStrings.NAME.ToLower();
-                    using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(Name_lower, true))
-                    {
-                        key.SetValue(null, $"URL:{Name_lower}");
-                        key.SetValue("URL Protocol", "");
-                        key.CreateSubKey(@"shell\open\command").SetValue(null, $"\"{installLocation}\" \"%1\"");  //change
-                    }
-                }
-
-                log.Write("INSTALL SUCCESS");
-                log.Stop();
-            }
-            catch (Exception err)
-            {
-                if (stage >= 1) File.Delete(installLocation);
-                if (stage >= 2) Uninstall();
-
-                log.Write(err.Message);
-                log.Stop();
-                //MessageBox.Show(err.Message);
+                return httpDefaultKey.Equals(MetaStrings.URLAssociations);
             }
         }
 
-        /// <summary>
-        /// For Uninstalling the software from Registry
-        /// </summary>
-        public void Uninstall()
+        private string IsInstalled()
         {
-            HKCU.DeleteSubKeyTree(startMenuInternet_Key, false);
-            HKCU.DeleteSubKeyTree(urlAssociate_Key, false);
-            HKCU.OpenSubKey(@"Software\RegisteredApplications", true).DeleteValue(MetaStrings.NAME, false);
+            string startMenuInternet_Key = @"Software\Clients\StartMenuInternet\" + MetaStrings.NAME + @"\Capabilities";
+            string urlAssociate_Key = @"Software\Classes\" + MetaStrings.URLAssociations;
 
-            Registry.ClassesRoot.DeleteSubKeyTree(MetaStrings.NAME.ToLower(), false);
-        }
-
-        private void GetDefaultStatus()
-        {
-            var httpDefaultKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice", false);
-            var Default = httpDefaultKey.GetValue("ProgID");
-            isDefault = Default.Equals(MetaStrings.URLAssociations);
-        }
-
-        private void GetInstallationStatus()
-        {
-            var key1 = Registry.CurrentUser.OpenSubKey(startMenuInternet_Key);
+            var key1 = Registry.CurrentUser.OpenSubKey(startMenuInternet_Key).GetValue("ApplicationIcon");
             var key2 = Registry.CurrentUser.OpenSubKey(urlAssociate_Key);
 
-            isInstalled = key1 != null && key2 != null;
-        }
-
-        public void SetDefault()
-        {
-            if (isInstalled)
-            {
-                Registry.CurrentUser
-                    .OpenSubKey(@"Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice", true)
-                    .SetValue("ProgID", MetaStrings.URLAssociations);
-            }
+            if (key1 != null && key2 != null)
+                return key1.ToString().Split(',')[0];
             else
+                return null;
+
+        }
+
+        public bool HasProtocol
+        {
+            get
             {
-                //TODO
+                RegistryKey key = Registry.ClassesRoot.OpenSubKey(MetaStrings.NAME.ToLower());
+                return key != null;
             }
         }
 
-        // Future: Maybe just dont register the protocol, instead of preventing the user from installing
-        public static bool IsAdministrator
+        public bool IsAdministrator
         {
             get
             {
                 var identity = WindowsIdentity.GetCurrent();
                 var principal = new WindowsPrincipal(identity);
                 return principal.IsInRole(WindowsBuiltInRole.Administrator);
+            }
+        }
+
+        /// <summary>
+        /// To Register the Protocol
+        /// i.e here it registers `hurl://` which can be used by Extension
+        /// </summary>
+        public bool ProtocolRegister()
+        {
+            if (IsAdministrator)
+            {
+                string Name_lower = MetaStrings.NAME.ToLower();
+
+                using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(Name_lower, true))
+                {
+                    key.SetValue(null, $"URL:{Name_lower}");
+                    key.SetValue("URL Protocol", "");
+                    key.CreateSubKey(@"shell\open\command").SetValue(null, $"\"{installLocation}\" \"%1\"");  //change
+                }
+                return true;
+            }
+            else
+            {
+                _ = MessageBox.Show("Run the App as Adminstrator");
+                return false;
+            }
+        }
+
+        public bool SetDefault()
+        {
+            if (installLocation != null)
+            {
+                Registry.CurrentUser
+                    .OpenSubKey(@"Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice", true)
+                    .SetValue("ProgID", MetaStrings.URLAssociations);
+                return true;
+            }
+            else
+            {
+                MessageBox.Show("Hurl is not even Installed");
+                return false;
             }
         }
     }

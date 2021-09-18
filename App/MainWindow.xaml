@@ -3,48 +3,44 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:local="clr-namespace:Hurl" mc:Ignorable="d" 
         ResizeMode="NoResize" Topmost="True" WindowStyle="None" WindowStartupLocation="CenterScreen" 
-        Title="Hurl - Select a Browser" Width="320" Height="210" AllowsTransparency="True" Background="{x:Null}"  
+        Title="Hurl - Select a Browser" Width="420" Height="210" AllowsTransparency="True" Background="{x:Null}"  
         Loaded="Window_Loaded" Deactivated="Window_Deactivated" KeyDown="Window_Esc">
-    <Window.Resources>
-        <ContextMenu x:Key="extraOptions">
-            <MenuItem Header="Incognito" Click="Incognito_Click" />
-            <Separator />
-            <MenuItem Header="Profile" />
-        </ContextMenu>
-
-        <Style x:Key="BrowserBtnStyle" TargetType="Button">
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="Background" Value="White" />
-            <Setter Property="BorderBrush" Value="Black" />
-            <Setter Property="BorderThickness" Value="1" />
-        </Style>
-    </Window.Resources>
-
-    <Border Background="AliceBlue" CornerRadius="15">
-        <Grid>
+    <Grid>
+        <Grid.OpacityMask>
+            <VisualBrush Visual="{Binding ElementName=Border1}" />
+        </Grid.OpacityMask>
+        <Border x:Name="Border1" CornerRadius="15" Panel.ZIndex="2" BorderThickness="1" BorderBrush="Black">
+            <Border.Background>
+                <LinearGradientBrush  StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="#de6262"/>
+                    <GradientStop Color="#ffb88c" Offset="0.95"/>
+                </LinearGradientBrush>
+            </Border.Background>
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="25" />
+                    <RowDefinition Height="28" />
                     <RowDefinition Height="1*" />
                     <RowDefinition Height="25" />
                 </Grid.RowDefinitions>
 
                 <Grid>
-                    <TextBlock x:Name="header" 
-                               Padding="15,3,0,0" FontSize="14" Foreground="#FFE02B47">Select a Browser</TextBlock>
+                    <TextBlock x:Name="header" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="18,0"
+                               FontSize="14" Foreground="AliceBlue">Select a Browser</TextBlock>
                     <Button HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,18,0" 
-                            Padding="5,2,5,2" BorderBrush="Black" Background="White"
+                            Padding="5,2" BorderBrush="{x:Null}" Background="AliceBlue"
                             FontSize="10" Click="OpenSettings">Settings</Button>
                     <Button HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,72,0" 
-                            Click="LinkCopyBtn" Padding="5,2,5,2" BorderBrush="Black" Background="White"
+                            Click="LinkCopyBtn" Padding="5,2" BorderBrush="{x:Null}" Background="AliceBlue"
                             FontSize="10">Copy Link</Button>
                 </Grid>
-                
-                <StackPanel x:Name="stacky" Background="#FFE02B47" Grid.Row="1" />
+
+                <Grid Grid.Row="1">
+                    <StackPanel x:Name="stacky" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
                 <TextBlock x:Name="linkpreview" 
-                           Padding="2,6,2,3" Grid.Row="2"
+                           Padding="10,6,10,0" Grid.Row="2"
                            TextAlignment="Center" FontSize="10" FontFamily="Calibri">No Link Opened</TextBlock>
             </Grid>
-        </Grid>
-    </Border>
+        </Border>
+    </Grid>
 </Window>

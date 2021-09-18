@@ -1,4 +1,5 @@
-﻿using Hurl.Services;
+﻿using Hurl.Controls;
+using Hurl.Services;
 using System;
 using System.Configuration;
 using System.Diagnostics;
@@ -51,64 +52,34 @@ namespace Hurl
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            GetBrowsers x = GetBrowsers.InitalGetList();
+            BrowsersList x = GetBrowsers.FromRegistry();
             foreach (BrowserObject i in x)
             {
                 if (i.Name != null)
                 {
-                    Button button = new Button()
+                    BrowserIconBtn browserUC = new BrowserIconBtn()
                     {
-                        Padding = new Thickness(5),
-                        Margin = new Thickness(20, 5, 20, 0),
-                        Content = i.Name,
-                        Tag = i.ExePath,
-                        ContextMenu = FindResource("extraOptions") as ContextMenu,
-                        Style = (Style)FindResource("BrowserBtnStyle"),
+                        BrowserName = i.Name,
+                        BrowserIcon = i.GetIcon,
+                        ExePath = i.ExePath,
+                        URL = OpenedLink
                     };
 
-                    button.Click += BroClick;
-                    /*
-                    Bitmap bi = i.GetIcon.ToBitmap();
-                    bi.MakeTransparent();
-                    var im = new System.Windows.Controls.Image()
+                    var separator = new System.Windows.Shapes.Rectangle()
                     {
-                        Width = 70,
-                        Height = 70,
-                        Source = BitmapToImageSource(bi)
+                        Width = 1,
+                        Height = 40,
+                        Margin = new Thickness(3, 0, 3, 20),
+                        Fill = System.Windows.Media.Brushes.AliceBlue
                     };
-                    */
-                    stacky.Children.Add(button);
-                    //stacky.Children.Add(button);
+
+                    _ = stacky.Children.Add(browserUC);
+                    _ = stacky.Children.Add(separator);
                 }
 
             }
-        }
 
-        private void BroClick(object sender, RoutedEventArgs e)
-        {
-            if (OpenedLink != null)
-            {
-                string path = (sender as Button).Tag.ToString();
-                _ = Process.Start(path, OpenedLink);
-            }
-        }
-
-        private void Incognito_Click(object sender, RoutedEventArgs e)
-        {
-            if (OpenedLink != null)
-            {
-                MenuItem menuItem = e.Source as MenuItem;
-                ContextMenu parent = menuItem.Parent as ContextMenu;
-                Button SrcButton = parent.PlacementTarget as Button;
-
-                string path = SrcButton.Tag.ToString();
-                string theArgs = $"--incognito {OpenedLink}";
-                _ = Process.Start(path, theArgs);
-            }
-            else
-            {
-                MessageBox.Show("No link to open");
-            }
+            stacky.Children.RemoveAt(stacky.Children.Count - 1);
         }
 
         // TODO

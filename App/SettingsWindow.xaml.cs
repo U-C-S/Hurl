@@ -3,9 +3,9 @@ using Hurl.Controls;
 using Hurl.Services;
 using Hurl.Views;
 using System;
+using System.Diagnostics;
 using System.Security.Principal;
 using System.Windows;
-using System.Windows.Forms;
 
 namespace Hurl
 {
@@ -19,52 +19,35 @@ namespace Hurl
         public SettingsWindow()
         {
             InitializeComponent();
-
             LoadSystemBrowserList();
-            InstallerService = new Installer(LogTextBox);
-            InstallPathTextBox.Text = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Hurl";
 
-            if (InstallerService.isDefault)
-            {
-                DefaultInfo.Text = "Hurl is currently the default handler for http/https links";
-                DefaultSetButton.IsEnabled = false;
-            }
+            InstallerService = new Installer();
 
-            if(InstallerService.isInstalled)
-            {
-                InstallInfo.Text = "Hurl is already installed at the following Location.";
-                InstallButton.IsEnabled = false;
-            }
+            if (InstallerService.IsDefault) SetDefaultPostExecute();
+            if (InstallerService.HasProtocol) ProtocolPostExecute();
         }
 
-        //Setup Tab
-        private void InstallPathSelect(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        //private void Uninstall_Button(object sender, RoutedEventArgs e) => InstallerService.Uninstall();
+
+        private void SetAsDefualt(object sender, RoutedEventArgs e)
         {
-            var dialog = new FolderBrowserDialog
-            {
-                Description = "Select the Destination Folder where the Application Files and Settings will be Stored",
-                SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                ShowNewFolderButton = true
-            };
-            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                InstallPathTextBox.Text = dialog.SelectedPath;
-            }
+            bool x = InstallerService.SetDefault();
+
+            if (x) SetDefaultPostExecute();
+
         }
 
-        private void SetAsDefualt(object sender, RoutedEventArgs e) => InstallerService.SetDefault();
-
-        private void Install_Button(object sender, RoutedEventArgs e) => InstallerService.Install(InstallPathTextBox.Text);
-
-        private void Uninstall_Button(object sender, RoutedEventArgs e)
+        private void Protocol_Button(object sender, RoutedEventArgs e)
         {
-            InstallerService.Uninstall();
+            bool x = InstallerService.ProtocolRegister();
+
+            if (x) ProtocolPostExecute();
         }
 
         //Browsers Tab
         public void LoadSystemBrowserList()
         {
-            GetBrowsers x = GetBrowsers.InitalGetList();
+            BrowsersList x = GetBrowsers.FromRegistry();
 
             foreach (BrowserObject i in x)
             {
@@ -74,12 +57,18 @@ namespace Hurl
                     {
                         BrowserName = i.Name,
                         BrowserPath = i.ExePath,
+                        Img = i.GetIcon,
                         EditEnabled = true,
                         BackColor = "#FFFFDAAD",
                         Margin = new Thickness(0, 4, 0, 0),
                     };
                     //comp.DeleteItem += DeleteBrowser;
                     _ = StackSystemBrowsers.Children.Add(comp);
+                }
+
+                if (i.GetIcon == null)
+                {
+                    System.Windows.Forms.MessageBox.Show("lol");
                 }
 
             }
@@ -91,6 +80,12 @@ namespace Hurl
             BrowserForm f = new BrowserForm();
             if (f.ShowDialog() == true)
             {
+                BrowserObject newBrowser = new BrowserObject()
+                {
+                    Name = f.BrowserName,
+                    ExePath = f.BrowserPath,
+                    SourceType = BrowserSourceType.User,
+                };
                 var comp = new BrowserStatusComponent
                 {
                     BrowserName = f.BrowserName,
@@ -98,9 +93,9 @@ namespace Hurl
                     EditEnabled = true,
                     BackColor = "#FFFFDAAD",
                     Margin = new Thickness(0, 4, 0, 0),
+                    Img = newBrowser.GetIcon,
                 };
                 StackUserBrowsers.Children.Add(comp);
-
             }
         }
 
@@ -108,6 +103,28 @@ namespace Hurl
         {
             StackSystemBrowsers.Children.Clear();
             LoadSystemBrowserList();
+        }
+
+        private void LaunchDebugHurlBtn(object sender, RoutedEventArgs e)
+        {
+            Process.Start(MetaStrings.APP_LAUNCH_PATH, URLBox.Text);
+        }
+
+        private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+            e.Handled = true;
+        }
+
+        private void SetDefaultPostExecute()
+        {
+            DefaultInfo.Text = "Hurl is currently the default handler for http/https links";
+            DefaultSetButton.IsEnabled = false;
+        }
+        private void ProtocolPostExecute()
+        {
+            ProtocolInfo.Text = "Protocol is installed and Avaliable through hurl://";
+            ProtocolSetButton.IsEnabled = false;
         }
     }
 }

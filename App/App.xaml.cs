@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 
 namespace Hurl
 {
@@ -18,6 +19,8 @@ namespace Hurl
             }
             else
             {
+                //var x = Arguments[0].Substring(7);
+                //Process.Start("\"C:\\Program Files\\Firefox Developer Edition\\firefox.exe\"");
                 MainWindow window = new MainWindow(Arguments);
                 window.Show();
             }
