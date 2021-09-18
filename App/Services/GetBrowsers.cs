@@ -83,11 +83,6 @@ namespace Hurl.Services
 
             return browsers;
         }
-
-        //public static BrowsersList FromSettings()
-        //{
-
-        //}
     }
 
 }

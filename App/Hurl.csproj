@@ -80,6 +80,9 @@
     </ApplicationDefinition>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Constants\OtherStrings.cs" />
+    <Compile Include="Controls\BrowserIconBtn.xaml.cs">
+      <DependentUpon>BrowserIconBtn.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\GetBrowsers.cs" />
     <Compile Include="Constants\MetaStrings.cs" />
     <Compile Include="Controls\BrowserStatusComponent.xaml.cs">
@@ -100,6 +103,10 @@
     <Compile Include="SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Controls\BrowserIconBtn.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\BrowserStatusComponent.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -128,6 +135,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\icons8-refresh-30.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\internet128.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
