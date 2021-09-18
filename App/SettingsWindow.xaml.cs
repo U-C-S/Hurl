@@ -23,24 +23,26 @@ namespace Hurl
 
             InstallerService = new Installer();
 
-            if (InstallerService.isDefault)
-            {
-                DefaultInfo.Text = "Hurl is currently the default handler for http/https links";
-                DefaultSetButton.IsEnabled = false;
-            }
-
-            if (InstallerService.hasProtocol)
-            {
-                ProtocolInfo.Text = "Protocol is installed and Avaliable through hurl://";
-                ProtocolSetButton.IsEnabled = false;
-            }
+            if (InstallerService.IsDefault) SetDefaultPostExecute();
+            if (InstallerService.HasProtocol) ProtocolPostExecute();
         }
 
         //private void Uninstall_Button(object sender, RoutedEventArgs e) => InstallerService.Uninstall();
 
-        private void SetAsDefualt(object sender, RoutedEventArgs e) => InstallerService.SetDefault();
+        private void SetAsDefualt(object sender, RoutedEventArgs e)
+        {
+            bool x = InstallerService.SetDefault();
 
-        private void Protocol_Button(object sender, RoutedEventArgs e) => InstallerService.ProtocolRegister();
+            if (x) SetDefaultPostExecute();
+
+        }
+
+        private void Protocol_Button(object sender, RoutedEventArgs e)
+        {
+            bool x = InstallerService.ProtocolRegister();
+
+            if (x) ProtocolPostExecute();
+        }
 
         //Browsers Tab
         public void LoadSystemBrowserList()
@@ -64,7 +66,7 @@ namespace Hurl
                     _ = StackSystemBrowsers.Children.Add(comp);
                 }
 
-                if(i.GetIcon == null)
+                if (i.GetIcon == null)
                 {
                     System.Windows.Forms.MessageBox.Show("lol");
                 }
@@ -94,7 +96,6 @@ namespace Hurl
                     Img = newBrowser.GetIcon,
                 };
                 StackUserBrowsers.Children.Add(comp);
-
             }
         }
 
@@ -106,13 +107,24 @@ namespace Hurl
 
         private void LaunchDebugHurlBtn(object sender, RoutedEventArgs e)
         {
-            Process.Start(MetaStrings.APP_LAUNCH_PATH,URLBox.Text);
+            Process.Start(MetaStrings.APP_LAUNCH_PATH, URLBox.Text);
         }
 
         private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
         {
             Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
             e.Handled = true;
+        }
+
+        private void SetDefaultPostExecute()
+        {
+            DefaultInfo.Text = "Hurl is currently the default handler for http/https links";
+            DefaultSetButton.IsEnabled = false;
+        }
+        private void ProtocolPostExecute()
+        {
+            ProtocolInfo.Text = "Protocol is installed and Avaliable through hurl://";
+            ProtocolSetButton.IsEnabled = false;
         }
     }
 }
