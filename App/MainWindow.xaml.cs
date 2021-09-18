@@ -82,24 +82,6 @@ namespace Hurl
             stacky.Children.RemoveAt(stacky.Children.Count - 1);
         }
 
-        private void Incognito_Click(object sender, RoutedEventArgs e)
-        {
-            if (OpenedLink != null)
-            {
-                MenuItem menuItem = e.Source as MenuItem;
-                ContextMenu parent = menuItem.Parent as ContextMenu;
-                Button SrcButton = parent.PlacementTarget as Button;
-
-                string path = SrcButton.Tag.ToString();
-                string theArgs = $"--incognito {OpenedLink}";
-                _ = Process.Start(path, theArgs);
-            }
-            else
-            {
-                MessageBox.Show("No link to open");
-            }
-        }
-
         // TODO
         private void OpenSettings(object sender, RoutedEventArgs e)
         {

@@ -5,20 +5,6 @@
         ResizeMode="NoResize" Topmost="True" WindowStyle="None" WindowStartupLocation="CenterScreen" 
         Title="Hurl - Select a Browser" Width="420" Height="210" AllowsTransparency="True" Background="{x:Null}"  
         Loaded="Window_Loaded" Deactivated="Window_Deactivated" KeyDown="Window_Esc">
-    <Window.Resources>
-        <ContextMenu x:Key="extraOptions">
-            <MenuItem Header="Incognito" Click="Incognito_Click" />
-            <Separator />
-            <MenuItem Header="Profile" />
-        </ContextMenu>
-
-        <Style x:Key="BrowserBtnStyle" TargetType="Button">
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="Background" Value="White" />
-            <Setter Property="BorderBrush" Value="Black" />
-            <Setter Property="BorderThickness" Value="1" />
-        </Style>
-    </Window.Resources>
     <Grid>
         <Grid.OpacityMask>
             <VisualBrush Visual="{Binding ElementName=Border1}" />
@@ -41,10 +27,10 @@
                     <TextBlock x:Name="header" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="18,0"
                                FontSize="14" Foreground="AliceBlue">Select a Browser</TextBlock>
                     <Button HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,18,0" 
-                            Padding="5,2,5,2" BorderBrush="Black" Background="AliceBlue"
+                            Padding="5,2" BorderBrush="{x:Null}" Background="AliceBlue"
                             FontSize="10" Click="OpenSettings">Settings</Button>
                     <Button HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,72,0" 
-                            Click="LinkCopyBtn" Padding="5,2,5,2" BorderBrush="Black" Background="AliceBlue"
+                            Click="LinkCopyBtn" Padding="5,2" BorderBrush="{x:Null}" Background="AliceBlue"
                             FontSize="10">Copy Link</Button>
                 </Grid>
 

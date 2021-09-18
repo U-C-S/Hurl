@@ -7,7 +7,7 @@
 		mc:Ignorable="d" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
 		Title="Hurl Settings" Width="600" Height="400">
     <Grid>
-        <TextBlock Text="v0.2-beta" FontFamily="Calibri" VerticalAlignment="Top" HorizontalAlignment="Right" Height="28" Padding="7" Margin="0,0,10,0"/>
+        <TextBlock Text="v0.2" FontFamily="Calibri" VerticalAlignment="Top" HorizontalAlignment="Right" Height="28" Padding="7" Margin="0,0,10,0"/>
 
         <TabControl>
             <TabItem Header="About" Padding="5" Width="70">
