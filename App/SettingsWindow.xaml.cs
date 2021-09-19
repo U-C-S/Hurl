@@ -27,15 +27,7 @@ namespace Hurl
             if (InstallerService.HasProtocol) ProtocolPostExecute();
         }
 
-        //private void Uninstall_Button(object sender, RoutedEventArgs e) => InstallerService.Uninstall();
-
-        private void SetAsDefualt(object sender, RoutedEventArgs e)
-        {
-            bool x = InstallerService.SetDefault();
-
-            if (x) SetDefaultPostExecute();
-
-        }
+        private void SetAsDefualt(object sender, RoutedEventArgs e) => InstallerService.SetDefault();
 
         private void Protocol_Button(object sender, RoutedEventArgs e)
         {
