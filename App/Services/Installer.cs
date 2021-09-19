@@ -1,6 +1,7 @@
 ﻿using Hurl.Constants;
 using Microsoft.Win32;
 using System;
+using System.Diagnostics;
 using System.Security.Principal;
 using System.Windows;
 
@@ -86,19 +87,15 @@ namespace Hurl.Services
             }
         }
 
-        public bool SetDefault()
+        public void SetDefault()
         {
             if (installLocation != null)
             {
-                Registry.CurrentUser
-                    .OpenSubKey(@"Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice", true)
-                    .SetValue("ProgID", MetaStrings.URLAssociations);
-                return true;
+                Process.Start("ms-settings:defaultapps");
             }
             else
             {
                 MessageBox.Show("Hurl is not even Installed");
-                return false;
             }
         }
     }

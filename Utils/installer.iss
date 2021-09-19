@@ -1,6 +1,6 @@
 #define MyAppName "Hurl"
 #define NameSmall "hurl"
-#define MyAppVersion "0.2.0"
+#define MyAppVersion "0.2.1.0"
 #define MyAppPublisher "The 3721 Tools"
 #define MyAppURL "https://github.com/U-C-S/Hurl"
 #define MyAppExeName "Hurl.exe"
@@ -9,6 +9,7 @@
 AppId={{56C63D05-9D83-492A-ABDD-618FE36ACBFB}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
+VersionInfoVersion={#MyAppVersion}
 ;AppVerName={#MyAppName} {#MyAppVersion}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL="https://github.com/U-C-S/Hurl"
@@ -41,7 +42,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "protocol"; Description: "{cm:CreateProtocol}"; GroupDescription: "{cm:OtherOptions}"; Flags: unchecked
 
 [Files]
-Source: "..\_bin\Debug\Hurl.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\_bin\Release\Hurl.exe"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
