@@ -99,7 +99,7 @@ namespace Hurl
 
         private void LaunchDebugHurlBtn(object sender, RoutedEventArgs e)
         {
-            Process.Start(MetaStrings.APP_LAUNCH_PATH, URLBox.Text);
+            Process.Start(OtherStrings.APP_LAUNCH_PATH, URLBox.Text);
         }
 
         private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)

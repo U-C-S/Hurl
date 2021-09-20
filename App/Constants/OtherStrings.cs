@@ -9,5 +9,9 @@ namespace Hurl.Constants
     class OtherStrings
     {
         public static string NEW_LINE = "1&#x0a;";
+
+        public static string APP_LAUNCH_PATH = Environment.GetCommandLineArgs()[0];
+        public static string APP_PARENT_DIR = Environment.CurrentDirectory;
+        public static string ROAMING = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
     }
 }
