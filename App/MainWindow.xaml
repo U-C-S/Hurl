@@ -4,7 +4,7 @@
         xmlns:local="clr-namespace:Hurl" mc:Ignorable="d" 
         ResizeMode="NoResize" Topmost="True" WindowStyle="None" WindowStartupLocation="CenterScreen" 
         Title="Hurl - Select a Browser" Width="420" Height="210" AllowsTransparency="True" Background="{x:Null}"  
-        Loaded="Window_Loaded" Deactivated="Window_Deactivated" KeyDown="Window_Esc">
+        Deactivated="Window_Deactivated" KeyDown="Window_Esc">
     <Grid>
         <Border x:Name="Border1" CornerRadius="15" Panel.ZIndex="2">
             <Border.Background>

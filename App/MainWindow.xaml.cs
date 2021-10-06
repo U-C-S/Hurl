@@ -1,5 +1,6 @@
 ﻿using Hurl.Controls;
 using Hurl.Services;
+using Hurl.Services.AppSettings;
 using System;
 using System.Configuration;
 using System.Diagnostics;
@@ -20,6 +21,8 @@ namespace Hurl
         {
             InitializeComponent();
 
+            Window_Loaded();
+
             if (x.Length >= 1)
             {
                 string link = x[0];
@@ -30,7 +33,6 @@ namespace Hurl
                 else
                 {
                     OpenedLink = linkpreview.Text = x[0];
-
                 }
             }
 
@@ -50,9 +52,10 @@ namespace Hurl
         private void Window_Deactivated(object sender, EventArgs e) => Close();
 
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void Window_Loaded()
         {
-            BrowsersList x = GetBrowsers.FromRegistry();
+            BrowsersList x = new SettingsFile().ReadSettingsFile().Browsers;
+
             foreach (BrowserObject i in x)
             {
                 if (i.Name != null)

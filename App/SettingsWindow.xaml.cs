@@ -25,7 +25,6 @@ namespace Hurl
             if (InstallerService.IsDefault) SetDefaultPostExecute();
             if (InstallerService.HasProtocol) ProtocolPostExecute();
 
-            new SettingsFile();
         }
 
         private void SetAsDefualt(object sender, RoutedEventArgs e) => InstallerService.SetDefault();
@@ -41,6 +40,8 @@ namespace Hurl
         public void LoadSystemBrowserList()
         {
             BrowsersList x = GetBrowsers.FromRegistry();
+
+            new SettingsFile(x);
 
             foreach (BrowserObject i in x)
             {

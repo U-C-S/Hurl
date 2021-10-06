@@ -43,6 +43,7 @@ Name: "protocol"; Description: "{cm:CreateProtocol}"; GroupDescription: "{cm:Oth
 
 [Files]
 Source: "..\_bin\Release\Hurl.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\_bin\Release\Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
