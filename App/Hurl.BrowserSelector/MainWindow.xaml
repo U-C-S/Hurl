@@ -24,9 +24,6 @@
                     <TextBlock x:Name="header" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="18,0"
                                FontSize="14" Foreground="AliceBlue">Select a Browser</TextBlock>
                     <Button HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,18,0" 
-                            Padding="5,2" BorderBrush="{x:Null}" Background="AliceBlue"
-                            FontSize="10" Click="OpenSettings">Settings</Button>
-                    <Button HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,72,0" 
                             Click="LinkCopyBtn" Padding="5,2" BorderBrush="{x:Null}" Background="AliceBlue"
                             FontSize="10">Copy Link</Button>
                 </Grid>

@@ -82,12 +82,6 @@ namespace Hurl.BrowserSelector
             stacky.Children.RemoveAt(stacky.Children.Count - 1);
         }
 
-        // TODO
-        private void OpenSettings(object sender, RoutedEventArgs e)
-        {
-            //new SettingsWindow().Show();
-        }
-
         private void LinkCopyBtn(object sender, RoutedEventArgs e)
         {
             Clipboard.SetText(OpenedLink);
