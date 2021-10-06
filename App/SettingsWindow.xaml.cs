@@ -1,10 +1,9 @@
 ﻿using Hurl.Constants;
 using Hurl.Controls;
 using Hurl.Services;
+using Hurl.Services.AppSettings;
 using Hurl.Views;
-using System;
 using System.Diagnostics;
-using System.Security.Principal;
 using System.Windows;
 
 namespace Hurl
@@ -25,6 +24,8 @@ namespace Hurl
 
             if (InstallerService.IsDefault) SetDefaultPostExecute();
             if (InstallerService.HasProtocol) ProtocolPostExecute();
+
+            new SettingsFile();
         }
 
         private void SetAsDefualt(object sender, RoutedEventArgs e) => InstallerService.SetDefault();

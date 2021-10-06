@@ -26,12 +26,12 @@
                             <StackPanel>
                                 <Grid>
                                     <Image Source="/Images/internet128.png" 
-                                           Height="64" Width="64" HorizontalAlignment="Left" Margin="15,0"/>
-                                    <TextBlock Text="Hurl" FontFamily="Georgia" FontSize="48" FontStyle="Italic" 
-                                               HorizontalAlignment="Right" VerticalAlignment="Center" Margin="15,0" />
+                                           Height="64" Width="64" HorizontalAlignment="Left" Margin="20,0"/>
+                                    <TextBlock Text="Hurl" FontFamily="Segoe UI" FontSize="48" 
+                                               HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20,0" />
                                 </Grid>
                                 <Separator Background="Black" Height="2" Margin="10,5"/>
-                                <TextBlock FontSize="14" TextWrapping="Wrap" TextAlignment="Center">A utility that lets you choose the browser on the click of a link</TextBlock>
+                                <TextBlock FontSize="14" TextWrapping="Wrap" TextAlignment="Center" FontFamily="Trebuchet MS">A utility that lets you choose the browser on the click of a link</TextBlock>
                             </StackPanel>
                         </Border>
                     </Grid>

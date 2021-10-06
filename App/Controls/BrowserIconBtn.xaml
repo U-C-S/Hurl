@@ -4,9 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Hurl.Controls"
-             mc:Ignorable="d" d:DesignWidth="100" d:DesignHeight="90" >
-    <StackPanel MouseLeftButtonUp="OpenIt" Width="100" Cursor="Hand" MaxHeight="110">
+             mc:Ignorable="d" d:DesignWidth="100" d:DesignHeight="100" >
+    <StackPanel MouseLeftButtonUp="OpenIt" Width="100" Cursor="Hand" MaxHeight="120">
         <Image Source="{Binding BrowserIcon}" Width="64" Height="64" />
-        <TextBlock Text="{Binding BrowserName}" TextWrapping="Wrap" TextAlignment="Center"/>
+        <TextBlock Text="{Binding BrowserName}" TextWrapping="Wrap" TextAlignment="Center" FontSize="10"/>
     </StackPanel>
 </UserControl>

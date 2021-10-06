@@ -6,10 +6,7 @@
         Title="Hurl - Select a Browser" Width="420" Height="210" AllowsTransparency="True" Background="{x:Null}"  
         Loaded="Window_Loaded" Deactivated="Window_Deactivated" KeyDown="Window_Esc">
     <Grid>
-        <Grid.OpacityMask>
-            <VisualBrush Visual="{Binding ElementName=Border1}" />
-        </Grid.OpacityMask>
-        <Border x:Name="Border1" CornerRadius="15" Panel.ZIndex="2" BorderThickness="1" BorderBrush="Black">
+        <Border x:Name="Border1" CornerRadius="15" Panel.ZIndex="2">
             <Border.Background>
                 <LinearGradientBrush  StartPoint="0,0" EndPoint="1,0">
                     <GradientStop Color="#de6262"/>

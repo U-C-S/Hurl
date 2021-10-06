@@ -14,7 +14,7 @@ namespace Hurl.Constants
         public const string URLAssociations = "HandleURL3721";
         public const string VERSION = "0.2.1";
 
-        public static string SettingsFilePath = Path.Combine(OtherStrings.ROAMING, "Hurl", "UserSettings.xml");
+        public static string SettingsFilePath = Path.Combine(OtherStrings.ROAMING, "Hurl", "UserSettings.json");
 
     }
 }
