@@ -1,5 +1,4 @@
-﻿using Hurl.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -15,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Hurl.Controls
+namespace Hurl.BrowserSelector.Controls
 {
     /// <summary>
     /// Interaction logic for BrowserIconBtn.xaml

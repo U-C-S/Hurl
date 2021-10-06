@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Media;
 
-namespace Hurl.Services
+namespace Hurl.SharedLibraries.Constants
 {
     /// <summary>
     /// Store all info about a browser

@@ -1,12 +1,11 @@
-﻿using Hurl.Views;
+﻿using Hurl.Settings.Views;
 using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-
-namespace Hurl.Controls
+namespace Hurl.Settings.Controls
 {
     /// <summary>
     /// Interaction logic for BrowserStatusComponent.xaml

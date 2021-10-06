@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Windows;
 
-namespace Hurl
+namespace Hurl.BrowserSelector
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -14,7 +14,8 @@ namespace Hurl
 
             if (Arguments.Length == 0)
             {
-                SettingsWindow window = new SettingsWindow();
+                string[] Args = { "https://github.com" };
+                MainWindow window = new MainWindow(Args);
                 window.Show();
             }
             else

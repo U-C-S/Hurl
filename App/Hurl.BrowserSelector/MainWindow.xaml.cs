@@ -1,14 +1,11 @@
-﻿using Hurl.Controls;
-using Hurl.Services;
-using Hurl.Services.AppSettings;
+﻿using Hurl.BrowserSelector.Controls;
+using Hurl.SharedLibraries.Constants;
+using Hurl.SharedLibraries.Services;
 using System;
-using System.Configuration;
-using System.Diagnostics;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Hurl
+namespace Hurl.BrowserSelector
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -88,7 +85,7 @@ namespace Hurl
         // TODO
         private void OpenSettings(object sender, RoutedEventArgs e)
         {
-            new SettingsWindow().Show();
+            //new SettingsWindow().Show();
         }
 
         private void LinkCopyBtn(object sender, RoutedEventArgs e)
