@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hurl.BrowserSelector", "Hurl.BrowserSelector\Hurl.BrowserSelector.csproj", "{3B8293BB-A929-44CD-BC07-EC718CB60823}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hurl.Settings", "Hurl.Settings\Hurl.Settings.csproj", "{936AD3AE-543D-40E4-9B4B-4FD008946CB7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3B8293BB-A929-44CD-BC07-EC718CB60823} = {3B8293BB-A929-44CD-BC07-EC718CB60823}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hurl.SharedLibraries", "Hurl.SharedLibraries\Hurl.SharedLibraries.csproj", "{8ADE2213-0F79-4E7A-9E36-ABD2745E9F8A}"
 EndProject
