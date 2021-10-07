@@ -61,23 +61,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Controls\BrowserStatusComponent.xaml.cs">
-      <DependentUpon>BrowserStatusComponent.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Services\Installer.cs" />
-    <Compile Include="Views\BrowserForm.xaml.cs" />
-    <Page Include="Controls\BrowserStatusComponent.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controls\BrowserStatusComponent.xaml.cs">
+      <DependentUpon>BrowserStatusComponent.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Controls\BrowserStatusComponent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Compile Include="Services\Installer.cs" />
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -86,6 +85,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="Views\BrowserForm.xaml.cs">
+      <DependentUpon>Views\BrowserForm.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\Common\AssemblyInfo.cs">

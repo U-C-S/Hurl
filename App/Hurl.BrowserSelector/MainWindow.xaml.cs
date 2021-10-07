@@ -14,40 +14,17 @@ namespace Hurl.BrowserSelector
     {
         private string OpenedLink = null;
 
-        public MainWindow(string[] x)
+        public MainWindow(string URL)
         {
             InitializeComponent();
 
-            Window_Loaded();
+            linkpreview.Text = OpenedLink = URL;
 
-            if (x.Length >= 1)
-            {
-                string link = x[0];
-                if (link.StartsWith("hurl://"))
-                {
-                    OpenedLink = linkpreview.Text = link.Substring(7);
-                }
-                else
-                {
-                    OpenedLink = linkpreview.Text = x[0];
-                }
-            }
+            Window_Loaded();
 
             //What does \"%1\" mean in Registry ? 
             //https://www.tek-tips.com/viewthread.cfm?qid=382878
-            //Environment.GetCommandLineArgs()[0] + 
         }
-
-        private void Window_Esc(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Escape)
-            {
-                Close();
-            }
-        }
-
-        private void Window_Deactivated(object sender, EventArgs e) => Close();
-
 
         private void Window_Loaded()
         {
@@ -82,9 +59,16 @@ namespace Hurl.BrowserSelector
             stacky.Children.RemoveAt(stacky.Children.Count - 1);
         }
 
-        private void LinkCopyBtn(object sender, RoutedEventArgs e)
+        private void Window_Esc(object sender, KeyEventArgs e)
         {
-            Clipboard.SetText(OpenedLink);
+            if (e.Key == Key.Escape)
+            {
+                Close();
+            }
         }
+
+        private void Window_Deactivated(object sender, EventArgs e) => Close();
+
+        private void LinkCopyBtn(object sender, RoutedEventArgs e) => Clipboard.SetText(OpenedLink);
     }
 }

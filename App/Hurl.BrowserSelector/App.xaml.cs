@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Windows;
 
 namespace Hurl.BrowserSelector
@@ -10,21 +11,26 @@ namespace Hurl.BrowserSelector
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            string[] Arguments = e.Args;
+            var URL = ArgProcess(e.Args);
+            new MainWindow(URL).Show();
+        }
 
-            if (Arguments.Length == 0)
+        private string ArgProcess(string[] Args)
+        {
+            if (Args.Length > 0)
             {
-                string[] Args = { "https://github.com" };
-                MainWindow window = new MainWindow(Args);
-                window.Show();
+                string link = Args[0];
+                if (link.StartsWith("hurl://"))
+                {
+                    return link.Substring(7);
+                }
+                else
+                {
+                    return link;
+                }
             }
-            else
-            {
-                //var x = Arguments[0].Substring(7);
-                //Process.Start("\"C:\\Program Files\\Firefox Developer Edition\\firefox.exe\"");
-                MainWindow window = new MainWindow(Arguments);
-                window.Show();
-            }
+
+            return null;
         }
     }
 }
