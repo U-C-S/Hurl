@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="128" align="center" src="App/internet.ico">
+  <img width="128" align="center" src="App/Common/internet.ico">
 </p>
 <h1 align="center">
   Hurl
@@ -22,9 +22,9 @@
   </a>
 </p>
 
-## What is Hurl and why am I making it?
+## Why and What?
 
-The **Default Browser War** in Windows is one of the reasons for creation of Hurl or Sometimes you might need to open a link in a browser of your choice, instead of the default one. Hurl is used to let you choose the browser everytime you click a link (links outside of browser). So naturally, It acts as default browser to do that. And hurl can be powered up with a _browser extension_ to let you open a browser tab in another browser.
+The Default Browser War in Windows is one of the reasons for creation of Hurl and Sometimes you might want to open a link in a browser of your choice, instead of the default one. Hurl is used to let you choose the browser everytime you click a link (links outside of browser). So naturally, It acts as default browser to do that. And hurl can be powered up with a _browser extension_ to let you open a browser tab in another browser.
 
 - Fast startup and lightweight.
 - Custom browsers support.
@@ -32,7 +32,7 @@ The **Default Browser War** in Windows is one of the reasons for creation of Hur
 
 <p align="center">******* 📣 Hurl is still under active development *******</p>
 
-## Dependencies and Tools:
+## Dependencies and Tools
 
 - [Visual Studio 2022](https://visualstudio.microsoft.com/vs/preview/)
 - [Windows Presentation Foundation](https://docs.microsoft.com/en-us/visualstudio/designers/getting-started-with-wpf?view=vs-2022) - .NET Framework 4.8
@@ -41,7 +41,7 @@ The **Default Browser War** in Windows is one of the reasons for creation of Hur
 
 ## Contributing
 
-Hurl is free and open source, if you like my work, please consider:
+The Project welcomes Pull-Requests. So, If you like the Project or Using it, please consider:
 
-- Starring this project
-- Contributing....
+- Giving a Star ⭐
+- Contributing code....
