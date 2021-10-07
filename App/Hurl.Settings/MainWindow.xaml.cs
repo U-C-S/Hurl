@@ -1,21 +1,21 @@
-﻿using Hurl.Constants;
-using Hurl.Controls;
-using Hurl.Services;
-using Hurl.Services.AppSettings;
-using Hurl.Views;
+﻿using Hurl.Settings.Controls;
+using Hurl.Settings.Services;
+using Hurl.Settings.Views;
+using Hurl.SharedLibraries.Constants;
+using Hurl.SharedLibraries.Services;
 using System.Diagnostics;
 using System.Windows;
 
-namespace Hurl
+namespace Hurl.Settings
 {
     /// <summary>
-    /// Interaction logic for SettingsWindow.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class SettingsWindow : Window
+    public partial class MainWindow : Window
     {
         private Installer InstallerService;
 
-        public SettingsWindow()
+        public MainWindow()
         {
             InitializeComponent();
             LoadSystemBrowserList();
@@ -101,7 +101,7 @@ namespace Hurl
 
         private void LaunchDebugHurlBtn(object sender, RoutedEventArgs e)
         {
-            Process.Start(OtherStrings.APP_LAUNCH_PATH, URLBox.Text);
+            Process.Start(OtherStrings.APP_PARENT_DIR + "\\Hurl.exe", URLBox.Text);
         }
 
         private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)

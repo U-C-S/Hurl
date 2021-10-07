@@ -1,12 +1,11 @@
-﻿using Hurl.Constants;
+﻿using Hurl.SharedLibraries.Constants;
 using Newtonsoft.Json;
 using System;
 using System.IO;
-using System.Xml.Linq;
 
-namespace Hurl.Services.AppSettings
+namespace Hurl.SharedLibraries.Services
 {
-    internal class SettingsFile
+    public class SettingsFile
     {
         public bool DataExists { get; set; } = false;
         private BrowsersList Browsers;

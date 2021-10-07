@@ -1,11 +1,11 @@
-﻿using Hurl.Constants;
+﻿using Hurl.SharedLibraries.Constants;
 using Microsoft.Win32;
 using System;
 using System.Diagnostics;
 using System.Security.Principal;
 using System.Windows;
 
-namespace Hurl.Services
+namespace Hurl.Settings.Services
 {
     public class Installer
     {

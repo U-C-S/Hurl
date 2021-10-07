@@ -4,9 +4,9 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D3CA31A0-8360-4F08-9F88-FAE89681BCC7}</ProjectGuid>
+    <ProjectGuid>{3B8293BB-A929-44CD-BC07-EC718CB60823}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Hurl</RootNamespace>
+    <RootNamespace>Hurl.BrowserSelector</RootNamespace>
     <AssemblyName>Hurl</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -14,6 +14,9 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>..\Common\internet.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x64</PlatformTarget>
@@ -34,35 +37,10 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ManifestCertificateThumbprint>62A981F4CE7971A1ABC462D456AE1C15A1A457ED</ManifestCertificateThumbprint>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ManifestKeyFile>Hurl_TemporaryKey.pfx</ManifestKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignManifests>true</SignManifests>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject>Hurl.App</StartupObject>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>internet.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -81,68 +59,39 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Constants\OtherStrings.cs" />
-    <Compile Include="Controls\BrowserIconBtn.xaml.cs">
-      <DependentUpon>BrowserIconBtn.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Services\GetBrowsers.cs" />
-    <Compile Include="Constants\MetaStrings.cs" />
-    <Compile Include="Controls\BrowserStatusComponent.xaml.cs">
-      <DependentUpon>BrowserStatusComponent.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Services\IconExtractor.cs" />
-    <Compile Include="Services\Installer.cs" />
-    <Compile Include="Services\AppSettings\SettingsFile.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Views\BrowserForm.xaml.cs">
-      <DependentUpon>BrowserForm.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SettingsWindow.xaml.cs">
-      <DependentUpon>SettingsWindow.xaml</DependentUpon>
-    </Compile>
     <Page Include="Controls\BrowserIconBtn.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\BrowserStatusComponent.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="MainWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\BrowserForm.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="SettingsWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\BrowserIconBtn.xaml.cs">
+      <DependentUpon>BrowserIconBtn.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
+    <Compile Include="..\Common\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="internet.ico" />
+    <None Include="..\Common\App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\icons8-add-32.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\icons8-refresh-30.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\internet128.png" />
+    <ProjectReference Include="..\Hurl.SharedLibraries\Hurl.SharedLibraries.csproj">
+      <Project>{8ade2213-0f79-4e7a-9e36-abd2745e9f8a}</Project>
+      <Name>Hurl.SharedLibraries</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
