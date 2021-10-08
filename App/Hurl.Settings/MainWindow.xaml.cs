@@ -22,41 +22,38 @@ namespace Hurl.Settings
             InitializeComponent();
 
             InstallerService = new Installer();
-            
-            LoadSystemBrowserList();
+
+            LoadBrowserList();
 
             if (InstallerService.IsDefault) SetDefaultPostExecute();
             if (InstallerService.HasProtocol) ProtocolPostExecute();
         }
 
-        private void SetAsDefualt(object sender, RoutedEventArgs e) => InstallerService.SetDefault();
-
-        private void Protocol_Button(object sender, RoutedEventArgs e)
-        {
-            bool x = InstallerService.ProtocolRegister();
-            if (x) ProtocolPostExecute();
-        }
-
         //Browsers Tab
-        private void LoadSystemBrowserList()
+        private void LoadBrowserList()
         {
             List<Browser> x = SettingsFile.LoadNewInstance().SettingsObject.Browsers;
 
             foreach (Browser i in x)
             {
-                if (i.Name != null)
+                var comp = new BrowserStatusComponent
                 {
-                    var comp = new BrowserStatusComponent
-                    {
-                        BrowserName = i.Name,
-                        BrowserPath = i.ExePath,
-                        Img = i.GetIcon,
-                        EditEnabled = true,
-                        BackColor = "#FFFFDAAD",
-                        Margin = new Thickness(0, 4, 0, 0),
-                    };
+                    BrowserName = i.Name,
+                    BrowserPath = i.ExePath,
+                    Img = i.GetIcon,
+                    EditEnabled = true,
+                    BackColor = "#FFFFDAAD",
+                    Margin = new Thickness(0, 4, 0, 0),
+                };
+                if (i.SourceType == BrowserSourceType.Registry)
+                {
                     _ = StackSystemBrowsers.Children.Add(comp);
                 }
+                else if (i.SourceType == BrowserSourceType.User)
+                {
+                    _ = StackUserBrowsers.Children.Add(comp);
+                }
+
             }
         }
 
@@ -92,9 +89,16 @@ namespace Hurl.Settings
         private void RefreshBrowserList(object sender, RoutedEventArgs e)
         {
             StackSystemBrowsers.Children.Clear();
-            //List<Browser> x = GetBrowsers.FromRegistry();
-            //var xy = SettingsFile.SettingsObject.Browsers.ToArray();
-            LoadSystemBrowserList();
+            StackUserBrowsers.Children.Clear();
+            LoadBrowserList();
+        }
+
+        private void SetAsDefualt(object sender, RoutedEventArgs e) => InstallerService.SetDefault();
+
+        private void Protocol_Button(object sender, RoutedEventArgs e)
+        {
+            bool x = InstallerService.ProtocolRegister();
+            if (x) ProtocolPostExecute();
         }
 
         private void LaunchDebugHurlBtn(object sender, RoutedEventArgs e)
