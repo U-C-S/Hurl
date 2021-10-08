@@ -1,6 +1,6 @@
 #define MyAppName "Hurl"
 #define NameSmall "hurl"
-#define MyAppVersion "0.2.1.0"
+#define MyAppVersion "0.3.0.0"
 #define MyAppPublisher "The 3721 Tools"
 #define MyAppURL "https://github.com/U-C-S/Hurl"
 #define MyAppExeName "Hurl.exe"
@@ -16,7 +16,7 @@ AppPublisherURL="https://github.com/U-C-S/Hurl"
 AppSupportURL="https://github.com/U-C-S/Hurl/issues"
 AppUpdatesURL="https://github.com/U-C-S/Hurl/releases"
 AppReadmeFile="https://github.com/U-C-S/Hurl#README"
-SetupIconFile=..\App\internet.ico
+SetupIconFile=..\App\Common\internet.ico
 LicenseFile=..\LICENSE
 
 UsePreviousAppDir=yes
@@ -42,10 +42,14 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "protocol"; Description: "{cm:CreateProtocol}"; GroupDescription: "{cm:OtherOptions}"; Flags: unchecked
 
 [Files]
-Source: "..\_bin\Release\Hurl.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\App\_bin\Release\Hurl.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\App\_bin\Release\Hurl Settings.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\App\_bin\Release\Hurl.SharedLibraries.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\App\_bin\Release\Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
-Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
+Name: "{autoprograms}\Hurl\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
+Name: "{autoprograms}\Hurl\Hurl Settings"; Filename: "{app}\Hurl Settings.exe"
 Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
 
 [Registry]

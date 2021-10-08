@@ -1,12 +1,12 @@
-﻿using Hurl.Views;
+﻿using Hurl.Settings.Views;
+using Hurl.SharedLibraries.Services;
 using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-
-namespace Hurl.Controls
+namespace Hurl.Settings.Controls
 {
     /// <summary>
     /// Interaction logic for BrowserStatusComponent.xaml
@@ -46,25 +46,34 @@ namespace Hurl.Controls
 
         private void EditTheBrowser(object sender, RoutedEventArgs e)
         {
-            BrowserForm x = new BrowserForm()
+            BrowserForm form = new BrowserForm()
             {
                 BrowserName = BrowserName,
                 BrowserPath = BrowserPath,
             };
-            if (x.ShowDialog() == true)
+
+            if (form.ShowDialog() == true)
             {
-                string name = x.BrowserName;
-                string path = x.BrowserPath;
+                SettingsFile settings = SettingsFile.LoadNewInstance();
+                var BrowserList = settings.SettingsObject.Browsers;
+
+                string name = form.BrowserName;
+                string path = form.BrowserPath;
+
                 if (name.Equals("") && path.Equals(""))
                 {
-                    ((StackPanel)this.Parent).Children.Remove(this);
+                    _ = BrowserList.Remove(BrowserList.Find(b => b.Name == BrowserName));
+
+                    ((StackPanel)Parent).Children.Remove(this);
                 }
                 else
                 {
-                    this.BrowserName = name;
-                    this.BrowserPath = path;
-                    BrowserNameTextBlock.Text = BrowserName;
+                    var mod = BrowserList.Find(b => b.Name == BrowserName);
+                    mod.Name = BrowserName = BrowserNameTextBlock.Text = name;
+                    mod.ExePath = BrowserPath = path;
                 }
+
+                settings.Update();
             }
         }
     }

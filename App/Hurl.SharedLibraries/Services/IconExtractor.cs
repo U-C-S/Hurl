@@ -7,7 +7,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace Hurl.Services
+namespace Hurl.SharedLibraries.Services
 {
     public static class IconExtractor
     {
@@ -56,7 +56,6 @@ namespace Hurl.Services
             catch (Exception ex)
             {
                 //TODO: On error, use a default icon
-                MessageBox.Show(ex.ToString());
                 return null;
             }
 

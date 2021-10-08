@@ -1,66 +1,57 @@
-﻿using Hurl.Constants;
-using Hurl.Controls;
-using Hurl.Services;
-using Hurl.Views;
-using System;
+﻿using Hurl.Settings.Controls;
+using Hurl.Settings.Services;
+using Hurl.Settings.Views;
+using Hurl.SharedLibraries.Constants;
+using Hurl.SharedLibraries.Models;
+using Hurl.SharedLibraries.Services;
+using System.Collections.Generic;
 using System.Diagnostics;
-using System.Security.Principal;
 using System.Windows;
 
-namespace Hurl
+namespace Hurl.Settings
 {
     /// <summary>
-    /// Interaction logic for SettingsWindow.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class SettingsWindow : Window
+    public partial class MainWindow : Window
     {
         private Installer InstallerService;
 
-        public SettingsWindow()
+        public MainWindow()
         {
             InitializeComponent();
-            LoadSystemBrowserList();
 
             InstallerService = new Installer();
+
+            LoadBrowserList();
 
             if (InstallerService.IsDefault) SetDefaultPostExecute();
             if (InstallerService.HasProtocol) ProtocolPostExecute();
         }
 
-        private void SetAsDefualt(object sender, RoutedEventArgs e) => InstallerService.SetDefault();
-
-        private void Protocol_Button(object sender, RoutedEventArgs e)
-        {
-            bool x = InstallerService.ProtocolRegister();
-
-            if (x) ProtocolPostExecute();
-        }
-
         //Browsers Tab
-        public void LoadSystemBrowserList()
+        private void LoadBrowserList()
         {
-            BrowsersList x = GetBrowsers.FromRegistry();
+            List<Browser> x = SettingsFile.LoadNewInstance().SettingsObject.Browsers;
 
-            foreach (BrowserObject i in x)
+            foreach (Browser i in x)
             {
-                if (i.Name != null)
+                var comp = new BrowserStatusComponent
                 {
-                    var comp = new BrowserStatusComponent
-                    {
-                        BrowserName = i.Name,
-                        BrowserPath = i.ExePath,
-                        Img = i.GetIcon,
-                        EditEnabled = true,
-                        BackColor = "#FFFFDAAD",
-                        Margin = new Thickness(0, 4, 0, 0),
-                    };
-                    //comp.DeleteItem += DeleteBrowser;
+                    BrowserName = i.Name,
+                    BrowserPath = i.ExePath,
+                    Img = i.GetIcon,
+                    EditEnabled = true,
+                    BackColor = "#FFFFDAAD",
+                    Margin = new Thickness(0, 4, 0, 0),
+                };
+                if (i.SourceType == BrowserSourceType.Registry)
+                {
                     _ = StackSystemBrowsers.Children.Add(comp);
                 }
-
-                if (i.GetIcon == null)
+                else if (i.SourceType == BrowserSourceType.User)
                 {
-                    System.Windows.Forms.MessageBox.Show("lol");
+                    _ = StackUserBrowsers.Children.Add(comp);
                 }
 
             }
@@ -69,15 +60,16 @@ namespace Hurl
         //Add browsers
         private void AddBrowser(object sender, RoutedEventArgs e)
         {
+            SettingsFile settingsFile = SettingsFile.LoadNewInstance();
+
             BrowserForm f = new BrowserForm();
             if (f.ShowDialog() == true)
             {
-                BrowserObject newBrowser = new BrowserObject()
+                Browser newBrowser = new Browser(f.BrowserName, f.BrowserPath)
                 {
-                    Name = f.BrowserName,
-                    ExePath = f.BrowserPath,
                     SourceType = BrowserSourceType.User,
                 };
+
                 var comp = new BrowserStatusComponent
                 {
                     BrowserName = f.BrowserName,
@@ -88,18 +80,30 @@ namespace Hurl
                     Img = newBrowser.GetIcon,
                 };
                 StackUserBrowsers.Children.Add(comp);
+
+                settingsFile.SettingsObject.Browsers.Add(newBrowser);
+                settingsFile.Update();
             }
         }
 
         private void RefreshBrowserList(object sender, RoutedEventArgs e)
         {
             StackSystemBrowsers.Children.Clear();
-            LoadSystemBrowserList();
+            StackUserBrowsers.Children.Clear();
+            LoadBrowserList();
+        }
+
+        private void SetAsDefualt(object sender, RoutedEventArgs e) => InstallerService.SetDefault();
+
+        private void Protocol_Button(object sender, RoutedEventArgs e)
+        {
+            bool x = InstallerService.ProtocolRegister();
+            if (x) ProtocolPostExecute();
         }
 
         private void LaunchDebugHurlBtn(object sender, RoutedEventArgs e)
         {
-            Process.Start(MetaStrings.APP_LAUNCH_PATH, URLBox.Text);
+            Process.Start(OtherStrings.APP_PARENT_DIR + "\\Hurl.exe", URLBox.Text);
         }
 
         private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)

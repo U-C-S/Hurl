@@ -1,13 +1,12 @@
-﻿using Hurl.Controls;
-using Hurl.Services;
+﻿using Hurl.BrowserSelector.Controls;
+using Hurl.SharedLibraries.Models;
+using Hurl.SharedLibraries.Services;
 using System;
-using System.Configuration;
-using System.Diagnostics;
+using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Hurl
+namespace Hurl.BrowserSelector
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -16,44 +15,23 @@ namespace Hurl
     {
         private string OpenedLink = null;
 
-        public MainWindow(string[] x)
+        public MainWindow(string URL)
         {
             InitializeComponent();
 
-            if (x.Length >= 1)
-            {
-                string link = x[0];
-                if (link.StartsWith("hurl://"))
-                {
-                    OpenedLink = linkpreview.Text = link.Substring(7);
-                }
-                else
-                {
-                    OpenedLink = linkpreview.Text = x[0];
+            linkpreview.Text = OpenedLink = URL;
 
-                }
-            }
+            Window_Loaded();
 
             //What does \"%1\" mean in Registry ? 
             //https://www.tek-tips.com/viewthread.cfm?qid=382878
-            //Environment.GetCommandLineArgs()[0] + 
         }
 
-        private void Window_Esc(object sender, KeyEventArgs e)
+        private void Window_Loaded()
         {
-            if (e.Key == Key.Escape)
-            {
-                Close();
-            }
-        }
+            List<Browser> x = new SettingsFile().SettingsObject.Browsers;
 
-        private void Window_Deactivated(object sender, EventArgs e) => Close();
-
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            BrowsersList x = GetBrowsers.FromRegistry();
-            foreach (BrowserObject i in x)
+            foreach (Browser i in x)
             {
                 if (i.Name != null)
                 {
@@ -82,15 +60,16 @@ namespace Hurl
             stacky.Children.RemoveAt(stacky.Children.Count - 1);
         }
 
-        // TODO
-        private void OpenSettings(object sender, RoutedEventArgs e)
+        private void Window_Esc(object sender, KeyEventArgs e)
         {
-            new SettingsWindow().Show();
+            if (e.Key == Key.Escape)
+            {
+                Close();
+            }
         }
 
-        private void LinkCopyBtn(object sender, RoutedEventArgs e)
-        {
-            Clipboard.SetText(OpenedLink);
-        }
+        private void Window_Deactivated(object sender, EventArgs e) => Close();
+
+        private void LinkCopyBtn(object sender, RoutedEventArgs e) => Clipboard.SetText(OpenedLink);
     }
 }
