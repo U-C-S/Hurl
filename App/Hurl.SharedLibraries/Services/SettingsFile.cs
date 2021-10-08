@@ -2,6 +2,7 @@
 using Hurl.SharedLibraries.Models;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Hurl.SharedLibraries.Services
@@ -17,7 +18,7 @@ namespace Hurl.SharedLibraries.Services
             {
                 Directory.CreateDirectory(OtherStrings.ROAMING + "\\Hurl");
 
-                BrowsersList Browsers = GetBrowsers.FromRegistry();
+                List<Browser> Browsers = GetBrowsers.FromRegistry();
                 SettingsObject = new Settings(Browsers);
 
                 string jsondata = JsonConvert.SerializeObject(SettingsObject, Formatting.Indented);

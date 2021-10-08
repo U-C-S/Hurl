@@ -1,6 +1,7 @@
 ﻿using Hurl.SharedLibraries.Constants;
 using Hurl.SharedLibraries.Services;
 using System;
+using System.Collections.Generic;
 
 namespace Hurl.SharedLibraries.Models
 {
@@ -8,9 +9,9 @@ namespace Hurl.SharedLibraries.Models
     {
         public string LastUpdated { get; set; } = DateTime.Now.ToString();
         public string AppPath = MetaStrings.SettingsFilePath;
-        public BrowsersList Browsers;
+        public List<Browser> Browsers;
 
-        public Settings(BrowsersList browsers)
+        public Settings(List<Browser> browsers)
         {
             Browsers = browsers;
         }

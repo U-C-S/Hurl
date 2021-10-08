@@ -4,6 +4,7 @@ using Hurl.Settings.Views;
 using Hurl.SharedLibraries.Constants;
 using Hurl.SharedLibraries.Models;
 using Hurl.SharedLibraries.Services;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
 
@@ -43,7 +44,7 @@ namespace Hurl.Settings
         //Browsers Tab
         private void LoadSystemBrowserList()
         {
-            BrowsersList x = SettingsFile.SettingsObject.Browsers;
+            List<Browser> x = SettingsFile.SettingsObject.Browsers;
 
             foreach (Browser i in x)
             {
@@ -100,7 +101,7 @@ namespace Hurl.Settings
         private void RefreshBrowserList(object sender, RoutedEventArgs e)
         {
             StackSystemBrowsers.Children.Clear();
-            //BrowsersList x = GetBrowsers.FromRegistry();
+            //List<Browser> x = GetBrowsers.FromRegistry();
             //var xy = SettingsFile.SettingsObject.Browsers.ToArray();
             LoadSystemBrowserList();
         }

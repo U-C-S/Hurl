@@ -8,25 +8,15 @@ using System.Windows.Media;
 
 namespace Hurl.SharedLibraries.Services
 {
-    /// <summary>
-    /// Store all info about a browser
-    /// </summary>
-
-
-    public class BrowsersList : List<Browser>
-    {
-
-    }
-
     public class GetBrowsers
     {
-        public static BrowsersList FromRegistry()
+        public static List<Browser> FromRegistry()
         {
-            BrowsersList browsers;
+            List<Browser> browsers;
 
             using (RegistryKey key = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Clients\\StartMenuInternet"))
             {
-                browsers = new BrowsersList();
+                browsers = new List<Browser>();
                 string[] x = key.GetSubKeyNames();
                 for (int i = 0; i < x.Length; i++)
                 {

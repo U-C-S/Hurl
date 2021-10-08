@@ -2,6 +2,7 @@
 using Hurl.SharedLibraries.Models;
 using Hurl.SharedLibraries.Services;
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 
@@ -28,7 +29,7 @@ namespace Hurl.BrowserSelector
 
         private void Window_Loaded()
         {
-            BrowsersList x = new SettingsFile().SettingsObject.Browsers;
+            List<Browser> x = new SettingsFile().SettingsObject.Browsers;
 
             foreach (Browser i in x)
             {
