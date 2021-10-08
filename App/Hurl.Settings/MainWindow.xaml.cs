@@ -16,20 +16,17 @@ namespace Hurl.Settings
     public partial class MainWindow : Window
     {
         private Installer InstallerService;
-        private SettingsFile SettingsFile;
 
         public MainWindow()
         {
             InitializeComponent();
 
             InstallerService = new Installer();
-            SettingsFile = new SettingsFile();
             
             LoadSystemBrowserList();
 
             if (InstallerService.IsDefault) SetDefaultPostExecute();
             if (InstallerService.HasProtocol) ProtocolPostExecute();
-
         }
 
         private void SetAsDefualt(object sender, RoutedEventArgs e) => InstallerService.SetDefault();
@@ -37,14 +34,13 @@ namespace Hurl.Settings
         private void Protocol_Button(object sender, RoutedEventArgs e)
         {
             bool x = InstallerService.ProtocolRegister();
-
             if (x) ProtocolPostExecute();
         }
 
         //Browsers Tab
         private void LoadSystemBrowserList()
         {
-            List<Browser> x = SettingsFile.SettingsObject.Browsers;
+            List<Browser> x = SettingsFile.LoadNewInstance().SettingsObject.Browsers;
 
             foreach (Browser i in x)
             {
@@ -67,6 +63,8 @@ namespace Hurl.Settings
         //Add browsers
         private void AddBrowser(object sender, RoutedEventArgs e)
         {
+            SettingsFile settingsFile = SettingsFile.LoadNewInstance();
+
             BrowserForm f = new BrowserForm();
             if (f.ShowDialog() == true)
             {
@@ -86,8 +84,8 @@ namespace Hurl.Settings
                 };
                 StackUserBrowsers.Children.Add(comp);
 
-                SettingsFile.SettingsObject.Browsers.Add(newBrowser);
-                SettingsFile.Update();
+                settingsFile.SettingsObject.Browsers.Add(newBrowser);
+                settingsFile.Update();
             }
         }
 

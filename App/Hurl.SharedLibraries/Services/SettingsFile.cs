@@ -9,6 +9,8 @@ namespace Hurl.SharedLibraries.Services
 {
     public class SettingsFile
     {
+        public static SettingsFile LoadNewInstance() => new SettingsFile();
+
         public bool DataExists { get; set; } = false;
         public Settings SettingsObject;
 
@@ -39,8 +41,4 @@ namespace Hurl.SharedLibraries.Services
             File.WriteAllText(MetaStrings.SettingsFilePath, jsondata);
         }
     }
-
-    // Seperate the setting file creation thing.
-    // So that the user need not open the Settings window to actually create the File.
-    // It can created from Selection Window.
 }

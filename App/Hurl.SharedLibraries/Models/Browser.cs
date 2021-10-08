@@ -25,10 +25,10 @@ namespace Hurl.SharedLibraries.Models
         public BrowserSourceType SourceType { get; set; }
 
         [JsonProperty]
-        public string Name { get; }
+        public string Name { get; set; }
 
         [JsonProperty]
-        public string ExePath { get; }
+        public string ExePath { get; set; }
 
         [JsonProperty]
         public bool Hidden { get; set; } = false;
@@ -77,59 +77,3 @@ namespace Hurl.SharedLibraries.Models
         User
     }
 }
-
-/*
-    public class BrowserObject
-    {
-        public string Name { get; set; }
-        public string ExePath { get; set; }
-        public BrowserSourceType SourceType { get; set; }
-        public ImageSource GetIcon
-        {
-            get
-            {
-                Icon x = ExePath.StartsWith('"'.ToString())
-                    ? IconExtractor.FromFile(ExePath.Substring(1, ExePath.Length - 2))
-                    : IconExtractor.FromFile(ExePath);
-
-                return IconUtilites.ToImageSource(x);
-            }
-        }
-
-        public static string IconToString(Icon icon)
-        {
-            byte[] bytes;
-            using (var ms = new MemoryStream())
-            {
-                icon.ToBitmap().Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-                bytes = ms.ToArray();
-            }
-
-            string iconString = Convert.ToBase64String(bytes);
-
-            return iconString;
-        }
-
-        public Image StringToIcon()
-        {
-            byte[] byteArray = Convert.FromBase64String(this.icon);
-            Bitmap newIcon;
-            using (MemoryStream stream = new MemoryStream(byteArray))
-            {
-                newIcon = new Bitmap(stream);
-            }
-
-            return newIcon;
-        }
-
-        public bool Hidden { get; set; } = false;
-        public string[] Arguments { get; set; }
-        //private string IncognitoArg = null;
-    }
-
-    public enum BrowserSourceType
-    {
-        Registry,
-        User
-    }
-*/
