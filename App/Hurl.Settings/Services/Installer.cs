@@ -9,13 +9,6 @@ namespace Hurl.Settings.Services
 {
     public class Installer
     {
-        public string installLocation;
-
-        public Installer()
-        {
-            installLocation = IsInstalled();
-        }
-
         public bool IsDefault
         {
             get
@@ -28,19 +21,28 @@ namespace Hurl.Settings.Services
             }
         }
 
-        private string IsInstalled()
+        private string InstallLocation
         {
-            string startMenuInternet_Key = @"Software\Clients\StartMenuInternet\" + MetaStrings.NAME + @"\Capabilities";
-            string urlAssociate_Key = @"Software\Classes\" + MetaStrings.URLAssociations;
+            get
+            {
+                try
+                {
+                    string startMenuInternet_Key = @"Software\Clients\StartMenuInternet\" + MetaStrings.NAME + @"\Capabilities";
+                    string urlAssociate_Key = @"Software\Classes\" + MetaStrings.URLAssociations;
 
-            var key1 = Registry.CurrentUser.OpenSubKey(startMenuInternet_Key).GetValue("ApplicationIcon");
-            var key2 = Registry.CurrentUser.OpenSubKey(urlAssociate_Key);
+                    var key1 = Registry.CurrentUser.OpenSubKey(startMenuInternet_Key).GetValue("ApplicationIcon");
+                    var key2 = Registry.CurrentUser.OpenSubKey(urlAssociate_Key);
 
-            if (key1 != null && key2 != null)
-                return key1.ToString().Split(',')[0];
-            else
-                return null;
-
+                    if (key1 != null && key2 != null)
+                        return key1.ToString().Split(',')[0];
+                    else
+                        return null;
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            }
         }
 
         public bool HasProtocol
@@ -68,7 +70,7 @@ namespace Hurl.Settings.Services
         /// </summary>
         public bool ProtocolRegister()
         {
-            if (IsAdministrator)
+            if (IsAdministrator && InstallLocation != null)
             {
                 string Name_lower = MetaStrings.NAME.ToLower();
 
@@ -76,20 +78,20 @@ namespace Hurl.Settings.Services
                 {
                     key.SetValue(null, $"URL:{Name_lower}");
                     key.SetValue("URL Protocol", "");
-                    key.CreateSubKey(@"shell\open\command").SetValue(null, $"\"{installLocation}\" \"%1\"");  //change
+                    key.CreateSubKey(@"shell\open\command").SetValue(null, $"\"{InstallLocation}\" \"%1\"");  //change
                 }
                 return true;
             }
             else
             {
-                _ = MessageBox.Show("Run the App as Adminstrator");
+                _ = MessageBox.Show("ERROR! Either App not Installed or Run the App as Admin");
                 return false;
             }
         }
 
         public void SetDefault()
         {
-            if (installLocation != null)
+            if (InstallLocation != null)
             {
                 Process.Start("ms-settings:defaultapps");
             }

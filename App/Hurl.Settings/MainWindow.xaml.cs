@@ -59,15 +59,8 @@ namespace Hurl.Settings
                         BackColor = "#FFFFDAAD",
                         Margin = new Thickness(0, 4, 0, 0),
                     };
-                    //comp.DeleteItem += DeleteBrowser;
                     _ = StackSystemBrowsers.Children.Add(comp);
                 }
-
-                if (i.GetIcon == null)
-                {
-                    System.Windows.Forms.MessageBox.Show("lol");
-                }
-
             }
         }
 
