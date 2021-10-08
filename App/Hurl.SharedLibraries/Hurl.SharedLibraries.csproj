@@ -52,6 +52,8 @@
     <Compile Include="Constants\MetaStrings.cs" />
     <Compile Include="Constants\OtherStrings.cs" />
     <Compile Include="..\Common\AssemblyInfo.cs" />
+    <Compile Include="Models\Browser.cs" />
+    <Compile Include="Models\Settings.cs" />
     <Compile Include="Services\GetBrowsers.cs" />
     <Compile Include="Services\IconExtractor.cs" />
     <Compile Include="Services\SettingsFile.cs" />

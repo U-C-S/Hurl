@@ -1,4 +1,5 @@
 ﻿using Hurl.SharedLibraries.Constants;
+using Hurl.SharedLibraries.Models;
 using Newtonsoft.Json;
 using System;
 using System.IO;
@@ -8,34 +9,32 @@ namespace Hurl.SharedLibraries.Services
     public class SettingsFile
     {
         public bool DataExists { get; set; } = false;
-        private BrowsersList Browsers;
+        public Settings SettingsObject;
 
-        public SettingsFile(BrowsersList browsers)
+        public SettingsFile()
         {
-            this.Browsers = browsers;
             if (!File.Exists(MetaStrings.SettingsFilePath))
             {
                 Directory.CreateDirectory(OtherStrings.ROAMING + "\\Hurl");
-                this.UpdateFile();
+
+                BrowsersList Browsers = GetBrowsers.FromRegistry();
+                SettingsObject = new Settings(Browsers);
+
+                string jsondata = JsonConvert.SerializeObject(SettingsObject, Formatting.Indented);
+                File.WriteAllText(MetaStrings.SettingsFilePath, jsondata);
             }
             else
             {
                 DataExists = true;
+                string jsondata = File.ReadAllText(MetaStrings.SettingsFilePath);
+                SettingsObject = JsonConvert.DeserializeObject<Settings>(jsondata);
             }
         }
 
-        public SettingsFile() { }
-
-        public SettingsModel ReadSettingsFile()
+        public void Update()
         {
-            string jsondata = File.ReadAllText(MetaStrings.SettingsFilePath);
-            return JsonConvert.DeserializeObject<SettingsModel>(jsondata);
-        }
-
-
-        private void UpdateFile()
-        {
-            string jsondata = JsonConvert.SerializeObject(new SettingsModel(this.Browsers), Formatting.Indented);
+            SettingsObject.LastUpdated = DateTime.Now.ToString();
+            string jsondata = JsonConvert.SerializeObject(SettingsObject, Formatting.Indented);
             File.WriteAllText(MetaStrings.SettingsFilePath, jsondata);
         }
     }
@@ -43,16 +42,4 @@ namespace Hurl.SharedLibraries.Services
     // Seperate the setting file creation thing.
     // So that the user need not open the Settings window to actually create the File.
     // It can created from Selection Window.
-
-    public class SettingsModel
-    {
-        public string lastUpdated { get; set; } = DateTime.Now.ToString();
-        public string AppPath = MetaStrings.SettingsFilePath;
-        public BrowsersList Browsers;
-
-        public SettingsModel(BrowsersList browsers)
-        {
-            Browsers = browsers;
-        }
-    }
 }

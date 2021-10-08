@@ -2,6 +2,7 @@
 using Hurl.Settings.Services;
 using Hurl.Settings.Views;
 using Hurl.SharedLibraries.Constants;
+using Hurl.SharedLibraries.Models;
 using Hurl.SharedLibraries.Services;
 using System.Diagnostics;
 using System.Windows;
@@ -14,13 +15,16 @@ namespace Hurl.Settings
     public partial class MainWindow : Window
     {
         private Installer InstallerService;
+        private SettingsFile SettingsFile;
 
         public MainWindow()
         {
             InitializeComponent();
-            LoadSystemBrowserList();
 
             InstallerService = new Installer();
+            SettingsFile = new SettingsFile();
+            
+            LoadSystemBrowserList();
 
             if (InstallerService.IsDefault) SetDefaultPostExecute();
             if (InstallerService.HasProtocol) ProtocolPostExecute();
@@ -37,13 +41,11 @@ namespace Hurl.Settings
         }
 
         //Browsers Tab
-        public void LoadSystemBrowserList()
+        private void LoadSystemBrowserList()
         {
-            BrowsersList x = GetBrowsers.FromRegistry();
+            BrowsersList x = SettingsFile.SettingsObject.Browsers;
 
-            new SettingsFile(x);
-
-            foreach (BrowserObject i in x)
+            foreach (Browser i in x)
             {
                 if (i.Name != null)
                 {
@@ -74,12 +76,11 @@ namespace Hurl.Settings
             BrowserForm f = new BrowserForm();
             if (f.ShowDialog() == true)
             {
-                BrowserObject newBrowser = new BrowserObject()
+                Browser newBrowser = new Browser(f.BrowserName, f.BrowserPath)
                 {
-                    Name = f.BrowserName,
-                    ExePath = f.BrowserPath,
                     SourceType = BrowserSourceType.User,
                 };
+
                 var comp = new BrowserStatusComponent
                 {
                     BrowserName = f.BrowserName,
@@ -90,12 +91,17 @@ namespace Hurl.Settings
                     Img = newBrowser.GetIcon,
                 };
                 StackUserBrowsers.Children.Add(comp);
+
+                SettingsFile.SettingsObject.Browsers.Add(newBrowser);
+                SettingsFile.Update();
             }
         }
 
         private void RefreshBrowserList(object sender, RoutedEventArgs e)
         {
             StackSystemBrowsers.Children.Clear();
+            //BrowsersList x = GetBrowsers.FromRegistry();
+            //var xy = SettingsFile.SettingsObject.Browsers.ToArray();
             LoadSystemBrowserList();
         }
 

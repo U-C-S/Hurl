@@ -53,34 +53,30 @@
                         <Border CornerRadius="5" Padding="20,3,20,7"
 							    Background="AntiqueWhite" BorderBrush="Coral" BorderThickness="2">
                             <StackPanel>
-                                <Grid Height="30">
-                                    <TextBlock Text="From Registry"
+                                <StackPanel>
+                                    <Grid Height="30">
+                                        <TextBlock Text="From Registry"
 										   FontSize="18" TextAlignment="Center" 
 										   HorizontalAlignment="Left" VerticalAlignment="Center" />
-                                    <Button HorizontalAlignment="Right" VerticalAlignment="Center" Padding="3"
+                                        <Button HorizontalAlignment="Right" VerticalAlignment="Center" Padding="3"
 										    Background="{x:Null}" BorderBrush="{x:Null}" Click="RefreshBrowserList">
-                                        <Image Source="/Images/icons8-refresh-30.png" />
-                                    </Button>
-                                </Grid>
-                                <StackPanel x:Name="StackSystemBrowsers" />
-                            </StackPanel>
-                            <Border.Effect>
-                                <DropShadowEffect Color="Black" Opacity="0.5" Direction="240" BlurRadius="10"/>
-                            </Border.Effect>
-                        </Border>
-
-                        <Border CornerRadius="5" Padding="20,3,20,7" Margin="0,15,0,0"
-							    Background="LightSeaGreen"  BorderBrush="Beige" BorderThickness="2">
-                            <StackPanel>
-                                <Grid Height="30">
-                                    <TextBlock Text="Custom" FontSize="18" TextAlignment="Center" 
+                                            <Image Source="/Images/icons8-refresh-30.png" />
+                                        </Button>
+                                    </Grid>
+                                    <StackPanel x:Name="StackSystemBrowsers" />
+                                </StackPanel>
+                                <Separator Margin="0,5"/>
+                                <StackPanel>
+                                    <Grid Height="30">
+                                        <TextBlock Text="Custom" FontSize="18" TextAlignment="Center" 
 										        HorizontalAlignment="Left" VerticalAlignment="Center" />
-                                    <Button HorizontalAlignment="Right" VerticalAlignment="Center" 
+                                        <Button HorizontalAlignment="Right" VerticalAlignment="Center" 
 										    Background="{x:Null}" BorderBrush="{x:Null}" Click="AddBrowser">
-                                        <Image Source="/Images/icons8-add-32.png" />
-                                    </Button>
-                                </Grid>
-                                <StackPanel x:Name="StackUserBrowsers" />
+                                            <Image Source="/Images/icons8-add-32.png" />
+                                        </Button>
+                                    </Grid>
+                                    <StackPanel x:Name="StackUserBrowsers" />
+                                </StackPanel>
                             </StackPanel>
                             <Border.Effect>
                                 <DropShadowEffect Color="Black" Opacity="0.5" Direction="240" BlurRadius="10"/>

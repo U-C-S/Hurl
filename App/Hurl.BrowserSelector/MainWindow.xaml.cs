@@ -1,5 +1,5 @@
 ﻿using Hurl.BrowserSelector.Controls;
-using Hurl.SharedLibraries.Constants;
+using Hurl.SharedLibraries.Models;
 using Hurl.SharedLibraries.Services;
 using System;
 using System.Windows;
@@ -28,9 +28,9 @@ namespace Hurl.BrowserSelector
 
         private void Window_Loaded()
         {
-            BrowsersList x = new SettingsFile().ReadSettingsFile().Browsers;
+            BrowsersList x = new SettingsFile().SettingsObject.Browsers;
 
-            foreach (BrowserObject i in x)
+            foreach (Browser i in x)
             {
                 if (i.Name != null)
                 {
