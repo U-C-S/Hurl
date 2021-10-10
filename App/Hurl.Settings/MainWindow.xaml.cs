@@ -6,6 +6,7 @@ using Hurl.SharedLibraries.Models;
 using Hurl.SharedLibraries.Services;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 
 namespace Hurl.Settings
@@ -30,7 +31,7 @@ namespace Hurl.Settings
         }
 
         //Browsers Tab
-        private void LoadBrowserList()
+        private void LoadBrowserList(bool onlyRegistryBrowsers = false)
         {
             List<Browser> x = SettingsFile.LoadNewInstance().SettingsObject.Browsers;
 
@@ -49,7 +50,7 @@ namespace Hurl.Settings
                 {
                     _ = StackSystemBrowsers.Children.Add(comp);
                 }
-                else if (i.SourceType == BrowserSourceType.User)
+                else if (!onlyRegistryBrowsers && i.SourceType == BrowserSourceType.User)
                 {
                     _ = StackUserBrowsers.Children.Add(comp);
                 }
@@ -57,7 +58,6 @@ namespace Hurl.Settings
             }
         }
 
-        //Add browsers
         private void AddBrowser(object sender, RoutedEventArgs e)
         {
             SettingsFile settingsFile = SettingsFile.LoadNewInstance();
@@ -86,11 +86,22 @@ namespace Hurl.Settings
             }
         }
 
+        // Just refresh the Registry browser list
+        // since they can be uninstalled at any point and can be known
         private void RefreshBrowserList(object sender, RoutedEventArgs e)
         {
+            SettingsFile settingsFile = SettingsFile.LoadNewInstance();
+
+            IEnumerable<Browser> userBrowsers = from b in settingsFile.SettingsObject.Browsers
+                                                where b.SourceType == BrowserSourceType.User
+                                                select b;
+            List<Browser> newRegistryBrowsers = GetBrowsers.FromRegistry();
+
+            settingsFile.SettingsObject.Browsers = userBrowsers.Concat(newRegistryBrowsers).ToList();
+            settingsFile.Update();
+
             StackSystemBrowsers.Children.Clear();
-            StackUserBrowsers.Children.Clear();
-            LoadBrowserList();
+            LoadBrowserList(true);
         }
 
         private void SetAsDefualt(object sender, RoutedEventArgs e) => InstallerService.SetDefault();
