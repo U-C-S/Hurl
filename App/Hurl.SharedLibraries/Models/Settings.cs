@@ -1,5 +1,4 @@
-﻿using Hurl.SharedLibraries.Constants;
-using Hurl.SharedLibraries.Services;
+using Hurl.SharedLibraries.Constants;
 using System;
 using System.Collections.Generic;
 

@@ -1,4 +1,4 @@
-﻿using Hurl.SharedLibraries.Constants;
+using Hurl.SharedLibraries.Constants;
 using Hurl.SharedLibraries.Models;
 using Newtonsoft.Json;
 using System;
@@ -11,7 +11,7 @@ namespace Hurl.SharedLibraries.Services
     {
         public static SettingsFile LoadNewInstance() => new SettingsFile();
 
-        public bool DataExists { get; set; } = false;
+        //public bool DataExists { get; set; } = false;
         public Settings SettingsObject;
 
         public SettingsFile()
@@ -28,7 +28,6 @@ namespace Hurl.SharedLibraries.Services
             }
             else
             {
-                DataExists = true;
                 string jsondata = File.ReadAllText(MetaStrings.SettingsFilePath);
                 SettingsObject = JsonConvert.DeserializeObject<Settings>(jsondata);
             }

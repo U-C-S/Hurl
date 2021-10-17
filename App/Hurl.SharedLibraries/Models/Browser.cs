@@ -1,10 +1,8 @@
-﻿using Hurl.SharedLibraries.Services;
+using Hurl.SharedLibraries.Services;
 using Newtonsoft.Json;
 using System;
-using System.ComponentModel;
 using System.Drawing;
 using System.IO;
-using System.Windows.Interop;
 using System.Windows.Media;
 
 namespace Hurl.SharedLibraries.Models
