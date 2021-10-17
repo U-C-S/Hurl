@@ -19,11 +19,9 @@
     <OutputPath>..\_bin\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Hurl.SharedLibraries\Hurl.SharedLibraries.csproj" />
+    <Compile Include="..\Common\AssemblyInfo.cs" Link="AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.246501">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <ProjectReference Include="..\Hurl.SharedLibraries\Hurl.SharedLibraries.csproj" />
   </ItemGroup>
 </Project>
