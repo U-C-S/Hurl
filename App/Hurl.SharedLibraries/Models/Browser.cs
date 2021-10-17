@@ -1,15 +1,13 @@
 ﻿using Hurl.SharedLibraries.Services;
-using Newtonsoft.Json;
+using System.Text.Json;
 using System;
-using System.ComponentModel;
 using System.Drawing;
 using System.IO;
-using System.Windows.Interop;
 using System.Windows.Media;
+using System.Text.Json.Serialization;
 
 namespace Hurl.SharedLibraries.Models
 {
-    [JsonObject(MemberSerialization.OptIn)]
     public class Browser
     {
         public Browser(string Name, string ExePath)
@@ -21,16 +19,16 @@ namespace Hurl.SharedLibraries.Models
                     : IconExtractor.FromFile(ExePath);
         }
 
-        [JsonProperty]
+        [JsonInclude]
         public BrowserSourceType SourceType { get; set; }
 
-        [JsonProperty]
+        [JsonInclude]
         public string Name { get; set; }
 
-        [JsonProperty]
+        [JsonInclude]
         public string ExePath { get; set; }
 
-        [JsonProperty]
+        [JsonInclude]
         public bool Hidden { get; set; } = false;
 
         //[JsonProperty]
@@ -56,6 +54,7 @@ namespace Hurl.SharedLibraries.Models
             get; set;
         }
 
+        [JsonIgnore]
         public ImageSource GetIcon => IconUtilites.ToImageSource(RawIcon);
 
         public Image StringToIcon()
