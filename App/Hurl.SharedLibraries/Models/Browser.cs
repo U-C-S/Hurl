@@ -29,6 +29,9 @@ namespace Hurl.SharedLibraries.Models
         public string ExePath { get; set; }
 
         [JsonProperty]
+        public string LaunchArgs { get; set; }
+
+        [JsonProperty]
         public bool Hidden { get; set; } = false;
 
         [JsonProperty]
