@@ -43,7 +43,6 @@ namespace Hurl.Settings
                     BrowserPath = i.ExePath,
                     Img = i.GetIcon,
                     EditEnabled = true,
-                    BackColor = "#FFFFDAAD",
                     Margin = new Thickness(0, 4, 0, 0),
                 };
                 if (i.SourceType == BrowserSourceType.Registry)
@@ -75,7 +74,6 @@ namespace Hurl.Settings
                     BrowserName = f.BrowserName,
                     BrowserPath = f.BrowserPath,
                     EditEnabled = true,
-                    BackColor = "#FFFFDAAD",
                     Margin = new Thickness(0, 4, 0, 0),
                     Img = newBrowser.GetIcon,
                 };
