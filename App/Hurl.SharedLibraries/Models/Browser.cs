@@ -31,6 +31,9 @@ namespace Hurl.SharedLibraries.Models
         [JsonProperty]
         public bool Hidden { get; set; } = false;
 
+        [JsonProperty]
+        public AlternateLaunch[] AlternateLaunches { get; set; }
+
         //[JsonProperty]
         private string IconString
         {
@@ -67,6 +70,14 @@ namespace Hurl.SharedLibraries.Models
 
             return newIcon;
         }
+    }
+
+    [JsonObject(MemberSerialization.OptOut)]
+    public class AlternateLaunch
+    {
+        public string Name { get; set; }
+        public string LaunchCommand {  get; set;}
+        public bool IsPath { get; set; }
     }
 
     public enum BrowserSourceType

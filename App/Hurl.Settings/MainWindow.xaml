@@ -50,7 +50,7 @@
             <TabItem Header="Browsers" Padding="5" Width="70">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Background="FloralWhite">
                     <StackPanel Margin="5">
-                        <Border CornerRadius="5" Padding="20,3,20,7"
+                        <Border CornerRadius="5" Padding="20,5,20,5"
 							    Background="AntiqueWhite" BorderBrush="Coral" BorderThickness="2">
                             <StackPanel>
                                 <StackPanel>
@@ -78,9 +78,6 @@
                                     <StackPanel x:Name="StackUserBrowsers" />
                                 </StackPanel>
                             </StackPanel>
-                            <Border.Effect>
-                                <DropShadowEffect Color="Black" Opacity="0.5" Direction="240" BlurRadius="10"/>
-                            </Border.Effect>
                         </Border>
                     </StackPanel>
                 </ScrollViewer>
