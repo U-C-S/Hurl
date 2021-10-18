@@ -37,12 +37,8 @@ namespace Hurl.Settings
 
             foreach (Browser i in x)
             {
-                var comp = new BrowserStatusComponent
+                var comp = new BrowserStatusComponent(i)
                 {
-                    BrowserName = i.Name,
-                    BrowserPath = i.ExePath,
-                    Img = i.GetIcon,
-                    EditEnabled = true,
                     Margin = new Thickness(0, 4, 0, 0),
                 };
                 if (i.SourceType == BrowserSourceType.Registry)
@@ -69,13 +65,9 @@ namespace Hurl.Settings
                     SourceType = BrowserSourceType.User,
                 };
 
-                var comp = new BrowserStatusComponent
+                var comp = new BrowserStatusComponent(newBrowser)
                 {
-                    BrowserName = f.BrowserName,
-                    BrowserPath = f.BrowserPath,
-                    EditEnabled = true,
                     Margin = new Thickness(0, 4, 0, 0),
-                    Img = newBrowser.GetIcon,
                 };
                 StackUserBrowsers.Children.Add(comp);
 

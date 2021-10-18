@@ -1,4 +1,5 @@
 ﻿using Hurl.Settings.Views;
+using Hurl.SharedLibraries.Models;
 using Hurl.SharedLibraries.Services;
 using Microsoft.Win32;
 using System;
@@ -14,29 +15,29 @@ namespace Hurl.Settings.Controls
     /// </summary>
     public partial class BrowserStatusComponent : UserControl
     {
-        public BrowserStatusComponent()
+        private Browser _browser { get; set; }
+        private string BrowserName;
+
+        public BrowserStatusComponent(Browser browser)
         {
             InitializeComponent();
-
-            DataContext = this;
+            BrowserName = browser.Name;
+            DataContext = this._browser = browser;
         }
 
-        public string BrowserName { get; set; }
-        public string BrowserPath { get; set; }
         public bool EditEnabled { get; set; } = true;
-        public ImageSource Img { get; set; }
         //public RoutedEventHandler DeleteItem;
 
         private void CopyPath(object sender, RoutedEventArgs e)
         {
-            Clipboard.SetText(BrowserPath);
+            Clipboard.SetText(_browser.ExePath);
         }
 
         private void OpenExe(object sender, RoutedEventArgs e)
         {
             try
             {
-                Process.Start(BrowserPath);
+                Process.Start(_browser.ExePath, _browser.LaunchArgs);
             }
             catch (Exception ex)
             {
@@ -68,9 +69,9 @@ namespace Hurl.Settings.Controls
             SettingsFile settings = SettingsFile.LoadNewInstance();
             var BrowserList = settings.SettingsObject.Browsers;
 
-            var mod = BrowserList.Find(b => b.Name == BrowserName);
-            mod.Name = BrowserNameTextBlock.Text = BrowserName;
-            mod.ExePath = BrowserPath = BrowserPath;
+            var i = BrowserList.FindIndex(b => b.Name == BrowserName);
+            BrowserList[i] = _browser;
+            BrowserName = _browser.Name;
 
             settings.Update();
         }

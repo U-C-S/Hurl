@@ -17,8 +17,8 @@
         <Expander IsExpanded="False">
             <Expander.Header>
                 <StackPanel Orientation="Horizontal" Background="#FFFFDAAD" Height="26">
-                    <Image x:Name="lolimg" Width="26" Source="{Binding Img}" Margin="5,0,0,0"/>
-                    <TextBlock x:Name="BrowserNameTextBlock" Text="{Binding BrowserName}" Width="200" VerticalAlignment="Center" Margin="10,0,0,0" Padding="3" ToolTip="{Binding BrowserName}"/>
+                    <Image x:Name="lolimg" Width="26" Source="{Binding GetIcon}" Margin="5,0,0,0"/>
+                    <TextBlock x:Name="BrowserNameTextBlock" Text="{Binding Name}" Width="200" VerticalAlignment="Center" Margin="10,0,0,0" Padding="3" ToolTip="{Binding Name}"/>
                     <Button Style="{StaticResource Buttons}" Margin="120,0,0,0">Hide</Button>
                 </StackPanel>
             </Expander.Header>
@@ -26,15 +26,15 @@
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Width="360">
                         <Button Width="70" Style="{StaticResource Buttons}" Click="OpenExe">Open</Button>
-                        <Button Width="70" Style="{StaticResource Buttons}" Margin="10,0,0,0" Tag="{Binding BrowserPath}" Click="CopyPath">CopyPath</Button>
+                        <Button Width="70" Style="{StaticResource Buttons}" Margin="10,0,0,0" Tag="{Binding ExePath}" Click="CopyPath">CopyPath</Button>
                         <Button Width="70" Style="{StaticResource Buttons}" Click="RemoveBtn" Margin="140,0,0,0">Remove</Button>
                     </StackPanel>
-                    <Separator Margin="5"/>
+                    <Separator Margin="5" Background="#FFFFDAAD"/>
                     <StackPanel Margin="5,0">
                         <Label Content="Name"/>
-                        <TextBox Padding="3" Text="{Binding BrowserName}"/>
+                        <TextBox Padding="3" Text="{Binding Name}"/>
                         <Label Content="Path" Margin="0,5,0,0"/>
-                        <TextBox x:Name="ExePathBox" Padding="3" Text="{Binding BrowserPath}" MouseDoubleClick="TextBox_MouseDoubleClick"/>
+                        <TextBox x:Name="ExePathBox" Padding="3" Text="{Binding ExePath}" MouseDoubleClick="TextBox_MouseDoubleClick"/>
 
                         <StackPanel Orientation="Horizontal" Margin="10" Width="180">
                             <Button Width="70" Click="CancelClick">Cancel</Button>
