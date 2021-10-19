@@ -1,6 +1,6 @@
 #define MyAppName "Hurl"
 #define NameSmall "hurl"
-#define MyAppVersion "0.3.0.0"
+#define MyAppVersion "0.4.0.1"
 #define MyAppPublisher "The 3721 Tools"
 #define MyAppURL "https://github.com/U-C-S/Hurl"
 #define MyAppExeName "Hurl.exe"
@@ -10,7 +10,6 @@ AppId={{56C63D05-9D83-492A-ABDD-618FE36ACBFB}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 VersionInfoVersion={#MyAppVersion}
-;AppVerName={#MyAppName} {#MyAppVersion}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL="https://github.com/U-C-S/Hurl"
 AppSupportURL="https://github.com/U-C-S/Hurl/issues"
@@ -42,10 +41,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "protocol"; Description: "{cm:CreateProtocol}"; GroupDescription: "{cm:OtherOptions}"; Flags: unchecked
 
 [Files]
-Source: "..\App\_bin\Release\Hurl.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\App\_bin\Release\Hurl Settings.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\App\_bin\Release\Hurl.SharedLibraries.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\App\_bin\Release\Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\App\_bin\Release\*"; Excludes: "*.xml"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{autoprograms}\Hurl\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
@@ -69,7 +65,6 @@ Root: {#SoftwareClassesRootKey}; Subkey: "Software\Clients\StartMenuInternet\{#M
 
 Root: {#SoftwareClassesRootKey}; Subkey: "Software\Classes\{#URLAssociate}"; ValueType: string; ValueName: ""; ValueData: "{#MyAppName} URL"; Flags: uninsdeletekey
 Root: {#SoftwareClassesRootKey}; Subkey: "Software\Classes\{#URLAssociate}\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""; Flags: uninsdeletekey deletevalue
-;Root: {#SoftwareClassesRootKey}; Subkey: "Software\Classes\{#URLAssociate}\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\{#MyAppExeName},0"; Flags: uninsdeletekey
 
 Root: {#SoftwareClassesRootKey}; Subkey: "Software\RegisteredApplications"; ValueType: string; ValueName: "{#MyAppName}"; ValueData: "Software\Clients\StartMenuInternet\{#MyAppName}\Capabilities"; Flags: deletevalue uninsdeletevalue
 
