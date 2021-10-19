@@ -14,9 +14,12 @@ namespace Hurl.SharedLibraries.Models
         {
             this.Name = Name;
             this.ExePath = ExePath;
-            this.RawIcon = ExePath.StartsWith('"'.ToString())
-                    ? IconExtractor.FromFile(ExePath.Substring(1, ExePath.Length - 2))
-                    : IconExtractor.FromFile(ExePath);
+            if (ExePath != null)
+            {
+                this.RawIcon = ExePath.StartsWith('"'.ToString())
+                        ? IconExtractor.FromFile(ExePath.Substring(1, ExePath.Length - 2))
+                        : IconExtractor.FromFile(ExePath);
+            }
         }
 
         [JsonProperty]
@@ -55,12 +58,17 @@ namespace Hurl.SharedLibraries.Models
             }
         }
 
-        private Icon RawIcon
-        {
-            get; set;
-        }
+        private Icon RawIcon { get; set; }
 
-        public ImageSource GetIcon => IconUtilites.ToImageSource(RawIcon);
+        public ImageSource GetIcon
+        {
+            get
+            {
+                if (ExePath != null)
+                    return IconUtilites.ToImageSource(RawIcon);
+                else return null;
+            }
+        }
 
         public Image StringToIcon()
         {
@@ -79,7 +87,7 @@ namespace Hurl.SharedLibraries.Models
     public class AlternateLaunch
     {
         public string Name { get; set; }
-        public string LaunchCommand {  get; set;}
+        public string LaunchCommand { get; set; }
         public bool IsPath { get; set; }
     }
 

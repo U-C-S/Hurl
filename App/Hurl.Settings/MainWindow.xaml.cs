@@ -57,23 +57,19 @@ namespace Hurl.Settings
         {
             SettingsFile settingsFile = SettingsFile.LoadNewInstance();
 
-            BrowserForm f = new BrowserForm();
-            if (f.ShowDialog() == true)
+            Browser newBrowser = new Browser("Empty New Browser", null)
             {
-                Browser newBrowser = new Browser(f.BrowserName, f.BrowserPath)
-                {
-                    SourceType = BrowserSourceType.User,
-                };
+                SourceType = BrowserSourceType.User,
+            };
 
-                var comp = new BrowserStatusComponent(newBrowser)
-                {
-                    Margin = new Thickness(0, 4, 0, 0),
-                };
-                StackUserBrowsers.Children.Add(comp);
+            var comp = new BrowserStatusComponent(newBrowser)
+            {
+                Margin = new Thickness(0, 4, 0, 0),
+            };
+            StackUserBrowsers.Children.Add(comp);
 
-                settingsFile.SettingsObject.Browsers.Add(newBrowser);
-                settingsFile.Update();
-            }
+            settingsFile.SettingsObject.Browsers.Add(newBrowser);
+            settingsFile.Update();
         }
 
         // Just refresh the Registry browser list
