@@ -1,4 +1,4 @@
-﻿using Hurl.Settings.Views;
+using Hurl.Settings.Views;
 using Hurl.SharedLibraries.Models;
 using Hurl.SharedLibraries.Services;
 using Microsoft.Win32;
@@ -21,17 +21,16 @@ namespace Hurl.Settings.Controls
         public BrowserStatusComponent(Browser browser)
         {
             InitializeComponent();
-            BrowserName = browser.Name;
-            DataContext = this._browser = browser;
+            this.BrowserName = browser.Name;
+            this._browser = browser;
+
+            DataContext = this._browser;
         }
 
         public bool EditEnabled { get; set; } = true;
         //public RoutedEventHandler DeleteItem;
 
-        private void CopyPath(object sender, RoutedEventArgs e)
-        {
-            Clipboard.SetText(_browser.ExePath);
-        }
+        private void CopyPath(object sender, RoutedEventArgs e) => Clipboard.SetText(_browser.ExePath);
 
         private void OpenExe(object sender, RoutedEventArgs e)
         {
@@ -45,7 +44,7 @@ namespace Hurl.Settings.Controls
             }
         }
 
-        private void TextBox_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void ChooseExeBtn(object sender, RoutedEventArgs e)
         {
             var dialog = new OpenFileDialog()
             {
@@ -55,14 +54,11 @@ namespace Hurl.Settings.Controls
 
             if (dialog.ShowDialog() == true)
             {
-                ExePathBox.Text = dialog.FileName;
+                _browser.ExePath = ExePathBox.Text = dialog.FileName;
             }
         }
 
-        private void CancelClick(object sender, RoutedEventArgs e)
-        {
-            //DialogResult = false;
-        }
+        private void CancelClick(object sender, RoutedEventArgs e) => TheExpander.IsExpanded = false;
 
         private void SaveButton(object sender, RoutedEventArgs e)
         {
@@ -71,6 +67,7 @@ namespace Hurl.Settings.Controls
 
             var i = BrowserList.FindIndex(b => b.Name == BrowserName);
             BrowserList[i] = _browser;
+            //DEBUG_BOX.Text =  _browser.ExePath;
             BrowserName = _browser.Name;
 
             settings.Update();
