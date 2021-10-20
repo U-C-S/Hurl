@@ -9,14 +9,14 @@ using System.Windows.Controls;
 namespace Hurl.Settings.Controls
 {
     /// <summary>
-    /// Interaction logic for BrowserStatusComponent.xamll
+    /// Interaction logic for BrowserComponent.xamll
     /// </summary>
-    public partial class BrowserStatusComponent : UserControl
+    public partial class BrowserComponent : UserControl
     {
         private Browser _browser { get; set; }
         private string BrowserName;
 
-        public BrowserStatusComponent(Browser browser)
+        public BrowserComponent(Browser browser)
         {
             InitializeComponent();
             this.BrowserName = browser.Name;

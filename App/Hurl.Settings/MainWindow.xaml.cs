@@ -36,12 +36,13 @@ namespace Hurl.Settings
 
             foreach (Browser i in x)
             {
-                var comp = new BrowserStatusComponent(i)
+                var comp = new BrowserComponent(i)
                 {
                     Margin = new Thickness(0, 4, 0, 0),
                 };
                 if (i.SourceType == BrowserSourceType.Registry)
                 {
+                    comp.EditEnabled = false;
                     _ = StackSystemBrowsers.Children.Add(comp);
                 }
                 else if (!onlyRegistryBrowsers && i.SourceType == BrowserSourceType.User)
@@ -61,7 +62,7 @@ namespace Hurl.Settings
                 SourceType = BrowserSourceType.User,
             };
 
-            var comp = new BrowserStatusComponent(newBrowser)
+            var comp = new BrowserComponent(newBrowser)
             {
                 Margin = new Thickness(0, 4, 0, 0),
             };

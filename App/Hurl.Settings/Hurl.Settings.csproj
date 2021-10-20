@@ -65,10 +65,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Controls\BrowserStatusComponent.xaml.cs">
-      <DependentUpon>BrowserStatusComponent.xaml</DependentUpon>
+    <Compile Include="Controls\BrowserComponent.xaml.cs">
+      <DependentUpon>BrowserComponent.xaml</DependentUpon>
     </Compile>
-    <Page Include="Controls\BrowserStatusComponent.xaml">
+    <Page Include="Controls\BrowserComponent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
