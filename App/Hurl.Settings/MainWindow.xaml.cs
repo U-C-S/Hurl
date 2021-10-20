@@ -1,6 +1,5 @@
 using Hurl.Settings.Controls;
 using Hurl.Settings.Services;
-using Hurl.Settings.Views;
 using Hurl.SharedLibraries.Constants;
 using Hurl.SharedLibraries.Models;
 using Hurl.SharedLibraries.Services;
