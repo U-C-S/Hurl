@@ -9,7 +9,7 @@ using System.Windows.Controls;
 namespace Hurl.Settings.Controls
 {
     /// <summary>
-    /// Interaction logic for BrowserStatusComponent.xaml
+    /// Interaction logic for BrowserStatusComponent.xamll
     /// </summary>
     public partial class BrowserStatusComponent : UserControl
     {

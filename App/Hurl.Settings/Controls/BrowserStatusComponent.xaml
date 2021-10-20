@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Hurl.Settings.Controls"
-             mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="800" >
+             mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="250" >
     <UserControl.Resources>
         <Style x:Key="Buttons" TargetType="Button">
             <Setter Property="Padding" Value="10,2,10,2" />
@@ -13,7 +13,7 @@
         </Style>
     </UserControl.Resources>
 
-    <Border CornerRadius="5" Padding="3" BorderThickness="2" Background="#FFFFDAAD" VerticalAlignment="Center">
+    <Border CornerRadius="5" Padding="3" BorderThickness="2" Background="#FFFFDAAD">
         <Expander x:Name="TheExpander" IsExpanded="False">
             <Expander.Header>
                 <DockPanel Background="#FFFFDAAD" Height="26">
