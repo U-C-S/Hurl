@@ -1,4 +1,3 @@
-using Hurl.Settings.Views;
 using Hurl.SharedLibraries.Models;
 using Hurl.SharedLibraries.Services;
 using Microsoft.Win32;
@@ -6,7 +5,6 @@ using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace Hurl.Settings.Controls
 {
