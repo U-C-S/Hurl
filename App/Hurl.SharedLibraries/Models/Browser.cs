@@ -40,6 +40,19 @@ namespace Hurl.SharedLibraries.Models
         [JsonProperty]
         public AlternateLaunch[] AlternateLaunches { get; set; }
 
+        private Icon RawIcon { get; set; }
+
+        public ImageSource GetIcon
+        {
+            get
+            {
+                if (ExePath != null)
+                    return IconUtilites.ToImageSource(RawIcon);
+                else return null;
+            }
+        }
+
+        /*
         //[JsonProperty]
         private string IconString
         {
@@ -58,17 +71,6 @@ namespace Hurl.SharedLibraries.Models
             }
         }
 
-        private Icon RawIcon { get; set; }
-
-        public ImageSource GetIcon
-        {
-            get
-            {
-                if (ExePath != null)
-                    return IconUtilites.ToImageSource(RawIcon);
-                else return null;
-            }
-        }
 
         public Image StringToIcon()
         {
@@ -81,6 +83,7 @@ namespace Hurl.SharedLibraries.Models
 
             return newIcon;
         }
+        */
     }
 
     [JsonObject(MemberSerialization.OptOut)]
@@ -88,47 +91,25 @@ namespace Hurl.SharedLibraries.Models
     {
         private AlternateLaunch() { }
 
-        public string Name { get; set; }
+        public AlternateLaunch(string ItemName, string LaunchArgs)
+        {
+            this.ItemName = ItemName;
+            this.LaunchArgs = LaunchArgs;
+            this.IsPath = false;
+        }
+
+        public AlternateLaunch(string ItemName, string ExePath, string LaunchArgs)
+        {
+            this.ItemName = ItemName;
+            this.LaunchExe = ExePath;
+            this.LaunchArgs = LaunchArgs;
+            this.IsPath = true;
+        }
+
+        public string ItemName { get; set; }
+        public string LaunchExe { get; set; }
         public string LaunchArgs { get; set; }
-        private bool IsPath { get; set; }
-        private string LaunchExe = null;
-
-        [JsonIgnore]
-        public string LaunchExecutable
-        {
-            get
-            {
-                if (IsPath)
-                    return LaunchExe;
-                else
-                    return null;
-            }
-            set
-            {
-                LaunchExe = value;
-            }
-        }
-
-        public static AlternateLaunch FromDiffExe(string Name, string ExePath, string LaunchArgs)
-        {
-            return new AlternateLaunch()
-            {
-                Name = Name,
-                LaunchExecutable = ExePath,
-                LaunchArgs = LaunchArgs,
-                IsPath = true
-            };
-        }
-
-        public static AlternateLaunch WithDiffArgs(string Name, string LaunchArgs)
-        {
-            return new AlternateLaunch()
-            {
-                Name = Name,
-                LaunchArgs = LaunchArgs,
-                IsPath = false
-            };
-        }
+        public bool IsPath { get; set; }
     }
 
     public enum BrowserSourceType

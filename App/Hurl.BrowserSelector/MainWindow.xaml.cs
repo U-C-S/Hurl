@@ -37,15 +37,7 @@ namespace Hurl.BrowserSelector
 
             foreach (Browser i in LoadableBrowsers)
             {
-                BrowserIconBtn browserUC = new BrowserIconBtn()
-                {
-                    BrowserName = i.Name,
-                    BrowserIcon = i.GetIcon,
-                    ExePath = i.ExePath,
-                    URL = OpenedLink,
-                    LaunchArgs = i.LaunchArgs,
-                    AlternateLaunches = i.AlternateLaunches
-                };
+                BrowserIconBtn browserUC = new BrowserIconBtn(i, OpenedLink);
 
                 var separator = new System.Windows.Shapes.Rectangle()
                 {
