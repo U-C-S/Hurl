@@ -42,7 +42,9 @@ namespace Hurl.BrowserSelector
                     BrowserName = i.Name,
                     BrowserIcon = i.GetIcon,
                     ExePath = i.ExePath,
-                    URL = OpenedLink + " " + i.LaunchArgs
+                    URL = OpenedLink,
+                    LaunchArgs = i.LaunchArgs,
+                    AlternateLaunches = i.AlternateLaunches
                 };
 
                 var separator = new System.Windows.Shapes.Rectangle()

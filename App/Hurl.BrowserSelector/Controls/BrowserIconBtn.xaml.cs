@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using Hurl.SharedLibraries.Models;
+using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -20,10 +22,18 @@ namespace Hurl.BrowserSelector.Controls
         public ImageSource BrowserIcon { get; set; }
         public string ExePath { get; set; }
         public string URL { get; set; }
+        public string LaunchArgs { get; set; }
+        public AlternateLaunch[] AlternateLaunches { get; set; }
 
         private void OpenIt(object sender, MouseButtonEventArgs e)
         {
-            Process.Start(ExePath, URL);
+            Process.Start(ExePath, URL + " " + LaunchArgs);
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var x = (sender as MenuItem).Tag as AlternateLaunch;
+            Process.Start(ExePath, URL + " " + x.LaunchArgs);
         }
     }
 }

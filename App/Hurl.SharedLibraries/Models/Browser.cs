@@ -86,9 +86,49 @@ namespace Hurl.SharedLibraries.Models
     [JsonObject(MemberSerialization.OptOut)]
     public class AlternateLaunch
     {
+        private AlternateLaunch() { }
+
         public string Name { get; set; }
-        public string LaunchCommand { get; set; }
-        public bool IsPath { get; set; }
+        public string LaunchArgs { get; set; }
+        private bool IsPath { get; set; }
+        private string LaunchExe = null;
+
+        [JsonIgnore]
+        public string LaunchExecutable
+        {
+            get
+            {
+                if (IsPath)
+                    return LaunchExe;
+                else
+                    return null;
+            }
+            set
+            {
+                LaunchExe = value;
+            }
+        }
+
+        public static AlternateLaunch FromDiffExe(string Name, string ExePath, string LaunchArgs)
+        {
+            return new AlternateLaunch()
+            {
+                Name = Name,
+                LaunchExecutable = ExePath,
+                LaunchArgs = LaunchArgs,
+                IsPath = true
+            };
+        }
+
+        public static AlternateLaunch WithDiffArgs(string Name, string LaunchArgs)
+        {
+            return new AlternateLaunch()
+            {
+                Name = Name,
+                LaunchArgs = LaunchArgs,
+                IsPath = false
+            };
+        }
     }
 
     public enum BrowserSourceType
