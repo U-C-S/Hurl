@@ -1,6 +1,6 @@
 #define MyAppName "Hurl"
 #define NameSmall "hurl"
-#define MyAppVersion "0.4.0.1"
+#define MyAppVersion "0.4.0.3"
 #define MyAppPublisher "The 3721 Tools"
 #define MyAppURL "https://github.com/U-C-S/Hurl"
 #define MyAppExeName "Hurl.exe"
@@ -42,6 +42,7 @@ Name: "protocol"; Description: "{cm:CreateProtocol}"; GroupDescription: "{cm:Oth
 
 [Files]
 Source: "..\App\_bin\Release\*"; Excludes: "*.xml"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Extensions\*"; Excludes: "package-lock.json,node_modules"; DestDir: "{app}\Extensions"; Flags: ignoreversion recursesubdirs
 
 [Icons]
 Name: "{autoprograms}\Hurl\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"

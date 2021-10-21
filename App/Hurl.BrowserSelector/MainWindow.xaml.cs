@@ -23,9 +23,6 @@ namespace Hurl.BrowserSelector
             linkpreview.Text = OpenedLink = URL;
 
             Window_Loaded();
-
-            //What does \"%1\" mean in Registry ? 
-            //https://www.tek-tips.com/viewthread.cfm?qid=382878
         }
 
         private void Window_Loaded()

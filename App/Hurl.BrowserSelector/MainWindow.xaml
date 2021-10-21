@@ -7,7 +7,7 @@
         Title="Hurl - Select a Browser" Width="420" Height="210" AllowsTransparency="True" Background="{x:Null}"  
         Deactivated="Window_Deactivated" KeyDown="Window_Esc">
     <Grid>
-        <Border x:Name="Border1" CornerRadius="15" Panel.ZIndex="2">
+        <Border BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="15" >
             <Border.Background>
                 <LinearGradientBrush  StartPoint="0,0" EndPoint="1,0">
                     <GradientStop Color="#de6262"/>
