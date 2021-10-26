@@ -6,6 +6,7 @@ namespace Hurl.SharedLibraries.Models
 {
     public class Settings
     {
+        public string Version = MetaStrings.VERSION;
         public string LastUpdated { get; set; } = DateTime.Now.ToString();
         public string AppPath = MetaStrings.SettingsFilePath;
         public List<Browser> Browsers;

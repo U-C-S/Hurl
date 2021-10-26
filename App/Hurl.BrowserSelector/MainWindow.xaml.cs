@@ -14,7 +14,7 @@ namespace Hurl.BrowserSelector
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string OpenedLink = null;
+        private readonly string OpenedLink;
 
         public MainWindow(string URL)
         {
@@ -38,7 +38,7 @@ namespace Hurl.BrowserSelector
 
                 var separator = new System.Windows.Shapes.Rectangle()
                 {
-                    Width = 1,
+                    Width = 2,
                     Height = 40,
                     Margin = new Thickness(3, 0, 3, 20),
                     Fill = System.Windows.Media.Brushes.AliceBlue
