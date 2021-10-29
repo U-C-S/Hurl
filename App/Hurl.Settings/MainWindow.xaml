@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:uc="clr-namespace:Hurl.Settings.Controls" xmlns:local="clr-namespace:Hurl.Settings"
-		mc:Ignorable="d" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen"
-		Title="Hurl Settings" Width="600" Height="400">
+		mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+		Title="Hurl Settings" MinWidth="690" MinHeight="460">
     <Grid>
         <TextBlock Text="v0.4.0" FontFamily="Calibri" VerticalAlignment="Top" HorizontalAlignment="Right" Height="28" Padding="7" Margin="0,0,10,0"/>
 
@@ -49,35 +49,63 @@
 
 
             <TabItem Header="Browsers" Padding="5" Width="70">
-                <Border CornerRadius="3" BorderBrush="Coral" BorderThickness="2" Background="AntiqueWhite">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <StackPanel Margin="5">
-                            <StackPanel>
-                                <Grid Height="30">
-                                    <TextBlock Text="From Registry"
-										   FontSize="18" TextAlignment="Center" 
-										   HorizontalAlignment="Left" VerticalAlignment="Center" />
-                                    <Button HorizontalAlignment="Right" VerticalAlignment="Center" Padding="3"
-										    Background="{x:Null}" BorderBrush="{x:Null}" Click="RefreshBrowserList">
+                <Border CornerRadius="6" Background="AntiqueWhite">
+                    <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" MaxWidth="320" MinWidth="100"/>
+                            <ColumnDefinition Width="2"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <StackPanel Margin="5">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="30">
+                                    <Button Padding="2" Background="{x:Null}" BorderBrush="{x:Null}" Click="RefreshBrowserList">
                                         <Image Source="/Images/icons8-refresh-30.png" />
                                     </Button>
-                                </Grid>
-                                <StackPanel x:Name="StackSystemBrowsers" Margin="10,0" />
-                            </StackPanel>
-                            <Separator Margin="0,5"/>
-                            <StackPanel>
-                                <Grid Height="30">
-                                    <TextBlock Text="Custom" FontSize="18" TextAlignment="Center" 
-										        HorizontalAlignment="Left" VerticalAlignment="Center" />
-                                    <Button HorizontalAlignment="Right" VerticalAlignment="Center" 
-										    Background="{x:Null}" BorderBrush="{x:Null}" Click="AddBrowser">
+                                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="AddBrowser">
                                         <Image Source="/Images/icons8-add-32.png" />
                                     </Button>
-                                </Grid>
-                                <StackPanel x:Name="StackUserBrowsers" Margin="10,0" />
+                                </StackPanel>
+                                <Separator Margin="0,3,0,7"/>
+                                <StackPanel x:Name="StackSystemBrowsers" />
                             </StackPanel>
-                        </StackPanel>
-                    </ScrollViewer>
+                        </ScrollViewer>
+
+                        <GridSplitter Grid.Column="1" Background="CadetBlue" Width="2" Cursor="SizeWE" ResizeBehavior="PreviousAndNext"/>
+                        <Border Padding="5" Background="#B2DE6262" Grid.Column="2">
+                            <DockPanel>
+                                <StackPanel Orientation="Horizontal" Width="360" DockPanel.Dock="Top">
+                                    <Button Width="70"  >Open</Button>
+                                    <Button Width="70"  Margin="10,0,0,0" Tag="{Binding ExePath}" >CopyPath</Button>
+                                    <Button Width="70"  Margin="140,0,0,0">Remove</Button>
+                                </StackPanel>
+                                <Separator Margin="5" Background="#FFFFDAAD" DockPanel.Dock="Top"/>
+                                <StackPanel Margin="5,0" Width="450" DockPanel.Dock="Top">
+                                    <DockPanel Margin="0,2">
+                                        <Label Content="Name" Width="75"/>
+                                        <TextBox Padding="3" Text="{Binding Name}"/>
+                                    </DockPanel>
+                                    <DockPanel Margin="0,2">
+                                        <Label Content="Exe Path" Width="75"/>
+                                        <Button Padding="5,3">Choose</Button>
+                                        <TextBlock x:Name="ExePathBox" Padding="3" Text="{Binding ExePath}" />
+                                    </DockPanel>
+                                    <DockPanel Margin="0,2">
+                                        <Label Content="Launch Args" Width="75"/>
+                                        <TextBox Padding="3" Text="{Binding LaunchArgs}"/>
+                                    </DockPanel>
+                                    <!--<TextBox Height="80" TextWrapping="Wrap" x:Name="DEBUG_BOX"/>-->
+
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30">
+                                    <Button Width="70">Cancel</Button>
+                                    <Button Width="70" Margin="40,0,0,0">Update</Button>
+                                </StackPanel>
+                                <Separator Margin="5" Background="#FFFFDAAD" DockPanel.Dock="Bottom"/>
+                            </DockPanel>
+                        </Border>
+                    </Grid>
                 </Border>
             </TabItem>
 
