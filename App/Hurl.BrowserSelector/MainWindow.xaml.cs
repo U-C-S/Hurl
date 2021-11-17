@@ -45,10 +45,10 @@ namespace Hurl.BrowserSelector
                 };
 
                 _ = stacky.Children.Add(browserUC);
-                _ = stacky.Children.Add(separator);
+                //_ = stacky.Children.Add(separator);
             }
 
-            stacky.Children.RemoveAt(stacky.Children.Count - 1);
+            //stacky.Children.RemoveAt(stacky.Children.Count - 1);
         }
 
         private void Window_Esc(object sender, KeyEventArgs e)

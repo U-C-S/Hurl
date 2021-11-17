@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:uc="clr-namespace:Hurl.Settings.Controls" xmlns:local="clr-namespace:Hurl.Settings"
 		mc:Ignorable="d" WindowStartupLocation="CenterScreen"
-		Title="Hurl Settings" MinWidth="690" MinHeight="460">
+		Title="Hurl Settings" 
+        Width="780" Height="540" MinWidth="690" MinHeight="460">
     <Grid>
         <TextBlock Text="v0.4.0" FontFamily="Calibri" VerticalAlignment="Top" HorizontalAlignment="Right" Height="28" Padding="7" Margin="0,0,10,0"/>
 
@@ -76,9 +77,9 @@
                         <Border Padding="5" Background="#B2DE6262" Grid.Column="2">
                             <DockPanel>
                                 <StackPanel Orientation="Horizontal" Width="360" DockPanel.Dock="Top">
-                                    <Button Width="70"  >Open</Button>
-                                    <Button Width="70"  Margin="10,0,0,0" Tag="{Binding ExePath}" >CopyPath</Button>
-                                    <Button Width="70"  Margin="140,0,0,0">Remove</Button>
+                                    <Button Width="70" >Open</Button>
+                                    <Button Width="70" Margin="10,0,0,0" Tag="{Binding ExePath}">CopyPath</Button>
+                                    <Button Width="70" Margin="140,0,0,0">Remove</Button>
                                 </StackPanel>
                                 <Separator Margin="5" Background="#FFFFDAAD" DockPanel.Dock="Top"/>
                                 <StackPanel Margin="5,0" Width="450" DockPanel.Dock="Top">
