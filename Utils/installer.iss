@@ -29,7 +29,7 @@ OutputBaseFilename=Hurl_Installer
 ArchitecturesAllowed=x64
 Compression=lzma
 SolidCompression=yes
-WizardStyle=classic
+WizardStyle=modern
 
 SetupLogging=yes
 
@@ -41,7 +41,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "protocol"; Description: "{cm:CreateProtocol}"; GroupDescription: "{cm:OtherOptions}"; Flags: unchecked
 
 [Files]
-Source: "..\App\_bin\Release\*"; Excludes: "*.xml"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\App\_bin\Release\*"; Excludes: "*.xml,*.pdb,*.config"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Extensions\*"; Excludes: "package-lock.json,node_modules"; DestDir: "{app}\Extensions"; Flags: ignoreversion recursesubdirs
 
 [Icons]
