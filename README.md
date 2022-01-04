@@ -30,6 +30,11 @@ The Default Browser War in Windows is one of the reasons for creation of Hurl an
 - Supports adding your own browsers with Launch Args
 - Web Extension to open browser tabs in Hurl
 
+<p align="center">
+  <img width="640" src="https://user-images.githubusercontent.com/50218121/148084529-2772c667-5154-46c1-94e9-645cc13a98b5.png" />
+</p>
+
+
 ## Installation
 
 Get the Installer from [Releases](https://github.com/U-C-S/Hurl/releases/latest). Your PC's Anti-Virus might warn that it's not secure to download or install it, You can ignore it as the executables are Raw files and are Un-signed. After installing, You need to set Hurl as the default `http/https` protocol handler in the Windows Settings. Use `Hurl Settings` App (from Start Menu App list) to customize the Browsers.
