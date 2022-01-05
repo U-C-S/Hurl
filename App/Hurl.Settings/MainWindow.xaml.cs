@@ -70,12 +70,37 @@ namespace Hurl.Settings
         {
             SettingsFile settingsFile = SettingsFile.LoadNewInstance();
 
+            List<Browser> EmptyBrowserList = new List<Browser>();
+
+            List<Browser> newRegistryBrowsers = GetBrowsers.FromRegistry();
+
+            IEnumerable<Browser> registryBrowsers = from b in settingsFile.SettingsObject.Browsers
+                                                    where b.SourceType == BrowserSourceType.Registry
+                                                    select b;
+
+            foreach (Browser i in newRegistryBrowsers)
+            {
+                bool added = false;
+                foreach (Browser j in registryBrowsers)
+                {
+                    if (!added && i.ExePath == j.ExePath)
+                    {
+                        added = true;
+                        EmptyBrowserList.Add(j);
+                    }
+                }
+
+                if (!added)
+                {
+                    EmptyBrowserList.Add(i);
+                }
+            }
+
             IEnumerable<Browser> userBrowsers = from b in settingsFile.SettingsObject.Browsers
                                                 where b.SourceType == BrowserSourceType.User
                                                 select b;
-            List<Browser> newRegistryBrowsers = GetBrowsers.FromRegistry();
 
-            settingsFile.SettingsObject.Browsers = userBrowsers.Concat(newRegistryBrowsers).ToList();
+            settingsFile.SettingsObject.Browsers = userBrowsers.Concat(EmptyBrowserList).ToList();
             settingsFile.Update();
 
             StackSystemBrowsers.Children.Clear();
