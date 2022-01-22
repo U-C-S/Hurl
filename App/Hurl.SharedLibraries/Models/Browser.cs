@@ -46,7 +46,7 @@ namespace Hurl.SharedLibraries.Models
         {
             get
             {
-                if (ExePath != null)
+                if (ExePath != null && RawIcon != null)
                     return IconUtilites.ToImageSource(RawIcon);
                 else return null;
             }

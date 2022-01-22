@@ -74,33 +74,45 @@ namespace Hurl.Settings
 
             List<Browser> newRegistryBrowsers = GetBrowsers.FromRegistry();
 
-            IEnumerable<Browser> registryBrowsers = from b in settingsFile.SettingsObject.Browsers
+            List<Browser> registryBrowsers = (from b in settingsFile.SettingsObject.Browsers
                                                     where b.SourceType == BrowserSourceType.Registry
-                                                    select b;
+                                                    select b).ToList();
+            var backuplist = new List<Browser>(registryBrowsers);
 
-            foreach (Browser i in newRegistryBrowsers)
+            foreach (Browser nb in newRegistryBrowsers)
             {
                 bool added = false;
-                foreach (Browser j in registryBrowsers)
+                foreach (Browser cb in registryBrowsers)
                 {
-                    if (!added && i.ExePath == j.ExePath)
+                    if (!added && nb.ExePath == cb.ExePath)
                     {
                         added = true;
-                        EmptyBrowserList.Add(j);
+                        EmptyBrowserList.Add(cb);
+
+                        var booll = backuplist.Remove(cb);
+                        Debug.WriteLine(booll);
+                        continue;
                     }
                 }
 
                 if (!added)
                 {
-                    EmptyBrowserList.Add(i);
+                    EmptyBrowserList.Add(nb);
                 }
+            }
+
+            //now make all the stuff in backuplist as hidden
+            foreach (var x in backuplist)
+            {
+                x.Hidden = true;
+                Debug.WriteLine(x.Name);
             }
 
             IEnumerable<Browser> userBrowsers = from b in settingsFile.SettingsObject.Browsers
                                                 where b.SourceType == BrowserSourceType.User
                                                 select b;
 
-            settingsFile.SettingsObject.Browsers = userBrowsers.Concat(EmptyBrowserList).ToList();
+            settingsFile.SettingsObject.Browsers = userBrowsers.Concat(EmptyBrowserList.Concat(backuplist)).ToList();
             settingsFile.Update();
 
             StackSystemBrowsers.Children.Clear();
