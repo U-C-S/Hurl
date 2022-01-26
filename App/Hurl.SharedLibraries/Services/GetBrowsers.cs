@@ -1,10 +1,6 @@
 ﻿using Hurl.SharedLibraries.Models;
 using Microsoft.Win32;
-using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Windows.Media;
 
 namespace Hurl.SharedLibraries.Services
 {
@@ -12,7 +8,7 @@ namespace Hurl.SharedLibraries.Services
     {
         public static List<Browser> FromRegistry()
         {
-            List<Browser> browsers;
+            List<Browser> browsers = null;
 
             using (RegistryKey key = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Clients\\StartMenuInternet"))
             {
