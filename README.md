@@ -5,7 +5,7 @@
   Hurl
 </h1>
 <p align="center">
-  A windows utility that lets you choose the browser on the click of a link.
+  A windows utility that lets you choose the browser on the click of a link
 </p>
 <p align="center">
   <a style="text-decoration:none" href="https://github.com/U-C-S/Hurl/releases">
@@ -26,22 +26,42 @@
 
 The Default Browser War in Windows is one of the reasons for creation of Hurl and Sometimes you might want to open a link in a browser of your choice, instead of the default one. Hurl is used to let you choose the browser everytime you click a link (links outside of browser). So naturally, It acts as default browser to do that. And hurl can be powered up with a _browser extension_ to let you open a browser tab in another browser.
 
-- Fast startup and lightweight.
-- Custom browsers support.
-- Web Extension to open browser tabs in Hurl.
+- Fast startup and lightweight
+- Supports adding your own browsers with Launch Args
+- Web Extension to open browser tabs in Hurl
 
-<p align="center">******* 📣 Hurl is still under active development *******</p>
+<p align="center">
+  <img width="640" src="https://user-images.githubusercontent.com/50218121/148084529-2772c667-5154-46c1-94e9-645cc13a98b5.png" />
+</p>
+
+
+## Installation
+
+Get the Installer from [Releases](https://github.com/U-C-S/Hurl/releases/latest). Your PC's Anti-Virus might warn that it's not secure to download or install it, You can ignore it as the executables are Raw files and are Un-signed. After installing, You need to set Hurl as the default `http/https` protocol handler in the Windows Settings. Use `Hurl Settings` App (from Start Menu App list) to customize the Browsers.
 
 ## Dependencies and Tools
 
-- [Visual Studio 2022](https://visualstudio.microsoft.com/vs/preview/)
-- [Windows Presentation Foundation](https://docs.microsoft.com/en-us/visualstudio/designers/getting-started-with-wpf?view=vs-2022) - .NET Framework 4.8
-- [C#](https://dotnet.microsoft.com/languages/csharp)
+- [Visual Studio](https://visualstudio.microsoft.com)
 - [Inno Setup](https://jrsoftware.org/isinfo.php)
+- [Windows Presentation Foundation](https://docs.microsoft.com/en-us/visualstudio/designers/getting-started-with-wpf) - .NET Framework 4.8
+- [C#](https://dotnet.microsoft.com/languages/csharp)
+
+## Building from Source
+
+- Install Visual Studio 2019 or 2022 in your Windows with .NET Desktop Development workload
+- After Cloning the Repo, Open the solution file `App/Hurl.sln` in Visual Studio
+- In Debug / Release mode, Run the `Hurl.Settings` Project which builds all the projects in the solution and Opens Settings Window
+- `App/_bin` contains resulting executables
+- Install Inno Setup, Open the `Utils/installer.iss` script and Compile it to create the Installer (output in the `Utils` directory)
+
+### Using the Extension
+
+- Enable the Developer Mode for Extensions in Edge or Chrome
+- Choose the folder `Extensions/Chrome` after clicking `Load Unpacked` Button available after enabling Developer mode
 
 ## Contributing
 
-The Project welcomes Pull-Requests. So, If you like the Project or Using it, please consider:
+The Project welcomes Pull-Requests. So, If you like the Project or Using it, also consider:
 
 - Giving a Star ⭐
 - Contributing code....

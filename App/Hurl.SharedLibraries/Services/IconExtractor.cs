@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -16,14 +17,22 @@ namespace Hurl.SharedLibraries.Services
 
         public static Icon FromFile(string filename)
         {
-            IntPtr[] phicon = new IntPtr[] { IntPtr.Zero };
-            IntPtr[] piconid = new IntPtr[] { IntPtr.Zero };
+            try
+            {
+                IntPtr[] phicon = new IntPtr[] { IntPtr.Zero };
+                IntPtr[] piconid = new IntPtr[] { IntPtr.Zero };
 
-            PrivateExtractIcons(filename, 0, 128, 128, phicon, piconid, 1, 0);
+                PrivateExtractIcons(filename, 0, 128, 128, phicon, piconid, 1, 0);
 
-            if (phicon[0] != IntPtr.Zero)
-                return Icon.FromHandle(phicon[0]);
-            return null;
+                if (phicon[0] != IntPtr.Zero)
+                    return Icon.FromHandle(phicon[0]);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return null;
+            }
         }
     }
 
@@ -56,6 +65,8 @@ namespace Hurl.SharedLibraries.Services
             catch (Exception ex)
             {
                 //TODO: On error, use a default icon
+                //ImageSource wpfBitmap = Imaging;
+                Debug.WriteLine(ex.Message);
                 return null;
             }
 

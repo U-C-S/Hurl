@@ -4,9 +4,21 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Hurl.BrowserSelector.Controls"
-             mc:Ignorable="d" d:DesignWidth="100" d:DesignHeight="100" >
+             mc:Ignorable="d" d:DesignWidth="100" d:DesignHeight="100">
+    <UserControl.ContextMenu>
+        <ContextMenu ItemsSource="{Binding AlternateLaunches}">
+            <ContextMenu.ItemContainerStyle>
+                <Style TargetType="MenuItem">
+                    <Setter Property="Header" Value="{Binding ItemName}" />
+                    <Setter Property="Tag" Value="{Binding}" />
+                    <EventSetter Event="Click" Handler="MenuItem_Click"/>
+                </Style>
+            </ContextMenu.ItemContainerStyle>
+        </ContextMenu>
+    </UserControl.ContextMenu>
+
     <StackPanel MouseLeftButtonUp="OpenIt" Width="100" Cursor="Hand" MaxHeight="120">
-        <Image Source="{Binding BrowserIcon}" Width="64" Height="64" />
-        <TextBlock Text="{Binding BrowserName}" TextWrapping="Wrap" TextAlignment="Center" FontSize="10"/>
+        <Image Source="{Binding GetIcon}" Width="64" Height="64" />
+        <TextBlock Text="{Binding Name}" TextWrapping="Wrap" TextAlignment="Center" FontSize="10"/>
     </StackPanel>
 </UserControl>

@@ -1,4 +1,4 @@
-﻿using Hurl.SharedLibraries.Services;
+using Hurl.SharedLibraries.Services;
 using System.Text.Json;
 using System;
 using System.Drawing;
@@ -14,9 +14,12 @@ namespace Hurl.SharedLibraries.Models
         {
             this.Name = Name;
             this.ExePath = ExePath;
-            this.RawIcon = ExePath.StartsWith('"'.ToString())
-                    ? IconExtractor.FromFile(ExePath.Substring(1, ExePath.Length - 2))
-                    : IconExtractor.FromFile(ExePath);
+            if (ExePath != null)
+            {
+                this.RawIcon = ExePath.StartsWith('"'.ToString())
+                        ? IconExtractor.FromFile(ExePath.Substring(1, ExePath.Length - 2))
+                        : IconExtractor.FromFile(ExePath);
+            }
         }
 
         [JsonInclude]
@@ -28,9 +31,28 @@ namespace Hurl.SharedLibraries.Models
         [JsonInclude]
         public string ExePath { get; set; }
 
+
+        [JsonInclude]
+        public string LaunchArgs { get; set; }
         [JsonInclude]
         public bool Hidden { get; set; } = false;
 
+        [JsonProperty]
+        public AlternateLaunch[] AlternateLaunches { get; set; }
+
+        private Icon RawIcon { get; set; }
+
+        public ImageSource GetIcon
+        {
+            get
+            {
+                if (ExePath != null && RawIcon != null)
+                    return IconUtilites.ToImageSource(RawIcon);
+                else return null;
+            }
+        }
+
+        /*
         //[JsonProperty]
         private string IconString
         {
@@ -49,13 +71,16 @@ namespace Hurl.SharedLibraries.Models
             }
         }
 
-        private Icon RawIcon
-        {
-            get; set;
-        }
+// <<<<<<< dev
+// =======
+//         private Icon RawIcon
+//         {
+//             get; set;
+//         }
 
-        [JsonIgnore]
-        public ImageSource GetIcon => IconUtilites.ToImageSource(RawIcon);
+//         [JsonIgnore]
+//         public ImageSource GetIcon => IconUtilites.ToImageSource(RawIcon);
+// >>>>>>> dev-Minor-dotnet6
 
         public Image StringToIcon()
         {
@@ -68,6 +93,33 @@ namespace Hurl.SharedLibraries.Models
 
             return newIcon;
         }
+        */
+    }
+
+    [JsonObject(MemberSerialization.OptOut)]
+    public class AlternateLaunch
+    {
+        private AlternateLaunch() { }
+
+        public AlternateLaunch(string ItemName, string LaunchArgs)
+        {
+            this.ItemName = ItemName;
+            this.LaunchArgs = LaunchArgs;
+            this.IsPath = false;
+        }
+
+        public AlternateLaunch(string ItemName, string ExePath, string LaunchArgs)
+        {
+            this.ItemName = ItemName;
+            this.LaunchExe = ExePath;
+            this.LaunchArgs = LaunchArgs;
+            this.IsPath = true;
+        }
+
+        public string ItemName { get; set; }
+        public string LaunchExe { get; set; }
+        public string LaunchArgs { get; set; }
+        public bool IsPath { get; set; }
     }
 
     public enum BrowserSourceType

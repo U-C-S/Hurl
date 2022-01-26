@@ -1,4 +1,4 @@
-﻿using Hurl.SharedLibraries.Constants;
+using Hurl.SharedLibraries.Constants;
 using Hurl.SharedLibraries.Models;
 using System;
 using System.Collections.Generic;
@@ -11,10 +11,10 @@ namespace Hurl.SharedLibraries.Services
     {
         public static SettingsFile LoadNewInstance() => new SettingsFile();
 
+        //public bool DataExists { get; set; } = false;
         // convert this to reuable, so we can use it in other places
         // ex: SettingsFile(string filePath, DataModel)
         //remove this
-        public bool DataExists { get; set; } = false;
         public Settings SettingsObject;
 
         public SettingsFile()
@@ -35,7 +35,6 @@ namespace Hurl.SharedLibraries.Services
             }
             else
             {
-                DataExists = true;
                 string jsondata = File.ReadAllText(MetaStrings.SettingsFilePath);
                 SettingsObject = JsonSerializer.Deserialize<Settings>(jsondata);
             }
