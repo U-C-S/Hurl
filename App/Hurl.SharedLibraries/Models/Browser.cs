@@ -34,10 +34,11 @@ namespace Hurl.SharedLibraries.Models
 
         [JsonInclude]
         public string LaunchArgs { get; set; }
+
         [JsonInclude]
         public bool Hidden { get; set; } = false;
 
-        [JsonProperty]
+        [JsonInclude]
         public AlternateLaunch[] AlternateLaunches { get; set; }
 
         private Icon RawIcon { get; set; }
@@ -96,10 +97,10 @@ namespace Hurl.SharedLibraries.Models
         */
     }
 
-    [JsonObject(MemberSerialization.OptOut)]
+    //[JsonObject(MemberSerialization.OptOut)]
     public class AlternateLaunch
     {
-        private AlternateLaunch() { }
+        public AlternateLaunch() { }
 
         public AlternateLaunch(string ItemName, string LaunchArgs)
         {
@@ -116,9 +117,16 @@ namespace Hurl.SharedLibraries.Models
             this.IsPath = true;
         }
 
+        [JsonInclude]
         public string ItemName { get; set; }
+        
+        [JsonInclude]
         public string LaunchExe { get; set; }
+        
+        [JsonInclude]
         public string LaunchArgs { get; set; }
+        
+        [JsonInclude]
         public bool IsPath { get; set; }
     }
 

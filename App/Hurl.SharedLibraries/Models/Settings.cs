@@ -9,19 +9,21 @@ namespace Hurl.SharedLibraries.Models
     {
         [JsonInclude]
         public string Version = MetaStrings.VERSION;
-      
+
         [JsonInclude]
         public string LastUpdated { get; set; } = DateTime.Now.ToString();
-        
+
         [JsonInclude]
         public string AppPath = MetaStrings.SettingsFilePath;
 
         [JsonInclude]
         public List<Browser> Browsers;
 
-        public Settings(List<Browser> browsers)
-        {
-            Browsers = browsers;
-        }
+        //public Settings(List<Browser> browsers)
+        //{
+        //    Browsers = browsers;
+        //}
+
+        //public Settings() { }
     }
 }

@@ -1,7 +1,6 @@
 using Hurl.SharedLibraries.Constants;
 using Hurl.SharedLibraries.Models;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 
@@ -9,7 +8,7 @@ namespace Hurl.SharedLibraries.Services
 {
     public class SettingsFile
     {
-        public static SettingsFile LoadNewInstance() => new SettingsFile();
+        public static SettingsFile LoadNewInstance() => new();
 
         //public bool DataExists { get; set; } = false;
         // convert this to reuable, so we can use it in other places
@@ -23,8 +22,10 @@ namespace Hurl.SharedLibraries.Services
             {
                 Directory.CreateDirectory(OtherStrings.ROAMING + "\\Hurl");
 
-                List<Browser> Browsers = GetBrowsers.FromRegistry();
-                SettingsObject = new Settings(Browsers);
+                SettingsObject = new Settings()
+                {
+                    Browsers = GetBrowsers.FromRegistry()
+                };
 
                 string jsondata = JsonSerializer.Serialize(SettingsObject, new JsonSerializerOptions
                 {
