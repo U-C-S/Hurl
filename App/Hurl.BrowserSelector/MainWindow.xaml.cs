@@ -9,9 +9,6 @@ using System.Windows;
 using System.Windows.Shell;
 using System.Windows.Input;
 using System.Diagnostics;
-using MicaWPF.Controls;
-using MicaWPF;
-using MicaWPF.Helpers;
 
 namespace Hurl.BrowserSelector
 {

@@ -2,36 +2,32 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Hurl.BrowserSelector" mc:Ignorable="d"
-        xmlns:mica="clr-namespace:MicaWPF.Controls;assembly=MicaWPF"
         xmlns:wpfui="clr-namespace:WPFUI.Controls;assembly=WPFUI"
         ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen"
         ShowInTaskbar="False" Topmost="True"
-        Title="Hurl - Select a Browser" Width="420" Height="210" AllowsTransparency="True" Background="{x:Null}"  
+        Title="Hurl - Select a Browser" Width="420" Height="210" Background="{x:Null}"  
         Deactivated="Window_Deactivated" KeyDown="Window_Esc">
-    <Grid>
-        <Border BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="8" Background="Transparent">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="28" />
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="25" />
-                </Grid.RowDefinitions>
+    <Border BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="8" Background="Transparent">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="28" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="25" />
+            </Grid.RowDefinitions>
 
-                <Grid x:Name="draggableBlock" MouseLeftButtonDown="draggableBlock_MouseLeftButtonDown">
+            <Grid x:Name="draggableBlock" MouseLeftButtonDown="draggableBlock_MouseLeftButtonDown">
                     <TextBlock x:Name="header" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="18,0"
                                FontSize="14" Foreground="AliceBlue">Select a Browser</TextBlock>
                     <Button HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,18,0" 
                             Click="LinkCopyBtn" Padding="5,2" BorderBrush="{x:Null}" Background="AliceBlue"
                             FontSize="10">Copy Link</Button>
-                </Grid>
-
-                <Grid Grid.Row="1">
-                    <StackPanel x:Name="stacky" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                </Grid>
-                <TextBlock x:Name="linkpreview" 
-                           Padding="10,6,10,0" Grid.Row="2"
-                           TextAlignment="Center" FontSize="10" FontFamily="Calibri">No Link Opened</TextBlock>
             </Grid>
-        </Border>
-    </Grid>
+
+            <Grid Grid.Row="1">
+                <StackPanel x:Name="stacky" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+            <TextBlock x:Name="linkpreview" Padding="10,6,10,0" Grid.Row="2"
+                           TextAlignment="Center" FontSize="10" FontFamily="Calibri">No Link Opened</TextBlock>
+        </Grid>
+    </Border>
 </Window>
