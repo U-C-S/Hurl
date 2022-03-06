@@ -4,29 +4,38 @@
         xmlns:local="clr-namespace:Hurl.BrowserSelector" mc:Ignorable="d"
         xmlns:wpfui="clr-namespace:WPFUI.Controls;assembly=WPFUI"
         ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" Topmost="True"
-        Title="Hurl - Select a Browser" Width="420" Height="210" Background="{x:Null}"  
+        Title="Hurl - Select a Browser" Width="420" Height="220" Background="{x:Null}"
         Deactivated="Window_Deactivated" KeyDown="Window_Esc">
     <Border BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="8" Background="#22222222">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="32" />
+                <RowDefinition Height="36" />
                 <RowDefinition Height="1*" />
-                <RowDefinition Height="25" />
+                <RowDefinition Height="36" />
             </Grid.RowDefinitions>
 
-            <Grid x:Name="draggableBlock" Panel.ZIndex="5">
-                    <TextBlock x:Name="header" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="18,0"
-                               FontSize="14" Foreground="AliceBlue">Select a Browser</TextBlock>
-                    <wpfui:Button HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,18,0" 
-                            Click="LinkCopyBtn" Padding="10,5" Background="Black"
-                            FontSize="10">Copy Link</wpfui:Button>
+            <!--<wpfui:TitleBar Grid.Column="1" Grid.Row="0"
+                            ApplicationNavigation="False" 
+                            ShowMaximize="False" 
+                            ShowMinimize="False" Grid.ColumnSpan="2" VerticalAlignment="Center"/>-->
+
+            <Grid>
+                <wpfui:Button  HorizontalAlignment="Right" Background="#99000000" Padding="7,5" Margin="0,0,76,0">
+                    <wpfui:Icon Glyph="Settings24"/>
+                </wpfui:Button>
+                <wpfui:Button HorizontalAlignment="Right" Background="#99000000" Padding="7,5" Margin="0,0,40,0" Click="LinkCopyBtn">
+                    <wpfui:Icon Glyph="Copy24"/>
+                </wpfui:Button>
+                <wpfui:Button  HorizontalAlignment="Right" Background="#99000000" Padding="7,5" Margin="0,0,4,0">
+                    <wpfui:Icon Glyph="Dismiss24"/>
+                </wpfui:Button>
             </Grid>
 
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" Grid.ColumnSpan="2">
                 <StackPanel x:Name="stacky" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Grid>
             <TextBlock x:Name="linkpreview" Padding="10,6,10,0" Grid.Row="2"
-                           TextAlignment="Center" FontSize="10" FontFamily="Calibri">No Link Opened</TextBlock>
+                           TextAlignment="Center" FontSize="10" FontFamily="Calibri" Grid.ColumnSpan="2">No Link Opened</TextBlock>
         </Grid>
     </Border>
 </Window>
