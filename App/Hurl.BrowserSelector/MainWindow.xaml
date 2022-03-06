@@ -3,24 +3,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Hurl.BrowserSelector" mc:Ignorable="d"
         xmlns:wpfui="clr-namespace:WPFUI.Controls;assembly=WPFUI"
-        ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen"
-        ShowInTaskbar="False" Topmost="True"
+        ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" Topmost="True"
         Title="Hurl - Select a Browser" Width="420" Height="210" Background="{x:Null}"  
         Deactivated="Window_Deactivated" KeyDown="Window_Esc">
-    <Border BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="8" Background="Transparent">
+    <Border BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="8" Background="#22222222">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="28" />
+                <RowDefinition Height="32" />
                 <RowDefinition Height="1*" />
                 <RowDefinition Height="25" />
             </Grid.RowDefinitions>
 
-            <Grid x:Name="draggableBlock" MouseLeftButtonDown="draggableBlock_MouseLeftButtonDown">
+            <Grid x:Name="draggableBlock" Panel.ZIndex="5">
                     <TextBlock x:Name="header" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="18,0"
                                FontSize="14" Foreground="AliceBlue">Select a Browser</TextBlock>
-                    <Button HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,18,0" 
-                            Click="LinkCopyBtn" Padding="5,2" BorderBrush="{x:Null}" Background="AliceBlue"
-                            FontSize="10">Copy Link</Button>
+                    <wpfui:Button HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,18,0" 
+                            Click="LinkCopyBtn" Padding="10,5" Background="Black"
+                            FontSize="10">Copy Link</wpfui:Button>
             </Grid>
 
             <Grid Grid.Row="1">
