@@ -7,8 +7,6 @@
     <UseWindowsForms>True</UseWindowsForms>
     <UseWPF>true</UseWPF>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
-  </PropertyGroup>
-  <PropertyGroup>
     <ApplicationIcon>..\Common\internet.ico</ApplicationIcon>
     <SignAssembly>False</SignAssembly>
   </PropertyGroup>
