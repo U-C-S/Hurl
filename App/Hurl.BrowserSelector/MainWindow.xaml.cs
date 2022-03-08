@@ -26,7 +26,7 @@ namespace Hurl.BrowserSelector
             InitializeComponent();
             WindowChrome.SetWindowChrome(this, new WindowChrome()
             {
-                CornerRadius = new CornerRadius(7)
+                CaptionHeight = 5
             });
 
             linkpreview.Text = OpenedLink = URL;
@@ -76,6 +76,6 @@ namespace Hurl.BrowserSelector
 
         private void LinkCopyBtn(object sender, RoutedEventArgs e) => Clipboard.SetText(OpenedLink);
 
-        private void draggableBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) => this.DragMove();
+        //private void draggable(object sender, MouseButtonEventArgs e) => this.DragMove();
     }
 }
