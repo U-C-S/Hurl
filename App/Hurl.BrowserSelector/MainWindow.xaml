@@ -7,7 +7,7 @@
         xmlns:wpfui="clr-namespace:WPFUI.Controls;assembly=WPFUI"
         mc:Ignorable="d"
         ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" Topmost="True"
-        Title="Hurl - Select a Browser" Width="430" Height="220">
+        Title="Hurl - Select a Browser" Width="Auto" Height="220" SizeToContent="Width">
     <Border BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="8" Background="#22222222">
         <Grid>
             <Grid.RowDefinitions>
