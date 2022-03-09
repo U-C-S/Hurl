@@ -17,6 +17,7 @@ AppUpdatesURL="https://github.com/U-C-S/Hurl/releases"
 AppReadmeFile="https://github.com/U-C-S/Hurl#README"
 SetupIconFile=..\App\Common\internet.ico
 LicenseFile=..\LICENSE
+InfoBeforeFile=README.md
 
 UsePreviousAppDir=yes
 DefaultDirName={autopf}\{#MyAppName}
