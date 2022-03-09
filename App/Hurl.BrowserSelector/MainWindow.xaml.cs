@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Shell;
 using System.Windows.Input;
 using System.Diagnostics;
+using Hurl.SharedLibraries.Constants;
 
 namespace Hurl.BrowserSelector
 {
@@ -22,7 +23,7 @@ namespace Hurl.BrowserSelector
         public MainWindow(string URL)
         {
             WPFUI.Background.Manager.Apply(WPFUI.Background.BackgroundType.Acrylic, this);
-            
+
             InitializeComponent();
             WindowChrome.SetWindowChrome(this, new WindowChrome()
             {
@@ -72,9 +73,10 @@ namespace Hurl.BrowserSelector
             }
         }
 
-        private void Window_Deactivated(object sender, EventArgs e) => Debug.Write("ok");
+        private void LinkCopyBtnClick(object sender, RoutedEventArgs e) => Clipboard.SetText(OpenedLink);
+        private void SettingsBtnClick(object sender, RoutedEventArgs e) => Process.Start("notepad.exe", MetaStrings.SettingsFilePath);
+        private void CloseBtnClick(object sender, RoutedEventArgs e) => this.Close();
 
-        private void LinkCopyBtn(object sender, RoutedEventArgs e) => Clipboard.SetText(OpenedLink);
 
         //private void draggable(object sender, MouseButtonEventArgs e) => this.DragMove();
     }
