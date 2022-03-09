@@ -27,11 +27,11 @@
 The Default Browser War in Windows is one of the reasons for creation of Hurl and Sometimes you might want to open a link in a browser of your choice, instead of the default one. Hurl is used to let you choose the browser everytime you click a link (links outside of browser). So naturally, It acts as default browser to do that. And hurl can be powered up with a _browser extension_ to let you open a browser tab in another browser.
 
 - Fast startup and lightweight
-- Supports adding your own browsers with Launch Args
+- Supports adding your own browsers with Launch Arguments
 - Web Extension to open browser tabs in Hurl
 
 <p align="center">
-  <img width="640" src="https://user-images.githubusercontent.com/50218121/148084529-2772c667-5154-46c1-94e9-645cc13a98b5.png" />
+  <img width="640" src="https://user-images.githubusercontent.com/50218121/157494232-a134a412-9dd7-4706-8be7-6e3800484082.png" />
 </p>
 
 
@@ -43,8 +43,9 @@ Get the Installer from [Releases](https://github.com/U-C-S/Hurl/releases/latest)
 
 - [Visual Studio](https://visualstudio.microsoft.com)
 - [Inno Setup](https://jrsoftware.org/isinfo.php)
-- [Windows Presentation Foundation](https://docs.microsoft.com/en-us/visualstudio/designers/getting-started-with-wpf) - .NET Framework 4.8
+- [Windows Presentation Foundation](https://docs.microsoft.com/en-us/visualstudio/designers/getting-started-with-wpf) - .NET 6.0
 - [C#](https://dotnet.microsoft.com/languages/csharp)
+- [WPF UI](https://github.com/lepoco/wpfui)
 
 ## Building from Source
 
@@ -54,14 +55,17 @@ Get the Installer from [Releases](https://github.com/U-C-S/Hurl/releases/latest)
 - `App/_bin` contains resulting executables
 - Install Inno Setup, Open the `Utils/installer.iss` script and Compile it to create the Installer (output in the `Utils` directory)
 
+or Simply use the Build Script from `Utils/build.ps1` to build the Application in release mode and successively build the installer.
+
 ### Using the Extension
 
 - Enable the Developer Mode for Extensions in Edge or Chrome
-- Choose the folder `Extensions/Chrome` after clicking `Load Unpacked` Button available after enabling Developer mode
+- Choose the folder `{installationDir}/Extensions/Chrome` after clicking `Load Unpacked` Button available after enabling Developer mode
 
 ## Contributing
 
-The Project welcomes Pull-Requests. So, If you like the Project or Using it, also consider:
+The Project is open to Pull-Requests and Feedback. MIT License.
 
-- Giving a Star ⭐
-- Contributing code....
+## Credits
+- Icon used is from [FlatIcons](https://www.flaticon.com/free-icon/internet_4861937)
+- Some Ideas and Inspiration from Repository [zumoshi/BrowserSelect](https://github.com/zumoshi/BrowserSelect)
