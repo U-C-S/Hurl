@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Hurl.BrowserSelector.Controls"
-             mc:Ignorable="d" d:DesignWidth="100" d:DesignHeight="100">
+             mc:Ignorable="d" d:DesignWidth="96" d:DesignHeight="96">
     <UserControl.ContextMenu>
         <ContextMenu ItemsSource="{Binding AlternateLaunches}">
             <ContextMenu.ItemContainerStyle>
@@ -17,8 +17,8 @@
         </ContextMenu>
     </UserControl.ContextMenu>
 
-    <StackPanel MouseLeftButtonUp="OpenIt" Width="100" Cursor="Hand" MaxHeight="120">
-        <Image Source="{Binding GetIcon}" Width="64" Height="64" />
-        <TextBlock Text="{Binding Name}" TextWrapping="Wrap" TextAlignment="Center" FontSize="10"/>
+    <StackPanel MouseLeftButtonUp="OpenIt" Width="96" Cursor="Hand" MaxHeight="120">
+        <Image Source="{Binding GetIcon}" Width="56" Height="56" />
+        <TextBlock Text="{Binding Name}" TextWrapping="Wrap" TextAlignment="Center" FontSize="10" Foreground="AliceBlue" Margin="0,5,0,0"/>
     </StackPanel>
 </UserControl>
