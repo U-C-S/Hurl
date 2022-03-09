@@ -29,9 +29,13 @@ namespace Hurl.BrowserSelector
 
             // For Rounded Window Corners and Shadows
             // src : https://docs.microsoft.com/en-us/windows/apps/desktop/modernize/apply-rounded-corners#example-1---rounding-an-apps-main-window-in-c---wpf
-            var attribute = DWMWINDOWATTRIBUTE.DWMWA_WINDOW_CORNER_PREFERENCE;
             var preference = DWM_WINDOW_CORNER_PREFERENCE.DWMWCP_ROUND;
-            DwmSetWindowAttribute(new WindowInteropHelper(GetWindow(this)).EnsureHandle(), attribute, ref preference, sizeof(uint));
+            DwmSetWindowAttribute(
+                new WindowInteropHelper(GetWindow(this)).EnsureHandle(),
+                DWMWINDOWATTRIBUTE.DWMWA_WINDOW_CORNER_PREFERENCE,
+                ref preference,
+                sizeof(uint)
+            );
 
             WindowChrome.SetWindowChrome(this, new WindowChrome()
             {
