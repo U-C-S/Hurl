@@ -16,7 +16,7 @@
                 <RowDefinition Height="26" />
             </Grid.RowDefinitions>
 
-            <Grid>
+            <Grid MouseLeftButtonDown="Draggable">
                 <TextBlock Text="Select a Browser"  VerticalAlignment="Center" Margin="12,0,0,0" FontSize="16" Foreground="AliceBlue"/>
                 <wpfui:Button HorizontalAlignment="Right" Background="#88000000" Padding="7,5" Margin="0,0,76,0" Click="LinkCopyBtnClick">
                     <wpfui:Icon Glyph="Copy24"/>
