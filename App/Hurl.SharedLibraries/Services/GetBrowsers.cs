@@ -32,10 +32,8 @@ namespace Hurl.SharedLibraries.Services
 
                     if (Name != null & ExePath != null)
                     {
-                        Browser b = new Browser(Name, ExePath)
-                        {
-                            SourceType = BrowserSourceType.Registry,
-                        };
+                        Browser b = new Browser(Name, ExePath);
+                        //{ SourceType = BrowserSourceType.Registry };
                         browsers.Add(b);
                     }
                 }

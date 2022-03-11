@@ -22,15 +22,14 @@ namespace Hurl.SharedLibraries.Models
             }
         }
 
-        [JsonInclude]
-        public BrowserSourceType SourceType { get; set; }
+        //[JsonInclude]
+        //public BrowserSourceType SourceType { get; set; } // IMP for refreshing system browsers
 
         [JsonInclude]
         public string Name { get; set; }
 
         [JsonInclude]
         public string ExePath { get; set; }
-
 
         [JsonInclude]
         public string LaunchArgs { get; set; }
@@ -43,6 +42,7 @@ namespace Hurl.SharedLibraries.Models
 
         private Icon RawIcon { get; set; }
 
+        [JsonIgnore]
         public ImageSource GetIcon
         {
             get
@@ -52,49 +52,6 @@ namespace Hurl.SharedLibraries.Models
                 else return null;
             }
         }
-
-        /*
-        //[JsonProperty]
-        private string IconString
-        {
-            get
-            {
-                byte[] bytes;
-                using (var ms = new MemoryStream())
-                {
-                    RawIcon.ToBitmap().Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-                    bytes = ms.ToArray();
-                }
-
-                string iconString = Convert.ToBase64String(bytes);
-
-                return iconString;
-            }
-        }
-
-// <<<<<<< dev
-// =======
-//         private Icon RawIcon
-//         {
-//             get; set;
-//         }
-
-//         [JsonIgnore]
-//         public ImageSource GetIcon => IconUtilites.ToImageSource(RawIcon);
-// >>>>>>> dev-Minor-dotnet6
-
-        public Image StringToIcon()
-        {
-            byte[] byteArray = Convert.FromBase64String(this.IconString);
-            Bitmap newIcon;
-            using (MemoryStream stream = new MemoryStream(byteArray))
-            {
-                newIcon = new Bitmap(stream);
-            }
-
-            return newIcon;
-        }
-        */
     }
 
     //[JsonObject(MemberSerialization.OptOut)]
@@ -106,28 +63,28 @@ namespace Hurl.SharedLibraries.Models
         {
             this.ItemName = ItemName;
             this.LaunchArgs = LaunchArgs;
-            this.IsPath = false;
+            //this.IsPath = false;
         }
 
-        public AlternateLaunch(string ItemName, string ExePath, string LaunchArgs)
-        {
-            this.ItemName = ItemName;
-            this.LaunchExe = ExePath;
-            this.LaunchArgs = LaunchArgs;
-            this.IsPath = true;
-        }
+        //public AlternateLaunch(string ItemName, string ExePath, string LaunchArgs)
+        //{
+        //    this.ItemName = ItemName;
+        //    this.LaunchExe = ExePath;
+        //    this.LaunchArgs = LaunchArgs;
+        //    this.IsPath = true;
+        //}
 
         [JsonInclude]
         public string ItemName { get; set; }
         
-        [JsonInclude]
-        public string LaunchExe { get; set; }
+        //[JsonInclude]
+        //public string LaunchExe { get; set; }
         
         [JsonInclude]
         public string LaunchArgs { get; set; }
         
-        [JsonInclude]
-        public bool IsPath { get; set; }
+        //[JsonInclude]
+        //public bool IsPath { get; set; }
     }
 
     public enum BrowserSourceType
