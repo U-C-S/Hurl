@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace Hurl.BrowserSelector.Controls
 {
@@ -25,12 +24,15 @@ namespace Hurl.BrowserSelector.Controls
         private void OpenIt(object sender, MouseButtonEventArgs e)
         {
             Process.Start(browser.ExePath, URL + " " + browser.LaunchArgs);
+            Window.GetWindow(this).Close();
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             var alt = (sender as MenuItem).Tag as AlternateLaunch;
             Process.Start(browser.ExePath, URL + " " + alt.LaunchArgs);
+            //Application.Current.Shutdown();
+            Window.GetWindow(this).Close();
         }
     }
 }
