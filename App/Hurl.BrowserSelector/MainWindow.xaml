@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" Topmost="True"
         Title="Hurl - Select a Browser" Width="Auto" Height="210" MinWidth="360" SizeToContent="Width">
-    <Border BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="8" Background="#22222222">
+    <Border BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="8" Background="#22222222" x:Name="WindowBorder">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="36" />
@@ -17,7 +17,9 @@
             </Grid.RowDefinitions>
 
             <Grid MouseLeftButtonDown="Draggable">
-                <TextBlock Text="Select a Browser"  VerticalAlignment="Center" Margin="12,0,0,0" FontSize="16" Foreground="AliceBlue"/>
+                <TextBlock Text="Select a Browser" 
+                           VerticalAlignment="Center" Padding="12,6"
+                           FontSize="16" Foreground="AliceBlue"/>
                 <wpfui:Button HorizontalAlignment="Right" Background="#88000000" Padding="7,5" Margin="0,0,76,0" Click="LinkCopyBtnClick">
                     <wpfui:Icon Glyph="Copy24"/>
                 </wpfui:Button>
@@ -38,7 +40,7 @@
                     <StackPanel x:Name="stacky" Orientation="Horizontal" />
                 </ScrollViewer>
             </Grid>
-            
+
             <TextBlock x:Name="linkpreview" Padding="5,1,5,1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" MaxWidth="360"
                            TextAlignment="Center" FontSize="10" FontFamily="Calibri" Foreground="AliceBlue">No Link Opened</TextBlock>
         </Grid>

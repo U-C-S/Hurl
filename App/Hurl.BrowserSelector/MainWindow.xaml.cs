@@ -27,15 +27,22 @@ namespace Hurl.BrowserSelector
 
             InitializeComponent();
 
-            // For Rounded Window Corners and Shadows
-            // src : https://docs.microsoft.com/en-us/windows/apps/desktop/modernize/apply-rounded-corners#example-1---rounding-an-apps-main-window-in-c---wpf
-            var preference = DWM_WINDOW_CORNER_PREFERENCE.DWMWCP_ROUND;
-            DwmSetWindowAttribute(
-                new WindowInteropHelper(GetWindow(this)).EnsureHandle(),
-                DWMWINDOWATTRIBUTE.DWMWA_WINDOW_CORNER_PREFERENCE,
-                ref preference,
-                sizeof(uint)
-            );
+            if (Environment.OSVersion.Version.Build < 20000)
+            {
+                WindowBorder.CornerRadius = new CornerRadius(0);
+            }
+            else
+            {
+                // For Rounded Window Corners and Shadows
+                // src : https://docs.microsoft.com/en-us/windows/apps/desktop/modernize/apply-rounded-corners#example-1---rounding-an-apps-main-window-in-c---wpf
+                var preference = DWM_WINDOW_CORNER_PREFERENCE.DWMWCP_ROUND;
+                DwmSetWindowAttribute(
+                    new WindowInteropHelper(GetWindow(this)).EnsureHandle(),
+                    DWMWINDOWATTRIBUTE.DWMWA_WINDOW_CORNER_PREFERENCE,
+                    ref preference,
+                    sizeof(uint)
+                );
+            }
 
             WindowChrome.SetWindowChrome(this, new WindowChrome()
             {
@@ -44,11 +51,6 @@ namespace Hurl.BrowserSelector
 
             linkpreview.Text = OpenedLink = URL;
 
-            Window_Loaded();
-        }
-
-        private void Window_Loaded()
-        {
             Stopwatch sw = new();
             sw.Start();
             //var y = from z in x where z.ExePath is not null and z.Hidden is false select z;
