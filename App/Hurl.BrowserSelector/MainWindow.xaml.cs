@@ -50,16 +50,18 @@ namespace Hurl.BrowserSelector
             });
 
             linkpreview.Text = OpenedLink = URL;
-
+#if DEBUG
             Stopwatch sw = new();
             sw.Start();
+#endif
             //var y = from z in x where z.ExePath is not null and z.Hidden is false select z;
             IEnumerable<Browser> LoadableBrowsers = from b in SettingsFile.LoadNewInstance().SettingsObject.Browsers
                                                     where b.Name != null && b.ExePath != null && b.Hidden != true
                                                     select b;
+#if DEBUG
             sw.Stop();
             Debug.WriteLine("---------" + sw.ElapsedMilliseconds.ToString());
-
+#endif
             foreach (Browser i in LoadableBrowsers)
             {
                 BrowserIconBtn browserUC = new BrowserIconBtn(i, OpenedLink);
