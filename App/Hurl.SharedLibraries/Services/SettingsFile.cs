@@ -1,17 +1,19 @@
-﻿using Hurl.SharedLibraries.Constants;
+using Hurl.SharedLibraries.Constants;
 using Hurl.SharedLibraries.Models;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
+using System.Text.Json;
 
 namespace Hurl.SharedLibraries.Services
 {
     public class SettingsFile
     {
-        public static SettingsFile LoadNewInstance() => new SettingsFile();
+        public static SettingsFile LoadNewInstance() => new();
 
-        public bool DataExists { get; set; } = false;
+        //public bool DataExists { get; set; } = false;
+        // convert this to reuable, so we can use it in other places
+        // ex: SettingsFile(string filePath, DataModel)
+        //remove this
         public Settings SettingsObject;
 
         public SettingsFile()
@@ -20,24 +22,33 @@ namespace Hurl.SharedLibraries.Services
             {
                 Directory.CreateDirectory(OtherStrings.ROAMING + "\\Hurl");
 
-                List<Browser> Browsers = GetBrowsers.FromRegistry();
-                SettingsObject = new Settings(Browsers);
+                SettingsObject = new Settings()
+                {
+                    Browsers = GetBrowsers.FromRegistry()
+                };
 
-                string jsondata = JsonConvert.SerializeObject(SettingsObject, Formatting.Indented);
+                string jsondata = JsonSerializer.Serialize(SettingsObject, new JsonSerializerOptions
+                {
+                    WriteIndented = true,
+                    IncludeFields = true
+                });
                 File.WriteAllText(MetaStrings.SettingsFilePath, jsondata);
             }
             else
             {
-                DataExists = true;
                 string jsondata = File.ReadAllText(MetaStrings.SettingsFilePath);
-                SettingsObject = JsonConvert.DeserializeObject<Settings>(jsondata);
+                SettingsObject = JsonSerializer.Deserialize<Settings>(jsondata);
             }
         }
 
         public void Update()
         {
             SettingsObject.LastUpdated = DateTime.Now.ToString();
-            string jsondata = JsonConvert.SerializeObject(SettingsObject, Formatting.Indented);
+            string jsondata = JsonSerializer.Serialize(SettingsObject, new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                IncludeFields = true
+            });
             File.WriteAllText(MetaStrings.SettingsFilePath, jsondata);
         }
     }

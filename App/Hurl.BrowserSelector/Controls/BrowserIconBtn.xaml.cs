@@ -1,7 +1,8 @@
-﻿using System.Diagnostics;
+﻿using Hurl.SharedLibraries.Models;
+using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace Hurl.BrowserSelector.Controls
 {
@@ -10,20 +11,28 @@ namespace Hurl.BrowserSelector.Controls
     /// </summary>
     public partial class BrowserIconBtn : UserControl
     {
-        public BrowserIconBtn()
+        private Browser browser { get; set; }
+        private string URL { get; set; }
+
+        public BrowserIconBtn(Browser browser, string URL)
         {
             InitializeComponent();
-            DataContext = this;
+            this.URL = URL;
+            DataContext = this.browser = browser;
         }
-
-        public string BrowserName { get; set; } = "null";
-        public ImageSource BrowserIcon { get; set; }
-        public string ExePath { get; set; }
-        public string URL { get; set; }
 
         private void OpenIt(object sender, MouseButtonEventArgs e)
         {
-            Process.Start(ExePath, URL);
+            Process.Start(browser.ExePath, URL + " " + browser.LaunchArgs);
+            Window.GetWindow(this).Close();
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var alt = (sender as MenuItem).Tag as AlternateLaunch;
+            Process.Start(browser.ExePath, URL + " " + alt.LaunchArgs);
+            //Application.Current.Shutdown();
+            Window.GetWindow(this).Close();
         }
     }
 }
