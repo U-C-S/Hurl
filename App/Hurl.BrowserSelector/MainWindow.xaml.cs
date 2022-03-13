@@ -91,9 +91,12 @@ namespace Hurl.BrowserSelector
 
         private void LinkCopyBtnClick(object sender, RoutedEventArgs e) => Clipboard.SetText(OpenedLink);
         private void SettingsBtnClick(object sender, RoutedEventArgs e) => Process.Start("notepad.exe", MetaStrings.SettingsFilePath);
-        private void CloseBtnClick(object sender, RoutedEventArgs e) => this.Close();
         private void Draggable(object sender, MouseButtonEventArgs e) => this.DragMove();
-
+        private void CloseBtnClick(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+            //this.Close();
+        }
 
         public enum DWMWINDOWATTRIBUTE
         {
