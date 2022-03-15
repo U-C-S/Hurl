@@ -12,27 +12,27 @@ namespace Hurl.BrowserSelector.Controls
     public partial class BrowserIconBtn : UserControl
     {
         private Browser browser { get; set; }
-        private string URL { get; set; }
+        private CurrentLink _currentLink { get; set; }
 
-        public BrowserIconBtn(Browser browser, string URL)
+        public BrowserIconBtn(Browser browser, CurrentLink URL)
         {
             InitializeComponent();
-            this.URL = URL;
+            this._currentLink = URL;
             DataContext = this.browser = browser;
         }
 
         private void OpenIt(object sender, MouseButtonEventArgs e)
         {
-            Process.Start(browser.ExePath, URL + " " + browser.LaunchArgs);
-            Window.GetWindow(this).Close();
+            Process.Start(browser.ExePath, _currentLink.Url + " " + browser.LaunchArgs);
+            Window.GetWindow(this).WindowState = WindowState.Minimized;
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             var alt = (sender as MenuItem).Tag as AlternateLaunch;
-            Process.Start(browser.ExePath, URL + " " + alt.LaunchArgs);
+            Process.Start(browser.ExePath, _currentLink.Url + " " + alt.LaunchArgs);
             //Application.Current.Shutdown();
-            Window.GetWindow(this).Close();
+            Window.GetWindow(this).WindowState = WindowState.Minimized;
         }
     }
 }

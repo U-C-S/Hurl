@@ -3,10 +3,11 @@ using Hurl.BrowserSelector.Helpers;
 using Hurl.SharedLibraries.Constants;
 using Hurl.SharedLibraries.Models;
 using Hurl.SharedLibraries.Services;
-using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 using WPFUI.Background;
@@ -18,7 +19,7 @@ namespace Hurl.BrowserSelector
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string OpenedLink;
+        private CurrentLink OpenedLink = new("");
 
         public MainWindow()
         {
@@ -47,17 +48,18 @@ namespace Hurl.BrowserSelector
 
             foreach (Browser i in LoadableBrowsers)
             {
-                stacky.Children.Add(new BrowserIconBtn(i, OpenedLink));
+                _ = stacky.Children.Add(new BrowserIconBtn(i, OpenedLink));
             }
         }
 
-        public void init(string URL)
+        public void Init(string URL)
         {
             if (!IsActive)
             {
                 Show();
             }
-            linkpreview.Text = OpenedLink = URL;
+            OpenedLink.Url = URL;
+            linkpreview.Text = URL;
         }
 
         private void Window_Esc(object sender, KeyEventArgs e)
@@ -68,19 +70,44 @@ namespace Hurl.BrowserSelector
             }
         }
 
-        private void LinkCopyBtnClick(object sender, RoutedEventArgs e) => Clipboard.SetText(OpenedLink);
+        private void LinkCopyBtnClick(object sender, RoutedEventArgs e) => Clipboard.SetText(OpenedLink.Url);
         private void SettingsBtnClick(object sender, RoutedEventArgs e) => Process.Start("notepad.exe", MetaStrings.SettingsFilePath);
         private void Draggable(object sender, MouseButtonEventArgs e) => this.DragMove();
-        private void CloseBtnClick(object sender, RoutedEventArgs e)
-        {
-            MinimizeWindow();
-        }
+        private void CloseBtnClick(object sender, RoutedEventArgs e) => MinimizeWindow();
 
         private void MinimizeWindow()
         {
             this.WindowState = WindowState.Minimized;
         }
+    }
 
+    public class CurrentLink : INotifyPropertyChanged
+    {
+        public CurrentLink(string URL)
+        {
+            this._url = URL;
+        }
+        private string _url;
+
+        public string Url
+        {
+            get => _url;
+            set
+            {
+                if (value != _url)
+                {
+                    _url = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
 
     }
 }

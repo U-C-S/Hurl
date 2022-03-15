@@ -22,7 +22,7 @@ namespace Hurl.BrowserSelector
             else
             {
                 _mainWindow = new MainWindow();
-                _mainWindow.init(ArgProcess(e.Args, false));
+                _mainWindow.Init(ArgProcess(e.Args, false));
             }
         }
 
@@ -30,7 +30,7 @@ namespace Hurl.BrowserSelector
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
-                _mainWindow.init(ArgProcess(args, true));
+                _mainWindow.Init(ArgProcess(args, true));
                 _mainWindow.WindowState = WindowState.Normal;
             });
         }
