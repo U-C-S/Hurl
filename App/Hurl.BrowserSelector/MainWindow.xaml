@@ -17,6 +17,9 @@
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="2" />
+    </WindowChrome.WindowChrome>
     <Border
         x:Name="WindowBorder"
         Background="#22222222"
@@ -63,7 +66,7 @@
                     HorizontalAlignment="Right"
                     Background="#88000000"
                     Click="CloseBtnClick">
-                    <wpfui:Icon Glyph="Dismiss24" />
+                    <wpfui:Icon Glyph="Subtract24" />
                 </wpfui:Button>
             </Grid>
 
