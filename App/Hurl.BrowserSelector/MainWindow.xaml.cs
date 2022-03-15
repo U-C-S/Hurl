@@ -19,13 +19,17 @@ namespace Hurl.BrowserSelector
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly string OpenedLink;
+        private string OpenedLink;
 
-        public MainWindow(string URL)
+        public MainWindow()
         {
+            string URL = "lol";
+            //AppInstance.GetCurrent().GetActivatedEventArgs();
             WPFUI.Background.Manager.Apply(WPFUI.Background.BackgroundType.Acrylic, this);
 
             InitializeComponent();
+
+            this.Activated += MainWindow_Activated;
 
             if (Environment.OSVersion.Version.Build < 20000)
             {
@@ -62,6 +66,7 @@ namespace Hurl.BrowserSelector
             sw.Stop();
             Debug.WriteLine("---------" + sw.ElapsedMilliseconds.ToString());
 #endif
+
             foreach (Browser i in LoadableBrowsers)
             {
                 BrowserIconBtn browserUC = new BrowserIconBtn(i, OpenedLink);
@@ -79,6 +84,11 @@ namespace Hurl.BrowserSelector
             }
 
             //stacky.Children.RemoveAt(stacky.Children.Count - 1);
+        }
+
+        private void MainWindow_Activated(object sender, EventArgs e)
+        {
+            linkpreview.Text = OpenedLink = e.ToString();
         }
 
         private void Window_Esc(object sender, KeyEventArgs e)

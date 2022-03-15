@@ -1,29 +1,31 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <OutputType>WinExe</OutputType>
-    <AssemblyName>Hurl</AssemblyName>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <UseWPF>true</UseWPF>
-    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
-    <ApplicationIcon>..\Common\internet.ico</ApplicationIcon>
-    <StartupObject>Hurl.BrowserSelector.App</StartupObject>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x64</PlatformTarget>
-    <OutputPath>..\_bin\Debug\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>x64</PlatformTarget>
-    <OutputPath>..\_bin\Release\</OutputPath>
-  </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="..\Common\AssemblyInfo.cs" Link="AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="WPF-UI" Version="1.2.2-prerelease154" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Hurl.SharedLibraries\Hurl.SharedLibraries.csproj" />
-  </ItemGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
+		<OutputType>WinExe</OutputType>
+		<UseWPF>true</UseWPF>
+		<RuntimeIdentifiers>win10-x64</RuntimeIdentifiers>
+		<AssemblyName>Hurl</AssemblyName>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+		<ApplicationIcon>..\Common\internet.ico</ApplicationIcon>
+		<StartupObject>Hurl.BrowserSelector.App</StartupObject>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<PlatformTarget>x64</PlatformTarget>
+		<OutputPath>..\_bin\Debug\</OutputPath>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+		<PlatformTarget>x64</PlatformTarget>
+		<OutputPath>..\_bin\Release\</OutputPath>
+	</PropertyGroup>
+	<ItemGroup>
+		<Compile Include="..\Common\AssemblyInfo.cs" Link="AssemblyInfo.cs" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="WPF-UI" Version="1.2.2-prerelease154" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\lib\SingleInstanceCore\SingleInstanceCore.csproj" />
+		<ProjectReference Include="..\Hurl.SharedLibraries\Hurl.SharedLibraries.csproj" />
+	</ItemGroup>
 </Project>
