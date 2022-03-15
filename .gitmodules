@@ -1,3 +1,3 @@
-[submodule "lib/SingleInstanceCore"]
-	path = lib/SingleInstanceCore
+[submodule "Lib/SingleInstanceCore"]
+	path = Lib/SingleInstanceCore
 	url = https://github.com/U-C-S/SingleInstanceCore.git

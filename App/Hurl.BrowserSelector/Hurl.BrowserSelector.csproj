@@ -25,7 +25,7 @@
 		<PackageReference Include="WPF-UI" Version="1.2.2-prerelease154" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\..\lib\SingleInstanceCore\SingleInstanceCore.csproj" />
+		<ProjectReference Include="..\..\Lib\SingleInstanceCore\SingleInstanceCore.csproj" />
 		<ProjectReference Include="..\Hurl.SharedLibraries\Hurl.SharedLibraries.csproj" />
 	</ItemGroup>
 </Project>
