@@ -1,4 +1,7 @@
-﻿using SingleInstanceCore;
+﻿using Hurl.SharedLibraries.Constants;
+using SingleInstanceCore;
+using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace Hurl.BrowserSelector
@@ -19,7 +22,7 @@ namespace Hurl.BrowserSelector
             else
             {
                 _mainWindow = new MainWindow();
-                _mainWindow.Show();
+                _mainWindow.init(ArgProcess(e.Args, false));
             }
         }
 
@@ -27,13 +30,8 @@ namespace Hurl.BrowserSelector
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
-                _mainWindow.Activate();
+                _mainWindow.init(ArgProcess(args, true));
                 _mainWindow.WindowState = WindowState.Normal;
-
-                // Invert the topmost state twice to bring the window on
-                // top if it wasnt previously or do nothing
-                _mainWindow.Topmost = !MainWindow.Topmost;
-                _mainWindow.Topmost = !MainWindow.Topmost;
             });
         }
 
@@ -42,11 +40,29 @@ namespace Hurl.BrowserSelector
             SingleInstance.Cleanup();
         }
 
-        private string ArgProcess(string[] Args)
+        private string ArgProcess(string[] Args, bool SecondInstanceArgs)
         {
-            if (Args.Length > 0)
+#if DEBUG
+            Task.Run(() =>
+            {
+                var ArgsStoreFile = Path.Combine(OtherStrings.ROAMING, "Hurl", "args.txt");
+                var StrFormat = $"\n\n{SecondInstanceArgs} -- {Args.Length} --- {string.Join(" ", Args)}";
+                File.AppendAllText(ArgsStoreFile, StrFormat);
+            });
+#endif
+
+            var ArgsLength = Args.Length;
+            if (ArgsLength > 0)
             {
                 string link = Args[0];
+                if (SecondInstanceArgs)
+                {
+                    if (ArgsLength > 1)
+                        link = Args[1];
+                    else
+                        return null;
+                }
+
                 if (link.StartsWith("hurl://"))
                 {
                     return link.Substring(7);

@@ -23,13 +23,11 @@ namespace Hurl.BrowserSelector
 
         public MainWindow()
         {
-            string URL = "lol";
-            //AppInstance.GetCurrent().GetActivatedEventArgs();
             WPFUI.Background.Manager.Apply(WPFUI.Background.BackgroundType.Acrylic, this);
 
             InitializeComponent();
 
-            this.Activated += MainWindow_Activated;
+            //this.Activated += MainWindow_Activated;
 
             if (Environment.OSVersion.Version.Build < 20000)
             {
@@ -53,12 +51,10 @@ namespace Hurl.BrowserSelector
                 CaptionHeight = 1
             });
 
-            linkpreview.Text = OpenedLink = URL;
 #if DEBUG
             Stopwatch sw = new();
             sw.Start();
 #endif
-            //var y = from z in x where z.ExePath is not null and z.Hidden is false select z;
             IEnumerable<Browser> LoadableBrowsers = from b in SettingsFile.LoadNewInstance().SettingsObject.Browsers
                                                     where b.Name != null && b.ExePath != null && b.Hidden != true
                                                     select b;
@@ -86,9 +82,13 @@ namespace Hurl.BrowserSelector
             //stacky.Children.RemoveAt(stacky.Children.Count - 1);
         }
 
-        private void MainWindow_Activated(object sender, EventArgs e)
+        public void init(string URL)
         {
-            linkpreview.Text = OpenedLink = e.ToString();
+            if (!IsActive)
+            {
+                Show();
+            }
+            linkpreview.Text = OpenedLink = URL;
         }
 
         private void Window_Esc(object sender, KeyEventArgs e)
