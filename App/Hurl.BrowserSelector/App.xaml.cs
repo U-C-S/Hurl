@@ -31,7 +31,6 @@ namespace Hurl.BrowserSelector
             Application.Current.Dispatcher.Invoke(() =>
             {
                 _mainWindow.Init(ArgProcess(args, true));
-                _mainWindow.WindowState = WindowState.Normal;
             });
         }
 

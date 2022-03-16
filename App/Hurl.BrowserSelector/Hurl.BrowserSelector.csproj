@@ -28,4 +28,10 @@
 		<ProjectReference Include="..\..\Lib\SingleInstanceCore\SingleInstanceCore.csproj" />
 		<ProjectReference Include="..\Hurl.SharedLibraries\Hurl.SharedLibraries.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <None Remove="Assets\internet.ico" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Resource Include="Assets\internet.ico" />
+	</ItemGroup>
 </Project>

@@ -6,6 +6,7 @@
     xmlns:local="clr-namespace:Hurl.BrowserSelector"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:wpfui="clr-namespace:WPFUI.Controls;assembly=WPFUI"
+    xmlns:wpfuiCommon="clr-namespace:WPFUI.Common;assembly=WPFUI"
     Title="Hurl - Select a Browser"
     Width="Auto"
     Height="210"
@@ -32,10 +33,34 @@
                 <RowDefinition Height="1*" />
                 <RowDefinition Height="26" />
             </Grid.RowDefinitions>
+
             <wpfui:TitleBar
                 MinimizeToTray="True"
+                NotifyIconImage="Assets/internet.ico"
+                NotifyIconTooltip="Hurl at tray for fast startup"
                 UseNotifyIcon="True"
-                Visibility="Hidden" />
+                Visibility="Hidden">
+                <wpfui:TitleBar.NotifyIconMenu>
+                    <ContextMenu>
+                        <MenuItem
+                            Click="TrayMenuItem_OnClick"
+                            Header="Open"
+                            Icon="{x:Static wpfuiCommon:Icon.Folder24}"
+                            Tag="open" />
+                        <Separator />
+                        <MenuItem
+                            Click="TrayMenuItem_OnClick"
+                            Header="Reload"
+                            Icon="{x:Static wpfuiCommon:Icon.ArrowClockwise24}"
+                            Tag="reload" />
+                        <MenuItem
+                            Click="TrayMenuItem_OnClick"
+                            Header="Exit"
+                            Icon="{x:Static wpfuiCommon:Icon.Save24}"
+                            Tag="exit" />
+                    </ContextMenu>
+                </wpfui:TitleBar.NotifyIconMenu>
+            </wpfui:TitleBar>
 
             <Grid MouseLeftButtonDown="Draggable">
                 <TextBlock

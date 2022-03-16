@@ -3,12 +3,14 @@ using Hurl.BrowserSelector.Helpers;
 using Hurl.SharedLibraries.Constants;
 using Hurl.SharedLibraries.Models;
 using Hurl.SharedLibraries.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using WPFUI.Background;
 
@@ -54,9 +56,10 @@ namespace Hurl.BrowserSelector
 
         public void Init(string URL)
         {
-            if (!IsActive)
+            if (!IsActive || !IsVisible)
             {
                 Show();
+                this.WindowState = WindowState.Normal;
             }
             OpenedLink.Url = URL;
             linkpreview.Text = URL;
@@ -78,6 +81,34 @@ namespace Hurl.BrowserSelector
         private void MinimizeWindow()
         {
             this.WindowState = WindowState.Minimized;
+            this.Hide();
+        }
+
+        private void TrayMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            string tag = (sender as MenuItem).Tag as string;
+            try
+            {
+                switch (tag)
+                {
+                    case "open":
+                        this.Init(OpenedLink.Url);
+                        break;
+                    case "exit":
+                        Application.Current.Shutdown();
+                        break;
+                    case "reload":
+                        Process.Start(Application.ResourceAssembly.Location.Replace(".dll", ".exe"));
+                        Application.Current.Shutdown();
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch(Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
         }
     }
 
