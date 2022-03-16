@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31717.71
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hurl.BrowserSelector", "Hurl.BrowserSelector\Hurl.BrowserSelector.csproj", "{3B8293BB-A929-44CD-BC07-EC718CB60823}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hurl.BrowserSelector", "App\Hurl.BrowserSelector\Hurl.BrowserSelector.csproj", "{3B8293BB-A929-44CD-BC07-EC718CB60823}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hurl.SharedLibraries", "Hurl.SharedLibraries\Hurl.SharedLibraries.csproj", "{8ADE2213-0F79-4E7A-9E36-ABD2745E9F8A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hurl.SharedLibraries", "App\Hurl.SharedLibraries\Hurl.SharedLibraries.csproj", "{8ADE2213-0F79-4E7A-9E36-ABD2745E9F8A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SingleInstanceCore", "Lib\SingleInstanceCore\SingleInstanceCore.csproj", "{3E4C2614-9696-4143-895A-DCA001715D14}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{8ADE2213-0F79-4E7A-9E36-ABD2745E9F8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8ADE2213-0F79-4E7A-9E36-ABD2745E9F8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8ADE2213-0F79-4E7A-9E36-ABD2745E9F8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E4C2614-9696-4143-895A-DCA001715D14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E4C2614-9696-4143-895A-DCA001715D14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E4C2614-9696-4143-895A-DCA001715D14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E4C2614-9696-4143-895A-DCA001715D14}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

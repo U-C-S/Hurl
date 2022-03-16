@@ -1,8 +1,9 @@
-﻿<Application x:Class="Hurl.BrowserSelector.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Hurl.BrowserSelector"
-             Startup="Application_Startup">
+﻿<Application
+    x:Class="Hurl.BrowserSelector.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:Hurl.BrowserSelector"
+    Startup="Application_Startup">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

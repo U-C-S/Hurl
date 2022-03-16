@@ -1,16 +1,17 @@
 ﻿using Hurl.BrowserSelector.Controls;
+using Hurl.BrowserSelector.Helpers;
 using Hurl.SharedLibraries.Constants;
 using Hurl.SharedLibraries.Models;
 using Hurl.SharedLibraries.Services;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Runtime.InteropServices;
+using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Interop;
-using System.Windows.Shell;
+using WPFUI.Background;
 
 namespace Hurl.BrowserSelector
 {
@@ -19,105 +20,132 @@ namespace Hurl.BrowserSelector
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly string OpenedLink;
+        private CurrentLink OpenedLink = new("");
 
-        public MainWindow(string URL)
+        public MainWindow()
         {
-            WPFUI.Background.Manager.Apply(WPFUI.Background.BackgroundType.Acrylic, this);
+            Manager.Apply(BackgroundType.Acrylic, this);
 
             InitializeComponent();
 
-            if (Environment.OSVersion.Version.Build < 20000)
-            {
-                WindowBorder.CornerRadius = new CornerRadius(0);
-            }
-            else
-            {
-                // For Rounded Window Corners and Shadows
-                // src : https://docs.microsoft.com/en-us/windows/apps/desktop/modernize/apply-rounded-corners#example-1---rounding-an-apps-main-window-in-c---wpf
-                var preference = DWM_WINDOW_CORNER_PREFERENCE.DWMWCP_ROUND;
-                DwmSetWindowAttribute(
-                    new WindowInteropHelper(GetWindow(this)).EnsureHandle(),
-                    DWMWINDOWATTRIBUTE.DWMWA_WINDOW_CORNER_PREFERENCE,
-                    ref preference,
-                    sizeof(uint)
-                );
-            }
+            RoundedCorners.Apply(this, () => WindowBorder.CornerRadius = new CornerRadius(0));
 
-            WindowChrome.SetWindowChrome(this, new WindowChrome()
-            {
-                CaptionHeight = 1
-            });
+            ShowBrowserIcons();
+        }
 
-            linkpreview.Text = OpenedLink = URL;
+        private void ShowBrowserIcons()
+        {
 #if DEBUG
             Stopwatch sw = new();
             sw.Start();
 #endif
-            //var y = from z in x where z.ExePath is not null and z.Hidden is false select z;
-            IEnumerable<Browser> LoadableBrowsers = from b in SettingsFile.LoadNewInstance().SettingsObject.Browsers
-                                                    where b.Name != null && b.ExePath != null && b.Hidden != true
-                                                    select b;
+            List<Browser> LoadableBrowsers = null;
+            try
+            {
+                LoadableBrowsers = GetBrowsers.FromSettingsFile();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                Application.Current.Shutdown();
+                return;
+            }
 #if DEBUG
             sw.Stop();
             Debug.WriteLine("---------" + sw.ElapsedMilliseconds.ToString());
 #endif
+
             foreach (Browser i in LoadableBrowsers)
             {
-                BrowserIconBtn browserUC = new BrowserIconBtn(i, OpenedLink);
-
-                var separator = new System.Windows.Shapes.Rectangle()
-                {
-                    Width = 2,
-                    Height = 40,
-                    Margin = new Thickness(3, 0, 3, 20),
-                    Fill = System.Windows.Media.Brushes.AliceBlue
-                };
-
-                _ = stacky.Children.Add(browserUC);
-                //_ = stacky.Children.Add(separator);
+                _ = stacky.Children.Add(new BrowserIconBtn(i, OpenedLink));
             }
+        }
 
-            //stacky.Children.RemoveAt(stacky.Children.Count - 1);
+        public void Init(string URL)
+        {
+            if (!IsActive || !IsVisible)
+            {
+                Show();
+                this.WindowState = WindowState.Normal;
+            }
+            OpenedLink.Url = URL;
+            linkpreview.Text = URL;
         }
 
         private void Window_Esc(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
             {
-                Close();
+                MinimizeWindow();
             }
         }
 
-        private void LinkCopyBtnClick(object sender, RoutedEventArgs e) => Clipboard.SetText(OpenedLink);
+        private void LinkCopyBtnClick(object sender, RoutedEventArgs e) => Clipboard.SetText(OpenedLink.Url);
         private void SettingsBtnClick(object sender, RoutedEventArgs e) => Process.Start("notepad.exe", MetaStrings.SettingsFilePath);
         private void Draggable(object sender, MouseButtonEventArgs e) => this.DragMove();
-        private void CloseBtnClick(object sender, RoutedEventArgs e)
+        private void CloseBtnClick(object sender, RoutedEventArgs e) => MinimizeWindow();
+
+        private void MinimizeWindow()
         {
             this.WindowState = WindowState.Minimized;
-            //this.Close();
+            this.Hide();
         }
 
-        public enum DWMWINDOWATTRIBUTE
+        private void TrayMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            DWMWA_WINDOW_CORNER_PREFERENCE = 33
+            string tag = (sender as MenuItem).Tag as string;
+            try
+            {
+                switch (tag)
+                {
+                    case "open":
+                        this.Init(OpenedLink.Url);
+                        break;
+                    case "exit":
+                        Application.Current.Shutdown();
+                        break;
+                    case "reload":
+                        Process.Start(Application.ResourceAssembly.Location.Replace(".dll", ".exe"));
+                        Application.Current.Shutdown();
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
         }
+    }
 
-        // The DWM_WINDOW_CORNER_PREFERENCE enum for DwmSetWindowAttribute's third parameter, which tells the function
-        // what value of the enum to set.
-        public enum DWM_WINDOW_CORNER_PREFERENCE
+    public class CurrentLink : INotifyPropertyChanged
+    {
+        public CurrentLink(string URL)
         {
-            DWMWCP_DEFAULT = 0,
-            DWMWCP_DONOTROUND = 1,
-            DWMWCP_ROUND = 2,
-            DWMWCP_ROUNDSMALL = 3
+            this._url = URL;
+        }
+        private string _url;
+
+        public string Url
+        {
+            get => _url;
+            set
+            {
+                if (value != _url)
+                {
+                    _url = value;
+                    OnPropertyChanged();
+                }
+            }
         }
 
-        // Import dwmapi.dll and define DwmSetWindowAttribute in C# corresponding to the native function.
-        [DllImport("dwmapi.dll", CharSet = CharSet.Unicode, SetLastError = true)]
-        private static extern long DwmSetWindowAttribute(IntPtr hwnd,
-                                                         DWMWINDOWATTRIBUTE attribute,
-                                                         ref DWM_WINDOW_CORNER_PREFERENCE pvAttribute,
-                                                         uint cbAttribute);
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
     }
 }

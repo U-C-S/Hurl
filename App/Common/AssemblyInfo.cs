@@ -1,9 +1,5 @@
-﻿using System;
-using System.Reflection;
-using System.Resources;
-using System.Runtime.CompilerServices;
+﻿using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Windows;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
@@ -18,6 +14,6 @@ using System.Windows;
 [assembly: AssemblyCulture("")]
 
 [assembly: ComVisible(false)]
-[assembly: AssemblyVersion("0.5.0.1")]
-[assembly: AssemblyFileVersion("0.5.0.1")]
+[assembly: AssemblyVersion("0.6.0.9")]
+[assembly: AssemblyFileVersion("0.6.0.9")]
 [assembly: System.Runtime.Versioning.SupportedOSPlatform("windows")]
