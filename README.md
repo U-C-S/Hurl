@@ -24,20 +24,24 @@
 
 ## Why and What?
 
-The Default Browser War in Windows is one of the reasons for creation of Hurl and Sometimes you might want to open a link in a browser of your choice, instead of the default one. Hurl is used to let you choose the browser everytime you click a link (links outside of browser). So naturally, It acts as default browser to do that. And hurl can be powered up with a _browser extension_ to let you open a browser tab in another browser.
+Sometimes you might want to open a link in a browser of your choice, instead of the default one. Hurl is used to let you choose the browser everytime you click a link (links outside of browser). So naturally, It acts as default browser to do that. And hurl can be powered up with a _browser extension_ to let you open a browser tab in another browser.
 
 - Fast startup and lightweight
 - Supports adding your own browsers with Launch Arguments
 - Web Extension to open browser tabs in Hurl
 
 <p align="center">
-  <img width="640" src="https://user-images.githubusercontent.com/50218121/157494232-a134a412-9dd7-4706-8be7-6e3800484082.png" />
+  <img width="640" src="https://user-images.githubusercontent.com/50218121/158625754-78026dbe-cd99-4078-8407-313b9c548ca1.png" />
+  <!--<img width="640" src="https://user-images.githubusercontent.com/50218121/157494232-a134a412-9dd7-4706-8be7-6e3800484082.png" />-->
 </p>
 
+> As a Web-Developer, Web-Surfer and someone who uses 4 browsers, Hurl is a bliss - Me probably
 
-## Installation
+## Installation & Usage
 
-Get the Installer from [Releases](https://github.com/U-C-S/Hurl/releases/latest). Your PC's Anti-Virus might warn that it's not secure to download or install it, You can ignore it as the executables are Raw files and are Un-signed. After installing, You need to set Hurl as the default `http/https` protocol handler in the Windows Settings. Use `Hurl Settings` App (from Start Menu App list) to customize the Browsers.
+Get the Hurl_Installer from [Releases](https://github.com/U-C-S/Hurl/releases/latest). Your PC's Anti-Virus might warn that it's not secure to download or install it, You can ignore it as the executables are Un-signed. Lastly, After installing, You might need to set Hurl as the default `http/https` protocol handler in the Windows Settings, just like how you change the default browser.
+
+Check out wiki for configuring - [Editing UserSettings.json](https://github.com/U-C-S/Hurl/wiki/Editing-UserSettings.json)
 
 ## Dependencies and Tools
 
@@ -51,9 +55,8 @@ Get the Installer from [Releases](https://github.com/U-C-S/Hurl/releases/latest)
 
 - Install Visual Studio 2019 or 2022 in your Windows with .NET Desktop Development workload
 - After Cloning the Repo, Open the solution file `App/Hurl.sln` in Visual Studio
-- In Debug / Release mode, Run the `Hurl.Settings` Project which builds all the projects in the solution and Opens Settings Window
-- `App/_bin` contains resulting executables
-- Install Inno Setup, Open the `Utils/installer.iss` script and Compile it to create the Installer (output in the `Utils` directory)
+- In Debug / Release mode, Run the `Hurl.BrowserSelector` Project and compiled executables can be found in `App/_bin`
+- Install Inno Setup, Open the `Utils/installer.iss` script in it and Compile it to create the Installer (output in the same directory)
 
 or Simply use the Build Script from `Utils/build.ps1` to build the Application in release mode and successively build the installer.
 
@@ -67,5 +70,6 @@ or Simply use the Build Script from `Utils/build.ps1` to build the Application i
 The Project is open to Pull-Requests and Feedback. MIT License.
 
 ## Credits
+
 - Icon used is from [FlatIcons](https://www.flaticon.com/free-icon/internet_4861937)
-- Some Ideas and Inspiration from Repository [zumoshi/BrowserSelect](https://github.com/zumoshi/BrowserSelect)
+- Some Ideas and Inspiration taken from Repository [zumoshi/BrowserSelect](https://github.com/zumoshi/BrowserSelect)
