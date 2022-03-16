@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -40,9 +39,17 @@ namespace Hurl.BrowserSelector
             Stopwatch sw = new();
             sw.Start();
 #endif
-            IEnumerable<Browser> LoadableBrowsers = from b in SettingsFile.LoadNewInstance().SettingsObject.Browsers
-                                                    where b.Name != null && b.ExePath != null && b.Hidden != true
-                                                    select b;
+            List<Browser> LoadableBrowsers = null;
+            try
+            {
+                LoadableBrowsers = GetBrowsers.FromSettingsFile();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                Application.Current.Shutdown();
+                return;
+            }
 #if DEBUG
             sw.Stop();
             Debug.WriteLine("---------" + sw.ElapsedMilliseconds.ToString());
@@ -105,7 +112,7 @@ namespace Hurl.BrowserSelector
                         break;
                 }
             }
-            catch(Exception err)
+            catch (Exception err)
             {
                 MessageBox.Show(err.Message);
             }

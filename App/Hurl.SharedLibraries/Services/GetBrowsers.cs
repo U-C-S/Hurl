@@ -1,10 +1,12 @@
 ﻿using Hurl.SharedLibraries.Models;
 using Microsoft.Win32;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace Hurl.SharedLibraries.Services
 {
-    public class GetBrowsers
+    public static class GetBrowsers
     {
         public static List<Browser> FromRegistry()
         {
@@ -33,13 +35,32 @@ namespace Hurl.SharedLibraries.Services
                     if (Name != null & ExePath != null)
                     {
                         Browser b = new Browser(Name, ExePath);
-                        //{ SourceType = BrowserSourceType.Registry };
                         browsers.Add(b);
                     }
                 }
             }
 
             return browsers;
+        }
+
+        public static List<Browser> FromSettingsFile(bool includeHidden = false)
+        {
+            List<Browser> _browsersList = null;
+
+            try
+            {
+                var _settingsFile = SettingsFile.TryLoading();
+                _browsersList = _settingsFile.SettingsObject.Browsers;
+            }
+            catch (FileNotFoundException)
+            {
+                _browsersList = FromRegistry();
+                SettingsFile.New(_browsersList);
+            }
+
+            return (from b in _browsersList
+                    where b.Name != null && b.ExePath != null && b.Hidden != true
+                    select b).ToList();
         }
     }
 
