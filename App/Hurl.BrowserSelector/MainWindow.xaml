@@ -11,6 +11,7 @@
     Width="Auto"
     Height="210"
     MinWidth="360"
+    KeyUp="Window_Esc"
     ResizeMode="NoResize"
     ShowInTaskbar="False"
     SizeToContent="Width"
@@ -107,6 +108,7 @@
                 </ScrollViewer>
             </Grid>
 
+            <!--<ComboBox Grid.Row="2" Panel.ZIndex="5" />-->
             <TextBlock
                 x:Name="linkpreview"
                 Grid.Row="2"
@@ -117,9 +119,8 @@
                 FontFamily="Calibri"
                 FontSize="10"
                 Foreground="AliceBlue"
-                TextAlignment="Center">
-                No Link Opened
-            </TextBlock>
+                Text="No Link Opened" />
+
         </Grid>
     </Border>
 </Window>

@@ -24,15 +24,21 @@ namespace Hurl.BrowserSelector.Controls
         private void OpenIt(object sender, MouseButtonEventArgs e)
         {
             Process.Start(browser.ExePath, _currentLink.Url + " " + browser.LaunchArgs);
-            Window.GetWindow(this).WindowState = WindowState.Minimized;
+            MinimizeWindow();
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             var alt = (sender as MenuItem).Tag as AlternateLaunch;
             Process.Start(browser.ExePath, _currentLink.Url + " " + alt.LaunchArgs);
-            //Application.Current.Shutdown();
-            Window.GetWindow(this).WindowState = WindowState.Minimized;
+            MinimizeWindow();
+        }
+
+        private void MinimizeWindow()
+        {
+            var parent = Window.GetWindow(this);
+            parent.WindowState = WindowState.Minimized;
+            parent.Hide();
         }
     }
 }
