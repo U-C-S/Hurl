@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -105,7 +106,8 @@ namespace Hurl.BrowserSelector
                         Application.Current.Shutdown();
                         break;
                     case "reload":
-                        Process.Start(Application.ResourceAssembly.Location.Replace(".dll", ".exe"));
+                        var AppPath = Path.Combine(AppContext.BaseDirectory, "Hurl.exe");
+                        Process.Start(AppPath);
                         Application.Current.Shutdown();
                         break;
                     default:
