@@ -5,6 +5,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Hurl.BrowserSelector.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:wpfui="clr-namespace:WPFUI.Controls;assembly=WPFUI"
+    xmlns:wpfuiCommon="clr-namespace:WPFUI.Common;assembly=WPFUI"
     d:DesignHeight="106"
     d:DesignWidth="106"
     mc:Ignorable="d">
@@ -22,10 +24,10 @@
 
     <Border
         x:Name="BtnArea"
-        Width="100"
+        Width="110"
         MaxHeight="120"
         Margin="2"
-        Padding="5,10,5,5"
+        Padding="10,15,10,0"
         CornerRadius="4"
         Cursor="Hand"
         MouseLeftButtonUp="OpenIt">
@@ -50,6 +52,9 @@
                 Text="{Binding Name}"
                 TextAlignment="Center"
                 TextWrapping="Wrap" />
+            <wpfui:Button Background="#11000000" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="16" Padding="6" Margin="0,5,0,0">
+                <wpfui:Icon Glyph="GridDots20" />
+            </wpfui:Button>
         </StackPanel>
     </Border>
 </UserControl>
