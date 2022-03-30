@@ -12,34 +12,32 @@ namespace Hurl.BrowserSelector
     public partial class App : Application, ISingleInstance
     {
         private MainWindow _mainWindow;
+
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             bool isFirstInstance = this.InitializeAsFirstInstance("HurlTray");
-            if (!isFirstInstance)
-            {
-                Current.Shutdown();
-            }
-            else
+            if (isFirstInstance)
             {
                 _mainWindow = new MainWindow();
                 _mainWindow.Init(ArgProcess(e.Args, false));
+            }
+            else
+            {
+                Current.Shutdown();
             }
         }
 
         public void OnInstanceInvoked(string[] args)
         {
-            Application.Current.Dispatcher.Invoke(() =>
+            Current.Dispatcher.Invoke(() =>
             {
                 _mainWindow.Init(ArgProcess(args, true));
             });
         }
 
-        private void Application_Exit(object sender, ExitEventArgs e)
-        {
-            SingleInstance.Cleanup();
-        }
+        private void Application_Exit(object sender, ExitEventArgs e) => SingleInstance.Cleanup();
 
-        private string ArgProcess(string[] Args, bool SecondInstanceArgs)
+        private static string ArgProcess(string[] Args, bool SecondInstanceArgs)
         {
 #if DEBUG
             Task.Run(() =>
