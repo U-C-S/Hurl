@@ -4,7 +4,6 @@
     <OutputType>WinExe</OutputType>
     <AssemblyName>Hurl Settings</AssemblyName>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <UseWindowsForms>True</UseWindowsForms>
     <UseWPF>true</UseWPF>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <ApplicationIcon>..\Common\internet.ico</ApplicationIcon>
@@ -29,4 +28,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Hurl.SharedLibraries\Hurl.SharedLibraries.csproj" />
   </ItemGroup>
+  <ItemGroup>
+		<PackageReference Include="WPF-UI" Version="1.2.2" />
+	</ItemGroup>
 </Project>

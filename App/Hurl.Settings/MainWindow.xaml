@@ -1,47 +1,93 @@
-﻿<Window x:Class="Hurl.Settings.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:uc="clr-namespace:Hurl.Settings.Controls" xmlns:local="clr-namespace:Hurl.Settings"
-		mc:Ignorable="d" WindowStartupLocation="CenterScreen"
-		Title="Hurl Settings" 
-        Width="780" Height="540" MinWidth="690" MinHeight="460">
+﻿<Window
+    x:Class="Hurl.Settings.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Hurl.Settings"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="clr-namespace:Hurl.Settings.Controls"
+    xmlns:wpfui="clr-namespace:WPFUI.Controls;assembly=WPFUI"
+    Title="Hurl Settings"
+    Width="780"
+    Height="540"
+    MinWidth="690"
+    MinHeight="460"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
     <Grid>
-        <TextBlock Text="v0.4.0" FontFamily="Calibri" VerticalAlignment="Top" HorizontalAlignment="Right" Height="28" Padding="7" Margin="0,0,10,0"/>
+        <TextBlock
+            Height="28"
+            Margin="0,0,10,0"
+            Padding="7"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            FontFamily="Calibri"
+            Text="v0.4.0" />
 
         <TabControl>
-            <TabItem Header="About" Padding="5" Width="70">
+            <TabItem
+                Width="70"
+                Padding="5"
+                Header="About">
                 <Grid>
-                    <Rectangle >
+                    <Rectangle>
                         <Rectangle.Fill>
-                            <LinearGradientBrush  StartPoint="0,0" EndPoint="1,0">
-                                <GradientStop Color="#de6262"/>
-                                <GradientStop Color="#ffb88c" Offset="1"/>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Color="#de6262" />
+                                <GradientStop Offset="1" Color="#ffb88c" />
                             </LinearGradientBrush>
                         </Rectangle.Fill>
                     </Rectangle>
                     <Grid>
-                        <Border HorizontalAlignment="Center" VerticalAlignment="Center" Width="255" Padding="15"
-                                CornerRadius="10" Background="#99F0F8FF">
+                        <Border
+                            Width="255"
+                            Padding="15"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Background="#99F0F8FF"
+                            CornerRadius="10">
                             <StackPanel>
                                 <Grid>
-                                    <Image Source="/Images/internet128.png" 
-                                           Height="64" Width="64" HorizontalAlignment="Left" Margin="20,0"/>
-                                    <TextBlock Text="Hurl" FontFamily="Segoe UI" FontSize="48" 
-                                               HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20,0" />
+                                    <Image
+                                        Width="64"
+                                        Height="64"
+                                        Margin="20,0"
+                                        HorizontalAlignment="Left"
+                                        Source="/Images/internet128.png" />
+                                    <TextBlock
+                                        Margin="20,0"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        FontFamily="Segoe UI"
+                                        FontSize="48"
+                                        Text="Hurl" />
                                 </Grid>
-                                <Separator Background="Black" Height="2" Margin="10,5"/>
-                                <TextBlock FontSize="14" TextWrapping="Wrap" TextAlignment="Center" FontFamily="Trebuchet MS">A utility that lets you choose the browser on the click of a link</TextBlock>
+                                <Separator
+                                    Height="2"
+                                    Margin="10,5"
+                                    Background="Black" />
+                                <TextBlock
+                                    FontFamily="Trebuchet MS"
+                                    FontSize="14"
+                                    TextAlignment="Center"
+                                    TextWrapping="Wrap">
+                                    A utility that lets you choose the browser on the click of a link
+                                </TextBlock>
                             </StackPanel>
                         </Border>
                     </Grid>
                     <TextBlock VerticalAlignment="Bottom">
-                        <Hyperlink NavigateUri="https://github.com/U-C-S/Hurl" Foreground="Black" RequestNavigate="Hyperlink_RequestNavigate">
+                        <Hyperlink
+                            Foreground="Black"
+                            NavigateUri="https://github.com/U-C-S/Hurl"
+                            RequestNavigate="Hyperlink_RequestNavigate">
                             Source Code
                         </Hyperlink>
                         <LineBreak />
-                        <Hyperlink NavigateUri="https://github.com/U-C-S/Hurl/issues" Foreground="Black" RequestNavigate="Hyperlink_RequestNavigate">
+                        <Hyperlink
+                            Foreground="Black"
+                            NavigateUri="https://github.com/U-C-S/Hurl/issues"
+                            RequestNavigate="Hyperlink_RequestNavigate">
                             Report an Issue
                         </Hyperlink>
                     </TextBlock>
@@ -49,61 +95,110 @@
             </TabItem>
 
 
-            <TabItem Header="Browsers" Padding="5" Width="70">
-                <Border CornerRadius="6" Background="AntiqueWhite">
-                    <Grid >
+            <TabItem
+                Width="70"
+                Padding="5"
+                Header="Browsers">
+                <Border Background="AntiqueWhite" CornerRadius="6">
+                    <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*" MaxWidth="320" MinWidth="100"/>
-                            <ColumnDefinition Width="2"/>
-                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition
+                                Width="1*"
+                                MinWidth="100"
+                                MaxWidth="320" />
+                            <ColumnDefinition Width="2" />
+                            <ColumnDefinition Width="3*" />
                         </Grid.ColumnDefinitions>
 
                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                             <StackPanel Margin="5">
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="30">
-                                    <Button Padding="2" Background="{x:Null}" BorderBrush="{x:Null}" Click="RefreshBrowserList">
+                                <StackPanel
+                                    Height="30"
+                                    HorizontalAlignment="Center"
+                                    Orientation="Horizontal">
+                                    <Button
+                                        Padding="2"
+                                        Background="{x:Null}"
+                                        BorderBrush="{x:Null}"
+                                        Click="RefreshBrowserList">
                                         <Image Source="/Images/icons8-refresh-30.png" />
                                     </Button>
-                                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="AddBrowser">
+                                    <Button
+                                        Background="{x:Null}"
+                                        BorderBrush="{x:Null}"
+                                        Click="AddBrowser">
                                         <Image Source="/Images/icons8-add-32.png" />
                                     </Button>
                                 </StackPanel>
-                                <Separator Margin="0,3,0,7"/>
+                                <Separator Margin="0,3,0,7" />
                                 <StackPanel x:Name="StackSystemBrowsers" />
                             </StackPanel>
                         </ScrollViewer>
 
-                        <GridSplitter Grid.Column="1" Background="CadetBlue" Width="2" Cursor="SizeWE" ResizeBehavior="PreviousAndNext"/>
-                        <Border Padding="5" Background="#B2DE6262" Grid.Column="2">
+                        <GridSplitter
+                            Grid.Column="1"
+                            Width="2"
+                            Background="CadetBlue"
+                            Cursor="SizeWE"
+                            ResizeBehavior="PreviousAndNext" />
+                        <Border
+                            Grid.Column="2"
+                            Padding="5"
+                            Background="#B2DE6262">
                             <DockPanel>
-                                <StackPanel Orientation="Horizontal" Width="360" DockPanel.Dock="Top">
-                                    <Button Width="70" >Open</Button>
-                                    <Button Width="70" Margin="10,0,0,0" Tag="{Binding ExePath}">CopyPath</Button>
+                                <StackPanel
+                                    Width="360"
+                                    DockPanel.Dock="Top"
+                                    Orientation="Horizontal">
+                                    <Button Width="70">Open</Button>
+                                    <Button
+                                        Width="70"
+                                        Margin="10,0,0,0"
+                                        Tag="{Binding ExePath}">
+                                        CopyPath
+                                    </Button>
                                     <Button Width="70" Margin="140,0,0,0">Remove</Button>
                                 </StackPanel>
-                                <Separator Margin="5" Background="#FFFFDAAD" DockPanel.Dock="Top"/>
-                                <StackPanel Margin="5,0" Width="450" DockPanel.Dock="Top">
+                                <Separator
+                                    Margin="5"
+                                    Background="#FFFFDAAD"
+                                    DockPanel.Dock="Top" />
+                                <StackPanel
+                                    Width="450"
+                                    Margin="5,0"
+                                    DockPanel.Dock="Top">
                                     <DockPanel Margin="0,2">
-                                        <Label Content="Name" Width="75"/>
-                                        <TextBox Padding="3" Text="{Binding Name}"/>
+                                        <Label Width="75" Content="Name" />
+                                        <TextBox Padding="3" Text="{Binding Name}" />
                                     </DockPanel>
                                     <DockPanel Margin="0,2">
-                                        <Label Content="Exe Path" Width="75"/>
+                                        <Label Width="75" Content="Exe Path" />
                                         <Button Padding="5,3">Choose</Button>
-                                        <TextBlock x:Name="ExePathBox" Padding="3" Text="{Binding ExePath}" />
+                                        <TextBlock
+                                            x:Name="ExePathBox"
+                                            Padding="3"
+                                            Text="{Binding ExePath}" />
                                     </DockPanel>
                                     <DockPanel Margin="0,2">
-                                        <Label Content="Launch Args" Width="75"/>
-                                        <TextBox Padding="3" Text="{Binding LaunchArgs}"/>
+                                        <Label Width="75" Content="Launch Args" />
+                                        <TextBox Padding="3" Text="{Binding LaunchArgs}" />
                                     </DockPanel>
                                     <!--<TextBox Height="80" TextWrapping="Wrap" x:Name="DEBUG_BOX"/>-->
 
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30">
+                                <StackPanel
+                                    Height="30"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    DockPanel.Dock="Bottom"
+                                    Orientation="Horizontal">
                                     <Button Width="70">Cancel</Button>
                                     <Button Width="70" Margin="40,0,0,0">Update</Button>
                                 </StackPanel>
-                                <Separator Margin="5" Background="#FFFFDAAD" DockPanel.Dock="Bottom"/>
+                                <Separator
+                                    Margin="5"
+                                    Background="#FFFFDAAD"
+                                    DockPanel.Dock="Bottom" />
                             </DockPanel>
                         </Border>
                     </Grid>
@@ -111,37 +206,95 @@
             </TabItem>
 
 
-            <TabItem Header="Debug" Padding="5" Width="70">
+            <TabItem
+                Width="70"
+                Padding="5"
+                Header="Debug">
                 <StackPanel Background="Azure">
                     <Grid Height="90" Margin="0,10">
-                        <Border CornerRadius="5" Padding="5" Width="200" HorizontalAlignment="Left" Margin="30,0"
-							    Background="AntiqueWhite" BorderBrush="Black" BorderThickness="1">
+                        <Border
+                            Width="200"
+                            Margin="30,0"
+                            Padding="5"
+                            HorizontalAlignment="Left"
+                            Background="AntiqueWhite"
+                            BorderBrush="Black"
+                            BorderThickness="1"
+                            CornerRadius="5">
                             <Grid>
-                                <TextBlock x:Name="DefaultInfo" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center">You need to set hurl as default handler for http/https</TextBlock>
-                                <Button x:Name="DefaultSetButton" Click="SetAsDefualt"
-							            Width="120" Height="30" VerticalAlignment="Bottom"
-							            Background="Azure" BorderBrush="Black" >Set as Default</Button>
+                                <TextBlock
+                                    x:Name="DefaultInfo"
+                                    VerticalAlignment="Top"
+                                    TextAlignment="Center"
+                                    TextWrapping="Wrap">
+                                    You need to set hurl as default handler for http/https
+                                </TextBlock>
+                                <Button
+                                    x:Name="DefaultSetButton"
+                                    Width="120"
+                                    Height="30"
+                                    VerticalAlignment="Bottom"
+                                    Background="Azure"
+                                    BorderBrush="Black"
+                                    Click="SetAsDefualt">
+                                    Set as Default
+                                </Button>
                             </Grid>
                         </Border>
 
-                        <Border CornerRadius="5" Padding="5" Width="200" HorizontalAlignment="Right" Margin="30,0"
-							    Background="AntiqueWhite" BorderBrush="Black" BorderThickness="1">
+                        <Border
+                            Width="200"
+                            Margin="30,0"
+                            Padding="5"
+                            HorizontalAlignment="Right"
+                            Background="AntiqueWhite"
+                            BorderBrush="Black"
+                            BorderThickness="1"
+                            CornerRadius="5">
                             <Grid>
-                                <TextBlock x:Name="ProtocolInfo" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center">Useful for Extensions</TextBlock>
-                                <Button x:Name="ProtocolSetButton" Click="Protocol_Button"
-							            Width="120" Height="30" VerticalAlignment="Bottom"
-                                        Background="Azure" BorderBrush="Black">Register Protocol</Button>
+                                <TextBlock
+                                    x:Name="ProtocolInfo"
+                                    VerticalAlignment="Top"
+                                    TextAlignment="Center"
+                                    TextWrapping="Wrap">
+                                    Useful for Extensions
+                                </TextBlock>
+                                <Button
+                                    x:Name="ProtocolSetButton"
+                                    Width="120"
+                                    Height="30"
+                                    VerticalAlignment="Bottom"
+                                    Background="Azure"
+                                    BorderBrush="Black"
+                                    Click="Protocol_Button">
+                                    Register Protocol
+                                </Button>
                             </Grid>
                         </Border>
                     </Grid>
 
-                    <Border CornerRadius="5" BorderThickness="1" Background="AntiqueWhite" Height="36" HorizontalAlignment="Center" BorderBrush="Black">
-                        <StackPanel  Orientation="Horizontal" >
-                            <TextBox x:Name="URLBox" 
-								 Width="320" Height="24" Padding="2" Margin="10,0,0,0" />
-                            <Button x:Name="InstallButton" Content="Launch URL" 
-								    Click="LaunchDebugHurlBtn" 
-								    Width="90" Height="24" Margin="10,0,10,0" Background="Azure"/>
+                    <Border
+                        Height="36"
+                        HorizontalAlignment="Center"
+                        Background="AntiqueWhite"
+                        BorderBrush="Black"
+                        BorderThickness="1"
+                        CornerRadius="5">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox
+                                x:Name="URLBox"
+                                Width="320"
+                                Height="24"
+                                Margin="10,0,0,0"
+                                Padding="2" />
+                            <Button
+                                x:Name="InstallButton"
+                                Width="90"
+                                Height="24"
+                                Margin="10,0,10,0"
+                                Background="Azure"
+                                Click="LaunchDebugHurlBtn"
+                                Content="Launch URL" />
                         </StackPanel>
                     </Border>
                 </StackPanel>
