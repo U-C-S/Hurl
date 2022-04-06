@@ -37,7 +37,7 @@ namespace Hurl.BrowserSelector
 
         private void Application_Exit(object sender, ExitEventArgs e) => SingleInstance.Cleanup();
 
-        private static string ArgProcess(string[] Args, bool SecondInstanceArgs)
+        private static CLIArgs ArgProcess(string[] Args, bool SecondInstanceArgs)
         {
 #if DEBUG
             Task.Run(() =>
@@ -48,29 +48,44 @@ namespace Hurl.BrowserSelector
             });
 #endif
 
+            CLIArgs cliargs = new();
+
             var ArgsLength = Args.Length;
             if (ArgsLength > 0)
             {
-                string link = Args[0];
+                string whatever = Args[0];
+
                 if (SecondInstanceArgs)
                 {
-                    if (ArgsLength > 1)
-                        link = Args[1];
-                    else
-                        return null;
+                    cliargs.IsSecondInstance = true;
                 }
 
-                if (link.StartsWith("hurl://"))
+
+                if (whatever.StartsWith("hurl://"))
                 {
-                    return link.Substring(7);
+                    cliargs.IsProtocolActivated = true;
+                    cliargs.url = whatever.Substring(7);
                 }
                 else
                 {
-                    return link;
+                    if (ArgsLength > 1)
+                        cliargs.url = Args[1];
+
+                    cliargs.otherArgs = Args[2..];
+                    cliargs.url = whatever;
                 }
             }
 
-            return null;
+            return cliargs;
         }
+    }
+
+    public record CLIArgs
+    {
+        public bool IsSecondInstance = false;
+        public bool IsRunAsMin = false;
+        public bool IsProtocolActivated = false;
+        public string url = "";
+        public string[] otherArgs;
     }
 }
