@@ -19,7 +19,8 @@ namespace Hurl.BrowserSelector
             if (isFirstInstance)
             {
                 _mainWindow = new MainWindow();
-                _mainWindow.Init(ArgProcess(e.Args, false));
+                var x = ArgProcess(e.Args, false);
+                _mainWindow.Init(x);
             }
             else
             {
@@ -58,21 +59,19 @@ namespace Hurl.BrowserSelector
                 if (SecondInstanceArgs)
                 {
                     cliargs.IsSecondInstance = true;
+                    whatever = Args[1];
                 }
-
 
                 if (whatever.StartsWith("hurl://"))
                 {
                     cliargs.IsProtocolActivated = true;
-                    cliargs.url = whatever.Substring(7);
+                    cliargs.Url = whatever.Substring(7);
                 }
+                //else if(whatever.StartsWith("https://" || "http://"))
                 else
                 {
-                    if (ArgsLength > 1)
-                        cliargs.url = Args[1];
-
-                    cliargs.otherArgs = Args[2..];
-                    cliargs.url = whatever;
+                    cliargs.otherArgs = Args.Length > 2 ? Args[2..] : null;
+                    cliargs.Url = whatever;
                 }
             }
 
@@ -85,7 +84,7 @@ namespace Hurl.BrowserSelector
         public bool IsSecondInstance = false;
         public bool IsRunAsMin = false;
         public bool IsProtocolActivated = false;
-        public string url = "";
+        public string Url { get; set; } = string.Empty;
         public string[] otherArgs;
     }
 }

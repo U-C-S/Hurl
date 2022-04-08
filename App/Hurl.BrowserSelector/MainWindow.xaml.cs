@@ -69,8 +69,11 @@ namespace Hurl.BrowserSelector
                 Show();
                 this.WindowState = WindowState.Normal;
             }
-            OpenedLink.Url = data.url;
-            linkpreview.Text = data.url;
+
+            var Url = data?.Url ?? string.Empty;
+
+            OpenedLink.Url = Url;
+            linkpreview.Text = Url;
         }
 
         private void Window_Esc(object sender, KeyEventArgs e)
@@ -100,7 +103,7 @@ namespace Hurl.BrowserSelector
                 switch (tag)
                 {
                     case "open":
-                        this.Init(OpenedLink.Url);
+                        this.Init(null);
                         break;
                     case "exit":
                         Application.Current.Shutdown();
