@@ -1,3 +1,6 @@
 [submodule "Lib/SingleInstanceCore"]
 	path = Lib/SingleInstanceCore
 	url = https://github.com/U-C-S/SingleInstanceCore.git
+[submodule "lib/wpfui"]
+	path = lib/wpfui
+	url = https://github.com/U-C-S/wpfui.git
