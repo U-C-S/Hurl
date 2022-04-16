@@ -19,7 +19,8 @@ namespace Hurl.BrowserSelector
             if (isFirstInstance)
             {
                 _mainWindow = new MainWindow();
-                _mainWindow.Init(ArgProcess(e.Args, false));
+                var x = ArgProcess(e.Args, false);
+                _mainWindow.Init(x);
             }
             else
             {
@@ -37,7 +38,7 @@ namespace Hurl.BrowserSelector
 
         private void Application_Exit(object sender, ExitEventArgs e) => SingleInstance.Cleanup();
 
-        private static string ArgProcess(string[] Args, bool SecondInstanceArgs)
+        private static CLIArgs ArgProcess(string[] Args, bool SecondInstanceArgs)
         {
 #if DEBUG
             Task.Run(() =>
@@ -48,29 +49,42 @@ namespace Hurl.BrowserSelector
             });
 #endif
 
+            CLIArgs cliargs = new();
+
             var ArgsLength = Args.Length;
             if (ArgsLength > 0)
             {
-                string link = Args[0];
+                string whatever = Args[0];
+
                 if (SecondInstanceArgs)
                 {
-                    if (ArgsLength > 1)
-                        link = Args[1];
-                    else
-                        return null;
+                    cliargs.IsSecondInstance = true;
+                    whatever = Args[1];
                 }
 
-                if (link.StartsWith("hurl://"))
+                if (whatever.StartsWith("hurl://"))
                 {
-                    return link.Substring(7);
+                    cliargs.IsProtocolActivated = true;
+                    cliargs.Url = whatever.Substring(7);
                 }
+                //else if(whatever.StartsWith("https://" || "http://"))
                 else
                 {
-                    return link;
+                    cliargs.otherArgs = Args.Length > 2 ? Args[2..] : null;
+                    cliargs.Url = whatever;
                 }
             }
 
-            return null;
+            return cliargs;
         }
+    }
+
+    public record CLIArgs
+    {
+        public bool IsSecondInstance = false;
+        public bool IsRunAsMin = false;
+        public bool IsProtocolActivated = false;
+        public string Url { get; set; } = string.Empty;
+        public string[] otherArgs;
     }
 }

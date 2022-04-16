@@ -62,15 +62,18 @@ namespace Hurl.BrowserSelector
             }
         }
 
-        public void Init(string URL)
+        public void Init(CLIArgs data)
         {
             if (!IsActive || !IsVisible)
             {
                 Show();
                 this.WindowState = WindowState.Normal;
             }
-            OpenedLink.Url = URL;
-            linkpreview.Text = URL;
+
+            var Url = data?.Url ?? string.Empty;
+
+            OpenedLink.Url = Url;
+            linkpreview.Text = Url;
         }
 
         private void Window_Esc(object sender, KeyEventArgs e)
@@ -100,7 +103,7 @@ namespace Hurl.BrowserSelector
                 switch (tag)
                 {
                     case "open":
-                        this.Init(OpenedLink.Url);
+                        this.Init(null);
                         break;
                     case "exit":
                         Application.Current.Shutdown();
