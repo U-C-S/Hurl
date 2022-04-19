@@ -13,17 +13,21 @@ namespace Hurl.SharedLibraries.Models
         [JsonInclude]
         public string LastUpdated { get; set; } = DateTime.Now.ToString();
 
-        //[JsonInclude]
-        //public string AppPath = MetaStrings.SettingsFilePath;
-
         [JsonInclude]
         public List<Browser> Browsers;
+
+        [JsonInclude]
+        public AppSettings AppSettings { get; set; }
 
         //public Settings(List<Browser> browsers)
         //{
         //    Browsers = browsers;
         //}
+    }
 
-        //public Settings() { }
+    public class AppSettings
+    {
+        [JsonInclude]
+        public bool DisableAcrylic { get; set; } = false;
     }
 }

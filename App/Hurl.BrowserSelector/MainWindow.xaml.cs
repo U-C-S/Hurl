@@ -10,6 +10,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Hurl.BrowserSelector
 {
@@ -19,16 +20,39 @@ namespace Hurl.BrowserSelector
     public partial class MainWindow : Window
     {
         private CurrentLink OpenedLink = new("");
+        private Settings settings;
 
         public MainWindow()
         {
-            WPFUI.Appearance.Background.Apply(this, WPFUI.Appearance.BackgroundType.Acrylic, true);
+            LoadSettings();
+
+            if (settings.AppSettings.DisableAcrylic == false)
+                WPFUI.Appearance.Background.Apply(this, WPFUI.Appearance.BackgroundType.Acrylic, true);
+            //else
+            //{
+            //    var color = settings.AppSettings.BackgroundColor;
+            //    this.Background = new SolidColorBrush(Color.FromArgb())
+
+            //}
 
             InitializeComponent();
 
             RoundedCorners.Apply(this, () => WindowBorder.CornerRadius = new CornerRadius(0));
 
             ShowBrowserIcons();
+        }
+
+        public void LoadSettings()
+        {
+            try
+            {
+                settings = SettingsFile.GetSettings();
+            }
+            catch (Exception)
+            {
+                var _browsersList = GetBrowsers.FromRegistry();
+                settings = SettingsFile.New(_browsersList).SettingsObject;
+            }
         }
 
         private void ShowBrowserIcons()

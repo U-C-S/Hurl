@@ -21,6 +21,11 @@ namespace Hurl.SharedLibraries.Services
 
         public static SettingsFile TryLoading()
         {
+            return new SettingsFile(GetSettings());
+        }
+
+        public static Settings GetSettings()
+        {
             if (!File.Exists(MetaStrings.SettingsFilePath))
             {
                 throw new FileNotFoundException();
@@ -28,7 +33,7 @@ namespace Hurl.SharedLibraries.Services
 
             string jsondata = File.ReadAllText(MetaStrings.SettingsFilePath);
             var SettingsObject = JsonSerializer.Deserialize<Settings>(jsondata);
-            return new SettingsFile(SettingsObject);
+            return SettingsObject;
         }
 
         public static SettingsFile New(List<Browser> browsers)
@@ -37,7 +42,11 @@ namespace Hurl.SharedLibraries.Services
 
             var _settings = new Settings()
             {
-                Browsers = browsers
+                Browsers = browsers,
+                AppSettings = new AppSettings()
+                {
+                    DisableAcrylic = false,
+                }
             };
 
             string jsondata = JsonSerializer.Serialize(_settings, new JsonSerializerOptions

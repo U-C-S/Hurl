@@ -11,6 +11,7 @@
     Width="Auto"
     Height="210"
     MinWidth="360"
+    Background="#FF333333"
     KeyUp="Window_Esc"
     ResizeMode="NoResize"
     ShowInTaskbar="False"
