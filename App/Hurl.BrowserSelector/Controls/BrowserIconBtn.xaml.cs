@@ -1,4 +1,5 @@
-﻿using Hurl.SharedLibraries.Models;
+﻿using Hurl.BrowserSelector.Helpers;
+using Hurl.SharedLibraries.Models;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;

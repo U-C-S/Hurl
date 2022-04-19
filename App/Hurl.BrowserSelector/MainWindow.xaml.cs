@@ -5,14 +5,11 @@ using Hurl.SharedLibraries.Models;
 using Hurl.SharedLibraries.Services;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using WPFUI;
 
 namespace Hurl.BrowserSelector
 {
@@ -122,35 +119,5 @@ namespace Hurl.BrowserSelector
                 MessageBox.Show(err.Message);
             }
         }
-    }
-
-    public class CurrentLink : INotifyPropertyChanged
-    {
-        public CurrentLink(string URL)
-        {
-            this._url = URL;
-        }
-        private string _url;
-
-        public string Url
-        {
-            get => _url;
-            set
-            {
-                if (value != _url)
-                {
-                    _url = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-
     }
 }
