@@ -46,18 +46,18 @@
                         <MenuItem
                             Click="TrayMenuItem_OnClick"
                             Header="Open"
-                            Icon="{x:Static wpfuiCommon:Icon.Folder24}"
+                            Icon="{x:Static wpfuiCommon:SymbolRegular.Folder24}"
                             Tag="open" />
                         <Separator />
                         <MenuItem
                             Click="TrayMenuItem_OnClick"
                             Header="Reload"
-                            Icon="{x:Static wpfuiCommon:Icon.ArrowClockwise24}"
+                            Icon="{x:Static wpfuiCommon:SymbolRegular.ArrowClockwise24}"
                             Tag="reload" />
                         <MenuItem
                             Click="TrayMenuItem_OnClick"
                             Header="Exit"
-                            Icon="{x:Static wpfuiCommon:Icon.Save24}"
+                            Icon="{x:Static wpfuiCommon:SymbolRegular.Save24}"
                             Tag="exit" />
                     </ContextMenu>
                 </wpfui:TitleBar.NotifyIconMenu>
@@ -76,7 +76,7 @@
                     HorizontalAlignment="Right"
                     Background="#88000000"
                     Click="LinkCopyBtnClick">
-                    <wpfui:Icon Glyph="Copy24" />
+                    <wpfui:SymbolIcon Symbol="Copy24" />
                 </wpfui:Button>
                 <wpfui:Button
                     Margin="0,0,40,0"
@@ -84,7 +84,7 @@
                     HorizontalAlignment="Right"
                     Background="#88000000"
                     Click="SettingsBtnClick">
-                    <wpfui:Icon Glyph="Settings24" />
+                    <wpfui:SymbolIcon Symbol="Settings24" />
                 </wpfui:Button>
                 <wpfui:Button
                     Margin="0,0,4,0"
@@ -92,7 +92,7 @@
                     HorizontalAlignment="Right"
                     Background="#88000000"
                     Click="CloseBtnClick">
-                    <wpfui:Icon Glyph="Subtract24" />
+                    <wpfui:SymbolIcon Symbol="Subtract24" />
                 </wpfui:Button>
             </Grid>
 

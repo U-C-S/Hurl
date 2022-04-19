@@ -52,8 +52,14 @@
                 Text="{Binding Name}"
                 TextAlignment="Center"
                 TextWrapping="Wrap" />
-            <wpfui:Button Background="#11000000" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="16" Padding="6" Margin="0,5,0,0">
-                <wpfui:Icon Glyph="GridDots20" />
+            <wpfui:Button
+                Height="16"
+                Margin="0,5,0,0"
+                Padding="6"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Background="#11000000">
+                <wpfui:SymbolIcon Symbol="GridDots20" />
             </wpfui:Button>
         </StackPanel>
     </Border>

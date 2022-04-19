@@ -23,10 +23,8 @@
 		<Compile Include="..\Common\AssemblyInfo.cs" Link="AssemblyInfo.cs" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="WPF-UI" Version="1.2.2-prerelease154" />
-	</ItemGroup>
-	<ItemGroup>
 		<ProjectReference Include="..\..\Lib\SingleInstanceCore\SingleInstanceCore.csproj" />
+		<ProjectReference Include="..\..\Lib\wpfui\WPFUI\WPFUI.csproj" />
 		<ProjectReference Include="..\Hurl.SharedLibraries\Hurl.SharedLibraries.csproj" />
 	</ItemGroup>
 	<ItemGroup>

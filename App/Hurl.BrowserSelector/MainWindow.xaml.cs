@@ -12,7 +12,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using WPFUI.Background;
+using WPFUI;
 
 namespace Hurl.BrowserSelector
 {
@@ -25,7 +25,7 @@ namespace Hurl.BrowserSelector
 
         public MainWindow()
         {
-            Manager.Apply(BackgroundType.Acrylic, this);
+            WPFUI.Appearance.Background.Apply(this, WPFUI.Appearance.BackgroundType.Acrylic, true);
 
             InitializeComponent();
 
