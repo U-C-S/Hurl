@@ -29,5 +29,9 @@ namespace Hurl.SharedLibraries.Models
     {
         [JsonInclude]
         public bool DisableAcrylic { get; set; } = false;
+
+        [JsonInclude]
+        public List<Byte> BackgroundRGB { get; set; } = new List<byte> { 51, 51, 51 };
+
     }
 }

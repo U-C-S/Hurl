@@ -7,9 +7,11 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Hurl.BrowserSelector
 {
@@ -25,16 +27,16 @@ namespace Hurl.BrowserSelector
         {
             LoadSettings();
 
-            if (settings.AppSettings.DisableAcrylic == false)
-                WPFUI.Appearance.Background.Apply(this, WPFUI.Appearance.BackgroundType.Acrylic, true);
-            //else
-            //{
-            //    var color = settings.AppSettings.BackgroundColor;
-            //    this.Background = new SolidColorBrush(Color.FromArgb())
-
-            //}
-
             InitializeComponent();
+
+            if (settings?.AppSettings?.DisableAcrylic == false)
+                WPFUI.Appearance.Background.Apply(this, WPFUI.Appearance.BackgroundType.Acrylic, true);
+            else
+            {
+                var c = settings?.AppSettings.BackgroundRGB;
+                this.Background = new SolidColorBrush(Color.FromRgb(c[0], c[1], c[2]));
+            }
+
 
             RoundedCorners.Apply(this, () => WindowBorder.CornerRadius = new CornerRadius(0));
 
@@ -47,7 +49,12 @@ namespace Hurl.BrowserSelector
             {
                 settings = SettingsFile.GetSettings();
             }
-            catch (Exception)
+            catch (JsonException e)
+            {
+                MessageBox.Show(e.Message,"ERROR");
+                throw e;
+            }
+            catch (FileNotFoundException)
             {
                 var _browsersList = GetBrowsers.FromRegistry();
                 settings = SettingsFile.New(_browsersList).SettingsObject;
@@ -123,7 +130,8 @@ namespace Hurl.BrowserSelector
                 switch (tag)
                 {
                     case "open":
-                        this.Init(null);
+                        this.Show();
+                        this.WindowState = WindowState.Normal;
                         break;
                     case "exit":
                         Application.Current.Shutdown();

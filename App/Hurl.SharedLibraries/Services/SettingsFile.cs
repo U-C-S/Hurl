@@ -26,11 +26,6 @@ namespace Hurl.SharedLibraries.Services
 
         public static Settings GetSettings()
         {
-            if (!File.Exists(MetaStrings.SettingsFilePath))
-            {
-                throw new FileNotFoundException();
-            }
-
             string jsondata = File.ReadAllText(MetaStrings.SettingsFilePath);
             var SettingsObject = JsonSerializer.Deserialize<Settings>(jsondata);
             return SettingsObject;
