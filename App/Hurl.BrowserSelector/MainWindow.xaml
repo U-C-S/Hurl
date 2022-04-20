@@ -11,6 +11,7 @@
     Width="Auto"
     Height="210"
     MinWidth="360"
+    MaxWidth="485"
     Background="#FF333333"
     KeyUp="Window_Esc"
     ResizeMode="NoResize"
@@ -102,10 +103,13 @@
                     Margin="5"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    HorizontalScrollBarVisibility="Hidden"
+                    HorizontalScrollBarVisibility="Auto"
                     Style="{DynamicResource UiScrollViewer}"
                     VerticalScrollBarVisibility="Hidden">
-                    <StackPanel x:Name="stacky" Orientation="Horizontal" />
+                    <StackPanel
+                        x:Name="stacky"
+                        MouseWheel="ScrollViewer_MouseWheel"
+                        Orientation="Horizontal" />
                 </ScrollViewer>
             </Grid>
 

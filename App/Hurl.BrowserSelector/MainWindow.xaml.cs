@@ -150,5 +150,26 @@ namespace Hurl.BrowserSelector
                 MessageBox.Show(err.Message);
             }
         }
+
+        private void ScrollViewer_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            var scrolledval = e.Delta;
+            var ui = (ScrollViewer)(sender as StackPanel).Parent;
+            // Debug.WriteLine(scrolledval);
+
+            //scroll horizontally on mouse wheel
+            if (ui.HorizontalOffset + scrolledval < 0)
+            {
+                ui.ScrollToHorizontalOffset(0);
+            }
+            else if (ui.HorizontalOffset + scrolledval > ui.ScrollableWidth)
+            {
+                ui.ScrollToHorizontalOffset(ui.ScrollableWidth);
+            }
+            else
+            {
+                ui.ScrollToHorizontalOffset(ui.HorizontalOffset + scrolledval);
+            }
+        }
     }
 }
