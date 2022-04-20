@@ -10,7 +10,6 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace Hurl.BrowserSelector
 {
@@ -83,11 +82,11 @@ namespace Hurl.BrowserSelector
             }
         }
 
-        public void Init(CLIArgs data)
+        public void Init(CliArgs data)
         {
-            if (!IsActive || !IsVisible)
+            Show();
+            if (data.IsSecondInstance)
             {
-                Show();
                 this.WindowState = WindowState.Normal;
             }
 
