@@ -1,4 +1,3 @@
-using Hurl.SharedLibraries.Constants;
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
@@ -8,7 +7,7 @@ namespace Hurl.SharedLibraries.Models
     public class Settings
     {
         [JsonInclude]
-        public string Version = MetaStrings.VERSION;
+        public string Version = Constants.VERSION;
 
         [JsonInclude]
         public string LastUpdated { get; set; } = DateTime.Now.ToString();

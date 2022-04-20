@@ -1,6 +1,6 @@
 ﻿using Hurl.BrowserSelector.Controls;
 using Hurl.BrowserSelector.Helpers;
-using Hurl.SharedLibraries.Constants;
+using Hurl.SharedLibraries;
 using Hurl.SharedLibraries.Models;
 using Hurl.SharedLibraries.Services;
 using System;
@@ -112,7 +112,7 @@ namespace Hurl.BrowserSelector
         }
 
         private void LinkCopyBtnClick(object sender, RoutedEventArgs e) => Clipboard.SetText(OpenedLink.Url);
-        private void SettingsBtnClick(object sender, RoutedEventArgs e) => Process.Start("notepad.exe", MetaStrings.SettingsFilePath);
+        private void SettingsBtnClick(object sender, RoutedEventArgs e) => Process.Start("notepad.exe", Constants.SettingsFilePath);
         private void Draggable(object sender, MouseButtonEventArgs e) => this.DragMove();
         private void CloseBtnClick(object sender, RoutedEventArgs e) => MinimizeWindow();
 

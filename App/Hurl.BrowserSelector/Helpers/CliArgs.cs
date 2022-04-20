@@ -1,4 +1,4 @@
-﻿using Hurl.SharedLibraries.Constants;
+﻿using Hurl.SharedLibraries;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -20,7 +20,7 @@ namespace Hurl.BrowserSelector.Helpers
 #if DEBUG
             Task.Run(() =>
             {
-                var ArgsStoreFile = Path.Combine(OtherStrings.ROAMING, "Hurl", "args.txt");
+                var ArgsStoreFile = Path.Combine(Constants.ROAMING, "Hurl", "args.txt");
                 var StrFormat = $"\n\n{SecondInstanceArgs} --- {Args.Length} - {string.Join("__", Args)}";
                 File.AppendAllText(ArgsStoreFile, StrFormat);
             });

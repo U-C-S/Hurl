@@ -1,4 +1,3 @@
-using Hurl.SharedLibraries.Constants;
 using Hurl.SharedLibraries.Models;
 using System;
 using System.Collections.Generic;
@@ -26,14 +25,14 @@ namespace Hurl.SharedLibraries.Services
 
         public static Settings GetSettings()
         {
-            string jsondata = File.ReadAllText(MetaStrings.SettingsFilePath);
+            string jsondata = File.ReadAllText(Constants.SettingsFilePath);
             var SettingsObject = JsonSerializer.Deserialize<Settings>(jsondata);
             return SettingsObject;
         }
 
         public static SettingsFile New(List<Browser> browsers)
         {
-            Directory.CreateDirectory(OtherStrings.ROAMING + "\\Hurl");
+            Directory.CreateDirectory(Constants.ROAMING + "\\Hurl");
 
             var _settings = new Settings()
             {
@@ -49,7 +48,7 @@ namespace Hurl.SharedLibraries.Services
                 WriteIndented = true,
                 IncludeFields = true
             });
-            File.WriteAllText(MetaStrings.SettingsFilePath, jsondata);
+            File.WriteAllText(Constants.SettingsFilePath, jsondata);
 
             return new SettingsFile(_settings);
         }
@@ -62,7 +61,7 @@ namespace Hurl.SharedLibraries.Services
                 WriteIndented = true,
                 IncludeFields = true
             });
-            File.WriteAllText(MetaStrings.SettingsFilePath, jsondata);
+            File.WriteAllText(Constants.SettingsFilePath, jsondata);
         }
     }
 }
