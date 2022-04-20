@@ -9,9 +9,9 @@
     xmlns:wpfuiCommon="clr-namespace:WPFUI.Common;assembly=WPFUI"
     Title="Hurl - Select a Browser"
     Width="Auto"
-    Height="210"
+    Height="200"
     MinWidth="360"
-    MaxWidth="485"
+    MaxWidth="540"
     Background="#FF333333"
     KeyUp="Window_Esc"
     ResizeMode="NoResize"
@@ -76,7 +76,7 @@
                     Margin="0,0,76,0"
                     Padding="7,5"
                     HorizontalAlignment="Right"
-                    Background="#88000000"
+                    Background="#72000000"
                     Click="LinkCopyBtnClick">
                     <wpfui:SymbolIcon Symbol="Copy24" />
                 </wpfui:Button>
@@ -84,7 +84,7 @@
                     Margin="0,0,40,0"
                     Padding="7,5"
                     HorizontalAlignment="Right"
-                    Background="#88000000"
+                    Background="#72000000"
                     Click="SettingsBtnClick">
                     <wpfui:SymbolIcon Symbol="Settings24" />
                 </wpfui:Button>
@@ -92,25 +92,26 @@
                     Margin="0,0,4,0"
                     Padding="7,5"
                     HorizontalAlignment="Right"
-                    Background="#88000000"
+                    Background="#72000000"
                     Click="CloseBtnClick">
                     <wpfui:SymbolIcon Symbol="Subtract24" />
                 </wpfui:Button>
             </Grid>
 
             <Grid Grid.Row="1">
-                <ScrollViewer
-                    Margin="5"
+                <wpfui:DynamicScrollViewer
+                    Margin="5,0"
+                    Padding="0,0,0,8"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
+                    VerticalAlignment="Stretch"
                     HorizontalScrollBarVisibility="Auto"
-                    Style="{DynamicResource UiScrollViewer}"
                     VerticalScrollBarVisibility="Hidden">
                     <StackPanel
                         x:Name="stacky"
+                        VerticalAlignment="Center"
                         MouseWheel="ScrollViewer_MouseWheel"
                         Orientation="Horizontal" />
-                </ScrollViewer>
+                </wpfui:DynamicScrollViewer>
             </Grid>
 
             <!--<ComboBox Grid.Row="2" Panel.ZIndex="5" />-->
