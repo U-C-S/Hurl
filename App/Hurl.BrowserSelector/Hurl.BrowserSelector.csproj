@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>net6.0-windows</TargetFramework>
-		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
+		<OutputType>Exe</OutputType>
 		<UseWPF>true</UseWPF>
 		<RuntimeIdentifiers>win10-x64</RuntimeIdentifiers>
 		<AssemblyName>Hurl</AssemblyName>
@@ -10,6 +10,8 @@
 		<ApplicationIcon>..\Common\internet.ico</ApplicationIcon>
 		<StartupObject>Hurl.BrowserSelector.App</StartupObject>
 		<PublishSingleFile>true</PublishSingleFile>
+		<WindowsPackageType>None</WindowsPackageType>
+		<UseWinUI>true</UseWinUI>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
 		<PlatformTarget>x64</PlatformTarget>
@@ -29,6 +31,10 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <None Remove="Assets\internet.ico" />
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.Windows.CsWinRT" Version="1.6.3" />
+	  <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.1.0-preview3" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Resource Include="Assets\internet.ico" />

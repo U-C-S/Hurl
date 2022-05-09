@@ -1,4 +1,5 @@
 ﻿using Hurl.BrowserSelector.Helpers;
+using Microsoft.UI.Windowing;
 using SingleInstanceCore;
 using System.Windows;
 
@@ -13,6 +14,7 @@ namespace Hurl.BrowserSelector
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            
             bool isFirstInstance = this.InitializeAsFirstInstance("HurlTray");
             if (isFirstInstance)
             {
