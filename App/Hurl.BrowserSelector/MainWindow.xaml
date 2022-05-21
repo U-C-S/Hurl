@@ -37,32 +37,35 @@
                 <RowDefinition Height="26" />
             </Grid.RowDefinitions>
 
-            <wpfui:TitleBar
-                MinimizeToTray="True"
-                NotifyIconImage="Assets/internet.ico"
-                NotifyIconTooltip="Hurl at tray for fast startup"
-                UseNotifyIcon="True"
-                Visibility="Hidden">
-                <wpfui:TitleBar.NotifyIconMenu>
-                    <ContextMenu>
-                        <MenuItem
-                            Click="TrayMenuItem_OnClick"
-                            Header="Open"
-                            Icon="{x:Static wpfuiCommon:SymbolRegular.Folder24}"
-                            Tag="open" />
-                        <Separator />
-                        <MenuItem
-                            Click="TrayMenuItem_OnClick"
-                            Header="Reload"
-                            Icon="{x:Static wpfuiCommon:SymbolRegular.ArrowClockwise24}"
-                            Tag="reload" />
-                        <MenuItem
-                            Click="TrayMenuItem_OnClick"
-                            Header="Exit"
-                            Icon="{x:Static wpfuiCommon:SymbolRegular.Save24}"
-                            Tag="exit" />
-                    </ContextMenu>
-                </wpfui:TitleBar.NotifyIconMenu>
+            <wpfui:TitleBar MinimizeToTray="True" Visibility="Hidden">
+                <wpfui:TitleBar.Tray>
+                    <wpfui:NotifyIcon
+                        FocusOnLeftClick="True"
+                        Icon="Assets/internet.ico"
+                        MenuOnRightClick="True"
+                        TooltipText="WPF UI">
+                        <wpfui:NotifyIcon.Menu>
+                            <ContextMenu>
+                                <MenuItem
+                                    Click="TrayMenuItem_OnClick"
+                                    Header="Open"
+                                    Icon="{x:Static wpfuiCommon:SymbolRegular.Folder24}"
+                                    Tag="open" />
+                                <Separator />
+                                <MenuItem
+                                    Click="TrayMenuItem_OnClick"
+                                    Header="Reload"
+                                    Icon="{x:Static wpfuiCommon:SymbolRegular.ArrowClockwise24}"
+                                    Tag="reload" />
+                                <MenuItem
+                                    Click="TrayMenuItem_OnClick"
+                                    Header="Exit"
+                                    Icon="{x:Static wpfuiCommon:SymbolRegular.Save24}"
+                                    Tag="exit" />
+                            </ContextMenu>
+                        </wpfui:NotifyIcon.Menu>
+                    </wpfui:NotifyIcon>
+                </wpfui:TitleBar.Tray>
             </wpfui:TitleBar>
 
             <Grid MouseLeftButtonDown="Draggable">

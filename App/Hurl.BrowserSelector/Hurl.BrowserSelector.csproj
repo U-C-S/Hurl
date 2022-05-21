@@ -24,7 +24,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\Lib\SingleInstanceCore\SingleInstanceCore.csproj" />
-		<ProjectReference Include="..\..\Lib\wpfui\WPFUI\WPFUI.csproj" />
+		<ProjectReference Include="..\..\Lib\wpfui\src\WPFUI\WPFUI.csproj" />
 		<ProjectReference Include="..\Hurl.SharedLibraries\Hurl.SharedLibraries.csproj" />
 	</ItemGroup>
 	<ItemGroup>
