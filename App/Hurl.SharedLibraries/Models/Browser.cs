@@ -13,16 +13,7 @@ namespace Hurl.SharedLibraries.Models
         {
             this.Name = Name;
             this.ExePath = ExePath;
-            if (ExePath != null)
-            {
-                this.RawIcon = ExePath.StartsWith('"'.ToString())
-                        ? IconExtractor.FromFile(ExePath.Substring(1, ExePath.Length - 2))
-                        : IconExtractor.FromFile(ExePath);
-            }
         }
-
-        //[JsonInclude]
-        //public BrowserSourceType SourceType { get; set; } // IMP for refreshing system browsers
 
         [JsonInclude]
         public string Name { get; set; }
@@ -42,17 +33,23 @@ namespace Hurl.SharedLibraries.Models
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string CustomIconPath { get; set; }
 
-        private Icon RawIcon { get; set; }
-
         [JsonIgnore]
         public ImageSource GetIcon
         {
             get
             {
                 if (!string.IsNullOrEmpty(CustomIconPath))
+                {
                     return new BitmapImage(new Uri(CustomIconPath));
-                else if (!string.IsNullOrEmpty(ExePath) && RawIcon != null)
+                }
+                else if (!string.IsNullOrEmpty(ExePath))
+                {
+                    Icon RawIcon = ExePath.StartsWith('"'.ToString())
+                                ? IconExtractor.FromFile(ExePath.Substring(1, ExePath.Length - 2))
+                                : IconExtractor.FromFile(ExePath);
+
                     return IconUtilites.ToImageSource(RawIcon);
+                }
                 else
                     return null;
             }
