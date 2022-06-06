@@ -49,9 +49,9 @@ namespace Hurl.SharedLibraries.Models
         {
             get
             {
-                if (CustomIconPath != null)
+                if (!string.IsNullOrEmpty(CustomIconPath))
                     return new BitmapImage(new Uri(CustomIconPath));
-                else if (ExePath != null && RawIcon != null)
+                else if (!string.IsNullOrEmpty(ExePath) && RawIcon != null)
                     return IconUtilites.ToImageSource(RawIcon);
                 else
                     return null;

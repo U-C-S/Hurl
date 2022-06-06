@@ -24,7 +24,7 @@ namespace Hurl.BrowserSelector.Controls
 
         private void OpenIt(object sender, MouseButtonEventArgs e)
         {
-            if (browser.LaunchArgs.Contains("%URL%"))
+            if (!string.IsNullOrEmpty(browser.LaunchArgs) && browser.LaunchArgs.Contains("%URL%"))
             {
                 var newArg = browser.LaunchArgs.Replace("%URL%", _currentLink.Url);
                 Process.Start(browser.ExePath, newArg);
