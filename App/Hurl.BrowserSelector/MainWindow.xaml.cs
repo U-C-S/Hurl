@@ -51,10 +51,10 @@ namespace Hurl.BrowserSelector
             }
             catch (JsonException e)
             {
-                MessageBox.Show(e.Message,"ERROR");
+                MessageBox.Show(e.Message, "ERROR");
                 throw e;
             }
-            catch (FileNotFoundException)
+            catch (Exception ex) when (ex is FileNotFoundException or DirectoryNotFoundException)
             {
                 var _browsersList = GetBrowsers.FromRegistry();
                 settings = SettingsFile.New(_browsersList).SettingsObject;
