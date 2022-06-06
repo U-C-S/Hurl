@@ -15,21 +15,16 @@ namespace Hurl.SharedLibraries.Models
         [JsonInclude]
         public List<Browser> Browsers;
 
-        [JsonInclude]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public AppSettings AppSettings { get; set; }
-
-        //public Settings(List<Browser> browsers)
-        //{
-        //    Browsers = browsers;
-        //}
     }
 
     public class AppSettings
     {
-        [JsonInclude]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public bool DisableAcrylic { get; set; } = false;
 
-        [JsonInclude]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public List<Byte> BackgroundRGB { get; set; } = new List<byte> { 51, 51, 51 };
 
     }

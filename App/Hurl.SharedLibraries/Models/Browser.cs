@@ -31,13 +31,13 @@ namespace Hurl.SharedLibraries.Models
         [JsonInclude]
         public string ExePath { get; set; }
 
-        [JsonInclude]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string LaunchArgs { get; set; }
 
-        [JsonInclude]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public bool Hidden { get; set; } = false;
 
-        [JsonInclude]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public AlternateLaunch[] AlternateLaunches { get; set; }
 
         private Icon RawIcon { get; set; }

@@ -26,10 +26,10 @@ namespace Hurl.BrowserSelector
         public MainWindow()
         {
             LoadSettings();
-
+            
             InitializeComponent();
 
-            if (settings?.AppSettings?.DisableAcrylic == false)
+            if (settings.AppSettings == null || settings.AppSettings.DisableAcrylic == false)
                 WPFUI.Appearance.Background.Apply(this, WPFUI.Appearance.BackgroundType.Acrylic, true);
             else
             {

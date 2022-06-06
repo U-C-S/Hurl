@@ -37,10 +37,6 @@ namespace Hurl.SharedLibraries.Services
             var _settings = new Settings()
             {
                 Browsers = browsers,
-                AppSettings = new AppSettings()
-                {
-                    DisableAcrylic = false,
-                }
             };
 
             string jsondata = JsonSerializer.Serialize(_settings, new JsonSerializerOptions
