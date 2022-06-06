@@ -24,7 +24,15 @@ namespace Hurl.BrowserSelector.Controls
 
         private void OpenIt(object sender, MouseButtonEventArgs e)
         {
-            Process.Start(browser.ExePath, _currentLink.Url + " " + browser.LaunchArgs);
+            if (browser.LaunchArgs.Contains("%URL%"))
+            {
+                var newArg = browser.LaunchArgs.Replace("%URL%", _currentLink.Url);
+                Process.Start(browser.ExePath, newArg);
+            }
+            else
+            {
+                Process.Start(browser.ExePath, _currentLink.Url + " " + browser.LaunchArgs);
+            }
             MinimizeWindow();
         }
 
