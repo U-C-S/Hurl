@@ -1,10 +1,9 @@
 using Hurl.SharedLibraries.Services;
-using System.Text.Json;
 using System;
 using System.Drawing;
-using System.IO;
-using System.Windows.Media;
 using System.Text.Json.Serialization;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Hurl.SharedLibraries.Models
 {
@@ -40,6 +39,9 @@ namespace Hurl.SharedLibraries.Models
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public AlternateLaunch[] AlternateLaunches { get; set; }
 
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string CustomIconPath { get; set; }
+
         private Icon RawIcon { get; set; }
 
         [JsonIgnore]
@@ -47,9 +49,12 @@ namespace Hurl.SharedLibraries.Models
         {
             get
             {
-                if (ExePath != null && RawIcon != null)
+                if (CustomIconPath != null)
+                    return new BitmapImage(new Uri(CustomIconPath));
+                else if (ExePath != null && RawIcon != null)
                     return IconUtilites.ToImageSource(RawIcon);
-                else return null;
+                else
+                    return null;
             }
         }
     }
@@ -76,13 +81,13 @@ namespace Hurl.SharedLibraries.Models
 
         [JsonInclude]
         public string ItemName { get; set; }
-        
+
         //[JsonInclude]
         //public string LaunchExe { get; set; }
-        
+
         [JsonInclude]
         public string LaunchArgs { get; set; }
-        
+
         //[JsonInclude]
         //public bool IsPath { get; set; }
     }
