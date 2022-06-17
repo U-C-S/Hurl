@@ -23,8 +23,8 @@
 		<Compile Include="..\Common\AssemblyInfo.cs" Link="AssemblyInfo.cs" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\..\Lib\SingleInstanceCore\SingleInstanceCore.csproj" />
-		<ProjectReference Include="..\..\Lib\wpfui\src\WPFUI\WPFUI.csproj" />
+		<ProjectReference Include="..\..\Lib\SingleInstanceCore\src\SingleInstanceCore.csproj" />
+		<ProjectReference Include="..\..\Lib\wpfui\src\Wpf.ui\Wpf.Ui.csproj" />
 		<ProjectReference Include="..\Hurl.SharedLibraries\Hurl.SharedLibraries.csproj" />
 	</ItemGroup>
 	<ItemGroup>

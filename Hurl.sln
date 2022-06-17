@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hurl.BrowserSelector", "App
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hurl.SharedLibraries", "App\Hurl.SharedLibraries\Hurl.SharedLibraries.csproj", "{8ADE2213-0F79-4E7A-9E36-ABD2745E9F8A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SingleInstanceCore", "Lib\SingleInstanceCore\SingleInstanceCore.csproj", "{3E4C2614-9696-4143-895A-DCA001715D14}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SingleInstanceCore", "Lib\SingleInstanceCore\src\SingleInstanceCore.csproj", "{3E4C2614-9696-4143-895A-DCA001715D14}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFUI", "Lib\wpfui\src\WPFUI\WPFUI.csproj", "{1ADC87D1-8963-4100-845A-18477824718E}"
 EndProject
