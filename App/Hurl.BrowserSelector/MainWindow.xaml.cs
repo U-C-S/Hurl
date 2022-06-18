@@ -26,16 +26,18 @@ namespace Hurl.BrowserSelector
         public MainWindow()
         {
             LoadSettings();
-            
+
             InitializeComponent();
 
-            if (settings.AppSettings == null || settings.AppSettings.DisableAcrylic == false)
+            if ((settings.AppSettings == null || settings.AppSettings.DisableAcrylic == false) && false)
                 Wpf.Ui.Appearance.Background.Apply(this, Wpf.Ui.Appearance.BackgroundType.Acrylic, true);
-            else
+            else if (settings.AppSettings != null)
             {
                 var c = settings?.AppSettings.BackgroundRGB;
                 this.Background = new SolidColorBrush(Color.FromRgb(c[0], c[1], c[2]));
             }
+            else
+                this.Background = new SolidColorBrush(Color.FromRgb(50, 50, 50));
 
 
             RoundedCorners.Apply(this, () => WindowBorder.CornerRadius = new CornerRadius(0));
