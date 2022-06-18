@@ -5,8 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Hurl.BrowserSelector"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:wpfui="clr-namespace:WPFUI.Controls;assembly=WPFUI"
-    xmlns:wpfuiCommon="clr-namespace:WPFUI.Common;assembly=WPFUI"
+    xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="Hurl - Select a Browser"
     Width="Auto"
     Height="200"
@@ -49,18 +48,18 @@
                                 <MenuItem
                                     Click="TrayMenuItem_OnClick"
                                     Header="Open"
-                                    Icon="{x:Static wpfuiCommon:SymbolRegular.Folder24}"
+                                    Icon="{x:Static wpfui:SymbolRegular.Folder24}"
                                     Tag="open" />
                                 <Separator />
                                 <MenuItem
                                     Click="TrayMenuItem_OnClick"
                                     Header="Reload"
-                                    Icon="{x:Static wpfuiCommon:SymbolRegular.ArrowClockwise24}"
+                                    Icon="{x:Static wpfui:SymbolRegular.ArrowClockwise24}"
                                     Tag="reload" />
                                 <MenuItem
                                     Click="TrayMenuItem_OnClick"
                                     Header="Exit"
-                                    Icon="{x:Static wpfuiCommon:SymbolRegular.Save24}"
+                                    Icon="{x:Static wpfui:SymbolRegular.Save24}"
                                     Tag="exit" />
                             </ContextMenu>
                         </wpfui:NotifyIcon.Menu>
