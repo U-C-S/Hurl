@@ -39,7 +39,14 @@ namespace Hurl.BrowserSelector.Controls
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             var alt = (sender as MenuItem).Tag as AlternateLaunch;
-            Process.Start(browser.ExePath, _currentLink.Url + " " + alt.LaunchArgs);
+            if (alt.LaunchArgs.Contains("%URL%"))
+            {
+                Process.Start(browser.ExePath, alt.LaunchArgs.Replace("%URL%", _currentLink.Url));
+            }
+            else
+            {
+                Process.Start(browser.ExePath, _currentLink.Url + " " + alt.LaunchArgs);
+            }
             MinimizeWindow();
         }
 
