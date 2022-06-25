@@ -32,6 +32,11 @@ namespace Hurl.BrowserSelector.Helpers
             if (ArgsLength > 0)
             {
                 string whatever = Args[0];
+                
+                if(Args[0] == "--minimized")
+                {
+                    cliargs.IsRunAsMin = true;
+                }
 
                 if (SecondInstanceArgs)
                 {

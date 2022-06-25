@@ -93,12 +93,19 @@ namespace Hurl.BrowserSelector
 
         public void Init(CliArgs data)
         {
-            Show();
-            if (data.IsSecondInstance)
+            if (data.IsRunAsMin)
             {
-                this.WindowState = WindowState.Normal;
+                this.WindowState = WindowState.Minimized;
+                //this.Hide();
             }
-
+            else
+            {
+                Show();
+                if (data.IsSecondInstance)
+                {
+                    this.WindowState = WindowState.Normal;
+                }
+            }
             var Url = data?.Url ?? string.Empty;
 
             OpenedLink.Url = Url;
