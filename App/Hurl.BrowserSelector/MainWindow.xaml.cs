@@ -130,6 +130,12 @@ namespace Hurl.BrowserSelector
             this.WindowState = WindowState.Minimized;
             this.Hide();
         }
+        
+        private void MaximizeWindow()
+        {
+            this.Show();
+            this.WindowState = WindowState.Normal;
+        }
 
         private void TrayMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
@@ -139,8 +145,7 @@ namespace Hurl.BrowserSelector
                 switch (tag)
                 {
                     case "open":
-                        this.Show();
-                        this.WindowState = WindowState.Normal;
+                        MaximizeWindow();
                         break;
                     case "exit":
                         Application.Current.Shutdown();
@@ -180,5 +185,7 @@ namespace Hurl.BrowserSelector
                 ui.ScrollToHorizontalOffset(ui.HorizontalOffset + scrolledval);
             }
         }
+
+        private void NotifyIcon_LeftClick(Wpf.Ui.Tray.INotifyIcon sender, RoutedEventArgs e) => MaximizeWindow();
     }
 }
