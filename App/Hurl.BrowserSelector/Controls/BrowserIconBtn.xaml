@@ -5,12 +5,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Hurl.BrowserSelector.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
     d:DesignHeight="106"
     d:DesignWidth="106"
+    Cursor="Hand"
     mc:Ignorable="d">
     <UserControl.ContextMenu>
-        <ContextMenu ItemsSource="{Binding AlternateLaunches}">
+        <ContextMenu x:Name="MainContextMenu" ItemsSource="{Binding AlternateLaunches}">
             <ContextMenu.ItemContainerStyle>
                 <Style TargetType="MenuItem">
                     <Setter Property="Header" Value="{Binding ItemName}" />
@@ -21,45 +23,84 @@
         </ContextMenu>
     </UserControl.ContextMenu>
 
-    <Border
-        x:Name="BtnArea"
-        Width="100"
-        MaxHeight="120"
-        Margin="2"
-        Padding="5,10,5,5"
-        CornerRadius="4"
-        Cursor="Hand"
-        MouseLeftButtonUp="OpenIt">
-        <Border.Style>
-            <Style TargetType="Border">
-                <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="#88000000" />
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-        </Border.Style>
-        <StackPanel>
-            <Image
-                Width="56"
-                Height="56"
-                Source="{Binding GetIcon}" />
-            <TextBlock
-                Margin="0,5,0,0"
-                FontSize="10"
-                Foreground="AliceBlue"
-                Text="{Binding Name}"
-                TextAlignment="Center"
-                TextWrapping="Wrap" />
-            <!--<wpfui:Button
-                Height="16"
-                Margin="0,5,0,0"
-                Padding="6"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Bottom"
-                Background="#11000000">
-                <wpfui:SymbolIcon Symbol="GridDots20" />
-            </wpfui:Button>-->
-        </StackPanel>
-    </Border>
+    <UserControl.Template>
+        <ControlTemplate>
+            <Border
+                x:Name="BtnArea"
+                Width="100"
+                MaxHeight="120"
+                Margin="2"
+                Padding="5,10,5,5"
+                CornerRadius="4"
+                Cursor="Hand"
+                MouseLeftButtonUp="OpenIt">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#88000000" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <StackPanel x:Name="BrowserBtn">
+                    <Image
+                        Width="56"
+                        Height="56"
+                        Source="{Binding GetIcon}" />
+                    <TextBlock
+                        Margin="0,9,0,0"
+                        FontSize="10"
+                        Foreground="AliceBlue"
+                        Text="{Binding Name}"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
+                    <wpfui:Button
+                        x:Name="AdditionalBtn"
+                        Height="24"
+                        Margin="0,-85,0,0"
+                        Padding="0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Background="#11000000"
+                        Visibility="Hidden">
+                        <wpfui:SymbolIcon Symbol="MoreVertical20" />
+                        <wpfui:Button.ContextMenu>
+                            <ContextMenu x:Name="MainContextMenu" ItemsSource="{Binding AlternateLaunches}">
+                                <ContextMenu.ItemContainerStyle>
+                                    <Style TargetType="MenuItem">
+                                        <Setter Property="Header" Value="{Binding ItemName}" />
+                                        <Setter Property="Tag" Value="{Binding}" />
+                                        <EventSetter Event="Click" Handler="MenuItem_Click" />
+                                    </Style>
+                                </ContextMenu.ItemContainerStyle>
+                            </ContextMenu>
+                        </wpfui:Button.ContextMenu>
+
+                        <wpfui:Button.Triggers>
+                            <EventTrigger RoutedEvent="Button.Click" SourceName="AdditionalBtn">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MainContextMenu" Storyboard.TargetProperty="(ContextMenu.IsOpen)">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <sys:Boolean>True</sys:Boolean>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </wpfui:Button.Triggers>
+                    </wpfui:Button>
+                </StackPanel>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="AdditionalBtn" Property="Visibility" Value="Visible" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </UserControl.Template>
+
 </UserControl>
