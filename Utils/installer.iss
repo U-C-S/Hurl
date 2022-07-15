@@ -47,7 +47,6 @@ Source: "..\Extensions\*"; Excludes: "package-lock.json,node_modules"; DestDir: 
 
 [Icons]
 Name: "{autoprograms}\{#MyAppName}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
-Name: "{autoprograms}\{#MyAppName}\Hurl Settings"; Filename: "{app}\Hurl Settings.exe"
 Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
 
 [Registry]
