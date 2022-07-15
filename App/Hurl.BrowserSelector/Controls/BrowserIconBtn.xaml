@@ -11,6 +11,20 @@
     d:DesignWidth="106"
     Cursor="Hand"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <ContextMenu
+            x:Key="TheCM"
+            x:Name="TheCM"
+            ItemsSource="{Binding AlternateLaunches}">
+            <ContextMenu.ItemContainerStyle>
+                <Style TargetType="MenuItem">
+                    <Setter Property="Header" Value="{Binding ItemName}" />
+                    <Setter Property="Tag" Value="{Binding}" />
+                    <EventSetter Event="Click" Handler="MenuItem_Click" />
+                </Style>
+            </ContextMenu.ItemContainerStyle>
+        </ContextMenu>
+    </UserControl.Resources>
     <UserControl.ContextMenu>
         <ContextMenu x:Name="MainContextMenu" ItemsSource="{Binding AlternateLaunches}">
             <ContextMenu.ItemContainerStyle>
@@ -63,35 +77,9 @@
                         HorizontalAlignment="Right"
                         VerticalAlignment="Top"
                         Background="#11000000"
+                        Click="AdditionalBtn_Click"
                         Visibility="Hidden">
                         <wpfui:SymbolIcon Symbol="MoreVertical20" />
-                        <wpfui:Button.ContextMenu>
-                            <ContextMenu x:Name="MainContextMenu" ItemsSource="{Binding AlternateLaunches}">
-                                <ContextMenu.ItemContainerStyle>
-                                    <Style TargetType="MenuItem">
-                                        <Setter Property="Header" Value="{Binding ItemName}" />
-                                        <Setter Property="Tag" Value="{Binding}" />
-                                        <EventSetter Event="Click" Handler="MenuItem_Click" />
-                                    </Style>
-                                </ContextMenu.ItemContainerStyle>
-                            </ContextMenu>
-                        </wpfui:Button.ContextMenu>
-
-                        <wpfui:Button.Triggers>
-                            <EventTrigger RoutedEvent="Button.Click" SourceName="AdditionalBtn">
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MainContextMenu" Storyboard.TargetProperty="(ContextMenu.IsOpen)">
-                                            <DiscreteObjectKeyFrame KeyTime="0:0:0">
-                                                <DiscreteObjectKeyFrame.Value>
-                                                    <sys:Boolean>True</sys:Boolean>
-                                                </DiscreteObjectKeyFrame.Value>
-                                            </DiscreteObjectKeyFrame>
-                                        </ObjectAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </EventTrigger>
-                        </wpfui:Button.Triggers>
                     </wpfui:Button>
                 </StackPanel>
             </Border>
