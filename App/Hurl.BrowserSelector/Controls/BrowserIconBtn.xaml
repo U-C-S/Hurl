@@ -44,15 +44,21 @@
                 Width="100"
                 MaxHeight="120"
                 Margin="2"
-                Padding="5,10,5,5"
+                Padding="2,10,2,5"
+                BorderThickness="1"
                 CornerRadius="4"
                 Cursor="Hand"
+                Focusable="True"
                 MouseLeftButtonUp="OpenIt">
                 <Border.Style>
                     <Style TargetType="Border">
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="Background" Value="#88000000" />
+                                <Setter Property="BorderBrush" Value="AliceBlue" />
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="AliceBlue" />
                             </Trigger>
                         </Style.Triggers>
                     </Style>
@@ -71,12 +77,12 @@
                         TextWrapping="Wrap" />
                     <wpfui:Button
                         x:Name="AdditionalBtn"
-                        Height="24"
-                        Margin="0,-85,0,0"
-                        Padding="0"
+                        Height="30"
+                        Margin="0,-89,-3,0"
+                        Padding="1"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Top"
-                        Background="#11000000"
+                        Background="#000000"
                         Click="AdditionalBtn_Click"
                         Visibility="Hidden">
                         <wpfui:SymbolIcon Symbol="MoreVertical20" />
