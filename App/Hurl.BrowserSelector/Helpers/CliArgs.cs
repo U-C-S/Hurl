@@ -1,5 +1,4 @@
-﻿using Hurl.BrowserSelector;
-using System.IO;
+﻿using System.IO;
 using System.Threading.Tasks;
 
 namespace Hurl.BrowserSelector.Helpers

@@ -1,7 +1,7 @@
 ﻿using Hurl.BrowserSelector.Helpers;
+using Hurl.BrowserSelector.Views;
 using SingleInstanceCore;
 using System.Windows;
-using Hurl.BrowserSelector.Views;
 
 namespace Hurl.BrowserSelector
 {
@@ -25,7 +25,7 @@ namespace Hurl.BrowserSelector
                 Current.Shutdown();
             }
         }
-        
+
         public void OnInstanceInvoked(string[] args)
         {
             Current.Dispatcher.Invoke(() =>

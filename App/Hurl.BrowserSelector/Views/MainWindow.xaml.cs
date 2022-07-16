@@ -1,7 +1,6 @@
 ﻿using Hurl.BrowserSelector.Controls;
 using Hurl.BrowserSelector.Helpers;
 using Hurl.BrowserSelector.Models;
-using Hurl.BrowserSelector;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

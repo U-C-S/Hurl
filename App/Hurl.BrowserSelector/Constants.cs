@@ -9,7 +9,7 @@ namespace Hurl.BrowserSelector
         public const string DESCRIPTION = "Hurl - A tool to select the browsers dynamically";
         public const string URLAssociations = "HandleURL3721";
         public const string VERSION = "0.6.2";
-        
+
         public static string APP_PARENT_DIR = Environment.CurrentDirectory;
         public static string APP_LAUNCH_PATH = Environment.GetCommandLineArgs()[0];
         public static string ROAMING = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
