@@ -7,8 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
-    d:DesignHeight="106"
-    d:DesignWidth="106"
+    d:DesignHeight="120"
+    d:DesignWidth="126"
     Cursor="Hand"
     mc:Ignorable="d">
     <UserControl.Resources>
@@ -41,8 +41,8 @@
         <ControlTemplate>
             <Border
                 x:Name="BtnArea"
-                Width="100"
-                MaxHeight="120"
+                Width="110"
+                MaxHeight="130"
                 Margin="2"
                 Padding="2,10,2,5"
                 BorderThickness="1"
@@ -65,8 +65,8 @@
                 </Border.Style>
                 <StackPanel x:Name="BrowserBtn">
                     <Image
-                        Width="56"
-                        Height="56"
+                        Width="60"
+                        Height="60"
                         Source="{Binding GetIcon}" />
                     <TextBlock
                         Margin="0,9,0,0"
@@ -77,9 +77,9 @@
                         TextWrapping="Wrap" />
                     <wpfui:Button
                         x:Name="AdditionalBtn"
-                        Height="30"
-                        Margin="0,-89,-3,0"
-                        Padding="1"
+                        Height="36"
+                        Margin="0,-93,-3,0"
+                        Padding="2"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Top"
                         Background="#000000"

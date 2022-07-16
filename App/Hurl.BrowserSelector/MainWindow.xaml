@@ -10,7 +10,7 @@
     Width="Auto"
     Height="200"
     MinWidth="360"
-    MaxWidth="540"
+    MaxWidth="590"
     Background="#FF333333"
     KeyUp="Window_Esc"
     ResizeMode="NoResize"
