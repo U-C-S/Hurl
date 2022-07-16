@@ -1,4 +1,4 @@
-﻿using Hurl.SharedLibraries;
+﻿using Hurl.BrowserSelector;
 using System.IO;
 using System.Threading.Tasks;
 

@@ -1,9 +1,7 @@
 ﻿using Hurl.BrowserSelector.Controls;
-using Hurl.BrowserSelector.Models;
 using Hurl.BrowserSelector.Helpers;
-using Hurl.SharedLibraries;
-using Hurl.SharedLibraries.Models;
-using Hurl.SharedLibraries.Services;
+using Hurl.BrowserSelector.Models;
+using Hurl.BrowserSelector;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,7 +12,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace Hurl.BrowserSelector
+namespace Hurl.BrowserSelector.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -63,11 +61,6 @@ namespace Hurl.BrowserSelector
             {
                 MessageBox.Show(e.Message, "ERROR");
                 throw e;
-            }
-            catch (Exception ex) when (ex is FileNotFoundException or DirectoryNotFoundException)
-            {
-                var _browsersList = GetBrowsers.FromRegistry();
-                settings = SettingsFile.New(_browsersList).SettingsObject;
             }
         }
 

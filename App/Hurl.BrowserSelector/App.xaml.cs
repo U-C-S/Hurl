@@ -1,6 +1,7 @@
 ﻿using Hurl.BrowserSelector.Helpers;
 using SingleInstanceCore;
 using System.Windows;
+using Hurl.BrowserSelector.Views;
 
 namespace Hurl.BrowserSelector
 {

@@ -7,7 +7,7 @@
 		<AssemblyName>Hurl</AssemblyName>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
-		<ApplicationIcon>..\Common\internet.ico</ApplicationIcon>
+		<ApplicationIcon>Assets\internet.ico</ApplicationIcon>
 		<StartupObject>Hurl.BrowserSelector.App</StartupObject>
 		<PublishSingleFile>true</PublishSingleFile>
 	</PropertyGroup>
@@ -20,12 +20,12 @@
 		<OutputPath>..\_bin\Release\</OutputPath>
 	</PropertyGroup>
 	<ItemGroup>
-		<Compile Include="..\Common\AssemblyInfo.cs" Link="AssemblyInfo.cs" />
-	</ItemGroup>
-	<ItemGroup>
 		<ProjectReference Include="..\..\Lib\SingleInstanceCore\src\SingleInstanceCore.csproj" />
 		<ProjectReference Include="..\..\Lib\wpfui\src\Wpf.ui\Wpf.Ui.csproj" />
-		<ProjectReference Include="..\Hurl.SharedLibraries\Hurl.SharedLibraries.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
 	</ItemGroup>
 	<ItemGroup>
 	  <None Remove="Assets\internet.ico" />

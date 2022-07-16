@@ -1,10 +1,10 @@
-using Hurl.SharedLibraries.Models;
+using Hurl.BrowserSelector.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 
-namespace Hurl.SharedLibraries.Services
+namespace Hurl.BrowserSelector.Helpers
 {
     public class SettingsFile
     {
