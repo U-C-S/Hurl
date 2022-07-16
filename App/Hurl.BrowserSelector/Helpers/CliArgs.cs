@@ -4,18 +4,48 @@ using System.Threading.Tasks;
 
 namespace Hurl.BrowserSelector.Helpers
 {
-    public record CliArgs
+    public class CliArgs
     {
         public bool IsSecondInstance = false;
         public bool IsRunAsMin = false;
         public bool IsProtocolActivated = false;
         public string Url { get; set; } = string.Empty;
         public string[] otherArgs;
-    }
 
-    public static class CliArgsMethods
-    {
-        public static CliArgs ArgProcess(string[] Args, bool SecondInstanceArgs)
+        private CliArgs(string[] Args, bool SecondInstanceArgs)
+        {
+            var ArgsLength = Args.Length;
+            if (ArgsLength > 0)
+            {
+                string whatever = Args[0];
+
+                if (Args[0] == "--minimized")
+                {
+                    IsRunAsMin = true;
+                }
+
+                if (SecondInstanceArgs)
+                {
+                    IsSecondInstance = true;
+                    if (ArgsLength >= 2)
+                        whatever = Args[1];
+                }
+
+                if (whatever.StartsWith("hurl://"))
+                {
+                    IsProtocolActivated = true;
+                    Url = whatever.Substring(7);
+                }
+                //else if(whatever.StartsWith("https://" || "http://"))
+                else
+                {
+                    otherArgs = Args.Length > 2 ? Args[2..] : null;
+                    Url = whatever;
+                }
+            }
+        }
+
+        public static CliArgs GatherInfo(string[] Args, bool SecondInstanceArgs)
         {
 #if DEBUG
             Task.Run(() =>
@@ -26,39 +56,8 @@ namespace Hurl.BrowserSelector.Helpers
             });
 #endif
 
-            CliArgs cliargs = new();
-
-            var ArgsLength = Args.Length;
-            if (ArgsLength > 0)
-            {
-                string whatever = Args[0];
-                
-                if(Args[0] == "--minimized")
-                {
-                    cliargs.IsRunAsMin = true;
-                }
-
-                if (SecondInstanceArgs)
-                {
-                    cliargs.IsSecondInstance = true;
-                    if(ArgsLength >= 2)
-                        whatever = Args[1];
-                }
-
-                if (whatever.StartsWith("hurl://"))
-                {
-                    cliargs.IsProtocolActivated = true;
-                    cliargs.Url = whatever.Substring(7);
-                }
-                //else if(whatever.StartsWith("https://" || "http://"))
-                else
-                {
-                    cliargs.otherArgs = Args.Length > 2 ? Args[2..] : null;
-                    cliargs.Url = whatever;
-                }
-            }
-
-            return cliargs;
+            return new CliArgs(Args, SecondInstanceArgs);
         }
+
     }
 }

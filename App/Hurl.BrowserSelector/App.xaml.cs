@@ -17,19 +17,19 @@ namespace Hurl.BrowserSelector
             if (isFirstInstance)
             {
                 _mainWindow = new MainWindow();
-                _mainWindow.Init(CliArgsMethods.ArgProcess(e.Args, false));
+                _mainWindow.Init(CliArgs.GatherInfo(e.Args, false));
             }
             else
             {
                 Current.Shutdown();
             }
         }
-
+        
         public void OnInstanceInvoked(string[] args)
         {
             Current.Dispatcher.Invoke(() =>
             {
-                _mainWindow.Init(CliArgsMethods.ArgProcess(args, true));
+                _mainWindow.Init(CliArgs.GatherInfo(args, true));
             });
         }
 

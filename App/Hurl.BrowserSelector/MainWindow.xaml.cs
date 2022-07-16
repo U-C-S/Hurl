@@ -1,4 +1,5 @@
 ﻿using Hurl.BrowserSelector.Controls;
+using Hurl.BrowserSelector.Models;
 using Hurl.BrowserSelector.Helpers;
 using Hurl.SharedLibraries;
 using Hurl.SharedLibraries.Models;
@@ -30,7 +31,14 @@ namespace Hurl.BrowserSelector
             InitializeComponent();
 
             if ((settings.AppSettings == null || settings.AppSettings.DisableAcrylic == false))
-                Wpf.Ui.Appearance.Background.Apply(this, Wpf.Ui.Appearance.BackgroundType.Acrylic, true);
+            {
+                var isApplied = Wpf.Ui.Appearance.Background.Apply(this, Wpf.Ui.Appearance.BackgroundType.Acrylic, false);
+                if (!isApplied)
+                {
+                    this.Background = new SolidColorBrush(Color.FromRgb(50, 50, 50));
+                }
+            }
+
             else if (settings.AppSettings != null)
             {
                 var c = settings?.AppSettings.BackgroundRGB;
@@ -130,7 +138,7 @@ namespace Hurl.BrowserSelector
             this.WindowState = WindowState.Minimized;
             this.Hide();
         }
-        
+
         private void MaximizeWindow()
         {
             this.Show();
