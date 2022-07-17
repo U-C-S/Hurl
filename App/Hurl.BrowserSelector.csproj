@@ -13,15 +13,15 @@
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
 		<PlatformTarget>x64</PlatformTarget>
-		<OutputPath>..\_bin\Debug\</OutputPath>
+		<OutputPath>bin\Debug\</OutputPath>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
 		<PlatformTarget>x64</PlatformTarget>
-		<OutputPath>..\_bin\Release\</OutputPath>
+		<OutputPath>bin\Release\</OutputPath>
 	</PropertyGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\..\Lib\SingleInstanceCore\src\SingleInstanceCore.csproj" />
-		<ProjectReference Include="..\..\Lib\wpfui\src\Wpf.ui\Wpf.Ui.csproj" />
+		<ProjectReference Include="..\Lib\SingleInstanceCore\src\SingleInstanceCore.csproj" />
+		<ProjectReference Include="..\Lib\wpfui\src\Wpf.ui\Wpf.Ui.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
