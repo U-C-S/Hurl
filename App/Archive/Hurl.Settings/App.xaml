@@ -1,9 +1,0 @@
-﻿<Application x:Class="Hurl.Settings.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Hurl.Settings"
-             StartupUri="MainWindow.xaml" >
-    <Application.Resources>
-         
-    </Application.Resources>
-</Application>
