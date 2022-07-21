@@ -54,6 +54,15 @@ namespace Hurl.BrowserSelector.Models
                     return null;
             }
         }
+
+        [JsonIgnore]
+        public bool IsAdditionalBtnEmpty
+        {
+            get
+            {
+                return AlternateLaunches.Length == 0;
+            }
+        }
     }
 
     //[JsonObject(MemberSerialization.OptOut)]

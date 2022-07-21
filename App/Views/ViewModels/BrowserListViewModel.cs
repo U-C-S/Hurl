@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace Hurl.BrowserSelector.Views.ViewModels
 {
-    public class BrowserListViewModel: BaseViewModel
+    public class BrowserListViewModel : BaseViewModel
     {
         public List<Browser> Browsers { get; set; }
         public CurrentLink Link { get; set; }
@@ -27,10 +27,6 @@ namespace Hurl.BrowserSelector.Views.ViewModels
             try
             {
                 Browsers = GetBrowsers.FromSettingsFile();
-                //foreach (var item in xBrowsers)
-                //{
-                //    Browsers.Add(new AdvBrowserInfo(item));
-                //}
             }
             catch (Exception ex)
             {
@@ -44,21 +40,4 @@ namespace Hurl.BrowserSelector.Views.ViewModels
 #endif
         }
     }
-
-    //public class AdvBrowserInfo
-    //{
-    //    public Browser Browser { get; set; }
-
-    //    public AdvBrowserInfo(Browser _browser)
-    //    {
-    //        Browser = _browser;
-    //    }
-
-    //    public bool IsAdditionalBtnEmpty {
-    //        get
-    //        {
-    //            return Browser.AlternateLaunches.Length == 0;
-    //        }
-    //    }
-    //}
 }
