@@ -37,6 +37,12 @@
 
 
     <ItemsControl ItemsSource="{Binding Browsers}">
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <StackPanel Orientation="Horizontal" />
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+
         <ItemsControl.ItemTemplate>
             <DataTemplate>
                 <Border
