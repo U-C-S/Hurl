@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Hurl.BrowserSelector.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vs="clr-namespace:Hurl.BrowserSelector.Views"
     xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="Hurl - Select a Browser"
     Width="Auto"
@@ -113,7 +114,9 @@
                         x:Name="stacky"
                         VerticalAlignment="Center"
                         MouseWheel="ScrollViewer_MouseWheel"
-                        Orientation="Horizontal" />
+                        Orientation="Horizontal">
+                        <vs:BrowsersList DataContext="{Binding viewModel}" />
+                    </StackPanel>
                 </wpfui:DynamicScrollViewer>
             </Grid>
 

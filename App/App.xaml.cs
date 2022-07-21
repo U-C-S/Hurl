@@ -1,6 +1,8 @@
 ﻿using Hurl.BrowserSelector.Helpers;
 using Hurl.BrowserSelector.Views;
+using Hurl.BrowserSelector.Views.ViewModels;
 using SingleInstanceCore;
+using System.Diagnostics;
 using System.Windows;
 
 namespace Hurl.BrowserSelector
@@ -11,14 +13,22 @@ namespace Hurl.BrowserSelector
     public partial class App : Application, ISingleInstance
     {
         private MainWindow _mainWindow;
+        private MainViewModel viewModel;
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             bool isFirstInstance = this.InitializeAsFirstInstance("HurlTray");
             if (isFirstInstance)
             {
-                _mainWindow = new MainWindow();
-                _mainWindow.Init(CliArgs.GatherInfo(e.Args, false));
+                var x = CliArgs.GatherInfo(e.Args, false);
+                viewModel = new MainViewModel(x.Url);
+
+                _mainWindow = new MainWindow()
+                {
+                    DataContext = viewModel
+                };
+
+                _mainWindow.Init(x);
             }
             else
             {
@@ -30,7 +40,9 @@ namespace Hurl.BrowserSelector
         {
             Current.Dispatcher.Invoke(() =>
             {
-                _mainWindow.Init(CliArgs.GatherInfo(args, true));
+                var x = CliArgs.GatherInfo(args, true);
+                viewModel.currentLink = new Models.CurrentLink(x.Url);
+                _mainWindow.Init(x);
             });
         }
 

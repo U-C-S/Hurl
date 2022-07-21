@@ -47,7 +47,7 @@ namespace Hurl.BrowserSelector.Views
 
             RoundedCorners.Apply(this, () => WindowBorder.CornerRadius = new CornerRadius(0));
 
-            ShowBrowserIcons();
+            //ShowBrowserIcons();
         }
 
         public void LoadSettings()
