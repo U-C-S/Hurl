@@ -8,7 +8,8 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ui:Resources Theme="Dark" />
+                <ui:ControlsDictionary />
+                <ui:ThemesDictionary Theme="Dark" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

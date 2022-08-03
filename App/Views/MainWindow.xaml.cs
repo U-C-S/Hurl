@@ -186,6 +186,6 @@ namespace Hurl.BrowserSelector.Views
             }
         }
 
-        private void NotifyIcon_LeftClick(Wpf.Ui.Tray.INotifyIcon sender, RoutedEventArgs e) => MaximizeWindow();
+        private void NotifyIcon_LeftClick(object sender, RoutedEventArgs e) => MaximizeWindow();
     }
 }
