@@ -63,6 +63,9 @@ namespace Hurl.BrowserSelector.Models
                 return AlternateLaunches.Length == 0;
             }
         }
+
+        [JsonIgnore]
+        public string Linkx { get; set; }
     }
 
     //[JsonObject(MemberSerialization.OptOut)]

@@ -18,6 +18,22 @@ namespace Hurl.BrowserSelector.Views.ViewModels
             LoadBrowsers();
         }
 
+        public void OpenLink(Browser clickedbrowser)
+        {
+            var browser = clickedbrowser;
+            //Process.Start(browser.ExePath, "https://github.com/u-c-s" + " " + browser.LaunchArgs);
+
+            if (!string.IsNullOrEmpty(browser.LaunchArgs) && browser.LaunchArgs.Contains("%URL%"))
+            {
+                var newArg = browser.LaunchArgs.Replace("%URL%", Link.Url);
+                Process.Start(browser.ExePath, newArg);
+            }
+            else
+            {
+                Process.Start(browser.ExePath, Link.Url + " " + browser.LaunchArgs);
+            }
+        }
+
         private void LoadBrowsers()
         {
 #if DEBUG

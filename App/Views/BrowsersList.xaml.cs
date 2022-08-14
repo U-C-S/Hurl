@@ -19,17 +19,7 @@ namespace Hurl.BrowserSelector.Views
         private void BtnArea_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             var tag = (sender as Border).Tag as Browser;
-            Process.Start(tag.ExePath, "https://github.com/u-c-s" + " " + tag.LaunchArgs);
-
-            //if (!string.IsNullOrEmpty(browser.LaunchArgs) && browser.LaunchArgs.Contains("%URL%"))
-            //{
-            //    var newArg = browser.LaunchArgs.Replace("%URL%", _currentLink.Url);
-            //    Process.Start(browser.ExePath, newArg);
-            //}
-            //else
-            //{
-            //    Process.Start(browser.ExePath, _currentLink.Url + " " + browser.LaunchArgs);
-            //}
+            (DataContext as BrowserListViewModel).OpenLink(tag);
             MinimizeWindow();
         }
 
