@@ -63,6 +63,7 @@ namespace Hurl.BrowserSelector.Views
             }
         }
 
+        /*
         private void ShowBrowserIcons()
         {
 #if DEBUG
@@ -90,6 +91,7 @@ namespace Hurl.BrowserSelector.Views
                 _ = stacky.Children.Add(new BrowserIconBtn(i, OpenedLink));
             }
         }
+        */
 
         public void Init(CliArgs data)
         {
@@ -106,10 +108,10 @@ namespace Hurl.BrowserSelector.Views
                     this.WindowState = WindowState.Normal;
                 }
             }
-            var Url = data?.Url ?? string.Empty;
+            //var Url = data?.Url ?? string.Empty;
 
-            OpenedLink.Url = Url;
-            linkpreview.Text = Url;
+            //OpenedLink.Url = Url;
+            //linkpreview.Text = Url;
         }
 
         private void Window_Esc(object sender, KeyEventArgs e)

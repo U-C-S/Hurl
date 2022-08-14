@@ -131,7 +131,7 @@
                 FontFamily="Calibri"
                 FontSize="10"
                 Foreground="AliceBlue"
-                Text="No Link Opened" />
+                Text="{Binding Url}" />
 
         </Grid>
     </Border>
