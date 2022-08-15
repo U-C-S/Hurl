@@ -1,9 +1,7 @@
-﻿using Hurl.BrowserSelector.Controls;
-using Hurl.BrowserSelector.Globals;
+﻿using Hurl.BrowserSelector.Globals;
 using Hurl.BrowserSelector.Helpers;
 using Hurl.BrowserSelector.Models;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text.Json;
@@ -111,7 +109,7 @@ namespace Hurl.BrowserSelector.Views
             //var Url = data?.Url ?? string.Empty;
 
             //OpenedLink.Url = Url;
-            //linkpreview.Text = Url;
+            linkpreview.Text = string.IsNullOrEmpty(CurrentLink.Value) ? "No Url Opened" : CurrentLink.Value;
         }
 
         private void Window_Esc(object sender, KeyEventArgs e)

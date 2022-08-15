@@ -130,8 +130,7 @@
                 VerticalAlignment="Center"
                 FontFamily="Calibri"
                 FontSize="10"
-                Foreground="AliceBlue"
-                Text="{Binding Url}" />
+                Foreground="AliceBlue" />
 
         </Grid>
     </Border>

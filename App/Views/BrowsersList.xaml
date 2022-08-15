@@ -9,6 +9,20 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <ContextMenu
+            x:Key="TheCM"
+            x:Name="TheCM"
+            ItemsSource="{Binding Path=AlternateLaunches}">
+            <ContextMenu.ItemContainerStyle>
+                <Style TargetType="MenuItem">
+                    <Setter Property="Header" Value="{Binding Path=ItemName}" />
+                    <Setter Property="Tag" Value="{Binding}" />
+                    <EventSetter Event="Click" Handler="MenuItem_Click" />
+                </Style>
+            </ContextMenu.ItemContainerStyle>
+        </ContextMenu>
+    </UserControl.Resources>
 
     <ItemsControl ItemsSource="{Binding Browsers}">
         <ItemsControl.ItemsPanel>
@@ -19,20 +33,7 @@
 
         <ItemsControl.ItemTemplate>
             <DataTemplate>
-                <DataTemplate.Resources>
-                    <ContextMenu
-                        x:Key="TheCM"
-                        x:Name="TheCM"
-                        ItemsSource="{Binding Path=AlternateLaunches}">
-                        <ContextMenu.ItemContainerStyle>
-                            <Style TargetType="MenuItem">
-                                <Setter Property="Header" Value="{Binding Path=ItemName}" />
-                                <Setter Property="Tag" Value="{Binding}" />
-                                <EventSetter Event="Click" Handler="MenuItem_Click" />
-                            </Style>
-                        </ContextMenu.ItemContainerStyle>
-                    </ContextMenu>
-                </DataTemplate.Resources>
+
                 <Border
                     x:Name="BtnArea"
                     Width="105"
@@ -86,7 +87,10 @@
                             <wpfui:SymbolIcon Symbol="MoreVertical20" />
                         </wpfui:Button>
                         <StackPanel.ContextMenu>
-                            <ContextMenu x:Name="MainContextMenu" ItemsSource="{Binding Path=AlternateLaunches}">
+                            <ContextMenu
+                                x:Name="MainContextMenu"
+                                ItemsSource="{Binding Path=AlternateLaunches}"
+                                Visibility="{Binding ShowAdditionalBtn}">
                                 <ContextMenu.ItemContainerStyle>
                                     <Style TargetType="MenuItem">
                                         <Setter Property="Header" Value="{Binding Path=ItemName}" />
