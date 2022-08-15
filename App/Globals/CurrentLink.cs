@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Hurl.BrowserSelector.Models
+namespace Hurl.BrowserSelector.Globals
 {
     public sealed class CurrentLink : INotifyPropertyChanged
     {

@@ -1,4 +1,5 @@
 ﻿using Hurl.BrowserSelector.Controls;
+using Hurl.BrowserSelector.Globals;
 using Hurl.BrowserSelector.Helpers;
 using Hurl.BrowserSelector.Models;
 using System;

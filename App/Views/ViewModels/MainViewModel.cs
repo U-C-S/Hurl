@@ -1,4 +1,4 @@
-﻿using Hurl.BrowserSelector.Models;
+﻿using Hurl.BrowserSelector.Globals;
 
 namespace Hurl.BrowserSelector.Views.ViewModels
 {
