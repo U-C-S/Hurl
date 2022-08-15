@@ -18,7 +18,6 @@ namespace Hurl.BrowserSelector.Views
     /// </summary>
     public partial class MainWindow : Window
     {
-        private CurrentLink OpenedLink = new("");
         private Settings settings;
 
         public MainWindow()
@@ -122,7 +121,7 @@ namespace Hurl.BrowserSelector.Views
             }
         }
 
-        private void LinkCopyBtnClick(object sender, RoutedEventArgs e) => Clipboard.SetText(OpenedLink.Url);
+        private void LinkCopyBtnClick(object sender, RoutedEventArgs e) => Clipboard.SetText(CurrentLink.Value);
         private void SettingsBtnClick(object sender, RoutedEventArgs e) => Process.Start("notepad.exe", Constants.SettingsFilePath);
         private void Draggable(object sender, MouseButtonEventArgs e) => this.DragMove();
         private void CloseBtnClick(object sender, RoutedEventArgs e) => MinimizeWindow();

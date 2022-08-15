@@ -8,21 +8,20 @@ namespace Hurl.BrowserSelector.Views.ViewModels
         {
             get
             {
-                if (string.IsNullOrEmpty(currentLink.Url))
+                if (string.IsNullOrEmpty(CurrentLink.Value))
                 {
                     return "No Url Opened";
                 }
-                return currentLink.Url;
+                return CurrentLink.Value;
             }
         }
-        public CurrentLink currentLink { get; set; }
 
         public BaseViewModel viewModel { get; set; }
 
         public MainViewModel(string Url)
         {
-            currentLink = new CurrentLink(Url);
-            viewModel = new BrowserListViewModel(currentLink);
+            CurrentLink.Value = Url;
+            viewModel = new BrowserListViewModel();
         }
     }
 }

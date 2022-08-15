@@ -1,4 +1,5 @@
 ﻿using Hurl.BrowserSelector.Helpers;
+using Hurl.BrowserSelector.Models;
 using Hurl.BrowserSelector.Views;
 using Hurl.BrowserSelector.Views.ViewModels;
 using SingleInstanceCore;
@@ -21,6 +22,7 @@ namespace Hurl.BrowserSelector
             if (isFirstInstance)
             {
                 var x = CliArgs.GatherInfo(e.Args, false);
+                CurrentLink.Value = x.Url;
                 viewModel = new MainViewModel(x.Url);
 
                 _mainWindow = new MainWindow()
@@ -41,7 +43,7 @@ namespace Hurl.BrowserSelector
             Current.Dispatcher.Invoke(() =>
             {
                 var x = CliArgs.GatherInfo(args, true);
-                viewModel.currentLink = new Models.CurrentLink(x.Url);
+                CurrentLink.Value = x.Url;
                 _mainWindow.Init(x);
             });
         }

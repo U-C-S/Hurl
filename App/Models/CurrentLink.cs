@@ -3,15 +3,15 @@ using System.Runtime.CompilerServices;
 
 namespace Hurl.BrowserSelector.Models
 {
-    public class CurrentLink : INotifyPropertyChanged
+    public sealed class CurrentLink : INotifyPropertyChanged
     {
-        public CurrentLink(string URL)
+        private CurrentLink(string Url)
         {
-            this._url = URL;
+            this.Url = Url;
         }
         private string _url;
 
-        public string Url
+        private string Url
         {
             get => _url;
             set
@@ -21,6 +21,28 @@ namespace Hurl.BrowserSelector.Models
                     _url = value;
                     OnPropertyChanged();
                 }
+            }
+        }
+
+        private static CurrentLink _instance = null;
+
+        public static string Value
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new CurrentLink(string.Empty);
+                }
+                return _instance.Url;
+            }
+            set
+            {
+                if (_instance == null)
+                {
+                    _instance = new CurrentLink(value);
+                }
+                _instance.Url = value;
             }
         }
 

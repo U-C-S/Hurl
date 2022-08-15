@@ -10,27 +10,26 @@ namespace Hurl.BrowserSelector.Views.ViewModels
     public class BrowserListViewModel : BaseViewModel
     {
         public List<Browser> Browsers { get; set; }
-        public CurrentLink Link { get; set; }
 
-        public BrowserListViewModel(CurrentLink _link)
+        public BrowserListViewModel()
         {
-            Link = _link;
             LoadBrowsers();
         }
 
         public void OpenLink(Browser clickedbrowser)
         {
             var browser = clickedbrowser;
+            var Link = CurrentLink.Value;
             //Process.Start(browser.ExePath, "https://github.com/u-c-s" + " " + browser.LaunchArgs);
 
             if (!string.IsNullOrEmpty(browser.LaunchArgs) && browser.LaunchArgs.Contains("%URL%"))
             {
-                var newArg = browser.LaunchArgs.Replace("%URL%", Link.Url);
+                var newArg = browser.LaunchArgs.Replace("%URL%", Link);
                 Process.Start(browser.ExePath, newArg);
             }
             else
             {
-                Process.Start(browser.ExePath, Link.Url + " " + browser.LaunchArgs);
+                Process.Start(browser.ExePath, Link + " " + browser.LaunchArgs);
             }
         }
 
