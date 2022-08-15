@@ -2,14 +2,17 @@
     x:Class="Hurl.BrowserSelector.Views.BrowsersList"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:conv="clr-namespace:Hurl.BrowserSelector.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Hurl.BrowserSelector.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:Hurl.BrowserSelector.Models"
     xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
     <UserControl.Resources>
+        <conv:AltLaunchParentConverter x:Key="AltLaunchParentConverter" />
         <ContextMenu
             x:Key="TheCM"
             x:Name="TheCM"
@@ -33,7 +36,6 @@
 
         <ItemsControl.ItemTemplate>
             <DataTemplate>
-
                 <Border
                     x:Name="BtnArea"
                     Width="105"
@@ -94,7 +96,14 @@
                                 <ContextMenu.ItemContainerStyle>
                                     <Style TargetType="MenuItem">
                                         <Setter Property="Header" Value="{Binding Path=ItemName}" />
-                                        <Setter Property="Tag" Value="{Binding}" />
+                                        <Setter Property="Tag">
+                                            <Setter.Value>
+                                                <MultiBinding Converter="{StaticResource AltLaunchParentConverter}">
+                                                    <Binding />
+                                                    <Binding ElementName="" />
+                                                </MultiBinding>
+                                            </Setter.Value>
+                                        </Setter>
                                         <EventSetter Event="Click" Handler="MenuItem_Click" />
                                     </Style>
                                 </ContextMenu.ItemContainerStyle>

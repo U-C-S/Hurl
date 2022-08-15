@@ -1,4 +1,5 @@
-﻿using Hurl.BrowserSelector.Models;
+﻿using Hurl.BrowserSelector.Converters;
+using Hurl.BrowserSelector.Models;
 using Hurl.BrowserSelector.Views.ViewModels;
 using System.Diagnostics;
 using System.Windows;
@@ -41,8 +42,8 @@ namespace Hurl.BrowserSelector.Views
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var alt = (sender as MenuItem).Tag as AlternateLaunch;
-            (DataContext as BrowserListViewModel).OpenAltLaunch();
+            var alt = (sender as MenuItem).Tag as AltLaunchParentConverter.AltLaunchParent;
+            (DataContext as BrowserListViewModel).OpenAltLaunch(alt.AltLaunch, alt.Browser);
             MinimizeWindow();
         }
     }

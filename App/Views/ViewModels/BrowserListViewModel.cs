@@ -34,16 +34,16 @@ namespace Hurl.BrowserSelector.Views.ViewModels
             }
         }
 
-        public void OpenAltLaunch()
+        public void OpenAltLaunch(AlternateLaunch alt, Browser browser)
         {
-            //if (alt.LaunchArgs.Contains("%URL%"))
-            //{
-            //    Process.Start(browser.ExePath, alt.LaunchArgs.Replace("%URL%", CurrentLink.Value));
-            //}
-            //else
-            //{
-            //    Process.Start(browser.ExePath, CurrentLink.Value + " " + alt.LaunchArgs);
-            //}
+            if (alt.LaunchArgs.Contains("%URL%"))
+            {
+                Process.Start(browser.ExePath, alt.LaunchArgs.Replace("%URL%", CurrentLink.Value));
+            }
+            else
+            {
+                Process.Start(browser.ExePath, CurrentLink.Value + " " + alt.LaunchArgs);
+            }
         }
 
         private void LoadBrowsers()
