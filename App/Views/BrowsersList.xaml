@@ -61,7 +61,13 @@
                             Height="60"
                             Source="{Binding Path=GetIcon}" />
                         <TextBlock
-                            Margin="0,9,0,0"
+                            Margin="75,-18,0,0"
+                            FontSize="18"
+                            Foreground="#33FFFFFF"
+                            Text="+"
+                            Visibility="{Binding ShowAdditionalBtn}" />
+                        <TextBlock
+                            Margin="0,2,0,0"
                             FontSize="10"
                             Foreground="AliceBlue"
                             Text="{Binding Path=Name}"
@@ -70,7 +76,7 @@
                         <wpfui:Button
                             x:Name="AdditionalBtn"
                             Height="30"
-                            Margin="0,-91,-1,0"
+                            Margin="0,-90,-1,0"
                             Padding="1"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Top"
@@ -94,7 +100,7 @@
                 </Border>
                 <DataTemplate.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter TargetName="AdditionalBtn" Property="Visibility" Value="Visible" />
+                        <Setter TargetName="AdditionalBtn" Property="Visibility" Value="{Binding ShowAdditionalBtn}" />
                     </Trigger>
                 </DataTemplate.Triggers>
             </DataTemplate>

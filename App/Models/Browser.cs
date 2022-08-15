@@ -2,6 +2,7 @@ using Hurl.BrowserSelector.Helpers;
 using System;
 using System.Drawing;
 using System.Text.Json.Serialization;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -56,11 +57,13 @@ namespace Hurl.BrowserSelector.Models
         }
 
         [JsonIgnore]
-        public bool IsAdditionalBtnEmpty
+        public Visibility ShowAdditionalBtn
         {
             get
             {
-                return AlternateLaunches.Length == 0;
+                if (AlternateLaunches == null || AlternateLaunches.Length == 0)
+                    return Visibility.Hidden;
+                else return Visibility.Visible;
             }
         }
 
