@@ -29,5 +29,21 @@ namespace Hurl.BrowserSelector.Views
             parent.WindowState = WindowState.Minimized;
             parent.Hide();
         }
+
+        private void AdditionalBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+            var x = Resources["TheCM"] as ContextMenu;
+            x.PlacementTarget = btn;
+            x.IsOpen = true;
+            e.Handled = true;
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var alt = (sender as MenuItem).Tag as AlternateLaunch;
+            (DataContext as BrowserListViewModel).OpenAltLaunch();
+            MinimizeWindow();
+        }
     }
 }

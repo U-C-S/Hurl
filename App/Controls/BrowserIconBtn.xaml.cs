@@ -1,4 +1,5 @@
-﻿using Hurl.BrowserSelector.Models;
+﻿using Hurl.BrowserSelector.Globals;
+using Hurl.BrowserSelector.Models;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,12 +13,12 @@ namespace Hurl.BrowserSelector.Controls
     public partial class BrowserIconBtn : UserControl
     {
         private Browser browser { get; set; }
-        private CurrentLink _currentLink { get; set; }
+        //private CurrentLink _currentLink { get; set; }
 
         public BrowserIconBtn(Browser browser, CurrentLink URL)
         {
             InitializeComponent();
-            this._currentLink = URL;
+            //this._currentLink = URL;
             DataContext = this.browser = browser;
         }
 
@@ -25,12 +26,12 @@ namespace Hurl.BrowserSelector.Controls
         {
             if (!string.IsNullOrEmpty(browser.LaunchArgs) && browser.LaunchArgs.Contains("%URL%"))
             {
-                var newArg = browser.LaunchArgs.Replace("%URL%", _currentLink.Url);
+                var newArg = browser.LaunchArgs.Replace("%URL%", CurrentLink.Value);
                 Process.Start(browser.ExePath, newArg);
             }
             else
             {
-                Process.Start(browser.ExePath, _currentLink.Url + " " + browser.LaunchArgs);
+                Process.Start(browser.ExePath, CurrentLink.Value + " " + browser.LaunchArgs);
             }
             MinimizeWindow();
         }
@@ -40,11 +41,11 @@ namespace Hurl.BrowserSelector.Controls
             var alt = (sender as MenuItem).Tag as AlternateLaunch;
             if (alt.LaunchArgs.Contains("%URL%"))
             {
-                Process.Start(browser.ExePath, alt.LaunchArgs.Replace("%URL%", _currentLink.Url));
+                Process.Start(browser.ExePath, alt.LaunchArgs.Replace("%URL%", CurrentLink.Value));
             }
             else
             {
-                Process.Start(browser.ExePath, _currentLink.Url + " " + alt.LaunchArgs);
+                Process.Start(browser.ExePath, CurrentLink.Value + " " + alt.LaunchArgs);
             }
             MinimizeWindow();
         }

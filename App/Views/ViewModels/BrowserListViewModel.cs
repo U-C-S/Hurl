@@ -34,6 +34,18 @@ namespace Hurl.BrowserSelector.Views.ViewModels
             }
         }
 
+        public void OpenAltLaunch()
+        {
+            //if (alt.LaunchArgs.Contains("%URL%"))
+            //{
+            //    Process.Start(browser.ExePath, alt.LaunchArgs.Replace("%URL%", CurrentLink.Value));
+            //}
+            //else
+            //{
+            //    Process.Start(browser.ExePath, CurrentLink.Value + " " + alt.LaunchArgs);
+            //}
+        }
+
         private void LoadBrowsers()
         {
 #if DEBUG

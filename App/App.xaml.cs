@@ -23,7 +23,7 @@ namespace Hurl.BrowserSelector
             {
                 var x = CliArgs.GatherInfo(e.Args, false);
                 CurrentLink.Value = x.Url;
-                viewModel = new MainViewModel(x.Url);
+                viewModel = new MainViewModel();
 
                 _mainWindow = new MainWindow()
                 {
