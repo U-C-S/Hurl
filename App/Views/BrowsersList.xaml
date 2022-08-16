@@ -20,7 +20,14 @@
             <ContextMenu.ItemContainerStyle>
                 <Style TargetType="MenuItem">
                     <Setter Property="Header" Value="{Binding Path=ItemName}" />
-                    <Setter Property="Tag" Value="{Binding}" />
+                    <Setter Property="Tag">
+                        <Setter.Value>
+                            <MultiBinding Converter="{StaticResource AltLaunchParentConverter}">
+                                <Binding />
+                                <Binding Path="DataContext" RelativeSource="{RelativeSource AncestorType=StackPanel}" />
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
                     <EventSetter Event="Click" Handler="MenuItem_Click" />
                 </Style>
             </ContextMenu.ItemContainerStyle>
@@ -85,6 +92,7 @@
                             VerticalAlignment="Top"
                             Background="#00000000"
                             BorderBrush="#00000000"
+                            Click="AdditionalBtn_Click"
                             Visibility="Hidden">
                             <wpfui:SymbolIcon Symbol="MoreVertical20" />
                         </wpfui:Button>
