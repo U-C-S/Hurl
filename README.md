@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="128" align="center" src="App/Common/internet.ico">
+  <img width="128" align="center" src="App/Assets/internet.ico">
 </p>
 <h1 align="center">
   Hurl

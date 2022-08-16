@@ -1,0 +1,137 @@
+﻿<Window
+    x:Class="Hurl.BrowserSelector.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Hurl.BrowserSelector.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vs="clr-namespace:Hurl.BrowserSelector.Views"
+    xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Title="Hurl - Select a Browser"
+    Width="Auto"
+    Height="200"
+    MinWidth="360"
+    MaxWidth="560"
+    Background="#FF333333"
+    KeyUp="Window_Esc"
+    ResizeMode="NoResize"
+    ShowInTaskbar="False"
+    SizeToContent="Width"
+    Topmost="True"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="2" />
+    </WindowChrome.WindowChrome>
+    <Border
+        x:Name="WindowBorder"
+        Background="#22222222"
+        BorderBrush="AliceBlue"
+        BorderThickness="2"
+        CornerRadius="8">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="36" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="26" />
+            </Grid.RowDefinitions>
+
+            <wpfui:TitleBar MinimizeToTray="True" Visibility="Hidden">
+                <wpfui:TitleBar.Tray>
+                    <wpfui:NotifyIcon
+                        FocusOnLeftClick="True"
+                        Icon="pack://application:,,,/Assets/internet.ico"
+                        LeftClick="NotifyIcon_LeftClick"
+                        MenuOnRightClick="True"
+                        TooltipText="Hurl running at background for faster access">
+                        <wpfui:NotifyIcon.Menu>
+                            <ContextMenu>
+                                <wpfui:MenuItem
+                                    Click="TrayMenuItem_OnClick"
+                                    Header="Open"
+                                    SymbolIcon="Folder24"
+                                    Tag="open" />
+                                <Separator />
+                                <wpfui:MenuItem
+                                    Click="TrayMenuItem_OnClick"
+                                    Header="Reload"
+                                    SymbolIcon="ArrowClockwise24"
+                                    Tag="reload" />
+                                <wpfui:MenuItem
+                                    Click="TrayMenuItem_OnClick"
+                                    Header="Exit"
+                                    SymbolIcon="Save24"
+                                    Tag="exit" />
+                            </ContextMenu>
+                        </wpfui:NotifyIcon.Menu>
+                    </wpfui:NotifyIcon>
+                </wpfui:TitleBar.Tray>
+            </wpfui:TitleBar>
+
+            <Grid MouseLeftButtonDown="Draggable">
+                <TextBlock
+                    Padding="12,6"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Foreground="AliceBlue"
+                    Text="Select a Browser" />
+                <wpfui:Button
+                    Margin="0,0,76,0"
+                    Padding="7,5"
+                    HorizontalAlignment="Right"
+                    Background="#72000000"
+                    Click="LinkCopyBtnClick">
+                    <wpfui:SymbolIcon Symbol="Copy24" />
+                </wpfui:Button>
+                <wpfui:Button
+                    Margin="0,0,40,0"
+                    Padding="7,5"
+                    HorizontalAlignment="Right"
+                    Background="#72000000"
+                    Click="SettingsBtnClick">
+                    <wpfui:SymbolIcon Symbol="Settings24" />
+                </wpfui:Button>
+                <wpfui:Button
+                    Margin="0,0,4,0"
+                    Padding="7,5"
+                    HorizontalAlignment="Right"
+                    Background="#72000000"
+                    Click="CloseBtnClick">
+                    <wpfui:SymbolIcon Symbol="Subtract24" />
+                </wpfui:Button>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <wpfui:DynamicScrollViewer
+                    Margin="5,0"
+                    Padding="0,0,0,5"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Stretch"
+                    HorizontalScrollBarVisibility="Auto"
+                    VerticalScrollBarVisibility="Hidden">
+                    <StackPanel
+                        x:Name="stacky"
+                        VerticalAlignment="Center"
+                        MouseWheel="ScrollViewer_MouseWheel"
+                        Orientation="Horizontal">
+                        <vs:BrowsersList DataContext="{Binding viewModel}" />
+                    </StackPanel>
+                </wpfui:DynamicScrollViewer>
+            </Grid>
+
+            <!--<ComboBox Grid.Row="2" Panel.ZIndex="5" />-->
+            <TextBlock
+                x:Name="linkpreview"
+                Grid.Row="2"
+                MaxWidth="360"
+                Padding="5,1,5,1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontFamily="Calibri"
+                FontSize="10"
+                Foreground="AliceBlue" />
+
+        </Grid>
+    </Border>
+</Window>
