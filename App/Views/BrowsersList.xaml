@@ -100,7 +100,7 @@
                                             <Setter.Value>
                                                 <MultiBinding Converter="{StaticResource AltLaunchParentConverter}">
                                                     <Binding />
-                                                    <Binding ElementName="" />
+                                                    <Binding Path="DataContext" RelativeSource="{RelativeSource AncestorType=StackPanel}" />
                                                 </MultiBinding>
                                             </Setter.Value>
                                         </Setter>
