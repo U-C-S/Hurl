@@ -11,7 +11,7 @@
     Width="Auto"
     Height="200"
     MinWidth="360"
-    MaxWidth="590"
+    MaxWidth="560"
     Background="#FF333333"
     KeyUp="Window_Esc"
     ResizeMode="NoResize"

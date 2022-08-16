@@ -44,8 +44,6 @@ namespace Hurl.BrowserSelector.Views
 
 
             RoundedCorners.Apply(this, () => WindowBorder.CornerRadius = new CornerRadius(0));
-
-            //ShowBrowserIcons();
         }
 
         public void LoadSettings()
@@ -60,36 +58,6 @@ namespace Hurl.BrowserSelector.Views
                 throw e;
             }
         }
-
-        /*
-        private void ShowBrowserIcons()
-        {
-#if DEBUG
-            Stopwatch sw = new();
-            sw.Start();
-#endif
-            List<Browser> LoadableBrowsers = null;
-            try
-            {
-                LoadableBrowsers = GetBrowsers.FromSettingsFile();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                Application.Current.Shutdown();
-                return;
-            }
-#if DEBUG
-            sw.Stop();
-            Debug.WriteLine("---------" + sw.ElapsedMilliseconds.ToString());
-#endif
-
-            foreach (Browser i in LoadableBrowsers)
-            {
-                _ = stacky.Children.Add(new BrowserIconBtn(i, OpenedLink));
-            }
-        }
-        */
 
         public void Init(CliArgs data)
         {
@@ -106,9 +74,7 @@ namespace Hurl.BrowserSelector.Views
                     this.WindowState = WindowState.Normal;
                 }
             }
-            //var Url = data?.Url ?? string.Empty;
 
-            //OpenedLink.Url = Url;
             linkpreview.Text = string.IsNullOrEmpty(CurrentLink.Value) ? "No Url Opened" : CurrentLink.Value;
         }
 
