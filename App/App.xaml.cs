@@ -16,7 +16,7 @@ namespace Hurl.BrowserSelector
         private MainWindow _mainWindow;
         private MainViewModel viewModel;
 
-        private void Application_Startup(object sender, StartupEventArgs e)
+        protected override void OnStartup(StartupEventArgs e)
         {
             bool isFirstInstance = this.InitializeAsFirstInstance("HurlTray");
             if (isFirstInstance)
@@ -48,6 +48,6 @@ namespace Hurl.BrowserSelector
             });
         }
 
-        private void Application_Exit(object sender, ExitEventArgs e) => SingleInstance.Cleanup();
+        protected override void OnExit(ExitEventArgs e) => SingleInstance.Cleanup();
     }
 }
