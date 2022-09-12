@@ -48,13 +48,14 @@
                     Width="105"
                     MaxHeight="130"
                     Margin="2"
-                    Padding="2,10,2,5"
+                    Padding="5,10,5,10"
                     BorderThickness="0"
                     CornerRadius="5"
                     Cursor="Hand"
                     Focusable="True"
                     MouseLeftButtonUp="BtnArea_MouseLeftButtonUp"
-                    Tag="{Binding}">
+                    Tag="{Binding}"
+                    ToolTip="{Binding Path=Name}">
                     <Border.Style>
                         <Style TargetType="Border">
                             <Style.Triggers>
@@ -67,8 +68,8 @@
                     </Border.Style>
                     <StackPanel x:Name="BrowserBtn">
                         <Image
-                            Width="60"
-                            Height="60"
+                            Width="65"
+                            Height="65"
                             Source="{Binding Path=GetIcon}" />
                         <TextBlock
                             Margin="75,-18,0,0"
@@ -76,17 +77,10 @@
                             Foreground="#33FFFFFF"
                             Text="+"
                             Visibility="{Binding ShowAdditionalBtn}" />
-                        <TextBlock
-                            Margin="0,2,0,0"
-                            FontSize="10"
-                            Foreground="AliceBlue"
-                            Text="{Binding Path=Name}"
-                            TextAlignment="Center"
-                            TextWrapping="Wrap" />
                         <wpfui:Button
                             x:Name="AdditionalBtn"
                             Height="30"
-                            Margin="0,-90,-1,0"
+                            Margin="0,-80,-3,0"
                             Padding="1"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Top"
@@ -96,6 +90,13 @@
                             Visibility="Hidden">
                             <wpfui:SymbolIcon Symbol="MoreVertical20" />
                         </wpfui:Button>
+                        <TextBlock
+                            Margin="0,2,0,0"
+                            FontSize="10"
+                            Foreground="AliceBlue"
+                            Text="{Binding Path=Name}"
+                            TextAlignment="Center"
+                            TextWrapping="NoWrap" />
                         <StackPanel.ContextMenu>
                             <ContextMenu
                                 x:Name="MainContextMenu"
