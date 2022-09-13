@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Hurl.BrowserSelector.Helpers
@@ -39,7 +40,7 @@ namespace Hurl.BrowserSelector.Helpers
                 else
                 {
                     otherArgs = Args.Length > 2 ? Args[2..] : null;
-                    Url = whatever;
+                    Url = whatever.Contains(' ') ? $"\"{whatever}\"" : whatever;
                 }
             }
         }
