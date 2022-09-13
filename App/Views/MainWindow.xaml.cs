@@ -64,11 +64,11 @@ namespace Hurl.BrowserSelector.Views
             if (data.IsRunAsMin)
             {
                 this.WindowState = WindowState.Minimized;
-                //this.Hide();
             }
             else
             {
                 Show();
+                PositionWindowUnderTheMouse();
                 if (data.IsSecondInstance)
                 {
                     this.WindowState = WindowState.Normal;
@@ -100,6 +100,7 @@ namespace Hurl.BrowserSelector.Views
         private void MaximizeWindow()
         {
             this.Show();
+            PositionWindowUnderTheMouse();
             this.WindowState = WindowState.Normal;
         }
 
@@ -155,5 +156,14 @@ namespace Hurl.BrowserSelector.Views
         private void NotifyIcon_LeftClick(object sender, RoutedEventArgs e) => MaximizeWindow();
 
         private void Window_Deactivated(object sender, EventArgs e) => MinimizeWindow();
+
+        private void PositionWindowUnderTheMouse()
+        {
+            var transform = PresentationSource.FromVisual(this).CompositionTarget.TransformFromDevice;
+            var mouse = transform.Transform(CursorPosition.LimitCursorWithin((int)Width, (int)Height));
+            Left = mouse.X;
+            Top = mouse.Y;
+            Debug.WriteLine($"{Left}x{Top} while screen res: {SystemParameters.FullPrimaryScreenWidth}x{SystemParameters.FullPrimaryScreenHeight}");
+        }
     }
 }
