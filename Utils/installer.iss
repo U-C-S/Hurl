@@ -1,6 +1,6 @@
 #define MyAppName "Hurl"
 #define NameSmall "hurl"
-#define MyAppVersion "0.6.3.12"
+#define MyAppVersion "0.7.0.12"
 #define MyAppPublisher "The 3721 Tools"
 #define MyAppURL "https://github.com/U-C-S/Hurl"
 #define MyAppExeName "Hurl.exe"
@@ -15,7 +15,7 @@ AppPublisherURL="https://github.com/U-C-S/Hurl"
 AppSupportURL="https://github.com/U-C-S/Hurl/issues"
 AppUpdatesURL="https://github.com/U-C-S/Hurl/releases"
 AppReadmeFile="https://github.com/U-C-S/Hurl#README"
-SetupIconFile=..\App\Common\internet.ico
+SetupIconFile=..\App\Assets\internet.ico
 LicenseFile=..\LICENSE
 InfoBeforeFile=README.md
 
@@ -42,7 +42,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "protocol"; Description: "{cm:CreateProtocol}"; GroupDescription: "{cm:OtherOptions}"; Flags: unchecked
 
 [Files]
-Source: "..\App\_bin\publish\Hurl.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\App\bin\publish\Hurl.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Extensions\*"; Excludes: "package-lock.json,node_modules"; DestDir: "{app}\Extensions"; Flags: ignoreversion recursesubdirs; Tasks: Protocol;
 
 [Icons]
@@ -65,7 +65,13 @@ Root: {#RootKey}; Subkey: "Software\Clients\StartMenuInternet\{#MyAppName}\Defau
 Root: {#RootKey}; Subkey: "Software\Clients\StartMenuInternet\{#MyAppName}\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"""; Flags: uninsdeletekey deletevalue
 
 Root: {#RootKey}; Subkey: "Software\Classes\{#URLAssociate}"; ValueType: string; ValueName: ""; ValueData: "{#MyAppName} URL"; Flags: uninsdeletekey
+Root: {#RootKey}; Subkey: "Software\Classes\{#URLAssociate}\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\{#MyAppExeName},0"; Flags: deletevalue
+Root: {#RootKey}; Subkey: "Software\Classes\{#URLAssociate}\shell\open"; ValueType: string; ValueName: "Icon"; ValueData: """{app}\{#MyAppExeName}"""; Flags: deletevalue
 Root: {#RootKey}; Subkey: "Software\Classes\{#URLAssociate}\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""; Flags: uninsdeletekey deletevalue
+
+Root: {#RootKey}; Subkey: "Software\Classes\.html\OpenWithProgids"; ValueType: string; ValueName: "{#URLAssociate}"; ValueData: ""; Flags: uninsdeletevalue;
+Root: {#RootKey}; Subkey: "Software\Classes\.htm\OpenWithProgids"; ValueType: string; ValueName: "{#URLAssociate}"; ValueData: ""; Flags: uninsdeletevalue;
+
 
 Root: {#RootKey}; Subkey: "Software\RegisteredApplications"; ValueType: string; ValueName: "{#MyAppName}"; ValueData: "Software\Clients\StartMenuInternet\{#MyAppName}\Capabilities"; Flags: deletevalue uninsdeletevalue
 
