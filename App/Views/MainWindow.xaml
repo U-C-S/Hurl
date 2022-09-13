@@ -13,6 +13,7 @@
     MinWidth="360"
     MaxWidth="560"
     Background="#FF333333"
+    Deactivated="Window_Deactivated"
     KeyUp="Window_Esc"
     ResizeMode="NoResize"
     ShowInTaskbar="False"

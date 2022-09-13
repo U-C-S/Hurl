@@ -153,5 +153,7 @@ namespace Hurl.BrowserSelector.Views
         }
 
         private void NotifyIcon_LeftClick(object sender, RoutedEventArgs e) => MaximizeWindow();
+
+        private void Window_Deactivated(object sender, EventArgs e) => MinimizeWindow();
     }
 }
