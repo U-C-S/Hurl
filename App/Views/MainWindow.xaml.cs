@@ -8,13 +8,14 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Shell;
 
 namespace Hurl.BrowserSelector.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Wpf.Ui.Controls.UiWindow
     {
         private Settings settings;
 
@@ -26,23 +27,29 @@ namespace Hurl.BrowserSelector.Views
 
             if ((settings.AppSettings == null || settings.AppSettings.DisableAcrylic == false))
             {
-                var isApplied = Wpf.Ui.Appearance.Background.Apply(this, Wpf.Ui.Appearance.BackgroundType.Acrylic, false);
-                if (!isApplied)
+                if (Environment.OSVersion.Version.Build > 22500)
                 {
-                    this.Background = new SolidColorBrush(Color.FromRgb(50, 50, 50));
+                    ExtendsContentIntoTitleBar = true;
+                    WindowBackdropType = Wpf.Ui.Appearance.BackgroundType.Mica;
+                }
+                else
+                {
+                    WindowBorder.BorderThickness = new Thickness(2);
+                    ResizeMode = ResizeMode.NoResize;
+                    WindowChrome.SetWindowChrome(this, new WindowChrome()
+                    {
+                        CaptionHeight = 2
+                    });
+                    Wpf.Ui.Appearance.Background.Apply(this, Wpf.Ui.Appearance.BackgroundType.Acrylic, false);
                 }
             }
-
-            else if (settings.AppSettings != null)
+            else if (settings.AppSettings != null && settings.AppSettings.DisableAcrylic == true)
             {
                 var c = settings?.AppSettings.BackgroundRGB;
                 this.Background = new SolidColorBrush(Color.FromRgb(c[0], c[1], c[2]));
             }
             else
-                this.Background = new SolidColorBrush(Color.FromRgb(50, 50, 50));
-
-
-            RoundedCorners.Apply(this, () => WindowBorder.CornerRadius = new CornerRadius(0));
+                this.Background = new SolidColorBrush(Color.FromRgb(150, 50, 50));
         }
 
         public void Init(CliArgs data)
@@ -149,7 +156,7 @@ namespace Hurl.BrowserSelector.Views
 
         private void PositionWindowUnderTheMouse()
         {
-            if (settings.AppSettings.LaunchUnderMouse)
+            if (settings.AppSettings != null && settings.AppSettings.LaunchUnderMouse)
             {
                 var transform = PresentationSource.FromVisual(this).CompositionTarget.TransformFromDevice;
                 var mouse = transform.Transform(CursorPosition.LimitCursorWithin((int)Width, (int)Height));
