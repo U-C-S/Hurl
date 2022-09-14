@@ -62,6 +62,13 @@ namespace Hurl.BrowserSelector.Helpers
                     where b.Name != null && b.ExePath != null && b.Hidden != true
                     select b).ToList();
         }
+
+        public static List<Browser> FromSettingsFile(Settings settings, bool includeHidden = false)
+        {
+            return (from b in settings.Browsers
+                    where b.Name != null && b.ExePath != null && b.Hidden != true
+                    select b).ToList();
+        }
     }
 
 }

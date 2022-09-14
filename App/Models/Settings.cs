@@ -27,5 +27,7 @@ namespace Hurl.BrowserSelector.Models
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public List<Byte> BackgroundRGB { get; set; } = new List<byte> { 51, 51, 51 };
 
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public bool LaunchUnderMouse { get; set; } = false;
     }
 }

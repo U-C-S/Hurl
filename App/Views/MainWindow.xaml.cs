@@ -4,7 +4,6 @@ using Hurl.BrowserSelector.Models;
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -19,9 +18,9 @@ namespace Hurl.BrowserSelector.Views
     {
         private Settings settings;
 
-        public MainWindow()
+        public MainWindow(Settings settings)
         {
-            LoadSettings();
+            this.settings = settings;
 
             InitializeComponent();
 
@@ -44,19 +43,6 @@ namespace Hurl.BrowserSelector.Views
 
 
             RoundedCorners.Apply(this, () => WindowBorder.CornerRadius = new CornerRadius(0));
-        }
-
-        public void LoadSettings()
-        {
-            try
-            {
-                settings = SettingsFile.GetSettings();
-            }
-            catch (JsonException e)
-            {
-                MessageBox.Show(e.Message, "ERROR");
-                throw e;
-            }
         }
 
         public void Init(CliArgs data)
@@ -84,6 +70,10 @@ namespace Hurl.BrowserSelector.Views
             {
                 MinimizeWindow();
             }
+            //var keyInt = (int)e.Key;
+            //if(keyInt >= 35 && keyInt <= 43)
+            //{
+            //}
         }
 
         private void LinkCopyBtnClick(object sender, RoutedEventArgs e) => Clipboard.SetText(CurrentLink.Value);
@@ -159,11 +149,15 @@ namespace Hurl.BrowserSelector.Views
 
         private void PositionWindowUnderTheMouse()
         {
-            var transform = PresentationSource.FromVisual(this).CompositionTarget.TransformFromDevice;
-            var mouse = transform.Transform(CursorPosition.LimitCursorWithin((int)Width, (int)Height));
-            Left = mouse.X;
-            Top = mouse.Y;
-            Debug.WriteLine($"{Left}x{Top} while screen res: {SystemParameters.FullPrimaryScreenWidth}x{SystemParameters.FullPrimaryScreenHeight}");
+            if (settings.AppSettings.LaunchUnderMouse)
+            {
+                var transform = PresentationSource.FromVisual(this).CompositionTarget.TransformFromDevice;
+                var mouse = transform.Transform(CursorPosition.LimitCursorWithin((int)Width, (int)Height));
+                Left = mouse.X;
+                Top = mouse.Y;
+
+                Debug.WriteLine($"{Left}x{Top} while screen res: {SystemParameters.FullPrimaryScreenWidth}x{SystemParameters.FullPrimaryScreenHeight}");
+            }
         }
     }
 }

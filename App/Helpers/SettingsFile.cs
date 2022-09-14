@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
+using System.Windows;
 
 namespace Hurl.BrowserSelector.Helpers
 {
@@ -25,9 +26,18 @@ namespace Hurl.BrowserSelector.Helpers
 
         public static Settings GetSettings()
         {
-            string jsondata = File.ReadAllText(Constants.SettingsFilePath);
-            var SettingsObject = JsonSerializer.Deserialize<Settings>(jsondata);
-            return SettingsObject;
+            try
+            {
+                string jsondata = File.ReadAllText(Constants.SettingsFilePath);
+                var SettingsObject = JsonSerializer.Deserialize<Settings>(jsondata);
+                return SettingsObject;
+            }
+            catch (JsonException e)
+            {
+                MessageBox.Show(e.Message, "ERROR");
+                Application.Current.Shutdown();
+                throw e;
+            }
         }
 
         public static SettingsFile New(List<Browser> browsers)

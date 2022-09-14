@@ -12,9 +12,9 @@ namespace Hurl.BrowserSelector.Views.ViewModels
     {
         public List<Browser> Browsers { get; set; }
 
-        public BrowserListViewModel()
+        public BrowserListViewModel(Settings settings)
         {
-            LoadBrowsers();
+            Browsers = GetBrowsers.FromSettingsFile(settings);
         }
 
         public void OpenLink(Browser clickedbrowser)
@@ -44,28 +44,6 @@ namespace Hurl.BrowserSelector.Views.ViewModels
             {
                 Process.Start(browser.ExePath, CurrentLink.Value + " " + alt.LaunchArgs);
             }
-        }
-
-        private void LoadBrowsers()
-        {
-#if DEBUG
-            Stopwatch sw = new();
-            sw.Start();
-#endif
-            try
-            {
-                Browsers = GetBrowsers.FromSettingsFile();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                Application.Current.Shutdown();
-                return;
-            }
-#if DEBUG
-            sw.Stop();
-            Debug.WriteLine("---------" + sw.ElapsedMilliseconds.ToString());
-#endif
         }
     }
 }
