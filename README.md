@@ -26,9 +26,9 @@
 
 Sometimes you might want to open a link in a browser of your choice, instead of the default one. Hurl is used to let you choose the browser everytime you click a link (links outside of browser). So naturally, It acts as default browser to do that. And hurl can be powered up with a _browser extension_ to let you open a browser tab in another browser.
 
-- Fast startup and lightweight
-- Supports adding your own browsers with Launch Arguments
-- Web Extension to open browser tabs in Hurl
+- Modern and Native Windows UI
+- Supports adding your own browsers with Launch Arguments and other customisations
+- Web Extension to open browser tabs in Hurl (experimental)
 
 <p align="center">
   <img width="640" src="https://user-images.githubusercontent.com/50218121/158625754-78026dbe-cd99-4078-8407-313b9c548ca1.png" />
@@ -41,26 +41,25 @@ Sometimes you might want to open a link in a browser of your choice, instead of 
 
 Download Install the latest [.NET 6 Desktop Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/6.0/runtime) and Get the Hurl_Installer from [Releases](https://github.com/U-C-S/Hurl/releases/latest). Your PC's Anti-Virus might warn that it's not secure to download or install it, You can ignore it as the executables are Un-signed. Lastly, After installing, You might need to set Hurl as the default `http/https` protocol handler in the Windows Settings, just like how you change the default browser.
 
-Check out wiki for configuring - [Editing UserSettings.json](https://github.com/U-C-S/Hurl/wiki/Editing-UserSettings.json)
+### Check out wiki for configuring - [Editing UserSettings.json](https://github.com/U-C-S/Hurl/wiki/Editing-UserSettings.json)
 
-## Dependencies and Tools
+## Dependencies and Tools used
 
 - [Visual Studio](https://visualstudio.microsoft.com)
 - [Inno Setup](https://jrsoftware.org/isinfo.php)
-- [Windows Presentation Foundation](https://docs.microsoft.com/en-us/visualstudio/designers/getting-started-with-wpf) - .NET 6.0
-- [C#](https://dotnet.microsoft.com/languages/csharp)
+- [.NET 6.0](https://dot.net) , [C#](https://dotnet.microsoft.com/languages/csharp) and [WPF](https://docs.microsoft.com/en-us/visualstudio/designers/getting-started-with-wpf)
 - [WPF UI](https://github.com/lepoco/wpfui)
 
 ## Building from Source
 
-- Install Visual Studio 2019 or 2022 in your Windows with .NET Desktop Development workload
-- After Cloning the Repo, Open the solution file `App/Hurl.sln` in Visual Studio
-- In Debug / Release mode, Run the `Hurl.BrowserSelector` Project and compiled executables can be found in `App/_bin`
+- Install Visual Studio 2022 in your Windows with .NET Desktop Development workload
+- After Cloning the Repo, Open the solution file `./Hurl.sln` in Visual Studio
+- In Debug / Release mode, Run the `Hurl.BrowserSelector` Project and compiled executables can be found in `App/bin/*`
 - Install Inno Setup, Open the `Utils/installer.iss` script in it and Compile it to create the Installer (output in the same directory)
 
 or Simply use the Build Script from `Utils/build.ps1` to build the Application in release mode and successively build the installer.
 
-### Using the Extension
+### Using the Extension (Temporarily Unsupported since v0.6.2)
 
 - Enable the Developer Mode for Extensions in Edge or Chrome
 - Choose the folder `{installationDir}/Extensions/Chrome` after clicking `Load Unpacked` Button available after enabling Developer mode
@@ -72,4 +71,4 @@ The Project is open to Pull-Requests and Feedback. MIT License.
 ## Credits
 
 - Icon used is from [FlatIcons](https://www.flaticon.com/free-icon/internet_4861937)
-- Some Ideas and Inspiration taken from Repository [zumoshi/BrowserSelect](https://github.com/zumoshi/BrowserSelect)
+- Inspiration from Repository [zumoshi/BrowserSelect](https://github.com/zumoshi/BrowserSelect) and other [similar projects](https://github.com/U-C-S/Hurl/issues/5)
