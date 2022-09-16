@@ -32,11 +32,17 @@ namespace Hurl.BrowserSelector.Helpers
                 var SettingsObject = JsonSerializer.Deserialize<Settings>(jsondata);
                 return SettingsObject;
             }
-            catch (JsonException e)
+            catch (Exception e)
             {
-                MessageBox.Show(e.Message, "ERROR");
-                Application.Current.Shutdown();
-                throw e;
+                switch (e)
+                {
+                    case FileNotFoundException _:
+                    case DirectoryNotFoundException _:
+                        return New(GetBrowsers.FromRegistry()).SettingsObject;
+                    default:
+                        MessageBox.Show(e.Message, "ERROR");
+                        throw;
+                }
             }
         }
 
