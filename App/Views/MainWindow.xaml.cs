@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Shell;
+using Wpf.Ui.Appearance;
 
 namespace Hurl.BrowserSelector.Views
 {
@@ -25,31 +25,23 @@ namespace Hurl.BrowserSelector.Views
 
             InitializeComponent();
 
-            if ((settings.AppSettings == null || settings.AppSettings.DisableAcrylic == false))
+            if (settings.AppSettings?.UseWhiteBorder == false) WindowBorder.BorderThickness = new Thickness(0);
+            if (Environment.OSVersion.Version.Build < 22000) WindowBorder.CornerRadius = new CornerRadius(0);
+
+            if (settings.AppSettings?.DisableAcrylic != true)
             {
-                if (Environment.OSVersion.Version.Build > 22500)
+                if (Environment.OSVersion.Version.Build >= 22000 && settings.AppSettings?.UseMica == true)
                 {
-                    ExtendsContentIntoTitleBar = true;
-                    WindowBackdropType = Wpf.Ui.Appearance.BackgroundType.Mica;
+                    WindowBackdropType = BackgroundType.Mica;
                 }
-                else
-                {
-                    WindowBorder.BorderThickness = new Thickness(2);
-                    ResizeMode = ResizeMode.NoResize;
-                    WindowChrome.SetWindowChrome(this, new WindowChrome()
-                    {
-                        CaptionHeight = 2
-                    });
-                    Wpf.Ui.Appearance.Background.Apply(this, Wpf.Ui.Appearance.BackgroundType.Acrylic, false);
-                }
-            }
-            else if (settings.AppSettings != null && settings.AppSettings.DisableAcrylic == true)
-            {
-                var c = settings?.AppSettings.BackgroundRGB;
-                this.Background = new SolidColorBrush(Color.FromRgb(c[0], c[1], c[2]));
             }
             else
-                this.Background = new SolidColorBrush(Color.FromRgb(150, 50, 50));
+            {
+                WindowBackdropType = BackgroundType.None;
+                var c = settings?.AppSettings?.BackgroundRGB;
+                var brush = (c != null) ? Color.FromRgb(c[0], c[1], c[2]) : Color.FromRgb(150, 50, 50);
+                Background = new SolidColorBrush(brush);
+            }
         }
 
         public void Init(CliArgs data)

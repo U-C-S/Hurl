@@ -1,4 +1,4 @@
-﻿<wpfui:UiWindow
+<wpfui:UiWindow
     x:Class="Hurl.BrowserSelector.Views.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -14,6 +14,8 @@
     MinHeight="200"
     MaxWidth="560"
     MaxHeight="450"
+    ExtendsContentIntoTitleBar="True"
+    WindowBackdropType="Acrylic"
     Deactivated="Window_Deactivated"
     KeyUp="Window_Esc"
     SizeToContent="Width"
@@ -24,6 +26,7 @@
     <Border
         x:Name="WindowBorder"
         BorderBrush="AliceBlue"
+        BorderThickness="2"
         CornerRadius="8">
         <Grid>
             <Grid.RowDefinitions>
@@ -129,4 +132,4 @@
 
         </Grid>
     </Border>
-</Window>
+</wpfui:UiWindow>

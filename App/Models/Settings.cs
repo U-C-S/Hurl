@@ -29,5 +29,12 @@ namespace Hurl.BrowserSelector.Models
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public bool LaunchUnderMouse { get; set; } = false;
+
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public bool UseWhiteBorder { get; set; } = true;
+
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public bool UseMica { get; set; } = false;
+        
     }
 }
