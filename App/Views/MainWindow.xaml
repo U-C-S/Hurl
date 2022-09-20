@@ -9,17 +9,17 @@
     xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="Hurl - Select a Browser"
     Width="Auto"
-    Height="200"
+    Height="Auto"
     MinWidth="360"
     MinHeight="200"
     MaxWidth="560"
     MaxHeight="450"
-    ExtendsContentIntoTitleBar="True"
-    WindowBackdropType="Acrylic"
     Deactivated="Window_Deactivated"
+    ExtendsContentIntoTitleBar="True"
     KeyUp="Window_Esc"
-    SizeToContent="Width"
+    SizeToContent="WidthAndHeight"
     Topmost="True"
+    WindowBackdropType="Acrylic"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">
@@ -101,21 +101,13 @@
             </Grid>
 
             <Grid Grid.Row="1">
-                <wpfui:DynamicScrollViewer
-                    Margin="5,0"
-                    Padding="0,0,0,5"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Stretch"
-                    HorizontalScrollBarVisibility="Auto"
-                    VerticalScrollBarVisibility="Hidden">
-                    <StackPanel
+                <vs:BrowsersList DataContext="{Binding viewModel}" />
+                <!--<StackPanel
                         x:Name="stacky"
                         VerticalAlignment="Center"
                         MouseWheel="ScrollViewer_MouseWheel"
                         Orientation="Horizontal">
-                        <vs:BrowsersList DataContext="{Binding viewModel}" />
-                    </StackPanel>
-                </wpfui:DynamicScrollViewer>
+                </StackPanel>-->
             </Grid>
 
             <!--<ComboBox Grid.Row="2" Panel.ZIndex="5" />-->
