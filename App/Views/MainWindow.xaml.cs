@@ -1,4 +1,4 @@
-﻿using Hurl.BrowserSelector.Globals;
+using Hurl.BrowserSelector.Globals;
 using Hurl.BrowserSelector.Helpers;
 using Hurl.BrowserSelector.Models;
 using System;
@@ -157,6 +157,11 @@ namespace Hurl.BrowserSelector.Views
 
                 Debug.WriteLine($"{Left}x{Top} while screen res: {SystemParameters.FullPrimaryScreenWidth}x{SystemParameters.FullPrimaryScreenHeight}");
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            new TimeSelectWindow().ShowDialog();
         }
     }
 }

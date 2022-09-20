@@ -1,0 +1,61 @@
+﻿<wpfui:UiWindow
+    x:Class="Hurl.BrowserSelector.Views.TimeSelectWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Hurl.BrowserSelector.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Title="TimeSelectWindow"
+    Width="360"
+    Height="280"
+    ExtendsContentIntoTitleBar="True"
+    SizeToContent="WidthAndHeight"
+    WindowBackdropType="Mica"
+    mc:Ignorable="d">
+    <StackPanel Margin="10">
+        <StackPanel MouseLeftButtonDown="StackPanel_MouseLeftButtonDown" Orientation="Horizontal">
+            <TextBlock>
+                Timed Default Browser
+            </TextBlock>
+            <wpfui:Button
+                Margin="260,0,0,0"
+                Padding="10,5"
+                Icon="Subtract24" />
+        </StackPanel>
+        <wpfui:CardControl
+            Height="70"
+            Margin="0,30,0,10"
+            Header="Time (in mins)"
+            Icon="Clock24">
+            <wpfui:NumberBox
+                IntegersOnly="True"
+                Max="300"
+                Min="0"
+                Step="5"
+                Value="10" />
+        </wpfui:CardControl>
+        <wpfui:CardControl
+            Height="70"
+            Header="Browser"
+            Icon="Globe24">
+            <ComboBox />
+        </wpfui:CardControl>
+        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+            <wpfui:Button
+                Margin="10,20"
+                Padding="20,12"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Appearance="Danger"
+                Content="Cancel" />
+            <wpfui:Button
+                Margin="10,20"
+                Padding="20,12"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Appearance="Dark"
+                Content="Done" />
+        </StackPanel>
+    </StackPanel>
+</wpfui:UiWindow>
