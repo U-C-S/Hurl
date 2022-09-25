@@ -1,4 +1,4 @@
-using Hurl.BrowserSelector.Globals;
+﻿using Hurl.BrowserSelector.Globals;
 using Hurl.BrowserSelector.Helpers;
 using Hurl.BrowserSelector.Models;
 using System;
@@ -22,6 +22,16 @@ namespace Hurl.BrowserSelector.Views
         public MainWindow(Settings settings)
         {
             this.settings = settings;
+
+            //if (Environment.OSVersion.Version.Build < 22523 && settings.AppSettings?.UseMica != true && settings.AppSettings?.DisableAcrylic != true)
+            //{
+            //    AllowsTransparency = true;
+            //    Background = new SolidColorBrush(Color.FromArgb(120, 2, 0, 0));
+            //}
+            //if (Environment.OSVersion.Version.Build < 22523 && settings.AppSettings?.UseMica != true)
+            //{
+            //    WindowBackdropType = BackgroundType.None;
+            //}
 
             InitializeComponent();
 
@@ -161,7 +171,7 @@ namespace Hurl.BrowserSelector.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            new TimeSelectWindow().ShowDialog();
+            new TimeSelectWindow(settings.Browsers).ShowDialog();
         }
     }
 }

@@ -10,52 +10,42 @@
     Width="360"
     Height="280"
     ExtendsContentIntoTitleBar="True"
+    MouseLeftButtonDown="StackPanel_MouseLeftButtonDown"
     SizeToContent="WidthAndHeight"
     WindowBackdropType="Mica"
     mc:Ignorable="d">
     <StackPanel Margin="10">
-        <StackPanel MouseLeftButtonDown="StackPanel_MouseLeftButtonDown" Orientation="Horizontal">
-            <TextBlock>
+        <Grid>
+            <TextBlock VerticalAlignment="Center">
                 Timed Default Browser
             </TextBlock>
             <wpfui:Button
-                Margin="260,0,0,0"
                 Padding="10,5"
+                HorizontalAlignment="Right"
                 Icon="Subtract24" />
-        </StackPanel>
+        </Grid>
         <wpfui:CardControl
-            Height="70"
             Margin="0,30,0,10"
             Header="Time (in mins)"
             Icon="Clock24">
             <wpfui:NumberBox
+                x:Name="TimeBox"
                 IntegersOnly="True"
                 Max="300"
                 Min="0"
                 Step="5"
                 Value="10" />
         </wpfui:CardControl>
-        <wpfui:CardControl
-            Height="70"
-            Header="Browser"
-            Icon="Globe24">
-            <ComboBox />
+        <wpfui:CardControl Header="Browser" Icon="Globe24">
+            <ComboBox x:Name="BrowserBox" ItemsSource="{Binding}" />
         </wpfui:CardControl>
-        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+        <Grid Margin="0,10">
             <wpfui:Button
-                Margin="10,20"
-                Padding="20,12"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Appearance="Danger"
-                Content="Cancel" />
-            <wpfui:Button
-                Margin="10,20"
-                Padding="20,12"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Appearance="Dark"
-                Content="Done" />
-        </StackPanel>
+                Padding="40,15"
+                HorizontalAlignment="Center"
+                Click="Button_Click"
+                Content="Done"
+                Icon="Checkmark32" />
+        </Grid>
     </StackPanel>
 </wpfui:UiWindow>
