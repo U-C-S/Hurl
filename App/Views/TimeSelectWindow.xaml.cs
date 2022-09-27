@@ -1,8 +1,7 @@
-﻿using Hurl.BrowserSelector.Models;
+﻿using Hurl.BrowserSelector.Helpers;
+using Hurl.BrowserSelector.Models;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text.Json;
 
 namespace Hurl.BrowserSelector.Views
 {
@@ -27,18 +26,7 @@ namespace Hurl.BrowserSelector.Views
 
             if (y != -1)
             {
-                var dataObject = new TemporaryDefaultBrowser()
-                {
-                    TargetBrowser = browsers[y],
-                    SelectedAt = DateTime.Now,
-                    ValidTill = DateTime.Now.AddMinutes(x)
-                };
-                string jsondata = JsonSerializer.Serialize(dataObject, new JsonSerializerOptions
-                {
-                    WriteIndented = true,
-                    IncludeFields = true
-                });
-                File.WriteAllText(Path.Combine(Constants.APP_SETTINGS_DIR, "TempDefault.json"), jsondata);
+                TimedBrowserSelect.Create((int)x, browsers[y]);
 
                 this.Close();
             }
