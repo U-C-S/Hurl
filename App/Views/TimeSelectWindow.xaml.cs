@@ -20,8 +20,6 @@ namespace Hurl.BrowserSelector.Views
             DataContext = x.ConvertAll(y => y.Name);
         }
 
-        private void StackPanel_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e) => this.DragMove();
-
         private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             var x = TimeBox.Value;

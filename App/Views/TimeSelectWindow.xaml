@@ -10,42 +10,40 @@
     Width="360"
     Height="280"
     ExtendsContentIntoTitleBar="True"
-    MouseLeftButtonDown="StackPanel_MouseLeftButtonDown"
-    SizeToContent="WidthAndHeight"
     WindowBackdropType="Mica"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-    <StackPanel Margin="10">
-        <Grid>
-            <TextBlock VerticalAlignment="Center">
-                Timed Default Browser
-            </TextBlock>
-            <wpfui:Button
-                Padding="10,5"
-                HorizontalAlignment="Right"
-                Icon="Subtract24" />
-        </Grid>
-        <wpfui:CardControl
-            Margin="0,30,0,10"
-            Header="Time (in mins)"
-            Icon="Clock24">
-            <wpfui:NumberBox
-                x:Name="TimeBox"
-                IntegersOnly="True"
-                Max="300"
-                Min="0"
-                Step="5"
-                Value="10" />
-        </wpfui:CardControl>
-        <wpfui:CardControl Header="Browser" Icon="Globe24">
-            <ComboBox x:Name="BrowserBox" ItemsSource="{Binding}" />
-        </wpfui:CardControl>
-        <Grid Margin="0,10">
-            <wpfui:Button
-                Padding="40,15"
-                HorizontalAlignment="Center"
-                Click="Button_Click"
-                Content="Done"
-                Icon="Checkmark32" />
-        </Grid>
+    <StackPanel>
+        <wpfui:TitleBar
+            Title="Timed Default Browser"
+            FontSize="14"
+            ShowMaximize="False"
+            ShowMinimize="False" />
+
+        <StackPanel Margin="10">
+            <wpfui:CardControl
+                Margin="0,30,0,10"
+                Header="Time (in mins)"
+                Icon="Clock24">
+                <wpfui:NumberBox
+                    x:Name="TimeBox"
+                    IntegersOnly="True"
+                    Max="300"
+                    Min="0"
+                    Step="5"
+                    Value="10" />
+            </wpfui:CardControl>
+            <wpfui:CardControl Header="Browser" Icon="Globe24">
+                <ComboBox x:Name="BrowserBox" ItemsSource="{Binding}" />
+            </wpfui:CardControl>
+            <Grid Margin="0,10">
+                <wpfui:Button
+                    Padding="40,15"
+                    HorizontalAlignment="Center"
+                    Click="Button_Click"
+                    Content="Done"
+                    Icon="Checkmark32" />
+            </Grid>
+        </StackPanel>
     </StackPanel>
 </wpfui:UiWindow>
