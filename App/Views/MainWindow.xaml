@@ -21,7 +21,6 @@
     Topmost="True"
     WindowBackdropType="Acrylic"
     WindowStartupLocation="CenterScreen"
-    WindowStyle="None"
     mc:Ignorable="d">
     <Border
         x:Name="WindowBorder"

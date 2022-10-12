@@ -23,6 +23,8 @@ namespace Hurl.BrowserSelector
             if (isFirstInstance)
             {
                 var x = CliArgs.GatherInfo(e.Args, false);
+                //var IsTimedSet = TimedBrowserSelect.CheckAndLaunch(x.Url);
+
                 CurrentLink.Value = x.Url;
                 viewModel = new MainViewModel(settings);
 
@@ -44,8 +46,10 @@ namespace Hurl.BrowserSelector
             Current.Dispatcher.Invoke(() =>
             {
                 var x = CliArgs.GatherInfo(args, true);
+                var IsTimedSet = TimedBrowserSelect.CheckAndLaunch(x.Url);
+
                 CurrentLink.Value = x.Url;
-                _mainWindow.Init(x);
+                _mainWindow.Init(x, IsTimedSet);
             });
         }
 
