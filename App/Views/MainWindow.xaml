@@ -49,6 +49,11 @@
                                     Header="Open"
                                     SymbolIcon="Folder24"
                                     Tag="open" />
+                                <wpfui:MenuItem
+                                    Click="TrayMenuItem_OnClick"
+                                    Header="Timed"
+                                    SymbolIcon="Clock24"
+                                    Tag="timed" />
                                 <Separator />
                                 <wpfui:MenuItem
                                     Click="TrayMenuItem_OnClick"

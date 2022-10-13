@@ -114,6 +114,9 @@ namespace Hurl.BrowserSelector.Views
                     case "open":
                         MaximizeWindow();
                         break;
+                    case "timed":
+                        new TimeSelectWindow(settings.Browsers).ShowDialog();
+                        break;
                     case "exit":
                         Application.Current.Shutdown();
                         break;
@@ -170,9 +173,6 @@ namespace Hurl.BrowserSelector.Views
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            new TimeSelectWindow(settings.Browsers).ShowDialog();
-        }
+        private void Button_Click(object sender, RoutedEventArgs e) => new TimeSelectWindow(settings.Browsers).ShowDialog();
     }
 }
