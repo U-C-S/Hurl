@@ -23,7 +23,6 @@ namespace Hurl.BrowserSelector
             if (isFirstInstance)
             {
                 var x = CliArgs.GatherInfo(e.Args, false);
-                //var IsTimedSet = TimedBrowserSelect.CheckAndLaunch(x.Url);
 
                 CurrentLink.Value = x.Url;
                 viewModel = new MainViewModel(settings);
@@ -54,5 +53,15 @@ namespace Hurl.BrowserSelector
         }
 
         protected override void OnExit(ExitEventArgs e) => SingleInstance.Cleanup();
+
+        private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            MessageBox.Show($"Unexpected exception occurred:\n{e.Exception.Message}\n",
+                "Error",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+            
+            Shutdown(1);
+        }
     }
 }
