@@ -14,6 +14,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCulture("")]
 
 [assembly: ComVisible(false)]
-[assembly: AssemblyVersion("0.6.3.12")]
-[assembly: AssemblyFileVersion("0.6.3.12")]
+[assembly: AssemblyVersion("0.7.0.14")]
+[assembly: AssemblyFileVersion("0.7.0.14")]
 [assembly: System.Runtime.Versioning.SupportedOSPlatform("windows")]
