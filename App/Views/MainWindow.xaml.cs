@@ -174,5 +174,10 @@ namespace Hurl.BrowserSelector.Views
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) => new TimeSelectWindow(settings.Browsers).ShowDialog();
+
+        private void UiWindow_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            // TODO
+        }
     }
 }

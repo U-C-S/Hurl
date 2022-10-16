@@ -17,6 +17,7 @@
     Deactivated="Window_Deactivated"
     ExtendsContentIntoTitleBar="True"
     KeyUp="Window_Esc"
+    SizeChanged="UiWindow_SizeChanged"
     SizeToContent="WidthAndHeight"
     Topmost="True"
     WindowBackdropType="Acrylic"
@@ -82,7 +83,7 @@
                     Margin="0,2,112,0"
                     Padding="7,5"
                     HorizontalAlignment="Right"
-                    Background="#72000000"
+                    Background="#40000000"
                     Click="Button_Click">
                     <wpfui:SymbolIcon Symbol="Clock24" />
                 </wpfui:Button>
@@ -90,7 +91,7 @@
                     Margin="0,2,76,0"
                     Padding="7,5"
                     HorizontalAlignment="Right"
-                    Background="#72000000"
+                    Background="#40000000"
                     Click="LinkCopyBtnClick">
                     <wpfui:SymbolIcon Symbol="Copy24" />
                 </wpfui:Button>
@@ -98,7 +99,7 @@
                     Margin="0,2,40,0"
                     Padding="7,5"
                     HorizontalAlignment="Right"
-                    Background="#72000000"
+                    Background="#40000000"
                     Click="SettingsBtnClick">
                     <wpfui:SymbolIcon Symbol="Settings24" />
                 </wpfui:Button>
@@ -106,7 +107,7 @@
                     Margin="0,2,4,0"
                     Padding="7,5"
                     HorizontalAlignment="Right"
-                    Background="#72000000"
+                    Background="#40000000"
                     Click="CloseBtnClick">
                     <wpfui:SymbolIcon Symbol="Subtract24" />
                 </wpfui:Button>
