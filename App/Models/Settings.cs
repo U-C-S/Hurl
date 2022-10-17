@@ -37,4 +37,10 @@ namespace Hurl.BrowserSelector.Models
         public bool UseMica { get; set; } = false;
         
     }
+
+    public class AppAutoSettings
+    {
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public int[] WindowSize { get; set; }
+    }
 }
