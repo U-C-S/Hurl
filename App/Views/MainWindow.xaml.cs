@@ -1,4 +1,4 @@
-﻿using Hurl.BrowserSelector.Globals;
+using Hurl.BrowserSelector.Globals;
 using Hurl.BrowserSelector.Helpers;
 using Hurl.BrowserSelector.Models;
 using System;
@@ -64,6 +64,12 @@ namespace Hurl.BrowserSelector.Views
             else
             {
                 Show();
+                //if (!data.IsSecondInstance)
+                //{
+                //    var runtimeSettings = JsonOperations.FromJsonToModel<AppAutoSettings>(Path.Combine(Constants.APP_SETTINGS_DIR, "runtime.json"));
+                //    this.Width = (double)runtimeSettings.WindowSize[0];
+                //    this.Height = (double)runtimeSettings.WindowSize[1];
+                //}
                 PositionWindowUnderTheMouse();
                 if (data.IsSecondInstance)
                 {
@@ -177,7 +183,10 @@ namespace Hurl.BrowserSelector.Views
 
         private void UiWindow_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            // TODO
+            JsonOperations.FromModelToJson(new AppAutoSettings()
+            {
+                WindowSize = new int[] { (int)this.Width, (int)this.Height }
+            }, Path.Combine(Constants.APP_SETTINGS_DIR, "runtime.json"));
         }
     }
 }
