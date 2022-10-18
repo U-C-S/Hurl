@@ -5,6 +5,7 @@ using Hurl.BrowserSelector.Views;
 using Hurl.BrowserSelector.Views.ViewModels;
 using SingleInstanceCore;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace Hurl.BrowserSelector
 {
@@ -15,7 +16,7 @@ namespace Hurl.BrowserSelector
     {
         private MainWindow _mainWindow;
         private MainViewModel viewModel;
-        private readonly Settings settings = SettingsFile.GetSettings();
+        //private readonly Settings settings = SettingsFile.GetSettings();
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -25,9 +26,9 @@ namespace Hurl.BrowserSelector
                 var x = CliArgs.GatherInfo(e.Args, false);
 
                 CurrentLink.Value = x.Url;
-                viewModel = new MainViewModel(settings);
+                viewModel = new MainViewModel();
 
-                _mainWindow = new MainWindow(settings)
+                _mainWindow = new MainWindow(viewModel.settings)
                 {
                     DataContext = viewModel,
                 };

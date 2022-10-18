@@ -1,6 +1,7 @@
-using Hurl.BrowserSelector.Globals;
+﻿using Hurl.BrowserSelector.Globals;
 using Hurl.BrowserSelector.Helpers;
 using Hurl.BrowserSelector.Models;
+using Hurl.BrowserSelector.Views.ViewModels;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -17,12 +18,16 @@ namespace Hurl.BrowserSelector.Views
     /// </summary>
     public partial class MainWindow : Wpf.Ui.Controls.UiWindow
     {
-        private Settings settings;
+        private Settings settings
+        {
+            get
+            {
+                return (DataContext as MainViewModel).settings;
+            }
+        }
 
         public MainWindow(Settings settings)
         {
-            this.settings = settings;
-
             //if (Environment.OSVersion.Version.Build < 22523 && settings.AppSettings?.UseMica != true && settings.AppSettings?.DisableAcrylic != true)
             //{
             //    AllowsTransparency = true;
@@ -63,13 +68,31 @@ namespace Hurl.BrowserSelector.Views
             }
             else
             {
+                if (!data.IsSecondInstance)
+                {
+                    try
+                    {
+                        var runtimeSettings = JsonOperations.FromJsonToModel<AppAutoSettings>(Path.Combine(Constants.APP_SETTINGS_DIR, "runtime.json"));
+                        Width = runtimeSettings.WindowSize[0];
+                        Height = runtimeSettings.WindowSize[1];
+                    }
+                    catch (Exception e)
+                    {
+                        switch (e)
+                        {
+                            case FileNotFoundException:
+                            case DirectoryNotFoundException:
+                                JsonOperations.FromModelToJson(new AppAutoSettings()
+                                {
+                                    WindowSize = new int[] { (int)Width, (int)Height }
+                                }, Path.Combine(Constants.APP_SETTINGS_DIR, "runtime.json"));
+                                break;
+                            default:
+                                throw;
+                        }
+                    }
+                }
                 Show();
-                //if (!data.IsSecondInstance)
-                //{
-                //    var runtimeSettings = JsonOperations.FromJsonToModel<AppAutoSettings>(Path.Combine(Constants.APP_SETTINGS_DIR, "runtime.json"));
-                //    this.Width = (double)runtimeSettings.WindowSize[0];
-                //    this.Height = (double)runtimeSettings.WindowSize[1];
-                //}
                 PositionWindowUnderTheMouse();
                 if (data.IsSecondInstance)
                 {

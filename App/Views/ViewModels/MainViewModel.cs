@@ -1,14 +1,21 @@
-﻿using Hurl.BrowserSelector.Models;
+﻿using Hurl.BrowserSelector.Helpers;
+using Hurl.BrowserSelector.Models;
+using System.IO;
 
 namespace Hurl.BrowserSelector.Views.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        public BaseViewModel viewModel { get; set; }
+        public Settings settings = SettingsFile.GetSettings();
 
-        public MainViewModel(Settings settings)
+        public AppAutoSettings RuntimeSettings = JsonOperations.FromJsonToModel<AppAutoSettings>(Path.Combine(Constants.APP_SETTINGS_DIR, "runtime.json"));
+
+        public BaseViewModel viewModel
         {
-            viewModel = new BrowserListViewModel(settings);
+            get
+            {
+                return new BrowserListViewModel(settings);
+            }
         }
     }
 }
