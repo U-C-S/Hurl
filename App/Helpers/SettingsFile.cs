@@ -2,8 +2,6 @@ using Hurl.BrowserSelector.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.Json;
-using System.Windows;
 
 namespace Hurl.BrowserSelector.Helpers
 {
@@ -28,9 +26,7 @@ namespace Hurl.BrowserSelector.Helpers
         {
             try
             {
-                string jsondata = File.ReadAllText(Constants.SettingsFilePath);
-                var SettingsObject = JsonSerializer.Deserialize<Settings>(jsondata);
-                return SettingsObject;
+                return JsonOperations.FromJsonToModel<Settings>(Constants.SettingsFilePath);
             }
             catch (Exception e)
             {
@@ -40,7 +36,6 @@ namespace Hurl.BrowserSelector.Helpers
                     case DirectoryNotFoundException _:
                         return New(GetBrowsers.FromRegistry()).SettingsObject;
                     default:
-                        MessageBox.Show(e.Message, "ERROR");
                         throw;
                 }
             }
@@ -55,25 +50,14 @@ namespace Hurl.BrowserSelector.Helpers
                 Browsers = browsers,
             };
 
-            string jsondata = JsonSerializer.Serialize(_settings, new JsonSerializerOptions
-            {
-                WriteIndented = true,
-                IncludeFields = true
-            });
-            File.WriteAllText(Constants.SettingsFilePath, jsondata);
-
+            JsonOperations.FromModelToJson(_settings, Constants.SettingsFilePath);
             return new SettingsFile(_settings);
         }
 
         public void Update()
         {
             SettingsObject.LastUpdated = DateTime.Now.ToString();
-            string jsondata = JsonSerializer.Serialize(SettingsObject, new JsonSerializerOptions
-            {
-                WriteIndented = true,
-                IncludeFields = true
-            });
-            File.WriteAllText(Constants.SettingsFilePath, jsondata);
+            JsonOperations.FromModelToJson(SettingsObject, Constants.SettingsFilePath);
         }
     }
 }
