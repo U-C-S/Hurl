@@ -34,8 +34,7 @@ namespace Hurl.BrowserSelector.Models
         public bool UseWhiteBorder { get; set; } = true;
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-        public bool UseMica { get; set; } = false;
-        
+        public string BackgroundType { get; set; } = "mica";
     }
 
     public class AppAutoSettings

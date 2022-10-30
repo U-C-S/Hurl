@@ -1,4 +1,4 @@
-﻿using Hurl.BrowserSelector.Globals;
+using Hurl.BrowserSelector.Globals;
 using Hurl.BrowserSelector.Helpers;
 using Hurl.BrowserSelector.Models;
 using Hurl.BrowserSelector.Views.ViewModels;
@@ -28,34 +28,29 @@ namespace Hurl.BrowserSelector.Views
 
         public MainWindow(Settings settings)
         {
-            //if (Environment.OSVersion.Version.Build < 22523 && settings.AppSettings?.UseMica != true && settings.AppSettings?.DisableAcrylic != true)
-            //{
-            //    AllowsTransparency = true;
-            //    Background = new SolidColorBrush(Color.FromArgb(120, 2, 0, 0));
-            //}
-            //if (Environment.OSVersion.Version.Build < 22523 && settings.AppSettings?.UseMica != true)
-            //{
-            //    WindowBackdropType = BackgroundType.None;
-            //}
-
             InitializeComponent();
 
             if (settings.AppSettings?.UseWhiteBorder == false) WindowBorder.BorderThickness = new Thickness(0);
             if (Environment.OSVersion.Version.Build < 22000) WindowBorder.CornerRadius = new CornerRadius(0);
 
-            if (settings.AppSettings?.DisableAcrylic != true)
+            var osbuild = Environment.OSVersion.Version.Build;
+            var backtype = settings.AppSettings?.BackgroundType;
+            var disableAcrylic = settings.AppSettings?.DisableAcrylic;
+            
+            if (backtype == "acrylic" && osbuild >= 22621)
             {
-                if (Environment.OSVersion.Version.Build >= 22000 && settings.AppSettings?.UseMica == true)
-                {
-                    WindowBackdropType = BackgroundType.Mica;
-                }
+                WindowBackdropType = BackgroundType.Acrylic;
             }
-            else
+            else if (backtype == "none" || disableAcrylic == true || osbuild < 22000)
             {
                 WindowBackdropType = BackgroundType.None;
                 var c = settings?.AppSettings?.BackgroundRGB;
                 var brush = (c != null) ? Color.FromRgb(c[0], c[1], c[2]) : Color.FromRgb(150, 50, 50);
                 Background = new SolidColorBrush(brush);
+            }
+            else
+            {
+                WindowBackdropType = BackgroundType.Mica;
             }
         }
 
