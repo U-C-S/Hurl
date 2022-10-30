@@ -82,10 +82,13 @@ namespace Hurl.BrowserSelector.Views
                         {
                             case FileNotFoundException:
                             case DirectoryNotFoundException:
+                                Directory.CreateDirectory(Constants.APP_SETTINGS_DIR);
+
                                 JsonOperations.FromModelToJson(new AppAutoSettings()
                                 {
                                     WindowSize = new int[] { (int)Width, (int)Height }
                                 }, Path.Combine(Constants.APP_SETTINGS_DIR, "runtime.json"));
+
                                 break;
                             default:
                                 throw;
