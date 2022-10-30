@@ -7,9 +7,6 @@ namespace Hurl.BrowserSelector.Helpers
 {
     public class SettingsFile
     {
-        // convert this to reuable, so we can use it in other places
-        // ex: SettingsFile(string filePath, DataModel)
-
         public Settings SettingsObject;
 
         private SettingsFile(Settings settings)
@@ -43,7 +40,7 @@ namespace Hurl.BrowserSelector.Helpers
 
         public static SettingsFile New(List<Browser> browsers)
         {
-            Directory.CreateDirectory(Constants.ROAMING + "\\Hurl");
+            Directory.CreateDirectory(Constants.APP_SETTINGS_DIR);
 
             var _settings = new Settings()
             {

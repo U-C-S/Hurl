@@ -30,11 +30,11 @@ namespace Hurl.BrowserSelector.Helpers
             double screenHeight = SystemParameters.FullPrimaryScreenHeight;
             double screenWidth = SystemParameters.FullPrimaryScreenWidth;
 
-            if(Cursor.X + width > screenWidth)
+            if (Cursor.X + width > screenWidth)
             {
                 finalPoint.X = screenWidth - width;
             }
-            if(Cursor.Y + height > screenHeight)
+            if (Cursor.Y + height > screenHeight)
             {
                 finalPoint.Y = screenHeight - height;
             }

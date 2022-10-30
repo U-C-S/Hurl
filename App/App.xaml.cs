@@ -1,11 +1,9 @@
 ﻿using Hurl.BrowserSelector.Globals;
 using Hurl.BrowserSelector.Helpers;
-using Hurl.BrowserSelector.Models;
 using Hurl.BrowserSelector.Views;
 using Hurl.BrowserSelector.Views.ViewModels;
 using SingleInstanceCore;
 using System.Windows;
-using System.Windows.Threading;
 
 namespace Hurl.BrowserSelector
 {
