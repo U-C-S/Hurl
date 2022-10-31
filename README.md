@@ -1,12 +1,9 @@
-<p align="center">
-  <img width="128" align="center" src="App/Assets/internet.ico">
-</p>
-<h1 align="center">
-  Hurl
-</h1>
-<p align="center">
-  A windows utility that lets you choose the browser on the click of a link
-</p>
+<img width="150" align="left" src="App/Assets/internet.ico">
+
+<h1 align="center">Hurl</h1>
+
+<p align="center">A windows utility that lets you choose a browser on the click of a link</p>
+
 <p align="center">
   <a style="text-decoration:none" href="https://github.com/U-C-S/Hurl/releases">
     <img src="https://img.shields.io/github/v/release/u-c-s/hurl?color=red&label=latest%20version&style=flat-square" alt="Releases" />
@@ -27,11 +24,12 @@
 Sometimes you might want to open a link in a browser of your choice, instead of the default one. Hurl is used to let you choose the browser everytime you click a link (links outside of browser). So naturally, It acts as default browser to do that. And hurl can be powered up with a _browser extension_ to let you open a browser tab in another browser.
 
 - Modern and Native Windows UI
-- Supports adding your own browsers with Launch Arguments and other customisations
+- Supports adding your own browsers with Launch Arguments
+- Highly Customizable
 - Web Extension to open browser tabs in Hurl (experimental)
 
 <p align="center">
-  <img width="640" src="https://user-images.githubusercontent.com/50218121/198944856-46c47bf0-b58e-41ae-86e6-ac5008972c2a.png" />
+  <img width="720" src="https://user-images.githubusercontent.com/50218121/198988257-7f89288c-7fd4-4bf3-8d7f-b5501d81ac61.png" />
   <!--<img width="640" src="https://user-images.githubusercontent.com/50218121/158625754-78026dbe-cd99-4078-8407-313b9c548ca1.png" />-->
   <!--<img width="640" src="https://user-images.githubusercontent.com/50218121/157494232-a134a412-9dd7-4706-8be7-6e3800484082.png" />-->
 </p>
@@ -60,7 +58,7 @@ Download Install the latest [.NET 6 Desktop Runtime](https://dotnet.microsoft.co
 
 or Simply use the Build Script from `Utils/build.ps1` to build the Application in release mode and successively build the installer.
 
-### Using the Extension (Temporarily Unsupported since v0.6.2)
+### Using the Extension
 
 - Enable the Developer Mode for Extensions in Edge or Chrome
 - Choose the folder `{installationDir}/Extensions/Chrome` after clicking `Load Unpacked` Button available after enabling Developer mode
