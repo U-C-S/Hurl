@@ -1,15 +1,18 @@
-using Hurl.BrowserSelector.Globals;
+﻿using Hurl.BrowserSelector.Globals;
 using Hurl.BrowserSelector.Helpers;
 using Hurl.BrowserSelector.Models;
 using Hurl.BrowserSelector.Views.ViewModels;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Shapes;
 using Wpf.Ui.Appearance;
+using Path = System.IO.Path;
 
 namespace Hurl.BrowserSelector.Views
 {
@@ -65,28 +68,36 @@ namespace Hurl.BrowserSelector.Views
             {
                 if (!data.IsSecondInstance)
                 {
+                    var path = Path.Combine(Constants.APP_SETTINGS_DIR, "runtime.json");
+
                     try
                     {
-                        var runtimeSettings = JsonOperations.FromJsonToModel<AppAutoSettings>(Path.Combine(Constants.APP_SETTINGS_DIR, "runtime.json"));
+                        var runtimeSettings = JsonOperations.FromJsonToModel<AppAutoSettings>(path);
                         Width = runtimeSettings.WindowSize[0];
                         Height = runtimeSettings.WindowSize[1];
                     }
-                    catch (Exception e)
+                    catch (Exception ex)
                     {
-                        switch (e)
+                        if (ex is DirectoryNotFoundException)
                         {
-                            case FileNotFoundException:
-                            case DirectoryNotFoundException:
-                                Directory.CreateDirectory(Constants.APP_SETTINGS_DIR);
+                            Directory.CreateDirectory(Constants.APP_SETTINGS_DIR);
+                        }
 
-                                JsonOperations.FromModelToJson(new AppAutoSettings()
-                                {
-                                    WindowSize = new int[] { (int)Width, (int)Height }
-                                }, Path.Combine(Constants.APP_SETTINGS_DIR, "runtime.json"));
+                        if (ex is FileNotFoundException or DirectoryNotFoundException)
+                        {
+                            var obj = new AppAutoSettings()
+                            {
+                                WindowSize = new int[] { 420, 210 }
+                            };
 
-                                break;
-                            default:
-                                throw;
+                            File.WriteAllText(path, JsonSerializer.Serialize(obj));
+                            Width = 420;
+                            Height = 210;
+                        }
+                        else
+                        {
+                            MessageBox.Show(ex.Message);
+                            throw;
                         }
                     }
                 }
