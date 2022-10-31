@@ -31,7 +31,8 @@ Sometimes you might want to open a link in a browser of your choice, instead of 
 - Web Extension to open browser tabs in Hurl (experimental)
 
 <p align="center">
-  <img width="640" src="https://user-images.githubusercontent.com/50218121/158625754-78026dbe-cd99-4078-8407-313b9c548ca1.png" />
+  <img width="640" src="https://user-images.githubusercontent.com/50218121/198944856-46c47bf0-b58e-41ae-86e6-ac5008972c2a.png" />
+  <!--<img width="640" src="https://user-images.githubusercontent.com/50218121/158625754-78026dbe-cd99-4078-8407-313b9c548ca1.png" />-->
   <!--<img width="640" src="https://user-images.githubusercontent.com/50218121/157494232-a134a412-9dd7-4706-8be7-6e3800484082.png" />-->
 </p>
 
