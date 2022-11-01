@@ -10,7 +10,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Shapes;
 using Wpf.Ui.Appearance;
 using Path = System.IO.Path;
 
@@ -33,14 +32,14 @@ namespace Hurl.BrowserSelector.Views
         {
             InitializeComponent();
 
-            if (settings.AppSettings?.UseWhiteBorder == false) WindowBorder.BorderThickness = new Thickness(0);
-            if (Environment.OSVersion.Version.Build < 22000) WindowBorder.CornerRadius = new CornerRadius(0);
-
             var osbuild = Environment.OSVersion.Version.Build;
             var backtype = settings.AppSettings?.BackgroundType;
             var disableAcrylic = settings.AppSettings?.DisableAcrylic;
-            
-            if (backtype == "acrylic" && osbuild >= 22621)
+
+            if (settings.AppSettings?.UseWhiteBorder == false) WindowBorder.BorderThickness = new Thickness(0);
+            if (osbuild < 22000) WindowBorder.CornerRadius = new CornerRadius(0);
+
+            if (backtype == "acrylic" && osbuild >= 22523)
             {
                 WindowBackdropType = BackgroundType.Acrylic;
             }

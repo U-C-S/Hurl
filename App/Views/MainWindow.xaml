@@ -17,7 +17,7 @@
     KeyUp="Window_Esc"
     SizeChanged="UiWindow_SizeChanged"
     Topmost="True"
-    WindowBackdropType="Acrylic"
+    WindowBackdropType="Mica"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Border
