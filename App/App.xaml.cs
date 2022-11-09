@@ -46,8 +46,12 @@ namespace Hurl.BrowserSelector
                 var x = CliArgs.GatherInfo(args, true);
                 var IsTimedSet = TimedBrowserSelect.CheckAndLaunch(x.Url);
 
-                CurrentLink.Value = x.Url;
-                _mainWindow.Init(x, IsTimedSet);
+                if (!IsTimedSet)
+                {
+                    CurrentLink.Value = x.Url;
+                    _mainWindow.Init(x);
+                }
+
             });
         }
 

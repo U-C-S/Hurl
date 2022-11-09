@@ -56,9 +56,9 @@ namespace Hurl.BrowserSelector.Views
             }
         }
 
-        public void Init(CliArgs data, bool IsTimedSet = false)
+        public void Init(CliArgs data)
         {
-            if (data.IsRunAsMin || IsTimedSet)
+            if (data.IsRunAsMin)
             {
                 Debug.WriteLine("Minimizing--------------------------------");
                 MinimizeWindow();
