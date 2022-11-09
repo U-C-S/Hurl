@@ -1,0 +1,52 @@
+{
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build",
+    "devPath": "http://localhost:1420",
+    "distDir": "../dist",
+    "withGlobalTauri": false
+  },
+  "package": {
+    "productName": "settings",
+    "version": "0.0.0"
+  },
+  "tauri": {
+    "allowlist": {
+      "all": true
+    },
+    "bundle": {
+      "active": true,
+      "category": "Utility",
+      "copyright": "",
+      "externalBin": [],
+      "icon": ["icons/32x32.png", "icons/128x128.png", "icons/icon.ico"],
+      "identifier": "com.rmt.dev",
+      "longDescription": "",
+      "resources": [],
+      "shortDescription": "This is a template app for react-mantine-tauri-template",
+      "targets": ["msi", "app"],
+      "windows": {
+        "certificateThumbprint": null,
+        "digestAlgorithm": "sha256",
+        "timestampUrl": ""
+      }
+    },
+    "security": {
+      "csp": null
+    },
+    "updater": {
+      "active": false
+    },
+    "windows": [
+      {
+        "width": 800,
+        "height": 600,
+        "resizable": true,
+        "fullscreen": false,
+        "transparent": true,
+        "decorations": false,
+        "title": "Hurl Settings"
+      }
+    ]
+  }
+}
