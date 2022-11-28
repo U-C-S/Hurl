@@ -43,6 +43,12 @@ namespace Hurl.BrowserSelector.Models
         public int[] WindowSize { get; set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public string[] AutoRules { get; set; }
+        public LinkPattern[] AutoRules { get; set; }
+    }
+
+    public class LinkPattern
+    {
+        public string Pattern { get; set; }
+        public Browser Browser { get; set; }
     }
 }
