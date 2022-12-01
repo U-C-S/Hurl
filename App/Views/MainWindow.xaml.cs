@@ -1,4 +1,4 @@
-﻿using Hurl.BrowserSelector.Globals;
+using Hurl.BrowserSelector.Globals;
 using Hurl.BrowserSelector.Helpers;
 using Hurl.BrowserSelector.Models;
 using Hurl.BrowserSelector.Views.ViewModels;
@@ -214,10 +214,13 @@ namespace Hurl.BrowserSelector.Views
 
         private void UiWindow_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            JsonOperations.FromModelToJson(new AppAutoSettings()
+            if (e.PreviousSize.Width != 0)
             {
-                WindowSize = new int[] { (int)this.Width, (int)this.Height }
-            }, Path.Combine(Constants.APP_SETTINGS_DIR, "runtime.json"));
+                JsonOperations.FromModelToJson(new AppAutoSettings()
+                {
+                    WindowSize = new int[] { (int)this.Width, (int)this.Height }
+                }, Path.Combine(Constants.APP_SETTINGS_DIR, "runtime.json"));
+            }
         }
     }
 }
