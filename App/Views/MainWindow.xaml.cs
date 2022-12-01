@@ -1,4 +1,4 @@
-using Hurl.BrowserSelector.Globals;
+﻿using Hurl.BrowserSelector.Globals;
 using Hurl.BrowserSelector.Helpers;
 using Hurl.BrowserSelector.Models;
 using Hurl.BrowserSelector.Views.ViewModels;
@@ -20,6 +20,7 @@ namespace Hurl.BrowserSelector.Views
     /// </summary>
     public partial class MainWindow : Wpf.Ui.Controls.UiWindow
     {
+        AppAutoSettings runtimeSettings;
         private Settings settings
         {
             get
@@ -71,7 +72,7 @@ namespace Hurl.BrowserSelector.Views
 
                     try
                     {
-                        var runtimeSettings = JsonOperations.FromJsonToModel<AppAutoSettings>(path);
+                        runtimeSettings = JsonOperations.FromJsonToModel<AppAutoSettings>(path);
                         Width = runtimeSettings.WindowSize[0];
                         Height = runtimeSettings.WindowSize[1];
                     }
@@ -216,10 +217,8 @@ namespace Hurl.BrowserSelector.Views
         {
             if (e.PreviousSize.Width != 0)
             {
-                JsonOperations.FromModelToJson(new AppAutoSettings()
-                {
-                    WindowSize = new int[] { (int)this.Width, (int)this.Height }
-                }, Path.Combine(Constants.APP_SETTINGS_DIR, "runtime.json"));
+                runtimeSettings.WindowSize = new int[] { (int)e.NewSize.Width, (int)e.NewSize.Height };
+                JsonOperations.FromModelToJson(runtimeSettings, Path.Combine(Constants.APP_SETTINGS_DIR, "runtime.json"));
             }
         }
     }
