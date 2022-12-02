@@ -73,6 +73,9 @@ namespace Hurl.BrowserSelector.Views
                     try
                     {
                         runtimeSettings = JsonOperations.FromJsonToModel<AppAutoSettings>(path);
+                        var x = AutoRulesCheck.CheckAndRun(data.Url, runtimeSettings.AutoRules);
+                        if (x) return;
+                        
                         Width = runtimeSettings.WindowSize[0];
                         Height = runtimeSettings.WindowSize[1];
                     }

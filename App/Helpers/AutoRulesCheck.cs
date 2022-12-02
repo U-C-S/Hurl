@@ -13,13 +13,15 @@ namespace Hurl.BrowserSelector.Helpers
             return value;
         }
 
-        static void CheckAndRun(string link, LinkPattern[] rules)
+        public static bool CheckAndRun(string link, LinkPattern[] rules)
         {
             var linkPattern = Check(link, rules);
             if (linkPattern != null)
             {
-                Process.Start(linkPattern.Browser.ExePath, linkPattern.Browser.LaunchArgs);
+                Process.Start(linkPattern.Browser.ExePath, link);
+                return true;
             }
+            return false;
         }
     }
 }
