@@ -20,7 +20,7 @@ namespace Hurl.BrowserSelector.Views
     /// </summary>
     public partial class MainWindow : Wpf.Ui.Controls.UiWindow
     {
-        AppAutoSettings runtimeSettings;
+        AppAutoSettings runtimeSettings => JsonOperations.FromJsonToModel<AppAutoSettings>(Constants.APP_SETTINGS_RUNTIME);
         private Settings settings
         {
             get
@@ -68,14 +68,14 @@ namespace Hurl.BrowserSelector.Views
             {
                 if (!data.IsSecondInstance)
                 {
-                    var path = Path.Combine(Constants.APP_SETTINGS_DIR, "runtime.json");
-
                     try
                     {
-                        runtimeSettings = JsonOperations.FromJsonToModel<AppAutoSettings>(path);
-                        var x = AutoRulesCheck.CheckAndRun(data.Url, runtimeSettings.AutoRules);
-                        if (x) return;
-                        
+                        if (runtimeSettings.AutoRules != null)
+                        {
+                            var x = AutoRulesCheck.CheckAndRun(data.Url, runtimeSettings.AutoRules);
+                            if (x) return;
+                        }
+
                         Width = runtimeSettings.WindowSize[0];
                         Height = runtimeSettings.WindowSize[1];
                     }
@@ -93,7 +93,7 @@ namespace Hurl.BrowserSelector.Views
                                 WindowSize = new int[] { 420, 210 }
                             };
 
-                            File.WriteAllText(path, JsonSerializer.Serialize(obj));
+                            File.WriteAllText(Constants.APP_SETTINGS_RUNTIME, JsonSerializer.Serialize(obj));
                             Width = 420;
                             Height = 210;
                         }

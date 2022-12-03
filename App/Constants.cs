@@ -15,6 +15,7 @@ namespace Hurl.BrowserSelector
         public static string ROAMING = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         public static string SettingsFilePath = Path.Combine(ROAMING, "Hurl", "UserSettings.json");
         public static string APP_SETTINGS_DIR = Path.Combine(ROAMING, "Hurl");
+        public static string APP_SETTINGS_RUNTIME = Path.Combine(APP_SETTINGS_DIR, "Runtime.json");
 
         public const string NEW_LINE = "1&#x0a;";
 
