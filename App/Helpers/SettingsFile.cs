@@ -23,7 +23,7 @@ namespace Hurl.BrowserSelector.Helpers
         {
             try
             {
-                return JsonOperations.FromJsonToModel<Settings>(Constants.SettingsFilePath);
+                return JsonOperations.FromJsonToModel<Settings>(Constants.APP_SETTINGS_MAIN);
             }
             catch (Exception e)
             {
@@ -47,14 +47,14 @@ namespace Hurl.BrowserSelector.Helpers
                 Browsers = browsers,
             };
 
-            JsonOperations.FromModelToJson(_settings, Constants.SettingsFilePath);
+            JsonOperations.FromModelToJson(_settings, Constants.APP_SETTINGS_MAIN);
             return new SettingsFile(_settings);
         }
 
         public void Update()
         {
             SettingsObject.LastUpdated = DateTime.Now.ToString();
-            JsonOperations.FromModelToJson(SettingsObject, Constants.SettingsFilePath);
+            JsonOperations.FromModelToJson(SettingsObject, Constants.APP_SETTINGS_MAIN);
         }
     }
 }

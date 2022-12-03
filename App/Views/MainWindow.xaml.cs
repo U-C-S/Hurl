@@ -128,7 +128,7 @@ namespace Hurl.BrowserSelector.Views
         }
 
         private void LinkCopyBtnClick(object sender, RoutedEventArgs e) => Clipboard.SetText(CurrentLink.Value);
-        private void SettingsBtnClick(object sender, RoutedEventArgs e) => Process.Start("notepad.exe", Constants.SettingsFilePath);
+        private void SettingsBtnClick(object sender, RoutedEventArgs e) => Process.Start("notepad.exe", Constants.APP_SETTINGS_MAIN);
         private void Draggable(object sender, MouseButtonEventArgs e) => this.DragMove();
         private void CloseBtnClick(object sender, RoutedEventArgs e) => MinimizeWindow();
 
