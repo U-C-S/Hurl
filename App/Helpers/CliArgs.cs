@@ -49,6 +49,7 @@ namespace Hurl.BrowserSelector.Helpers
 #if DEBUG
             Task.Run(() =>
             {
+                Directory.CreateDirectory(Constants.APP_SETTINGS_DIR);
                 var ArgsStoreFile = Path.Combine(Constants.ROAMING, "Hurl", "args.txt");
                 var StrFormat = $"\n\n{SecondInstanceArgs} --- {Args.Length} - {string.Join("__", Args)}";
                 File.AppendAllText(ArgsStoreFile, StrFormat);

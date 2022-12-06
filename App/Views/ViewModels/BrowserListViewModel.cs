@@ -12,7 +12,7 @@ namespace Hurl.BrowserSelector.Views.ViewModels
 
         public BrowserListViewModel(Settings settings)
         {
-            Browsers = GetBrowsers.FromSettingsFile(settings);
+            Browsers = GetBrowsers.FromSettingsFile(settings, false);
         }
 
         public void OpenLink(Browser clickedbrowser)
