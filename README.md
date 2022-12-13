@@ -1,4 +1,4 @@
-<img width="150" align="left" src="App/Assets/internet.ico">
+<!-- <img width="150" align="left" src="App/Assets/internet.ico"> -->
 
 <h1 align="center">Hurl</h1>
 
@@ -49,7 +49,7 @@ Download Install the latest [.NET 6 Desktop Runtime](https://dotnet.microsoft.co
 - [.NET 6.0](https://dot.net) , [C#](https://dotnet.microsoft.com/languages/csharp) and [WPF](https://docs.microsoft.com/en-us/visualstudio/designers/getting-started-with-wpf)
 - [WPF UI](https://github.com/lepoco/wpfui)
 
-## Building from Source
+## Building from Source (OUTDATED)
 
 - Install Visual Studio 2022 in your Windows with .NET Desktop Development workload
 - After Cloning the Repo, Open the solution file `./Hurl.sln` in Visual Studio
