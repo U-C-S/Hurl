@@ -1,6 +1,6 @@
 #define MyAppName "Hurl"
 #define NameSmall "hurl"
-#define MyAppVersion "0.7.1.15"
+#define MyAppVersion "0.8.0.16"
 #define MyAppPublisher "The 3721 Tools"
 #define MyAppURL "https://github.com/U-C-S/Hurl"
 #define MyAppExeName "Hurl.exe"
@@ -15,7 +15,7 @@ AppPublisherURL="https://github.com/U-C-S/Hurl"
 AppSupportURL="https://github.com/U-C-S/Hurl/issues"
 AppUpdatesURL="https://github.com/U-C-S/Hurl/releases"
 AppReadmeFile="https://github.com/U-C-S/Hurl#README"
-SetupIconFile=..\App\Assets\internet.ico
+SetupIconFile=..\Source\Hurl.BrowserSelector\Assets\internet.ico
 LicenseFile=..\LICENSE
 InfoBeforeFile=README.md
 
@@ -42,7 +42,8 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "protocol"; Description: "{cm:CreateProtocol}"; GroupDescription: "{cm:OtherOptions}"; Flags: unchecked
 
 [Files]
-Source: "..\App\bin\publish\Hurl.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\_Publish\*.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\_Publish\*.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Extensions\*"; Excludes: "package-lock.json,node_modules"; DestDir: "{app}\Extensions"; Flags: ignoreversion recursesubdirs; Tasks: Protocol;
 
 [Icons]
