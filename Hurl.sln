@@ -4,8 +4,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.0.31717.71
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hurl.BrowserSelector", "Source\Hurl.BrowserSelector\Hurl.BrowserSelector.csproj", "{3B8293BB-A929-44CD-BC07-EC718CB60823}"
+	ProjectSection(ProjectDependencies) = postProject
+		{30822343-5DFD-4B1A-AD87-14396AA8B995} = {30822343-5DFD-4B1A-AD87-14396AA8B995}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hurl.Settings", "Source\Hurl.Settings\Hurl.Settings.csproj", "{47E7F54D-B97D-454D-B1D1-5695BBEEC3DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hurl.Settings", "Source\Hurl.Settings\Hurl.Settings.csproj", "{47E7F54D-B97D-454D-B1D1-5695BBEEC3DE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hurl.Library", "Source\Hurl.Library\Hurl.Library.csproj", "{30822343-5DFD-4B1A-AD87-14396AA8B995}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +26,10 @@ Global
 		{47E7F54D-B97D-454D-B1D1-5695BBEEC3DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47E7F54D-B97D-454D-B1D1-5695BBEEC3DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47E7F54D-B97D-454D-B1D1-5695BBEEC3DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30822343-5DFD-4B1A-AD87-14396AA8B995}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30822343-5DFD-4B1A-AD87-14396AA8B995}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30822343-5DFD-4B1A-AD87-14396AA8B995}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30822343-5DFD-4B1A-AD87-14396AA8B995}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

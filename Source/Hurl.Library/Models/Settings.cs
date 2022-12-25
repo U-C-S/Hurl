@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace Hurl.BrowserSelector.Models
+namespace Hurl.Library.Models
 {
     public class Settings
     {

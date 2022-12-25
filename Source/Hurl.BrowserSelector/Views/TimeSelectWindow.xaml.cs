@@ -1,5 +1,5 @@
 ﻿using Hurl.BrowserSelector.Helpers;
-using Hurl.BrowserSelector.Models;
+using Hurl.Library.Models;
 using System.Collections.Generic;
 
 namespace Hurl.BrowserSelector.Views

@@ -29,6 +29,9 @@
 	  <None Remove="Assets\internet.ico" />
 	</ItemGroup>
 	<ItemGroup>
+	  <ProjectReference Include="..\Hurl.Library\Hurl.Library.csproj" />
+	</ItemGroup>
+	<ItemGroup>
 	  <Resource Include="Assets\internet.ico" />
 	</ItemGroup>
 </Project>

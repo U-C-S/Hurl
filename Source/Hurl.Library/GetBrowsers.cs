@@ -1,10 +1,10 @@
-﻿using Hurl.BrowserSelector.Models;
+﻿using Hurl.Library.Models;
 using Microsoft.Win32;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace Hurl.BrowserSelector.Helpers
+namespace Hurl.Library
 {
     public static class GetBrowsers
     {

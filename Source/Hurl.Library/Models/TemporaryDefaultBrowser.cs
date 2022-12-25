@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.Json.Serialization;
 
-namespace Hurl.BrowserSelector.Models
+namespace Hurl.Library.Models
 {
     public class TemporaryDefaultBrowser
     {

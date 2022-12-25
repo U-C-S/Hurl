@@ -1,4 +1,4 @@
-﻿using Hurl.BrowserSelector.Models;
+﻿using Hurl.Library.Models;
 using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;

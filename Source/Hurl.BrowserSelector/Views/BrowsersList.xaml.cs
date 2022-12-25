@@ -1,5 +1,5 @@
 ﻿using Hurl.BrowserSelector.Converters;
-using Hurl.BrowserSelector.Models;
+using Hurl.Library.Models;
 using Hurl.BrowserSelector.Views.ViewModels;
 using System.Windows;
 using System.Windows.Controls;

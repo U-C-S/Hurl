@@ -8,7 +8,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace Hurl.BrowserSelector.Helpers
+namespace Hurl.Library
 {
     public static class IconExtractor
     {

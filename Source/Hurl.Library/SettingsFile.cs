@@ -1,9 +1,9 @@
-using Hurl.BrowserSelector.Models;
+using Hurl.Library.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Hurl.BrowserSelector.Helpers
+namespace Hurl.Library
 {
     public class SettingsFile
     {

@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Text.Json;
 
-namespace Hurl.BrowserSelector.Helpers
+namespace Hurl.Library
 {
     public class JsonOperations
     {

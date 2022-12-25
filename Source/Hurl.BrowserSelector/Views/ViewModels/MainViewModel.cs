@@ -1,5 +1,6 @@
 ﻿using Hurl.BrowserSelector.Helpers;
-using Hurl.BrowserSelector.Models;
+using Hurl.Library;
+using Hurl.Library.Models;
 using System;
 using System.IO;
 using System.Text.Json;

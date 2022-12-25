@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Hurl.BrowserSelector
+namespace Hurl.Library
 {
     public class Constants
     {

@@ -1,4 +1,4 @@
-using Hurl.BrowserSelector.Helpers;
+using Hurl.Library;
 using System;
 using System.Drawing;
 using System.Text.Json.Serialization;
@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace Hurl.BrowserSelector.Models
+namespace Hurl.Library.Models
 {
     public class Browser
     {
