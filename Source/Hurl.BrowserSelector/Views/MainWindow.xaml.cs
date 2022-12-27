@@ -1,8 +1,8 @@
 ﻿using Hurl.BrowserSelector.Globals;
 using Hurl.BrowserSelector.Helpers;
+using Hurl.BrowserSelector.Views.ViewModels;
 using Hurl.Library;
 using Hurl.Library.Models;
-using Hurl.BrowserSelector.Views.ViewModels;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -174,27 +174,6 @@ namespace Hurl.BrowserSelector.Views
             catch (Exception err)
             {
                 MessageBox.Show(err.Message);
-            }
-        }
-
-        private void ScrollViewer_MouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            var scrolledval = e.Delta;
-            var ui = (ScrollViewer)(sender as StackPanel).Parent;
-            // Debug.WriteLine(scrolledval);
-
-            //scroll horizontally on mouse wheel
-            if (ui.HorizontalOffset + scrolledval < 0)
-            {
-                ui.ScrollToHorizontalOffset(0);
-            }
-            else if (ui.HorizontalOffset + scrolledval > ui.ScrollableWidth)
-            {
-                ui.ScrollToHorizontalOffset(ui.ScrollableWidth);
-            }
-            else
-            {
-                ui.ScrollToHorizontalOffset(ui.HorizontalOffset + scrolledval);
             }
         }
 

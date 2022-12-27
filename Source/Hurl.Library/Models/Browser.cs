@@ -1,4 +1,3 @@
-using Hurl.Library;
 using System;
 using System.Drawing;
 using System.Text.Json.Serialization;
@@ -71,7 +70,6 @@ namespace Hurl.Library.Models
         public string Linkx { get; set; }
     }
 
-    //[JsonObject(MemberSerialization.OptOut)]
     public class AlternateLaunch
     {
         public AlternateLaunch() { }
@@ -80,33 +78,12 @@ namespace Hurl.Library.Models
         {
             this.ItemName = ItemName;
             this.LaunchArgs = LaunchArgs;
-            //this.IsPath = false;
         }
-
-        //public AlternateLaunch(string ItemName, string ExePath, string LaunchArgs)
-        //{
-        //    this.ItemName = ItemName;
-        //    this.LaunchExe = ExePath;
-        //    this.LaunchArgs = LaunchArgs;
-        //    this.IsPath = true;
-        //}
 
         [JsonInclude]
         public string ItemName { get; set; }
 
-        //[JsonInclude]
-        //public string LaunchExe { get; set; }
-
         [JsonInclude]
         public string LaunchArgs { get; set; }
-
-        //[JsonInclude]
-        //public bool IsPath { get; set; }
-    }
-
-    public enum BrowserSourceType
-    {
-        Registry,
-        User
     }
 }
