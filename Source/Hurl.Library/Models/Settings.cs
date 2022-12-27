@@ -17,6 +17,9 @@ namespace Hurl.Library.Models
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public AppSettings AppSettings { get; set; }
+
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public LinkPattern[] AutoRules { get; set; }
     }
 
     public class AppSettings
@@ -35,15 +38,9 @@ namespace Hurl.Library.Models
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string BackgroundType { get; set; } = "mica";
-    }
 
-    public class AppAutoSettings
-    {
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public int[] WindowSize { get; set; }
-
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public LinkPattern[] AutoRules { get; set; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public int[] WindowSize { get; set; } = new int[] { 420, 210 };
     }
 
     public class LinkPattern

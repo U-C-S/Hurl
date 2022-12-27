@@ -5,8 +5,6 @@ using Hurl.Library;
 using Hurl.Library.Models;
 using System;
 using System.Diagnostics;
-using System.IO;
-using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -21,7 +19,6 @@ namespace Hurl.BrowserSelector.Views
     /// </summary>
     public partial class MainWindow : Wpf.Ui.Controls.UiWindow
     {
-        AppAutoSettings runtimeSettings => JsonOperations.FromJsonToModel<AppAutoSettings>(Constants.APP_SETTINGS_RUNTIME);
         private Settings settings
         {
             get
@@ -71,38 +68,20 @@ namespace Hurl.BrowserSelector.Views
                 {
                     try
                     {
-                        if (runtimeSettings.AutoRules != null)
+
+                        if (settings.AutoRules != null)
                         {
-                            var x = AutoRulesCheck.CheckAndRun(data.Url, runtimeSettings.AutoRules);
+                            var x = AutoRulesCheck.CheckAndRun(data.Url, settings.AutoRules);
                             if (x) return;
                         }
 
-                        Width = runtimeSettings.WindowSize[0];
-                        Height = runtimeSettings.WindowSize[1];
+                        Width = settings.AppSettings.WindowSize[0];
+                        Height = settings.AppSettings.WindowSize[1];
                     }
                     catch (Exception ex)
                     {
-                        if (ex is DirectoryNotFoundException)
-                        {
-                            Directory.CreateDirectory(Constants.APP_SETTINGS_DIR);
-                        }
-
-                        if (ex is FileNotFoundException or DirectoryNotFoundException)
-                        {
-                            var obj = new AppAutoSettings()
-                            {
-                                WindowSize = new int[] { 420, 210 }
-                            };
-
-                            File.WriteAllText(Constants.APP_SETTINGS_RUNTIME, JsonSerializer.Serialize(obj));
-                            Width = 420;
-                            Height = 210;
-                        }
-                        else
-                        {
-                            MessageBox.Show(ex.Message);
-                            throw;
-                        }
+                        MessageBox.Show(ex.Message);
+                        throw;
                     }
                 }
                 Show();
@@ -200,8 +179,8 @@ namespace Hurl.BrowserSelector.Views
         {
             if (e.PreviousSize.Width != 0)
             {
-                runtimeSettings.WindowSize = new int[] { (int)e.NewSize.Width, (int)e.NewSize.Height };
-                JsonOperations.FromModelToJson(runtimeSettings, Path.Combine(Constants.APP_SETTINGS_DIR, "runtime.json"));
+                settings.AppSettings.WindowSize = new int[] { (int)e.NewSize.Width, (int)e.NewSize.Height };
+                JsonOperations.FromModelToJson(settings, Constants.APP_SETTINGS_MAIN);
             }
         }
     }
