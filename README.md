@@ -1,4 +1,4 @@
-<!-- <img width="150" align="left" src="App/Assets/internet.ico"> -->
+<img width="150" align="left" src="Source/Hurl.BrowserSelector/Assets/internet.ico">
 
 <h1 align="center">Hurl</h1>
 
@@ -49,11 +49,11 @@ Download Install the latest [.NET 6 Desktop Runtime](https://dotnet.microsoft.co
 - [.NET 6.0](https://dot.net) , [C#](https://dotnet.microsoft.com/languages/csharp) and [WPF](https://docs.microsoft.com/en-us/visualstudio/designers/getting-started-with-wpf)
 - [WPF UI](https://github.com/lepoco/wpfui)
 
-## Building from Source (OUTDATED)
+## Building from Source
 
-- Install Visual Studio 2022 in your Windows with .NET Desktop Development workload
+- Install Inno Setup and Visual Studio 2022 in your Windows with .NET Desktop Development workload
 - After Cloning the Repo, Open the solution file `./Hurl.sln` in Visual Studio
-- In Debug / Release mode, Run the `Hurl.BrowserSelector` Project and compiled executables can be found in `App/bin/*`
+- In Debug / Release mode, Run the `Hurl.BrowserSelector` Project (Publish the executables to `./_Publish/*` for the installer script usage)
 - Install Inno Setup, Open the `Utils/installer.iss` script in it and Compile it to create the Installer (output in the same directory)
 
 or Simply use the Build Script from `Utils/build.ps1` to build the Application in release mode and successively build the installer.
