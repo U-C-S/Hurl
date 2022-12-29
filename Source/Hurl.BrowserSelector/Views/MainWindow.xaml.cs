@@ -33,7 +33,6 @@ namespace Hurl.BrowserSelector.Views
 
             var osbuild = Environment.OSVersion.Version.Build;
             var backtype = settings.AppSettings?.BackgroundType;
-            var disableAcrylic = settings.AppSettings?.DisableAcrylic;
 
             if (settings.AppSettings?.UseWhiteBorder == false) WindowBorder.BorderThickness = new Thickness(0);
             if (osbuild < 22000) WindowBorder.CornerRadius = new CornerRadius(0);
@@ -42,11 +41,10 @@ namespace Hurl.BrowserSelector.Views
             {
                 WindowBackdropType = BackgroundType.Acrylic;
             }
-            else if (backtype == "none" || disableAcrylic == true || osbuild < 22000)
+            else if (backtype == "none" || osbuild < 22000)
             {
                 WindowBackdropType = BackgroundType.None;
-                var c = settings?.AppSettings?.BackgroundRGB;
-                var brush = (c != null) ? Color.FromRgb(c[0], c[1], c[2]) : Color.FromRgb(150, 50, 50);
+                var brush = Color.FromRgb(150, 50, 50);
                 Background = new SolidColorBrush(brush);
             }
             else

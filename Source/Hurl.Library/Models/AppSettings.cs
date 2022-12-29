@@ -6,11 +6,8 @@ namespace Hurl.Library.Models
 {
     public class AppSettings
     {
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-        public bool DisableAcrylic { get; set; } = false;
-
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-        public List<Byte> BackgroundRGB { get; set; } = new List<byte> { 51, 51, 51 };
+        //[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        //public List<Byte> BackgroundRGB { get; set; } = new List<byte> { 51, 51, 51 };
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public bool LaunchUnderMouse { get; set; } = false;
