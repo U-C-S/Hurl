@@ -13,7 +13,7 @@ namespace Hurl.Library.Models
         public bool LaunchUnderMouse { get; set; } = false;
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-        public bool UseWhiteBorder { get; set; } = true;
+        public bool NoWhiteBorder { get; set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string BackgroundType { get; set; } = "mica";

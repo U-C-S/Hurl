@@ -34,7 +34,7 @@ namespace Hurl.BrowserSelector.Views
             var osbuild = Environment.OSVersion.Version.Build;
             var backtype = settings.AppSettings?.BackgroundType;
 
-            if (settings.AppSettings?.UseWhiteBorder == false) WindowBorder.BorderThickness = new Thickness(0);
+            if (settings.AppSettings?.NoWhiteBorder == true) WindowBorder.BorderThickness = new Thickness(0);
             if (osbuild < 22000) WindowBorder.CornerRadius = new CornerRadius(0);
 
             if (backtype == "acrylic" && osbuild >= 22523)
