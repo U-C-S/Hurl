@@ -27,7 +27,7 @@
         CornerRadius="8">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="36" />
+                <RowDefinition Height="40" />
                 <RowDefinition Height="1*" />
                 <RowDefinition Height="26" />
             </Grid.RowDefinitions>
@@ -69,41 +69,59 @@
                 </wpfui:TitleBar.Tray>
             </wpfui:TitleBar>
 
-            <Grid MouseLeftButtonDown="Draggable">
-                <TextBlock
-                    Padding="12,6"
+            <Grid
+                Height="36"
+                Margin="2"
+                MouseLeftButtonDown="Draggable">
+                <ComboBox
+                    Width="200"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Center"
+                    Background="#40000000"
+                    Foreground="AliceBlue"
+                    SelectedIndex="1">
+                    <ComboBoxItem>Select a Browser</ComboBoxItem>
+                    <ComboBoxItem>Always use this browser for this link</ComboBoxItem>
+                </ComboBox>
+                <TextBlock
+                    Padding="0"
+                    VerticalAlignment="Center"
+                    Panel.ZIndex="-1"
                     FontSize="16"
                     Foreground="AliceBlue"
-                    Text="Select a Browser" />
+                    Text="" />
                 <wpfui:Button
-                    Margin="0,2,112,0"
+                    Margin="0,0,112,0"
                     Padding="7,5"
                     HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
                     Background="#40000000"
                     Click="Button_Click">
                     <wpfui:SymbolIcon Symbol="Clock24" />
                 </wpfui:Button>
                 <wpfui:Button
-                    Margin="0,2,76,0"
+                    Margin="0,0,76,0"
                     Padding="7,5"
                     HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
                     Background="#40000000"
                     Click="LinkCopyBtnClick">
                     <wpfui:SymbolIcon Symbol="Copy24" />
                 </wpfui:Button>
                 <wpfui:Button
-                    Margin="0,2,40,0"
+                    Margin="0,0,40,0"
                     Padding="7,5"
                     HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
                     Background="#40000000"
                     Click="SettingsBtnClick">
                     <wpfui:SymbolIcon Symbol="Settings24" />
                 </wpfui:Button>
                 <wpfui:Button
-                    Margin="0,2,4,0"
+                    Margin="0,0,4,0"
                     Padding="7,5"
                     HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
                     Background="#40000000"
                     Click="CloseBtnClick">
                     <wpfui:SymbolIcon Symbol="Subtract24" />
