@@ -156,7 +156,14 @@ namespace Hurl.BrowserSelector.Views
 
         private void NotifyIcon_LeftClick(object sender, RoutedEventArgs e) => MaximizeWindow();
 
-        private void Window_Deactivated(object sender, EventArgs e) => MinimizeWindow();
+        private void Window_Deactivated(object sender, EventArgs e)
+        {
+#if DEBUG
+            // No minimize on debug when not in focus
+#else
+            MinimizeWindow();
+#endif
+        }
 
         private void PositionWindowUnderTheMouse()
         {
