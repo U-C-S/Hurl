@@ -73,8 +73,8 @@ namespace Hurl.BrowserSelector.Views
                             if (x) return;
                         }
 
-                        Width = settings.AppSettings.WindowSize[0];
-                        Height = settings.AppSettings.WindowSize[1];
+                        Width = settings.AppSettings?.WindowSize[0] ?? 420;
+                        Height = settings.AppSettings?.WindowSize[1] ?? 210;
                     }
                     catch (Exception ex)
                     {
@@ -184,7 +184,15 @@ namespace Hurl.BrowserSelector.Views
         {
             if (e.PreviousSize.Width != 0)
             {
-                settings.AppSettings.WindowSize = new int[] { (int)e.NewSize.Width, (int)e.NewSize.Height };
+                if (settings.AppSettings != null)
+                {
+                    settings.AppSettings.WindowSize = new int[] { (int)e.NewSize.Width, (int)e.NewSize.Height };
+                }
+                else
+                {
+                    settings.AppSettings = new AppSettings() { WindowSize = new int[] { (int)e.NewSize.Width, (int)e.NewSize.Height } };
+                }
+
                 JsonOperations.FromModelToJson(settings, Constants.APP_SETTINGS_MAIN);
             }
         }
