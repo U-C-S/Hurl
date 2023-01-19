@@ -66,12 +66,8 @@ namespace Hurl.BrowserSelector.Views
                 {
                     try
                     {
-
-                        if (settings.AutoRules != null)
-                        {
-                            var x = AutoRulesCheck.CheckAndRun(data.Url, settings.AutoRules);
-                            if (x) return;
-                        }
+                        var x = AutoRulesCheck.CheckAllBrowserRules(data.Url, settings.Browsers);
+                        if (x) return;
 
                         Width = settings.AppSettings?.WindowSize[0] ?? 420;
                         Height = settings.AppSettings?.WindowSize[1] ?? 210;

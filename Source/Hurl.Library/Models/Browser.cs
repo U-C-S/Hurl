@@ -68,6 +68,9 @@ namespace Hurl.Library.Models
 
         [JsonIgnore]
         public string Linkx { get; set; }
+
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string[] Rules { get; set; }
     }
 
     public class AlternateLaunch

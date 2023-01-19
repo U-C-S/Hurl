@@ -17,8 +17,5 @@ namespace Hurl.Library.Models
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public AppSettings AppSettings { get; set; }
-
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public LinkPattern[] AutoRules { get; set; }
     }
 }
