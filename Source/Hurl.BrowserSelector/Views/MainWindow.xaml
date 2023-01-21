@@ -29,7 +29,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="40" />
                 <RowDefinition Height="1*" />
-                <RowDefinition Height="26" />
+                <RowDefinition Height="34" />
             </Grid.RowDefinitions>
 
             <wpfui:TitleBar MinimizeToTray="True" Visibility="Hidden">
@@ -79,7 +79,7 @@
                     VerticalAlignment="Center"
                     Background="#40000000"
                     Foreground="AliceBlue"
-                    SelectedIndex="1">
+                    SelectedIndex="0">
                     <ComboBoxItem>Select a Browser</ComboBoxItem>
                     <ComboBoxItem>Always use this browser for this link</ComboBoxItem>
                 </ComboBox>
@@ -138,13 +138,15 @@
                 </StackPanel>-->
             </Grid>
 
-            <TextBlock
+            <wpfui:Button
                 x:Name="linkpreview"
                 Grid.Row="2"
-                MaxWidth="360"
-                Padding="5,1,5,1"
+                Margin="5"
+                Padding="10,5"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
+                Background="{x:Null}"
+                BorderBrush="{x:Null}"
                 FontFamily="Calibri"
                 FontSize="10"
                 Foreground="AliceBlue" />

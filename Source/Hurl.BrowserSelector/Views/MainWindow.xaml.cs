@@ -55,6 +55,9 @@ namespace Hurl.BrowserSelector.Views
 
         public void Init(CliArgs data)
         {
+            var x = AutoRulesCheck.CheckAllBrowserRules(data.Url, settings.Browsers);
+            if (x) return;
+
             if (data.IsRunAsMin)
             {
                 Debug.WriteLine("Minimizing--------------------------------");
@@ -66,8 +69,6 @@ namespace Hurl.BrowserSelector.Views
                 {
                     try
                     {
-                        var x = AutoRulesCheck.CheckAllBrowserRules(data.Url, settings.Browsers);
-                        if (x) return;
 
                         Width = settings.AppSettings?.WindowSize[0] ?? 420;
                         Height = settings.AppSettings?.WindowSize[1] ?? 210;
@@ -86,7 +87,7 @@ namespace Hurl.BrowserSelector.Views
                 }
             }
 
-            linkpreview.Text = string.IsNullOrEmpty(CurrentLink.Value) ? "No Url Opened" : CurrentLink.Value;
+            linkpreview.Content = string.IsNullOrEmpty(CurrentLink.Value) ? "No Url Opened" : CurrentLink.Value;
         }
 
         private void Window_Esc(object sender, KeyEventArgs e)
