@@ -1,5 +1,6 @@
 ﻿using DotNet.Globbing;
 using Hurl.Library.Models;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -10,6 +11,18 @@ namespace Hurl.BrowserSelector.Helpers
     {
         static bool Check(string link, string[] rules)
         {
+            if (link.StartsWith("http"))
+            {
+                int index = link.IndexOf("://");
+                if (index != -1)
+                {
+                    link = link.Substring(index + 3);
+                }
+            }
+
+            //var uri = new Uri(link);
+            //link = uri.Host;
+
             var value = rules.FirstOrDefault(rule =>
             {
                 return Glob.Parse(rule).IsMatch(link);
