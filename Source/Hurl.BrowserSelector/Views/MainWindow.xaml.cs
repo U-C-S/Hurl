@@ -194,9 +194,17 @@ namespace Hurl.BrowserSelector.Views
             }
         }
 
-        private void linkpreview_Click(object sender, RoutedEventArgs e)
+        async private void linkpreview_Click(object sender, RoutedEventArgs e)
         {
-            new URLEdit().ShowDialog();
+            //new URLEdit().ShowDialog();
+
+            var x = await MessageBoxHelper.ShowInputAsync(this, "Edit URL", "Enter the URL you want to open", CurrentLink.Value);
+
+            if (x == null) return;
+
+            CurrentLink.Value = x;
+            (sender as Button).Content = x;
+
         }
     }
 }
