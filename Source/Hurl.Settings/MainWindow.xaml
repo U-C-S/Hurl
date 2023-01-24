@@ -12,11 +12,17 @@
     ExtendsContentIntoTitleBar="True"
     WindowBackdropType="Mica"
     mc:Ignorable="d">
-    <Grid>
+    <StackPanel>
+        <wpfui:TitleBar
+            Grid.Row="0"
+            CanMaximize="false"
+            ShowMaximize="false"
+            ShowMinimize="false"
+            UseSnapLayout="false" />
         <StackPanel Margin="10">
             <wpfui:CardControl Margin="0,0,0,8">
                 <wpfui:CardControl.Header>
-                    Launch Under Mounse
+                    Launch Under Mouse
                 </wpfui:CardControl.Header>
                 <wpfui:ToggleSwitch />
             </wpfui:CardControl>
@@ -51,5 +57,5 @@
                 <wpfui:Button Content="Edit" Icon="WindowNew24" />
             </wpfui:CardControl>
         </StackPanel>
-    </Grid>
+    </StackPanel>
 </wpfui:UiWindow>
