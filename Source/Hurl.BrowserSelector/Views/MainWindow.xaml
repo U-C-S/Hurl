@@ -139,6 +139,7 @@
             </Grid>
 
             <wpfui:Button
+                Click="linkpreview_Click"
                 x:Name="linkpreview"
                 Grid.Row="2"
                 Margin="5"

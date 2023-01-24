@@ -193,5 +193,10 @@ namespace Hurl.BrowserSelector.Views
                 JsonOperations.FromModelToJson(settings, Constants.APP_SETTINGS_MAIN);
             }
         }
+
+        private void linkpreview_Click(object sender, RoutedEventArgs e)
+        {
+            new URLEdit().ShowDialog();
+        }
     }
 }
