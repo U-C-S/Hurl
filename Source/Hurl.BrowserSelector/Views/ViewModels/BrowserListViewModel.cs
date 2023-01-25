@@ -1,4 +1,4 @@
-﻿using Hurl.BrowserSelector.Globals;
+using Hurl.BrowserSelector.Globals;
 using Hurl.Library;
 using Hurl.Library.Models;
 using System.Collections.Generic;
@@ -29,6 +29,12 @@ namespace Hurl.BrowserSelector.Views.ViewModels
             else
             {
                 Process.Start(browser.ExePath, Link + " " + browser.LaunchArgs);
+            }
+
+            if (!string.IsNullOrEmpty(Rule.Value))
+            {
+                // TODO
+                Debug.WriteLine("Rule: " + Rule.Value + " is store in the browser " + clickedbrowser.Name);
             }
         }
 

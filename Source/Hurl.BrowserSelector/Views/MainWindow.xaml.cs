@@ -1,4 +1,4 @@
-﻿using Hurl.BrowserSelector.Globals;
+using Hurl.BrowserSelector.Globals;
 using Hurl.BrowserSelector.Helpers;
 using Hurl.BrowserSelector.Views.ViewModels;
 using Hurl.Library;
@@ -197,14 +197,39 @@ namespace Hurl.BrowserSelector.Views
         async private void linkpreview_Click(object sender, RoutedEventArgs e)
         {
             //new URLEdit().ShowDialog();
+            var i = ChooseType.SelectedIndex;
 
-            var x = await MessageBoxHelper.ShowInputAsync(this, "Edit URL", "Enter the URL you want to open", CurrentLink.Value);
+            switch (i) {
+                case 0:
+                    // Open in default browser
+                    var x = await MessageBoxHelper.ShowInputAsync(this, "Edit URL", "Enter the URL you want to open", CurrentLink.Value);
 
-            if (x == null) return;
+                    if (x == null) return;
 
-            CurrentLink.Value = x;
-            (sender as Button).Content = x;
+                    CurrentLink.Value = x;
+                    (sender as Button).Content = x;
+                    break;
+                case 1:
+                    // Open URL  and store its rule
+                    var rule = new Uri(CurrentLink.Value);
+                    var xy = await MessageBoxHelper.ShowInputAsync(this, "Edit URL Rule", "Enter the URL Rule you want the selected browser to store", rule.Host);
+                    if (xy == null) return;
+                    Rule.Value = xy;
+                    (sender as Button).Content = xy;
+                    (sender as Button).ToolTip = CurrentLink.Value;
+                    break;
+                default:
+                    return;
+            }
 
+            Debug.WriteLine("Link: " + CurrentLink.Value + " and Rule: " + Rule.Value);
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // TODO
+
+            Debug.WriteLine("Selected: " + (sender as ComboBox).SelectedValue);
         }
     }
 }
