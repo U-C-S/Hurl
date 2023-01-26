@@ -84,6 +84,8 @@ namespace Hurl.BrowserSelector.Views
                 if (data.IsSecondInstance)
                 {
                     this.WindowState = WindowState.Normal;
+
+                    ChooseType.SelectedIndex = 0;
                 }
             }
 
@@ -196,28 +198,34 @@ namespace Hurl.BrowserSelector.Views
 
         async private void linkpreview_Click(object sender, RoutedEventArgs e)
         {
-            //new URLEdit().ShowDialog();
             var i = ChooseType.SelectedIndex;
 
-            switch (i) {
+            switch (i)
+            {
                 case 0:
-                    // Open in default browser
-                    var x = await MessageBoxHelper.ShowInputAsync(this, "Edit URL", "Enter the URL you want to open", CurrentLink.Value);
-
-                    if (x == null) return;
-
-                    CurrentLink.Value = x;
-                    (sender as Button).Content = x;
-                    break;
+                    {
+                        // Open in default browser
+                        var x = await MessageBoxHelper.ShowInputAsync(this, "Edit URL", "Enter the URL you want to open", CurrentLink.Value);
+                        if (!string.IsNullOrEmpty(x))
+                        {
+                            CurrentLink.Value = x;
+                            (sender as Button).Content = x;
+                        }
+                        break;
+                    }
                 case 1:
-                    // Open URL  and store its rule
-                    var rule = new Uri(CurrentLink.Value);
-                    var xy = await MessageBoxHelper.ShowInputAsync(this, "Edit URL Rule", "Enter the URL Rule you want the selected browser to store", rule.Host);
-                    if (xy == null) return;
-                    Rule.Value = xy;
-                    (sender as Button).Content = xy;
-                    (sender as Button).ToolTip = CurrentLink.Value;
-                    break;
+                    {
+                        // Open URL and store its rule
+                        var rule = new Uri(CurrentLink.Value);
+                        var xy = await MessageBoxHelper.ShowInputAsync(this, "Edit URL Rule", "Enter the URL Rule you want the selected browser to store", rule.Host);
+                        if (!string.IsNullOrEmpty(xy))
+                        {
+                            Rule.Value = xy;
+                            (sender as Button).Content = xy;
+                            (sender as Button).ToolTip = CurrentLink.Value;
+                        }
+                        break;
+                    }
                 default:
                     return;
             }
