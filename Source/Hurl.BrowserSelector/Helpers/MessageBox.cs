@@ -40,10 +40,8 @@ public static class MessageBoxHelper
         var textBox = new TextBox
         {
             MaxLines = 1,
-            MaxLength = 50,
             PlaceholderText = placeholder,
             Text = text,
-            TextWrapping = TextWrapping.Wrap,
             SelectionStart = text?.Length ?? 0,
             SelectionLength = 0
         };

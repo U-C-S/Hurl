@@ -92,42 +92,34 @@
                     FontSize="16"
                     Foreground="AliceBlue"
                     Text="" />
-                <wpfui:Button
-                    Margin="0,0,112,0"
-                    Padding="7,5"
+                <StackPanel
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
-                    Background="#40000000"
-                    Click="Button_Click">
-                    <wpfui:SymbolIcon Symbol="Clock24" />
-                </wpfui:Button>
-                <wpfui:Button
-                    Margin="0,0,76,0"
-                    Padding="7,5"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Background="#40000000"
-                    Click="LinkCopyBtnClick">
-                    <wpfui:SymbolIcon Symbol="Copy24" />
-                </wpfui:Button>
-                <wpfui:Button
-                    Margin="0,0,40,0"
-                    Padding="7,5"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Background="#40000000"
-                    Click="SettingsBtnClick">
-                    <wpfui:SymbolIcon Symbol="Settings24" />
-                </wpfui:Button>
-                <wpfui:Button
-                    Margin="0,0,4,0"
-                    Padding="7,5"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Background="#40000000"
-                    Click="CloseBtnClick">
-                    <wpfui:SymbolIcon Symbol="Subtract24" />
-                </wpfui:Button>
+                    Orientation="Horizontal">
+                    <wpfui:Button
+                        Margin="0,0,4,0"
+                        Padding="7,5"
+                        Background="#40000000"
+                        Icon="Add24" />
+                    <wpfui:Button
+                        Margin="0,0,4,0"
+                        Padding="7,5"
+                        Background="#40000000"
+                        Click="Button_Click"
+                        Icon="Clock24" />
+                    <wpfui:Button
+                        Margin="0,0,4,0"
+                        Padding="7,5"
+                        Background="#40000000"
+                        Click="SettingsBtnClick"
+                        Icon="Settings24" />
+                    <wpfui:Button
+                        Margin="0,0,4,0"
+                        Padding="7,5"
+                        Background="#40000000"
+                        Click="CloseBtnClick"
+                        Icon="Subtract24" />
+                </StackPanel>
             </Grid>
 
             <Grid Grid.Row="1">
@@ -140,19 +132,33 @@
                 </StackPanel>-->
             </Grid>
 
-            <wpfui:Button
-                x:Name="linkpreview"
+            <StackPanel
                 Grid.Row="2"
                 Margin="5"
-                Padding="10,5"
                 HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Background="{x:Null}"
-                BorderBrush="{x:Null}"
-                Click="linkpreview_Click"
-                FontFamily="Calibri"
-                FontSize="10"
-                Foreground="AliceBlue" />
+                Orientation="Horizontal">
+                <wpfui:Button
+                    x:Name="linkpreview"
+                    Padding="5"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Background="{x:Null}"
+                    BorderBrush="{x:Null}"
+                    Click="linkpreview_Click"
+                    Cursor="Hand"
+                    FontFamily="Calibri"
+                    FontSize="10"
+                    Foreground="AliceBlue" />
+                <wpfui:Button
+                    Padding="4"
+                    Background="{x:Null}"
+                    BorderBrush="{x:Null}"
+                    Click="LinkCopyBtnClick"
+                    Cursor="Hand"
+                    FontSize="14"
+                    Foreground="#11FFFFFF"
+                    Icon="Copy16" />
+            </StackPanel>
         </Grid>
     </Border>
 </wpfui:UiWindow>

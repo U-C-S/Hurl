@@ -1,52 +1,21 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-
-namespace Hurl.BrowserSelector.Globals
+﻿namespace Hurl.BrowserSelector.Globals
 {
     internal class Rule
     {
-        private static Rule _instance = null;
+        private static Rule _instance = new();
 
         private string _rule;
-
-        public string Rulee
-        {
-            get => _rule;
-            set
-            {
-                if (value != _rule)
-                {
-                    _rule = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
 
         public static string Value
         {
             get
             {
-                if (_instance == null)
-                {
-                    _instance = new Rule();
-                }
-                return _instance.Rulee;
+                return _instance._rule;
             }
             set
             {
-                if (_instance == null)
-                {
-                    _instance = new Rule();
-                }
-                _instance.Rulee = value;
+                _instance._rule = value;
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }
