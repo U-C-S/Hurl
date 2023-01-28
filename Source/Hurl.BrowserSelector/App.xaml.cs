@@ -1,6 +1,6 @@
 ﻿using Hurl.BrowserSelector.Globals;
 using Hurl.BrowserSelector.Helpers;
-using Hurl.BrowserSelector.Views;
+using Hurl.BrowserSelector.Windows;
 using SingleInstanceCore;
 using System.Windows;
 

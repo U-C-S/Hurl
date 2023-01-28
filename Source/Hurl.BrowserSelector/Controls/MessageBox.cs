@@ -6,18 +6,18 @@ using Wpf.Ui.Common;
 using MessageBox = Wpf.Ui.Controls.MessageBox;
 using TextBox = Wpf.Ui.Controls.TextBox;
 
-namespace Hurl.BrowserSelector.Helpers;
+namespace Hurl.BrowserSelector.Controls;
 
 /**
  * Source : https://github.com/BartoszCichecki/LenovoLegionToolkit/blob/2.8.1/LenovoLegionToolkit.WPF/Utils/MesageBoxHelper.cs
  */
 public static class MessageBoxHelper
 {
-    public static Task<string?> ShowInputAsync(
+    public static Task<string> ShowInputAsync(
         DependencyObject dependencyObject,
         string title,
-        string? placeholder = null,
-        string? text = null,
+        string placeholder = null,
+        string text = null,
         bool allowEmpty = false
     )
     {
@@ -27,15 +27,15 @@ public static class MessageBoxHelper
         return ShowInputAsync(window, title, placeholder, text, allowEmpty);
     }
 
-    public static Task<string?> ShowInputAsync(
+    public static Task<string> ShowInputAsync(
         Window window,
         string title,
-        string? placeholder = null,
-        string? text = null,
+        string placeholder = null,
+        string text = null,
         bool allowEmpty = false
     )
     {
-        var tcs = new TaskCompletionSource<string?>();
+        var tcs = new TaskCompletionSource<string>();
 
         var textBox = new TextBox
         {

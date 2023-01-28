@@ -1,7 +1,7 @@
-﻿using Hurl.BrowserSelector.Globals;
+﻿using Hurl.BrowserSelector.Controls;
+using Hurl.BrowserSelector.Globals;
 using Hurl.BrowserSelector.Helpers;
 using Hurl.Library;
-using Hurl.Library.Models;
 using System;
 using System.Diagnostics;
 using System.Windows;
@@ -11,7 +11,7 @@ using System.Windows.Media;
 using Wpf.Ui.Appearance;
 using Path = System.IO.Path;
 
-namespace Hurl.BrowserSelector.Views
+namespace Hurl.BrowserSelector.Windows
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -29,7 +29,7 @@ namespace Hurl.BrowserSelector.Views
         public MainWindow()
         {
             var settings = Globals.SettingsGlobal.Value;
-            
+
             InitializeComponent();
 
             var osbuild = Environment.OSVersion.Version.Build;

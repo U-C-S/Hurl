@@ -2,7 +2,7 @@
 using Hurl.Library.Models;
 using System.Collections.Generic;
 
-namespace Hurl.BrowserSelector.Views
+namespace Hurl.BrowserSelector.Windows
 {
     /// <summary>
     /// Interaction logic for TimeSelectWindow.xaml

@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Hurl.BrowserSelector.Views
+namespace Hurl.BrowserSelector.Controls
 {
     /// <summary>
     /// Interaction logic for BrowsersList.xaml
