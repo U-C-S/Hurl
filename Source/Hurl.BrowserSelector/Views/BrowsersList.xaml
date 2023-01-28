@@ -34,7 +34,7 @@
         </ContextMenu>
     </UserControl.Resources>
 
-    <ItemsControl ItemsSource="{Binding Browsers}">
+    <ItemsControl ItemsSource="{Binding}">
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
                 <WrapPanel

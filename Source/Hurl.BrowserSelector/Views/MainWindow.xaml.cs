@@ -1,6 +1,5 @@
-using Hurl.BrowserSelector.Globals;
+﻿using Hurl.BrowserSelector.Globals;
 using Hurl.BrowserSelector.Helpers;
-using Hurl.BrowserSelector.Views.ViewModels;
 using Hurl.Library;
 using Hurl.Library.Models;
 using System;
@@ -19,16 +18,18 @@ namespace Hurl.BrowserSelector.Views
     /// </summary>
     public partial class MainWindow : Wpf.Ui.Controls.UiWindow
     {
-        private Settings settings
-        {
-            get
-            {
-                return (DataContext as MainViewModel).settings;
-            }
-        }
+        //private Library.Models.Settings settings
+        //{
+        //    get
+        //    {
+        //        return (DataContext as MainViewModel).settings;
+        //    }
+        //}
 
-        public MainWindow(Settings settings)
+        public MainWindow()
         {
+            var settings = Globals.SettingsGlobal.Value;
+            
             InitializeComponent();
 
             var osbuild = Environment.OSVersion.Version.Build;
@@ -55,6 +56,8 @@ namespace Hurl.BrowserSelector.Views
 
         public void Init(CliArgs data)
         {
+            var settings = Globals.SettingsGlobal.Value;
+
             var x = AutoRulesCheck.CheckAllBrowserRules(data.Url, settings.Browsers);
             if (x) return;
 
@@ -124,6 +127,8 @@ namespace Hurl.BrowserSelector.Views
 
         private void TrayMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
+            var settings = Globals.SettingsGlobal.Value;
+
             string tag = (sender as MenuItem).Tag as string;
             try
             {
@@ -166,6 +171,8 @@ namespace Hurl.BrowserSelector.Views
 
         private void PositionWindowUnderTheMouse()
         {
+            var settings = Globals.SettingsGlobal.Value;
+
             if (settings.AppSettings != null && settings.AppSettings.LaunchUnderMouse)
             {
                 var transform = PresentationSource.FromVisual(this).CompositionTarget.TransformFromDevice;
@@ -177,24 +184,9 @@ namespace Hurl.BrowserSelector.Views
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e) => new TimeSelectWindow(settings.Browsers).ShowDialog();
+        private void Button_Click(object sender, RoutedEventArgs e) => new TimeSelectWindow(Globals.SettingsGlobal.Value.Browsers).ShowDialog();
 
-        private void UiWindow_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            if (e.PreviousSize.Width != 0)
-            {
-                if (settings.AppSettings != null)
-                {
-                    settings.AppSettings.WindowSize = new int[] { (int)e.NewSize.Width, (int)e.NewSize.Height };
-                }
-                else
-                {
-                    settings.AppSettings = new AppSettings() { WindowSize = new int[] { (int)e.NewSize.Width, (int)e.NewSize.Height } };
-                }
-
-                JsonOperations.FromModelToJson(settings, Constants.APP_SETTINGS_MAIN);
-            }
-        }
+        private void UiWindow_SizeChanged(object sender, SizeChangedEventArgs e) => Globals.SettingsGlobal.AdjustWindowSize(e);
 
         async private void linkpreview_Click(object sender, RoutedEventArgs e)
         {

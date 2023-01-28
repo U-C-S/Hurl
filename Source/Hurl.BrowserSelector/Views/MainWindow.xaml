@@ -123,7 +123,7 @@
             </Grid>
 
             <Grid Grid.Row="1">
-                <vs:BrowsersList DataContext="{Binding viewModel}" />
+                <vs:BrowsersList />
                 <!--<StackPanel
                         x:Name="stacky"
                         VerticalAlignment="Center"
