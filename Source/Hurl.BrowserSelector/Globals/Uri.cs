@@ -3,9 +3,9 @@ using System.Runtime.CompilerServices;
 
 namespace Hurl.BrowserSelector.Globals
 {
-    public sealed class CurrentLink : INotifyPropertyChanged
+    public sealed class UriGlobal : INotifyPropertyChanged
     {
-        private CurrentLink(string Url)
+        private UriGlobal(string Url)
         {
             this.Url = Url;
         }
@@ -24,7 +24,7 @@ namespace Hurl.BrowserSelector.Globals
             }
         }
 
-        private static CurrentLink _instance = null;
+        private static UriGlobal _instance = null;
 
         public static string Value
         {
@@ -32,7 +32,7 @@ namespace Hurl.BrowserSelector.Globals
             {
                 if (_instance == null)
                 {
-                    _instance = new CurrentLink(string.Empty);
+                    _instance = new UriGlobal(string.Empty);
                 }
                 return _instance.Url;
             }
@@ -40,7 +40,7 @@ namespace Hurl.BrowserSelector.Globals
             {
                 if (_instance == null)
                 {
-                    _instance = new CurrentLink(value);
+                    _instance = new UriGlobal(value);
                 }
                 _instance.Url = value;
             }

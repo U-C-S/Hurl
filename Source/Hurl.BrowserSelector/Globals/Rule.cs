@@ -1,8 +1,8 @@
 ﻿namespace Hurl.BrowserSelector.Globals
 {
-    internal class Rule
+    internal class RuleGlobal
     {
-        private static Rule _instance = new();
+        private static RuleGlobal _instance = new();
 
         private string _rule;
 

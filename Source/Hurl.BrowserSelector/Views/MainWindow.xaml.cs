@@ -92,7 +92,7 @@ namespace Hurl.BrowserSelector.Views
                 }
             }
 
-            linkpreview.Content = string.IsNullOrEmpty(CurrentLink.Value) ? "No Url Opened" : CurrentLink.Value;
+            linkpreview.Content = string.IsNullOrEmpty(UriGlobal.Value) ? "No Url Opened" : UriGlobal.Value;
         }
 
         private void Window_Esc(object sender, KeyEventArgs e)
@@ -107,7 +107,7 @@ namespace Hurl.BrowserSelector.Views
             //}
         }
 
-        private void LinkCopyBtnClick(object sender, RoutedEventArgs e) => Clipboard.SetText(CurrentLink.Value);
+        private void LinkCopyBtnClick(object sender, RoutedEventArgs e) => Clipboard.SetText(UriGlobal.Value);
         private void SettingsBtnClick(object sender, RoutedEventArgs e) => Process.Start("notepad.exe", Constants.APP_SETTINGS_MAIN);
         private void Draggable(object sender, MouseButtonEventArgs e) => this.DragMove();
         private void CloseBtnClick(object sender, RoutedEventArgs e) => MinimizeWindow();
@@ -197,10 +197,10 @@ namespace Hurl.BrowserSelector.Views
                 case 0:
                     {
                         // Open in default browser
-                        var x = await MessageBoxHelper.ShowInputAsync(this, "Edit URL", "Enter the URL you want to open", CurrentLink.Value);
+                        var x = await MessageBoxHelper.ShowInputAsync(this, "Edit URL", "Enter the URL you want to open", UriGlobal.Value);
                         if (!string.IsNullOrEmpty(x))
                         {
-                            CurrentLink.Value = x;
+                            UriGlobal.Value = x;
                             (sender as Button).Content = x;
                         }
                         break;
@@ -208,13 +208,13 @@ namespace Hurl.BrowserSelector.Views
                 case 1:
                     {
                         // Open URL and store its rule
-                        var rule = new Uri(CurrentLink.Value);
+                        var rule = new Uri(UriGlobal.Value);
                         var xy = await MessageBoxHelper.ShowInputAsync(this, "Edit URL Rule", "Enter the URL Rule you want the selected browser to store", rule.Host);
                         if (!string.IsNullOrEmpty(xy))
                         {
-                            Rule.Value = xy;
+                            RuleGlobal.Value = xy;
                             (sender as Button).Content = xy;
-                            (sender as Button).ToolTip = CurrentLink.Value;
+                            (sender as Button).ToolTip = UriGlobal.Value;
                         }
                         break;
                     }
@@ -222,7 +222,7 @@ namespace Hurl.BrowserSelector.Views
                     return;
             }
 
-            Debug.WriteLine("Link: " + CurrentLink.Value + " and Rule: " + Rule.Value);
+            Debug.WriteLine("Link: " + UriGlobal.Value + " and Rule: " + RuleGlobal.Value);
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

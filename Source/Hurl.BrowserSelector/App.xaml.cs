@@ -22,7 +22,7 @@ namespace Hurl.BrowserSelector
             {
                 var x = CliArgs.GatherInfo(e.Args, false);
 
-                CurrentLink.Value = x.Url;
+                UriGlobal.Value = x.Url;
                 //viewModel = new MainViewModel();
 
                 _mainWindow = new();
@@ -44,7 +44,7 @@ namespace Hurl.BrowserSelector
 
                 if (!IsTimedSet)
                 {
-                    CurrentLink.Value = x.Url;
+                    UriGlobal.Value = x.Url;
                     _mainWindow.Init(x);
                 }
 

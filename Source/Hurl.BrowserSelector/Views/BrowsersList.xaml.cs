@@ -51,7 +51,7 @@ namespace Hurl.BrowserSelector.Views
         public void OpenLink(Browser clickedbrowser)
         {
             var browser = clickedbrowser;
-            var Link = CurrentLink.Value;
+            var Link = UriGlobal.Value;
             //Process.Start(browser.ExePath, "https://github.com/u-c-s" + " " + browser.LaunchArgs);
 
             if (!string.IsNullOrEmpty(browser.LaunchArgs) && browser.LaunchArgs.Contains("%URL%"))
@@ -64,10 +64,10 @@ namespace Hurl.BrowserSelector.Views
                 Process.Start(browser.ExePath, Link + " " + browser.LaunchArgs);
             }
 
-            if (!string.IsNullOrEmpty(Rule.Value))
+            if (!string.IsNullOrEmpty(RuleGlobal.Value))
             {
                 // TODO
-                Debug.WriteLine("Rule: " + Rule.Value + " is store in the browser " + clickedbrowser.Name);
+                Debug.WriteLine("Rule: " + RuleGlobal.Value + " is store in the browser " + clickedbrowser.Name);
             }
         }
 
@@ -75,11 +75,11 @@ namespace Hurl.BrowserSelector.Views
         {
             if (alt.LaunchArgs.Contains("%URL%"))
             {
-                Process.Start(browser.ExePath, alt.LaunchArgs.Replace("%URL%", CurrentLink.Value));
+                Process.Start(browser.ExePath, alt.LaunchArgs.Replace("%URL%", UriGlobal.Value));
             }
             else
             {
-                Process.Start(browser.ExePath, CurrentLink.Value + " " + alt.LaunchArgs);
+                Process.Start(browser.ExePath, UriGlobal.Value + " " + alt.LaunchArgs);
             }
         }
     }
