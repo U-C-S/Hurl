@@ -7,19 +7,24 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="Hurl Settings"
-    Width="420"
-    Height="420"
+    Width="900"
     ExtendsContentIntoTitleBar="True"
+    SizeToContent="Height"
     WindowBackdropType="Mica"
     mc:Ignorable="d">
-    <StackPanel>
+    <Grid>
         <wpfui:TitleBar
+            Title="Hurl Settings"
             Grid.Row="0"
             CanMaximize="false"
             ShowMaximize="false"
             ShowMinimize="false"
             UseSnapLayout="false" />
-        <StackPanel Margin="10">
+
+        <StackPanel
+            Width="420"
+            Margin="10,50,10,10"
+            HorizontalAlignment="Left">
             <wpfui:CardControl Margin="0,0,0,8">
                 <wpfui:CardControl.Header>
                     Launch Under Mouse
@@ -57,5 +62,5 @@
                 <wpfui:Button Content="Edit" Icon="WindowNew24" />
             </wpfui:CardControl>
         </StackPanel>
-    </StackPanel>
+    </Grid>
 </wpfui:UiWindow>
