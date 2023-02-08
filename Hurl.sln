@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hurl.BrowserSelector", "Sou
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hurl.Settings", "Source\Hurl.Settings\Hurl.Settings.csproj", "{47E7F54D-B97D-454D-B1D1-5695BBEEC3DE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{30822343-5DFD-4B1A-AD87-14396AA8B995} = {30822343-5DFD-4B1A-AD87-14396AA8B995}
+		{3B8293BB-A929-44CD-BC07-EC718CB60823} = {3B8293BB-A929-44CD-BC07-EC718CB60823}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hurl.Library", "Source\Hurl.Library\Hurl.Library.csproj", "{30822343-5DFD-4B1A-AD87-14396AA8B995}"
 EndProject

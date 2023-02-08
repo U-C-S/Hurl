@@ -8,11 +8,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Pages\internet.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="WPF-UI" Version="2.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Hurl.Library\Hurl.Library.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Pages\internet.ico" />
   </ItemGroup>
 
 </Project>
