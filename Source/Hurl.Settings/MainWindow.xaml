@@ -63,14 +63,22 @@
                         <wpfui:CardControl.Header>
                             Automatic Opening Rules
                         </wpfui:CardControl.Header>
-                        <wpfui:Button Content="Edit" Icon="WindowNew24" />
+                        <wpfui:Button
+                            Click="Button_Click"
+                            Content="Edit"
+                            Icon="WindowNew24"
+                            Tag="{x:Type Pages:BrowsersEdit}" />
                     </wpfui:CardControl>
 
                     <wpfui:CardControl Margin="0,0,0,8">
                         <wpfui:CardControl.Header>
                             Browsers List
                         </wpfui:CardControl.Header>
-                        <wpfui:Button Content="Edit" Icon="WindowNew24" />
+                        <wpfui:Button
+                            Click="Button_Click"
+                            Content="Edit"
+                            Icon="WindowNew24"
+                            Tag="{x:Type Pages:BrowsersEdit}" />
                     </wpfui:CardControl>
                     <wpfui:CardControl>
                         <wpfui:CardControl.Header>
@@ -79,17 +87,19 @@
                         <wpfui:Button
                             Click="Button_Click"
                             Content="Edit"
-                            Icon="WindowNew24" />
+                            Icon="WindowNew24"
+                            Tag="{x:Type Pages:About}" />
                     </wpfui:CardControl>
                 </StackPanel>
             </Border>
 
             <Border
+                x:Name="ContentBox"
                 Grid.Row="1"
                 Grid.Column="2"
                 Background="#0FFFFFFF"
                 CornerRadius="4">
-                <Pages:BrowsersEdit />
+                <!--<Pages:BrowsersEdit />-->
             </Border>
         </Grid>
     </StackPanel>
