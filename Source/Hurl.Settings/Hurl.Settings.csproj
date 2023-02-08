@@ -11,4 +11,8 @@
     <PackageReference Include="WPF-UI" Version="2.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Hurl.Library\Hurl.Library.csproj" />
+  </ItemGroup>
+
 </Project>
