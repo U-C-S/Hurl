@@ -21,11 +21,12 @@
 
 ## Why and What?
 
-Sometimes you might want to open a link in a browser of your choice, instead of the default one. Hurl is used to let you choose the browser everytime you click a link (links outside of browser). So naturally, It acts as default browser to do that. And hurl can be powered up with a _browser extension_ to let you open a browser tab in another browser.
+Sometimes you might want to open a link in a browser of your choice, instead of the default one. Hurl can let you choose the browser eachtime you click a link (links outside of browser). So naturally, It acts as default browser to do that. And hurl can be powered up with a _browser extension_ to let you open a browser tab in different browser.
 
-- Modern and Native Windows UI
-- Supports adding your own browsers with Launch Arguments
-- Highly Customizable
+- Modern Windows UI with Multiple Customization Options
+- Supports adding own browser config with Launch Arguments
+- Rules to automatically open a browser without prompting (coming soon!)
+- Settings application to manage all the features (coming soon!)
 - Web Extension to open browser tabs in Hurl (experimental)
 
 <p align="center">
@@ -34,7 +35,7 @@ Sometimes you might want to open a link in a browser of your choice, instead of 
   <!--<img width="640" src="https://user-images.githubusercontent.com/50218121/157494232-a134a412-9dd7-4706-8be7-6e3800484082.png" />-->
 </p>
 
-> As a Web-Developer, Web-Surfer and someone who uses 4 browsers, Hurl is a bliss - Me probably
+> As a Web-Developer, Web-Surfer and someone who uses 3 browsers, Hurl is a bliss - Me probably
 
 ## Installation & Usage
 
@@ -58,9 +59,13 @@ Download Install the latest [.NET 6 Desktop Runtime](https://dotnet.microsoft.co
 
 or Simply use the Build Script from `Utils/build.ps1` to build the Application in release mode and successively build the installer.
 
+For checking out older versions source code, Check the [Tags](https://github.com/U-C-S/Hurl/tags).
+
 ### Using the Extension
 
-- Enable the Developer Mode for Extensions in Edge or Chrome
+This is a experimental feature. Is implemented as hacky way. Use at ur own risk!
+
+- Enable the Developer Mode for Extensions in Edge or Chrome (Not tested in Firefox)
 - Choose the folder `{installationDir}/Extensions/Chrome` after clicking `Load Unpacked` Button available after enabling Developer mode
 
 ## Contributing
