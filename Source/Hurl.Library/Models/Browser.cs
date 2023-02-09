@@ -14,23 +14,17 @@ namespace Hurl.Library.Models
             this.Name = Name;
             this.ExePath = ExePath;
         }
-
-        [JsonInclude]
         public string Name { get; set; }
 
-        [JsonInclude]
         public string ExePath { get; set; }
 
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string LaunchArgs { get; set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public bool Hidden { get; set; } = false;
 
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public AlternateLaunch[] AlternateLaunches { get; set; }
 
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string CustomIconPath { get; set; }
 
         [JsonIgnore]
@@ -69,7 +63,6 @@ namespace Hurl.Library.Models
         [JsonIgnore]
         public string Linkx { get; set; }
 
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string[] Rules { get; set; }
     }
 
@@ -83,10 +76,8 @@ namespace Hurl.Library.Models
             this.LaunchArgs = LaunchArgs;
         }
 
-        [JsonInclude]
         public string ItemName { get; set; }
 
-        [JsonInclude]
         public string LaunchArgs { get; set; }
     }
 }

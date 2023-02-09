@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Hurl.Library
 {
@@ -17,7 +18,7 @@ namespace Hurl.Library
             var x = JsonSerializer.Serialize(Obj, new JsonSerializerOptions
             {
                 WriteIndented = true,
-                IncludeFields = true
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
             });
 
             File.WriteAllText(pathToJSON, x);

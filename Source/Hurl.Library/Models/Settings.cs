@@ -6,16 +6,12 @@ namespace Hurl.Library.Models
 {
     public class Settings
     {
-        [JsonInclude]
         public string Version = Constants.VERSION;
 
-        [JsonInclude]
         public string LastUpdated { get; set; } = DateTime.Now.ToString();
 
-        [JsonInclude]
-        public List<Browser> Browsers;
+        public List<Browser> Browsers { get; set; }
 
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public AppSettings AppSettings { get; set; }
     }
 }
