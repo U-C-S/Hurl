@@ -1,4 +1,4 @@
-﻿using Hurl.BrowserSelector.Controls;
+using Hurl.BrowserSelector.Controls;
 using Hurl.BrowserSelector.Globals;
 using Hurl.BrowserSelector.Helpers;
 using Hurl.Library;
@@ -190,36 +190,12 @@ namespace Hurl.BrowserSelector.Windows
 
         async private void linkpreview_Click(object sender, RoutedEventArgs e)
         {
-            var i = ChooseType.SelectedIndex;
-
-            switch (i)
+            var NewUrl = await URLEditor.ShowInputAsync(this, UriGlobal.Value);
+            if (!string.IsNullOrEmpty(NewUrl))
             {
-                case 0:
-                    {
-                        // Open in default browser
-                        var x = await MessageBoxHelper.ShowInputAsync(this, "Edit URL", "Enter the URL you want to open", UriGlobal.Value);
-                        if (!string.IsNullOrEmpty(x))
-                        {
-                            UriGlobal.Value = x;
-                            (sender as Button).Content = x;
-                        }
-                        break;
-                    }
-                case 1:
-                    {
-                        // Open URL and store its rule
-                        var rule = new Uri(UriGlobal.Value);
-                        var xy = await MessageBoxHelper.ShowInputAsync(this, "Edit URL Rule", "Enter the URL Rule you want the selected browser to store", rule.Host);
-                        if (!string.IsNullOrEmpty(xy))
-                        {
-                            RuleGlobal.Value = xy;
-                            (sender as Button).Content = xy;
-                            (sender as Button).ToolTip = UriGlobal.Value;
-                        }
-                        break;
-                    }
-                default:
-                    return;
+                UriGlobal.Value = NewUrl;
+                (sender as Button).Content = NewUrl;
+                (sender as Button).ToolTip = NewUrl;
             }
 
             Debug.WriteLine("Link: " + UriGlobal.Value + " and Rule: " + RuleGlobal.Value);
