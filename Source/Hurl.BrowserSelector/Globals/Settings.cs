@@ -24,9 +24,18 @@ namespace Hurl.BrowserSelector.Globals
             }
         }
 
-        public static void AddBrowserRule(string rule, int browserIndex)
+        public static void AddBrowserRule(string rule, Browser browser)
         {
-            Value.Browsers[browserIndex].Rules.Append(rule);
+            //use linq to find the browser in the browser list
+            var x = Value.Browsers.FindIndex(b => b.Name == browser.Name);
+            if (Value.Browsers[x].Rules == null)
+            {
+                Value.Browsers[x].Rules = new string[] { rule };
+            }
+            else
+            {
+                Value.Browsers[x].Rules.Append(rule);
+            }
 
             Save();
         }
@@ -44,9 +53,9 @@ namespace Hurl.BrowserSelector.Globals
                     Value.AppSettings = new AppSettings() { WindowSize = new int[] { (int)e.NewSize.Width, (int)e.NewSize.Height } };
                 }
 
+                Save();
             }
 
-            Save();
         }
 
         public static List<Browser> GetBrowsers()

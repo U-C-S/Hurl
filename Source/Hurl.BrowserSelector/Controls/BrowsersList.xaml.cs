@@ -64,10 +64,12 @@ namespace Hurl.BrowserSelector.Controls
                 Process.Start(browser.ExePath, Link + " " + browser.LaunchArgs);
             }
 
-            if (!string.IsNullOrEmpty(RuleGlobal.Value))
+            if (UriGlobal.UrlOpenType == 1)
             {
                 // TODO
-                Debug.WriteLine("Rule: " + RuleGlobal.Value + " is store in the browser " + clickedbrowser.Name);
+                //Debug.WriteLine("Rule: " + RuleGlobal.Value + " is store in the browser " + clickedbrowser.Name);
+                SettingsGlobal.AddBrowserRule(UriGlobal.Value, browser);
+                UriGlobal.UrlOpenType = 0;
             }
         }
 

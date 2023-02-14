@@ -1,5 +1,4 @@
-using Hurl.BrowserSelector.Controls;
-using Hurl.BrowserSelector.Globals;
+﻿using Hurl.BrowserSelector.Globals;
 using Hurl.BrowserSelector.Helpers;
 using Hurl.Library;
 using System;
@@ -56,7 +55,7 @@ namespace Hurl.BrowserSelector.Windows
 
         public void Init(CliArgs data)
         {
-            var settings = Globals.SettingsGlobal.Value;
+            var settings = SettingsGlobal.Value;
 
             var x = AutoRulesCheck.CheckAllBrowserRules(data.Url, settings.Browsers);
             if (x) return;
@@ -197,14 +196,12 @@ namespace Hurl.BrowserSelector.Windows
                 (sender as Button).Content = NewUrl;
                 (sender as Button).ToolTip = NewUrl;
             }
-
-            Debug.WriteLine("Link: " + UriGlobal.Value + " and Rule: " + RuleGlobal.Value);
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // TODO
-
+            UriGlobal.UrlOpenType = (sender as ComboBox).SelectedIndex;
             Debug.WriteLine("Selected: " + (sender as ComboBox).SelectedValue);
         }
     }

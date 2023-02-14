@@ -1,9 +1,9 @@
 ﻿using DotNet.Globbing;
 using Hurl.Library.Models;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Hurl.BrowserSelector.Helpers
 {
@@ -11,22 +11,37 @@ namespace Hurl.BrowserSelector.Helpers
     {
         static bool Check(string link, string[] rules)
         {
-            if (link.StartsWith("http"))
-            {
-                int index = link.IndexOf("://");
-                if (index != -1)
-                {
-                    link = link.Substring(index + 3);
-                }
-            }
+            //if (link.StartsWith("http"))
+            //{
+            //    int index = link.IndexOf("://");
+            //    if (index != -1)
+            //    {
+            //        link = link.Substring(index + 3);
+            //    }
+            //}
 
             //var uri = new Uri(link);
             //link = uri.Host;
-
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             var value = rules.FirstOrDefault(rule =>
             {
-                return Glob.Parse(rule).IsMatch(link);
+                if (rule.StartsWith("r$")) //regex mode
+                {
+                    var r = new Regex(rule.Substring(2));
+                    return r.IsMatch(link);
+                }
+                else if (rule.StartsWith("g$")) //glob mode
+                {
+                    return Glob.Parse(rule.Substring(2)).IsMatch(link);
+                }
+                else
+                {
+                    return link.Equals(rule);
+                }
             }, null);
+            sw.Stop();
+            Debug.WriteLine(sw.Elapsed.TotalSeconds);
             return value != null;
         }
 
