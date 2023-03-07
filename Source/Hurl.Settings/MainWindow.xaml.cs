@@ -14,6 +14,7 @@ namespace Hurl.Settings
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = Globals.SettingsGlobal.Value.AppSettings;
         }
 
         public Dictionary<object, object> Pages = new();

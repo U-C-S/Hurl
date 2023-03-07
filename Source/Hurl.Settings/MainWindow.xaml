@@ -40,13 +40,13 @@
                         <wpfui:CardControl.Header>
                             Launch Under Mouse
                         </wpfui:CardControl.Header>
-                        <wpfui:ToggleSwitch />
+                        <wpfui:ToggleSwitch IsChecked="{Binding Path=(LaunchUnderMouse)}" />
                     </wpfui:CardControl>
                     <wpfui:CardControl Margin="0,0,0,8">
                         <wpfui:CardControl.Header>
                             Use White Border
                         </wpfui:CardControl.Header>
-                        <wpfui:ToggleSwitch />
+                        <wpfui:ToggleSwitch IsChecked="{Binding Path=(NoWhiteBorder)}" />
                     </wpfui:CardControl>
                     <wpfui:CardControl Margin="0,0,0,24">
                         <wpfui:CardControl.Header>
