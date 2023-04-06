@@ -15,7 +15,7 @@ namespace Hurl.BrowserSelector.Windows
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Wpf.Ui.Controls.UiWindow
+    public partial class MainWindow
     {
         //private Library.Models.Settings settings
         //{
@@ -39,17 +39,17 @@ namespace Hurl.BrowserSelector.Windows
 
             if (backtype == "acrylic" && osbuild >= 22523)
             {
-                WindowBackdropType = BackgroundType.Acrylic;
+                WindowBackdropType = Wpf.Ui.Controls.Window.WindowBackdropType.Acrylic;
             }
             else if (backtype == "none" || osbuild < 22000)
             {
-                WindowBackdropType = BackgroundType.None;
+                WindowBackdropType = Wpf.Ui.Controls.Window.WindowBackdropType.None;
                 var brush = Color.FromRgb(150, 50, 50);
                 Background = new SolidColorBrush(brush);
             }
             else
             {
-                WindowBackdropType = BackgroundType.Mica;
+                WindowBackdropType = Wpf.Ui.Controls.Window.WindowBackdropType.Mica;
             }
         }
 
