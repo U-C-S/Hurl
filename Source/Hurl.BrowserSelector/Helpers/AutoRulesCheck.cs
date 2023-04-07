@@ -59,31 +59,29 @@ namespace Hurl.BrowserSelector.Helpers
             return value != null;
         }
 
-        /*
-        public static bool CheckAndRun(string link, string[] rules)
-        {
-            var linkPattern = Check(link, rules);
-            if (linkPattern != null)
-            {
-                Process.Start(linkPattern.Browser.ExePath, link);
-                return true;
-            }
-            return false;
-        }
-        */
-
         public static bool Start(string link)
         {
             var settings = SettingsGlobal.Value;
 
             foreach (var rules in settings.AutoRoutingRules)
             {
-                var x = settings.Browsers.Find(x => x.Name == rules.BrowserName);
-
-                if (Check(link, rules.Rules))
+                var isHurl = rules.BrowserName == "_Hurl";
+                if (isHurl && Check(link, rules.Rules))
                 {
-                    Process.Start(x.ExePath, link);
-                    return true;
+                    return false;
+                }
+                else
+                {
+                    var x = settings.Browsers.Find(x => x.Name == rules.BrowserName);
+                    if (x != null)
+                    {
+                        if (Check(link, rules.Rules))
+                        {
+                            Process.Start(x.ExePath, link);
+
+                            return true;
+                        }
+                    }
                 }
             }
 
