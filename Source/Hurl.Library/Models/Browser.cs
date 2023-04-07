@@ -54,14 +54,9 @@ namespace Hurl.Library.Models
         {
             get
             {
-                if (AlternateLaunches == null || AlternateLaunches.Length == 0)
-                    return Visibility.Hidden;
-                else return Visibility.Visible;
+                return AlternateLaunches == null || AlternateLaunches.Length == 0 ? Visibility.Hidden : Visibility.Visible;
             }
         }
-
-        [JsonIgnore]
-        public string Linkx { get; set; }
 
         public string[] Rules { get; set; }
     }

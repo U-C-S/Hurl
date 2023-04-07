@@ -7,7 +7,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using Wpf.Ui.Appearance;
 using Path = System.IO.Path;
 
 namespace Hurl.BrowserSelector.Windows

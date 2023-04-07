@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.Json.Serialization;
-
-namespace Hurl.Library.Models
+﻿namespace Hurl.Library.Models
 {
     public class AppSettings
     {
@@ -15,9 +11,5 @@ namespace Hurl.Library.Models
         public int[] WindowSize { get; set; } = new int[] { 420, 210 };
     }
 
-    public class LinkPattern
-    {
-        public string Pattern { get; set; }
-        public Browser Browser { get; set; }
-    }
+    // TODO : Maybe add support for predefined
 }

@@ -7,9 +7,9 @@ using System.Text.RegularExpressions;
 
 namespace Hurl.BrowserSelector.Helpers
 {
-    class AutoRulesCheck
+    internal class AutoRulesCheck
     {
-        static bool Check(string link, string[] rules)
+        private static bool Check(string link, string[] rules)
         {
             //if (link.StartsWith("http"))
             //{
@@ -22,16 +22,20 @@ namespace Hurl.BrowserSelector.Helpers
 
             //var uri = new Uri(link);
             //link = uri.Host;
-            Stopwatch sw = new Stopwatch();
+            Stopwatch sw = new();
             sw.Start();
             var value = rules.FirstOrDefault(rule =>
             {
-                if (rule.StartsWith("r$")) //regex mode
+                // regex mode
+                // ex: "r$.*\\.google\\.com"
+                if (rule.StartsWith("r$"))
                 {
                     var r = new Regex(rule.Substring(2));
                     return r.IsMatch(link);
                 }
-                else if (rule.StartsWith("g$")) //glob mode
+                // glob mode
+                // ex: "g$*.google.com"
+                else if (rule.StartsWith("g$"))
                 {
                     var globpattern = rule.Substring(2);
                     if (link.StartsWith("http"))

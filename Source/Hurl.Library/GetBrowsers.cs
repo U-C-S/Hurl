@@ -34,7 +34,7 @@ namespace Hurl.Library
 
                     if (Name != null & ExePath != null)
                     {
-                        Browser b = new Browser(Name, ExePath);
+                        Browser b = new(Name, ExePath);
                         browsers.Add(b);
                     }
                 }

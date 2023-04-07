@@ -24,9 +24,7 @@ namespace Hurl.Library
 
                 PrivateExtractIcons(filename, 0, 128, 128, phicon, piconid, 1, 0);
 
-                if (phicon[0] != IntPtr.Zero)
-                    return Icon.FromHandle(phicon[0]);
-                return null;
+                return phicon[0] != IntPtr.Zero ? Icon.FromHandle(phicon[0]) : null;
             }
             catch (Exception ex)
             {
@@ -56,11 +54,7 @@ namespace Hurl.Library
                     Int32Rect.Empty,
                     BitmapSizeOptions.FromEmptyOptions());
 
-                if (!DeleteObject(hBitmap))
-                {
-                    throw new Win32Exception();
-                }
-                return wpfBitmap;
+                return !DeleteObject(hBitmap) ? throw new Win32Exception() : wpfBitmap;
             }
             catch (Exception ex)
             {

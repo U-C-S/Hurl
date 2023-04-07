@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text.Json.Serialization;
 
 namespace Hurl.Library.Models
 {
