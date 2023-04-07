@@ -56,7 +56,7 @@ namespace Hurl.BrowserSelector.Windows
         {
             var settings = SettingsGlobal.Value;
 
-            var x = AutoRulesCheck.CheckAllBrowserRules(data.Url, settings.Browsers);
+            var x = AutoRulesCheck.Start(data.Url);
             if (x) return;
 
             if (data.IsRunAsMin)

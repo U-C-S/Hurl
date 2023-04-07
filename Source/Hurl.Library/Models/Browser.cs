@@ -58,7 +58,7 @@ namespace Hurl.Library.Models
             }
         }
 
-        public string[] Rules { get; set; }
+        // public string[] Rules { get; set; }
     }
 
     public class AlternateLaunch

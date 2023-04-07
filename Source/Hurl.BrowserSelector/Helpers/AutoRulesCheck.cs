@@ -1,5 +1,5 @@
 ﻿using DotNet.Globbing;
-using Hurl.Library.Models;
+using Hurl.BrowserSelector.Globals;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -9,7 +9,7 @@ namespace Hurl.BrowserSelector.Helpers
 {
     internal class AutoRulesCheck
     {
-        private static bool Check(string link, string[] rules)
+        private static bool Check(string link, List<string> rules)
         {
             //if (link.StartsWith("http"))
             //{
@@ -72,17 +72,18 @@ namespace Hurl.BrowserSelector.Helpers
         }
         */
 
-        public static bool CheckAllBrowserRules(string link, IEnumerable<Browser> browsers)
+        public static bool Start(string link)
         {
-            foreach (var browser in browsers)
+            var settings = SettingsGlobal.Value;
+
+            foreach (var rules in settings.AutoRoutingRules)
             {
-                if (browser.Rules != null)
+                var x = settings.Browsers.Find(x => x.Name == rules.BrowserName);
+
+                if (Check(link, rules.Rules))
                 {
-                    if (Check(link, browser.Rules))
-                    {
-                        Process.Start(browser.ExePath, link);
-                        return true;
-                    }
+                    Process.Start(x.ExePath, link);
+                    return true;
                 }
             }
 

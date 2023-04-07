@@ -27,15 +27,15 @@ namespace Hurl.BrowserSelector.Globals
         public static void AddBrowserRule(string rule, Browser browser)
         {
             //use linq to find the browser in the browser list
-            var x = Value.Browsers.FindIndex(b => b.Name == browser.Name);
-            if (Value.Browsers[x].Rules == null)
-            {
-                Value.Browsers[x].Rules = new string[] { rule };
-            }
-            else
-            {
-                Value.Browsers[x].Rules.Append(rule);
-            }
+            //var x = Value.Browsers.FindIndex(b => b.Name == browser.Name);
+            //if (Value.Browsers[x].Rules == null)
+            //{
+            //    Value.Browsers[x].Rules = new string[] { rule };
+            //}
+            //else
+            //{
+            //    Value.Browsers[x].Rules.Append(rule);
+            //}
 
             Save();
         }
