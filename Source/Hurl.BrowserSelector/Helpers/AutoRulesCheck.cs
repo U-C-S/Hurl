@@ -33,7 +33,17 @@ namespace Hurl.BrowserSelector.Helpers
                 }
                 else if (rule.StartsWith("g$")) //glob mode
                 {
-                    return Glob.Parse(rule.Substring(2)).IsMatch(link);
+                    var globpattern = rule.Substring(2);
+                    if (link.StartsWith("http"))
+                    {
+                        int index = link.IndexOf("://");
+                        if (index != -1)
+                        {
+                            link = link.Substring(index + 3);
+                        }
+                    }
+                    var x = Glob.Parse(globpattern).IsMatch(link);
+                    return x;
                 }
                 else
                 {
