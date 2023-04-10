@@ -194,5 +194,10 @@ namespace Hurl.BrowserSelector.Windows
                 (sender as Button).ToolTip = NewUrl;
             }
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            new QuickRuleAddWindow().ShowDialog();
+        }
     }
 }
