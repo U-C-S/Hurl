@@ -73,26 +73,13 @@
                 Height="36"
                 Margin="2"
                 MouseLeftButtonDown="Draggable">
-                <ComboBox
-                    x:Name="ChooseType"
-                    Width="200"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Background="#40000000"
-                    Foreground="AliceBlue"
-                    SelectedIndex="0"
-                    SelectionChanged="ComboBox_SelectionChanged">
-                    <ComboBoxItem ToolTip="Opens the URL in the selected browser">Normal Select</ComboBoxItem>
-                    <ComboBoxItem ToolTip="Automatically open selected browser in future for this URL">Always for this URL</ComboBoxItem>
-                    <ComboBoxItem>Always for this Host</ComboBoxItem>
-                </ComboBox>
                 <TextBlock
-                    Padding="0"
+                    Padding="10,0"
                     VerticalAlignment="Center"
                     Panel.ZIndex="-1"
                     FontSize="16"
                     Foreground="AliceBlue"
-                    Text="" />
+                    Text="Select a Browser" />
                 <StackPanel
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"

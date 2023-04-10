@@ -85,8 +85,6 @@ namespace Hurl.BrowserSelector.Windows
                 if (data.IsSecondInstance)
                 {
                     this.WindowState = WindowState.Normal;
-
-                    ChooseType.SelectedIndex = 0;
                 }
             }
 
@@ -195,13 +193,6 @@ namespace Hurl.BrowserSelector.Windows
                 (sender as Button).Content = NewUrl;
                 (sender as Button).ToolTip = NewUrl;
             }
-        }
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // TODO
-            UriGlobal.UrlOpenType = (sender as ComboBox).SelectedIndex;
-            Debug.WriteLine("Selected: " + (sender as ComboBox).SelectedValue);
         }
     }
 }
