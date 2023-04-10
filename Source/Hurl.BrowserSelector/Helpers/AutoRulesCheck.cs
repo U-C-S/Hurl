@@ -27,15 +27,16 @@ namespace Hurl.BrowserSelector.Helpers
                 else if (rule.StartsWith("g$"))
                 {
                     var globpattern = rule.Substring(2);
-                    if (link.StartsWith("http")) // temp workaround for glob not working with https://
+                    string newLink = link;
+                    if (newLink.StartsWith("http")) // temp workaround for glob not working with https://
                     {
-                        int index = link.IndexOf("://");
+                        int index = newLink.IndexOf("://");
                         if (index != -1)
                         {
-                            link = link.Substring(index + 3);
+                            newLink = newLink.Substring(index + 3);
                         }
                     }
-                    var x = Glob.Parse(globpattern).IsMatch(link);
+                    var x = Glob.Parse(globpattern).IsMatch(newLink);
                     return x;
                 }
                 else
