@@ -56,7 +56,7 @@
                         <ComboBox
                             x:Name="TargetBrowser"
                             Width="150"
-                            ItemsSource="{Binding BrowserTargets}" />
+                            ItemsSource="{Binding}" />
                     </StackPanel>
                 </StackPanel>
             </wpfui:Card>
@@ -83,6 +83,7 @@
                     Content="Cancel"
                     FontSize="20" />
                 <wpfui:Button
+                    Click="Button_Click"
                     Width="100"
                     Appearance="Success"
                     Content="Add"

@@ -1,16 +1,7 @@
-﻿using System;
+﻿using Hurl.BrowserSelector.Globals;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Hurl.BrowserSelector.Windows
 {
@@ -22,6 +13,18 @@ namespace Hurl.BrowserSelector.Windows
         public QuickRuleAddWindow()
         {
             InitializeComponent();
+
+            var x = SettingsGlobal.GetBrowserNameList();
+            x.Add("_Hurl");
+            DataContext = x;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var rules = new List<string>();
+            rules.Add(RuleInput.Text);
+
+            SettingsGlobal.AddBrowserRule(rules, TargetBrowser.SelectedValue.ToString());
         }
     }
 }

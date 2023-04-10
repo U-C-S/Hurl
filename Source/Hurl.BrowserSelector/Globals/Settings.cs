@@ -1,7 +1,6 @@
 ﻿using Hurl.Library;
 using Hurl.Library.Models;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 
 namespace Hurl.BrowserSelector.Globals
@@ -24,18 +23,9 @@ namespace Hurl.BrowserSelector.Globals
             }
         }
 
-        public static void AddBrowserRule(string rule, Browser browser)
+        public static void AddBrowserRule(List<string> rules, string name)
         {
-            //use linq to find the browser in the browser list
-            //var x = Value.Browsers.FindIndex(b => b.Name == browser.Name);
-            //if (Value.Browsers[x].Rules == null)
-            //{
-            //    Value.Browsers[x].Rules = new string[] { rule };
-            //}
-            //else
-            //{
-            //    Value.Browsers[x].Rules.Append(rule);
-            //}
+            Value.AutoRoutingRules.Add(new AutoRoutingRules() { Rules = rules, BrowserName = name });
 
             Save();
         }
@@ -61,6 +51,11 @@ namespace Hurl.BrowserSelector.Globals
         public static List<Browser> GetBrowsers()
         {
             return Library.GetBrowsers.FromSettingsFile(Value, false);
+        }
+
+        public static List<string> GetBrowserNameList()
+        {
+            return Value.Browsers.ConvertAll(x => x.Name);
         }
 
         private static void Save()
