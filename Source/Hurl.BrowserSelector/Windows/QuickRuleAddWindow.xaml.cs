@@ -1,7 +1,6 @@
 ﻿using Hurl.BrowserSelector.Globals;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Documents;
 
 namespace Hurl.BrowserSelector.Windows
 {
@@ -21,8 +20,20 @@ namespace Hurl.BrowserSelector.Windows
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var rules = new List<string>();
-            rules.Add(RuleInput.Text);
+            var rules = new List<string> { RuleInput.Text };
+            var ruleMode = RuleModeInput.SelectedValue.ToString();
+
+            switch (ruleMode)
+            {
+                case "System.Windows.Controls.ComboBoxItem: Regex":
+                    rules[0] = "r$" + rules[0];
+                    break;
+                case "System.Windows.Controls.ComboBoxItem: Glob":
+                    rules[0] = "g$" + rules[0];
+                    break;
+                default:
+                    break;
+            }
 
             SettingsGlobal.AddBrowserRule(rules, TargetBrowser.SelectedValue.ToString());
         }
