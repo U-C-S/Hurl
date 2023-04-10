@@ -11,21 +11,10 @@ namespace Hurl.BrowserSelector.Helpers
     {
         private static bool Check(string link, List<string> rules)
         {
-            //if (link.StartsWith("http"))
-            //{
-            //    int index = link.IndexOf("://");
-            //    if (index != -1)
-            //    {
-            //        link = link.Substring(index + 3);
-            //    }
-            //}
-
-            //var uri = new Uri(link);
-            //link = uri.Host;
-            Stopwatch sw = new();
-            sw.Start();
             var value = rules.FirstOrDefault(rule =>
             {
+                // TODO: decide what to do with https:// at the beginning of the link
+
                 // regex mode
                 // ex: "r$.*\\.google\\.com"
                 if (rule.StartsWith("r$"))
@@ -38,7 +27,7 @@ namespace Hurl.BrowserSelector.Helpers
                 else if (rule.StartsWith("g$"))
                 {
                     var globpattern = rule.Substring(2);
-                    if (link.StartsWith("http"))
+                    if (link.StartsWith("http")) // temp workaround for glob not working with https://
                     {
                         int index = link.IndexOf("://");
                         if (index != -1)
@@ -54,14 +43,16 @@ namespace Hurl.BrowserSelector.Helpers
                     return link.Equals(rule);
                 }
             }, null);
-            sw.Stop();
-            Debug.WriteLine(sw.Elapsed.TotalSeconds);
+
             return value != null;
         }
 
         public static bool Start(string link)
         {
             var settings = SettingsGlobal.Value;
+
+            Stopwatch sw = new();
+            sw.Start();
 
             foreach (var rules in settings.AutoRoutingRules)
             {
@@ -84,6 +75,9 @@ namespace Hurl.BrowserSelector.Helpers
                     }
                 }
             }
+
+            sw.Stop();
+            Debug.WriteLine(sw.Elapsed.TotalSeconds);
 
             return false;
         }

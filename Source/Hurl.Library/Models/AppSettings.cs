@@ -10,6 +10,4 @@
 
         public int[] WindowSize { get; set; } = new int[] { 420, 210 };
     }
-
-    // TODO : Maybe add support for predefined
 }
