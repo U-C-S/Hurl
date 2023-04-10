@@ -1,6 +1,7 @@
-﻿using Hurl.BrowserSelector.Globals;
+using Hurl.BrowserSelector.Globals;
 using Hurl.BrowserSelector.Helpers;
 using Hurl.Library;
+using Hurl.Library.Models;
 using System;
 using System.Diagnostics;
 using System.Windows;
@@ -91,16 +92,38 @@ namespace Hurl.BrowserSelector.Windows
             linkpreview.Content = string.IsNullOrEmpty(UriGlobal.Value) ? "No Url Opened" : UriGlobal.Value;
         }
 
-        private void Window_Esc(object sender, KeyEventArgs e)
+        async private void Window_KeyEvents(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Escape)
+            switch (e.Key)
             {
-                MinimizeWindow();
+                case Key.Escape:
+                    MinimizeWindow();
+                    break;
+                case Key.E:
+                    {
+                        var NewUrl = await URLEditor.ShowInputAsync(this, UriGlobal.Value);
+                        if (!string.IsNullOrEmpty(NewUrl))
+                        {
+                            UriGlobal.Value = NewUrl;
+                            linkpreview.Content = NewUrl;
+                            linkpreview.ToolTip = NewUrl;
+                        }
+
+                        break;
+                    }
+                case Key.C:
+                    Clipboard.SetText(UriGlobal.Value);
+                    break;
+                case Key.R:
+                    new QuickRuleAddWindow().ShowDialog();
+                    break;
+                case Key.T:
+                    new TimeSelectWindow(SettingsGlobal.Value.Browsers).ShowDialog();
+                    break;
+                default:
+                    break;
             }
-            //var keyInt = (int)e.Key;
-            //if(keyInt >= 35 && keyInt <= 43)
-            //{
-            //}
+
         }
 
         private void LinkCopyBtnClick(object sender, RoutedEventArgs e) => Clipboard.SetText(UriGlobal.Value);
