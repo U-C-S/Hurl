@@ -65,7 +65,7 @@ public static class URLEditor
         {
             tcs.TrySetResult(null);
         };
-        messageBox.Show();
+        messageBox.ShowDialog();
 
         FocusManager.SetFocusedElement(window, textBox);
 

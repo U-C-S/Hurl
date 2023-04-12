@@ -1,7 +1,6 @@
-using Hurl.BrowserSelector.Globals;
+﻿using Hurl.BrowserSelector.Globals;
 using Hurl.BrowserSelector.Helpers;
 using Hurl.Library;
-using Hurl.Library.Models;
 using System;
 using System.Diagnostics;
 using System.Windows;
@@ -17,13 +16,7 @@ namespace Hurl.BrowserSelector.Windows
     /// </summary>
     public partial class MainWindow
     {
-        //private Library.Models.Settings settings
-        //{
-        //    get
-        //    {
-        //        return (DataContext as MainViewModel).settings;
-        //    }
-        //}
+        private bool forcePreventWindowDeactivationEvent = false;
 
         public MainWindow()
         {
@@ -181,10 +174,10 @@ namespace Hurl.BrowserSelector.Windows
 
         private void Window_Deactivated(object sender, EventArgs e)
         {
+            if (!forcePreventWindowDeactivationEvent) MinimizeWindow();
 #if DEBUG
             // No minimize on debug when not in focus
 #else
-            MinimizeWindow();
 #endif
         }
 
@@ -209,6 +202,8 @@ namespace Hurl.BrowserSelector.Windows
 
         async private void linkpreview_Click(object sender, RoutedEventArgs e)
         {
+            forcePreventWindowDeactivationEvent = true;
+
             var NewUrl = await URLEditor.ShowInputAsync(this, UriGlobal.Value);
             if (!string.IsNullOrEmpty(NewUrl))
             {
@@ -216,6 +211,8 @@ namespace Hurl.BrowserSelector.Windows
                 (sender as Button).Content = NewUrl;
                 (sender as Button).ToolTip = NewUrl;
             }
+
+            forcePreventWindowDeactivationEvent = false;
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
