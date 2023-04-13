@@ -4,6 +4,7 @@ using Hurl.Library.Models;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Hurl.BrowserSelector.Controls
 {
@@ -16,6 +17,28 @@ namespace Hurl.BrowserSelector.Controls
         {
             DataContext = Globals.SettingsGlobal.GetBrowsers();
             InitializeComponent();
+            Loaded += (s, e) =>
+            {
+                var parent = Window.GetWindow(this);
+                parent.PreviewKeyUp += OnPreviewKeyUp;
+            };
+            Unloaded += (s, e) =>
+            {
+                var parent = Window.GetWindow(this);
+                parent.PreviewKeyUp -= OnPreviewKeyUp;
+            };
+        }
+
+        private void OnPreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            var val = ((int)e.Key) - ((int)Key.D1);
+
+            if (val >= 0 && val <= 9 && SettingsGlobal.Value.Browsers.Count >= val + 1)
+            {
+                OpenLink(SettingsGlobal.Value.Browsers[val]);
+            }
+
+            //if (Keyboard.Modifiers.HasFlag(ModifierKeys.Control)) { }
         }
 
         private void BtnArea_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
