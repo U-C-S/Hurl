@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/U-C-S/Hurl/main/Utils/UserSettings.schema.json",
+  "title": "Hurl UserSettings Schema",
+  "type": "object",
+  "properties": {
+    "LastUpdated": {
+      "type": "string"
+    },
+    "Browsers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string"
+          },
+          "ExePath": {
+            "type": "string"
+          },
+          "CustomIconPath": {
+            "type": "string"
+          },
+          "LaunchArgs": {
+            "type": "string"
+          },
+          "Hidden": {
+            "type": "boolean"
+          },
+          "AlternateLaunches": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "ItemName": {
+                  "type": "string"
+                },
+                "LaunchArgs": {
+                  "type": "string"
+                }
+              },
+              "required": ["ItemName", "LaunchArgs"]
+            }
+          }
+        },
+        "required": ["Name", "ExePath"]
+      }
+    },
+    "AppSettings": {
+      "type": "object",
+      "properties": {
+        "LaunchUnderMouse": {
+          "type": "boolean"
+        },
+        "NoWhiteBorder": {
+          "type": "boolean"
+        },
+        "BackgroundType": {
+          "type": "string"
+        },
+        "WindowSize": {
+          "type": "array",
+          "items": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "integer"
+            }
+          ]
+        }
+      }
+    },
+    "AutoRoutingRules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Rules": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "BrowserName": {
+            "type": "string"
+          }
+        },
+        "required": ["Rules", "BrowserName"]
+      }
+    }
+  },
+  "required": ["Browsers"]
+}
