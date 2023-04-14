@@ -174,10 +174,10 @@ namespace Hurl.BrowserSelector.Windows
 
         private void Window_Deactivated(object sender, EventArgs e)
         {
-            if (!forcePreventWindowDeactivationEvent) MinimizeWindow();
 #if DEBUG
             // No minimize on debug when not in focus
 #else
+            if (!forcePreventWindowDeactivationEvent) MinimizeWindow();
 #endif
         }
 

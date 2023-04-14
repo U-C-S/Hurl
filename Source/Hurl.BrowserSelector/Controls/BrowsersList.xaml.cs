@@ -37,7 +37,7 @@ namespace Hurl.BrowserSelector.Controls
             {
                 OpenLink(SettingsGlobal.Value.Browsers[val]);
             }
-
+            // TODO : Add support for Ctrl + 1-9 and Custom Hotkeys and Fav
             //if (Keyboard.Modifiers.HasFlag(ModifierKeys.Control)) { }
         }
 
