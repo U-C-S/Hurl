@@ -15,6 +15,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Graphics;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -31,12 +32,11 @@ namespace Hurl.SettingsApp
             this.InitializeComponent();
 
             ExtendsContentIntoTitleBar = true;
-            this.SystemBackdrop = new MicaBackdrop();
-        }
+            SetTitleBar(AppTitleBar);
+            Title = "Hurl Settings";
 
-        private void myButton_Click(object sender, RoutedEventArgs e)
-        {
-            myButton.Content = "Clicked";
+            this.AppWindow.ResizeClient(new SizeInt32(1000, 600));
+            this.SystemBackdrop = new MicaBackdrop();
         }
     }
 }
