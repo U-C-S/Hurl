@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Hurl.SettingsApp (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Hurl.SettingsApp (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
