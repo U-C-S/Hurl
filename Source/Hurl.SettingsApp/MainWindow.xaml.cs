@@ -38,5 +38,10 @@ namespace Hurl.SettingsApp
             this.AppWindow.ResizeClient(new SizeInt32(1000, 600));
             this.SystemBackdrop = new MicaBackdrop();
         }
+
+        private void ListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
     }
 }

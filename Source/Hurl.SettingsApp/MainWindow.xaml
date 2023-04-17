@@ -25,22 +25,67 @@
                 TextWrapping="NoWrap" />
         </Grid>
 
-        <NavigationView
-            x:Name="nvSample"
-            Grid.Row="1"
-            IsBackButtonVisible="Collapsed"
-            IsBackEnabled="False">
-            <NavigationView.MenuItems>
-                <NavigationViewItem
-                    Content="Menu Item1"
-                    Icon="Play"
-                    Tag="SamplePage1" />
-                <NavigationViewItem
-                    Content="Menu Item2"
-                    Icon="Save"
-                    Tag="SamplePage2" />
-            </NavigationView.MenuItems>
-            <Frame x:Name="contentFrame" />
-        </NavigationView>
+        <Grid Grid.Row="1" Margin="0,8,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="NavMenuWidth" Width="150" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Margin="5,0,5,5">
+                <ListView
+                    IsItemClickEnabled="True"
+                    ItemClick="ListView_ItemClick"
+                    SelectedIndex="0">
+                    <ListView.Items>
+                        <ListViewItem MinWidth="0" Tag="home">
+                            <StackPanel Orientation="Horizontal">
+                                <FontIcon Glyph="&#xE80F;" />
+                                <TextBlock Margin="12,0,0,0" Text="Home" />
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem MinWidth="0" Tag="home">
+                            <StackPanel Orientation="Horizontal">
+                                <FontIcon Glyph="&#xE774;" />
+                                <TextBlock Margin="12,0,0,0" Text="Apps" />
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem MinWidth="0" Tag="home">
+                            <StackPanel Orientation="Horizontal">
+                                <FontIcon Glyph="&#xE724;" />
+                                <TextBlock Margin="12,0,0,0" Text="Rules" />
+                            </StackPanel>
+                        </ListViewItem>
+                    </ListView.Items>
+                </ListView>
+
+                <ListView
+                    VerticalAlignment="Bottom"
+                    IsItemClickEnabled="True"
+                    ItemClick="ListView_ItemClick">
+                    <ListView.Items>
+                        <ListViewItem MinWidth="0" Tag="home">
+                            <StackPanel Orientation="Horizontal">
+                                <FontIcon Glyph="&#xE713;" />
+                                <TextBlock Margin="12,0,0,0" Text="Settings" />
+                            </StackPanel>
+                        </ListViewItem>
+                    </ListView.Items>
+                </ListView>
+            </Grid>
+
+            <Grid Grid.Column="1">
+                <Border BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" CornerRadius="8,0,0,0">
+                    <Rectangle Fill="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+                </Border>
+
+                <StackPanel Spacing="3">
+                    <!--<StackPanel.ChildrenTransitions>
+                        <EntranceThemeTransition FromVerticalOffset="50" IsStaggeringEnabled="True" />
+                        <RepositionThemeTransition IsStaggeringEnabled="False" />
+                    </StackPanel.ChildrenTransitions>-->
+
+                </StackPanel>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>
