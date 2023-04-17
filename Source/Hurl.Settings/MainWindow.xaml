@@ -25,16 +25,12 @@
 
         <Grid Margin="10,0,10,10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="400" />
+                <ColumnDefinition Width="320" />
                 <ColumnDefinition Width="20" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Border
-                Grid.Row="1"
-                Width="400"
-                Margin="0"
-                HorizontalAlignment="Left">
+            <Border Grid.Row="1">
                 <StackPanel>
                     <wpfui:CardControl Margin="0,0,0,8">
                         <wpfui:CardControl.Header>

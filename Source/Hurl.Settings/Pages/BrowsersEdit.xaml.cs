@@ -27,7 +27,7 @@ namespace Hurl.Settings.Pages
         public BrowsersEdit()
         {
             InitializeComponent();
-            this.DataContext = Globals.SettingsGlobal.GetBrowsers();
+            this.DataContext = Globals.SettingsGlobal.Value.Browsers;
         }
 
         private void CopyPath(object sender, RoutedEventArgs e)
