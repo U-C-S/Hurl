@@ -1,7 +1,8 @@
 {
   "profiles": {
     "Hurl.BrowserSelector": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "commandLineArgs": "\"keep.google.com\""
     }
   }
 }

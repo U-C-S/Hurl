@@ -1,3 +1,6 @@
+<!--  Copyright (c) Microsoft Corporation and Contributors.  -->
+<!--  Licensed under the MIT License.  -->
+
 <Window
     x:Class="Hurl.SettingsApp.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -25,7 +28,7 @@
 
         <Grid Grid.Row="1" Margin="0,8,0,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition x:Name="NavMenuWidth" Width="160" />
+                <ColumnDefinition x:Name="NavMenuWidth" Width="150" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
@@ -77,10 +80,10 @@
                 </Border>-->
 
                 <StackPanel Padding="10" Spacing="3">
-                    <StackPanel.ChildrenTransitions>
+                    <!--<StackPanel.ChildrenTransitions>
                         <EntranceThemeTransition FromVerticalOffset="50" IsStaggeringEnabled="True" />
                         <RepositionThemeTransition IsStaggeringEnabled="False" />
-                    </StackPanel.ChildrenTransitions>
+                    </StackPanel.ChildrenTransitions>-->
 
                     <TextBlock
                         Margin="1,0,0,5"

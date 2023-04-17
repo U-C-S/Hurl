@@ -1,5 +1,4 @@
-﻿using Hurl.Settings.ViewModels;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -16,8 +15,6 @@ namespace Hurl.Settings
         {
             InitializeComponent();
             DataContext = Globals.SettingsGlobal.Value.AppSettings;
-
-            new MainWindowViewModel().SettingsObj = new Library.Models.Settings();
         }
 
         public Dictionary<object, object> Pages = new();
