@@ -5,6 +5,7 @@
     x:Class="Hurl.SettingsApp.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ctlabs="using:CommunityToolkit.Labs.WinUI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Hurl.SettingsApp"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -74,16 +75,48 @@
             </Grid>
 
             <Grid Grid.Column="1">
-                <Border BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" CornerRadius="8,0,0,0">
+                <!--<Border BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" CornerRadius="8,0,0,0">
                     <Rectangle Fill="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
-                </Border>
+                </Border>-->
 
-                <StackPanel Spacing="3">
+                <StackPanel Padding="10" Spacing="3">
                     <!--<StackPanel.ChildrenTransitions>
                         <EntranceThemeTransition FromVerticalOffset="50" IsStaggeringEnabled="True" />
                         <RepositionThemeTransition IsStaggeringEnabled="False" />
                     </StackPanel.ChildrenTransitions>-->
 
+                    <TextBlock
+                        Margin="1,0,0,5"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="General Settings" />
+
+                    <ctlabs:SettingsCard Header="Launch Under Mouse">
+                        <ctlabs:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE8B0;" />
+                        </ctlabs:SettingsCard.HeaderIcon>
+
+                        <ToggleSwitch />
+                    </ctlabs:SettingsCard>
+
+                    <ctlabs:SettingsCard Header="No White Border">
+                        <ctlabs:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE739;" />
+                        </ctlabs:SettingsCard.HeaderIcon>
+
+                        <ToggleSwitch />
+                    </ctlabs:SettingsCard>
+
+                    <ctlabs:SettingsCard Header="Background Type">
+                        <ctlabs:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE790;" />
+                        </ctlabs:SettingsCard.HeaderIcon>
+
+                        <ComboBox SelectedIndex="0">
+                            <ComboBoxItem Content="Mica" />
+                            <ComboBoxItem Content="Acrylic" />
+                            <ComboBoxItem Content="Solid" />
+                        </ComboBox>
+                    </ctlabs:SettingsCard>
                 </StackPanel>
             </Grid>
         </Grid>
