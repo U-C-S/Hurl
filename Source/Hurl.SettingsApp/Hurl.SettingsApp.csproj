@@ -10,7 +10,7 @@
     <PublishProfile>win10-$(Platform).pubxml</PublishProfile>
     <UseWinUI>true</UseWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
-	<WindowsPackageType>None</WindowsPackageType>
+	  <WindowsPackageType>None</WindowsPackageType>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,11 +24,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Manifest Include="$(ApplicationManifest)" />
+	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
 	  <PackageReference Include="CommunityToolkit.WinUI.UI" Version="7.1.2" />
     <PackageReference Include="CommunityToolkit.Labs.WinUI.SettingsControls" Version="0.0.18" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.3.230331000" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.756" />
-    <Manifest Include="$(ApplicationManifest)" />
+    <ProjectReference Include="..\Hurl.Library\Hurl.Library.csproj" />
   </ItemGroup>
 
   <!-- 
