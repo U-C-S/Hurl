@@ -26,7 +26,7 @@
                 <FontIcon Glyph="&#xE8B0;" />
             </ctlabs:SettingsCard.HeaderIcon>
 
-            <ToggleSwitch />
+            <ToggleSwitch IsOn="{x:Bind ViewModel.Option_LaunchUnderMouse, Mode=TwoWay}" />
         </ctlabs:SettingsCard>
 
         <ctlabs:SettingsCard Header="No White Border">
@@ -34,7 +34,7 @@
                 <FontIcon Glyph="&#xE739;" />
             </ctlabs:SettingsCard.HeaderIcon>
 
-            <ToggleSwitch />
+            <ToggleSwitch IsOn="{x:Bind ViewModel.Option_NoWhiteBorder, Mode=TwoWay}" />
         </ctlabs:SettingsCard>
 
         <ctlabs:SettingsCard Header="Background Type">
@@ -42,7 +42,7 @@
                 <FontIcon Glyph="&#xE790;" />
             </ctlabs:SettingsCard.HeaderIcon>
 
-            <ComboBox SelectedIndex="0">
+            <ComboBox SelectedIndex="{x:Bind ViewModel.Option_BackgroundType, Mode=TwoWay}">
                 <ComboBoxItem Content="Mica" />
                 <ComboBoxItem Content="Acrylic" />
                 <ComboBoxItem Content="Solid" />
