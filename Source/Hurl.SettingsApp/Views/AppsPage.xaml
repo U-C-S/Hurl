@@ -1,0 +1,40 @@
+<!--  Copyright (c) Microsoft Corporation and Contributors.  -->
+<!--  Licensed under the MIT License.  -->
+
+<Page
+    x:Class="Hurl.SettingsApp.Views.AppsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ctlabs="using:CommunityToolkit.Labs.WinUI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Hurl.SettingsApp.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <StackPanel Padding="10" Spacing="3">
+        <Grid>
+            <TextBlock VerticalAlignment="Center"
+                Margin="1,0,0,5"
+                Style="{StaticResource BodyStrongTextBlockStyle}"
+                Text="Apps Available" />
+
+            <Button HorizontalAlignment="Right" Width="35" Height="30">
+                <FontIcon Glyph="&#xE710;" FontSize="12"/>
+            </Button>
+        </Grid>
+
+        <ctlabs:SettingsExpander Header="Browser Name">
+            <ctlabs:SettingsExpander.HeaderIcon>
+                <FontIcon Glyph="&#xE8B0;" />
+            </ctlabs:SettingsExpander.HeaderIcon>
+
+            <ctlabs:SettingsExpander.Items>
+                <ctlabs:SettingsCard>
+                    <StackPanel>
+                        <TextBlock>lol</TextBlock>
+                    </StackPanel>
+                </ctlabs:SettingsCard>
+            </ctlabs:SettingsExpander.Items>
+        </ctlabs:SettingsExpander>
+    </StackPanel>
+</Page>
