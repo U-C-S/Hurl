@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Hurl.SettingsApp"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:views="using:Hurl.SettingsApp.Views"
     mc:Ignorable="d">
 
     <Grid>
@@ -30,7 +31,10 @@
             </Grid.ColumnDefinitions>
 
             <Grid Margin="5,0,5,5">
-                <ListView IsItemClickEnabled="True" ItemClick="ListView_ItemClick">
+                <ListView
+                    x:Name="NavMenuHeaderList"
+                    IsItemClickEnabled="True"
+                    ItemClick="OnNavItemClicked">
                     <ListView.Items>
                         <ListViewItem MinWidth="0" Tag="home">
                             <StackPanel Orientation="Horizontal">
@@ -54,9 +58,10 @@
                 </ListView>
 
                 <ListView
+                    x:Name="NavMenuFooterList"
                     VerticalAlignment="Bottom"
                     IsItemClickEnabled="True"
-                    ItemClick="ListView_ItemClick">
+                    ItemClick="OnNavItemClicked">
                     <ListView.Items>
                         <ListViewItem MinWidth="0" Tag="settings">
                             <StackPanel Orientation="Horizontal">
@@ -68,51 +73,9 @@
                 </ListView>
             </Grid>
 
-            <Grid Grid.Column="1">
-                <!--<Border BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" CornerRadius="8,0,0,0">
-                    <Rectangle Fill="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
-                </Border>-->
-
-                <StackPanel Padding="10" Spacing="3">
-                    <StackPanel.ChildrenTransitions>
-                        <EntranceThemeTransition FromVerticalOffset="50" IsStaggeringEnabled="True" />
-                        <RepositionThemeTransition IsStaggeringEnabled="False" />
-                    </StackPanel.ChildrenTransitions>
-
-                    <TextBlock
-                        Margin="1,0,0,5"
-                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="General Settings" />
-
-                    <ctlabs:SettingsCard Header="Launch Under Mouse">
-                        <ctlabs:SettingsCard.HeaderIcon>
-                            <FontIcon Glyph="&#xE8B0;" />
-                        </ctlabs:SettingsCard.HeaderIcon>
-
-                        <ToggleSwitch />
-                    </ctlabs:SettingsCard>
-
-                    <ctlabs:SettingsCard Header="No White Border">
-                        <ctlabs:SettingsCard.HeaderIcon>
-                            <FontIcon Glyph="&#xE739;" />
-                        </ctlabs:SettingsCard.HeaderIcon>
-
-                        <ToggleSwitch />
-                    </ctlabs:SettingsCard>
-
-                    <ctlabs:SettingsCard Header="Background Type">
-                        <ctlabs:SettingsCard.HeaderIcon>
-                            <FontIcon Glyph="&#xE790;" />
-                        </ctlabs:SettingsCard.HeaderIcon>
-
-                        <ComboBox SelectedIndex="0">
-                            <ComboBoxItem Content="Mica" />
-                            <ComboBoxItem Content="Acrylic" />
-                            <ComboBoxItem Content="Solid" />
-                        </ComboBox>
-                    </ctlabs:SettingsCard>
-                </StackPanel>
-            </Grid>
+            <ScrollViewer Grid.Column="1">
+                <Frame x:Name="NavigationFrame" />
+            </ScrollViewer>
         </Grid>
     </Grid>
 </Window>
