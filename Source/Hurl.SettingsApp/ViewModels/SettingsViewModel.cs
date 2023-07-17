@@ -53,6 +53,4 @@ namespace Hurl.SettingsApp.ViewModels
             }
         }
     }
-
-
 }

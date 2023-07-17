@@ -51,6 +51,7 @@ namespace Hurl.BrowserSelector.Helpers
         public static bool Start(string link)
         {
             var settings = SettingsGlobal.Value;
+            if (settings?.AutoRoutingRules == null) return false;
 
             Stopwatch sw = new();
             sw.Start();
