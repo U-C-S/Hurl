@@ -13,6 +13,7 @@
     MinHeight="270"
     ExtendsContentIntoTitleBar="True"
     WindowBackdropType="Mica"
+    Topmost="True"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <StackPanel>
@@ -80,6 +81,7 @@
                 <wpfui:Button
                     Width="100"
                     Margin="0,0,10,0"
+                    Click="Button_Click_1"
                     Content="Cancel"
                     FontSize="20" />
                 <wpfui:Button

@@ -36,6 +36,10 @@ namespace Hurl.BrowserSelector.Windows
             }
 
             SettingsGlobal.AddBrowserRule(rules, TargetBrowser.SelectedValue.ToString());
+
+            this.Close();
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e) => this.Close();
     }
 }
