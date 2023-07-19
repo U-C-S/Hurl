@@ -32,15 +32,18 @@ namespace Hurl.Library.Models
         {
             get
             {
-                if (!string.IsNullOrEmpty(CustomIconPath))
+                if (!string.IsNullOrEmpty(CustomIconPath) && CustomIconPath.EndsWith(".ico"))
+                {
+                    Icon RawIcon = new(CustomIconPath, -1, -1);
+                    return IconUtilites.ToImageSource(RawIcon);
+                }
+                else if (!string.IsNullOrEmpty(CustomIconPath))
                 {
                     return new BitmapImage(new Uri(CustomIconPath));
                 }
                 else if (!string.IsNullOrEmpty(ExePath))
                 {
-                    Icon RawIcon = ExePath.StartsWith('"'.ToString())
-                                ? IconExtractor.FromFile(ExePath.Substring(1, ExePath.Length - 2))
-                                : IconExtractor.FromFile(ExePath);
+                    Icon RawIcon = IconExtractor.FromFile(ExePath.Trim('"'));
 
                     return IconUtilites.ToImageSource(RawIcon);
                 }
