@@ -1,4 +1,4 @@
-﻿using Hurl.BrowserSelector.Globals;
+using Hurl.BrowserSelector.Globals;
 using Hurl.BrowserSelector.Helpers;
 using Hurl.Library;
 using System;
@@ -49,36 +49,26 @@ namespace Hurl.BrowserSelector.Windows
         public void Init(CliArgs data)
         {
             var settings = SettingsGlobal.Value;
+            var isRuleCheckSuccess = AutoRulesCheck.Start(data.Url);
 
-            var x = AutoRulesCheck.Start(data.Url);
-            if (x) return;
-
-            if (data.IsRunAsMin)
+            if (!data.IsSecondInstance)
             {
-                Debug.WriteLine("Minimizing--------------------------------");
+                Width = settings?.AppSettings?.WindowSize[0] ?? 420;
+                Height = settings?.AppSettings?.WindowSize[1] ?? 210;
+            }
+
+            if (data.IsRunAsMin || isRuleCheckSuccess)
+            {
+                Show(); // TODO: try to remove the flashing
                 MinimizeWindow();
             }
             else
             {
-                if (!data.IsSecondInstance)
-                {
-                    try
-                    {
-
-                        Width = settings.AppSettings?.WindowSize[0] ?? 420;
-                        Height = settings.AppSettings?.WindowSize[1] ?? 210;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                        throw;
-                    }
-                }
                 Show();
                 PositionWindowUnderTheMouse();
                 if (data.IsSecondInstance)
                 {
-                    this.WindowState = WindowState.Normal;
+                    WindowState = WindowState.Normal;
                 }
             }
 
