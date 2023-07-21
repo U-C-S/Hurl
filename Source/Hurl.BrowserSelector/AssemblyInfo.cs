@@ -6,10 +6,10 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyTitle("Hurl")]
 [assembly: AssemblyDescription("Hurl - Your Handy Browser Selector")]
-[assembly: AssemblyConfiguration("debug")]
+[assembly: AssemblyConfiguration("retail")]
 [assembly: AssemblyCompany("The 3721 Tools")]
 [assembly: AssemblyProduct("Hurl")]
-[assembly: AssemblyCopyright("Copyright (c) 2022 Chanakya")]
+[assembly: AssemblyCopyright("Copyright (c) 2023 Chanakya")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

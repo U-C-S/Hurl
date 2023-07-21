@@ -6,7 +6,7 @@
 #define MyAppExeName "Hurl.exe"
 
 [Setup]
-AppId={{56C63D05-9D83-492A-ABDD-618FE36ACBFB}
+AppId={56C63D05-9D83-492A-ABDD-618FE36ACBFB}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 VersionInfoVersion={#MyAppVersion}
