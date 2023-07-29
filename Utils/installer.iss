@@ -6,7 +6,7 @@
 #define MyAppExeName "Hurl.exe"
 
 [Setup]
-AppId={56C63D05-9D83-492A-ABDD-618FE36ACBFB}
+AppId={{56C63D05-9D83-492A-ABDD-618FE36ACBFB}}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 VersionInfoVersion={#MyAppVersion}
@@ -44,6 +44,8 @@ Name: "protocol"; Description: "{cm:CreateProtocol}"; GroupDescription: "{cm:Oth
 [Files]
 Source: "..\_Publish\*.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\_Publish\*.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\_Publish\*.txt"; DestDir: "{app}/License"; Flags: ignoreversion
+Source: "..\LICENSE"; DestDir: "{app}/License"; Flags: ignoreversion
 Source: "..\Extensions\*"; Excludes: "package-lock.json,node_modules"; DestDir: "{app}\Extensions"; Flags: ignoreversion recursesubdirs; Tasks: Protocol;
 
 [Icons]
