@@ -12,52 +12,48 @@ namespace Hurl.BrowserSelector.Helpers
         public string Url { get; set; } = string.Empty;
         public string[] otherArgs;
 
-        private CliArgs(string[] Args, bool SecondInstanceArgs)
+        private CliArgs(string[] Args, bool IsSecondInstance)
         {
             var ArgsLength = Args.Length;
-            if (ArgsLength > 0)
+            if (ArgsLength == 0) return;
+
+            if (Args[0] == "--minimized")
             {
-                string whatever = Args[0];
+                IsRunAsMin = true;
+                return;
+            }
 
-                if (Args[0] == "--minimized")
-                {
-                    IsRunAsMin = true;
-                }
+            if (IsSecondInstance)
+            {
+                this.IsSecondInstance = true;
+                if (ArgsLength >= 2) Args = Args[1..];
+            }
 
-                if (SecondInstanceArgs)
-                {
-                    IsSecondInstance = true;
-                    if (ArgsLength >= 2)
-                        whatever = Args[1];
-                }
-
-                if (whatever.StartsWith("hurl://"))
-                {
-                    IsProtocolActivated = true;
-                    Url = whatever.Substring(7);
-                }
-                //else if(whatever.StartsWith("https://" || "http://"))
-                else
-                {
-                    otherArgs = Args.Length > 2 ? Args[2..] : null;
-                    Url = whatever.Contains(' ') ? $"\"{whatever}\"" : whatever;
-                }
+            if (Args[0].StartsWith("hurl://"))
+            {
+                IsProtocolActivated = true;
+                Url = Args[0][7..];
+            }
+            else
+            {
+                otherArgs = Args.Length > 2 ? Args[2..] : null;
+                Url = Args[0].Contains(' ') ? $"\"{Args[0]}\"" : Args[0];
             }
         }
 
-        public static CliArgs GatherInfo(string[] Args, bool SecondInstanceArgs)
+        public static CliArgs GatherInfo(string[] Args, bool isSecondInstance)
         {
 #if DEBUG
             Task.Run(() =>
             {
                 Directory.CreateDirectory(Constants.APP_SETTINGS_DIR);
                 var ArgsStoreFile = Path.Combine(Constants.ROAMING, "Hurl", "args.txt");
-                var StrFormat = $"\n\n{SecondInstanceArgs} --- {Args.Length} - {string.Join("__", Args)}";
+                var StrFormat = $"\n\n{isSecondInstance} --- {Args.Length} - {string.Join("__", Args)}";
                 File.AppendAllText(ArgsStoreFile, StrFormat);
             });
 #endif
 
-            return new CliArgs(Args, SecondInstanceArgs);
+            return new CliArgs(Args, isSecondInstance);
         }
 
     }

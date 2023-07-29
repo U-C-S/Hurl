@@ -8,6 +8,7 @@
     xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="TimeSelectWindow"
     Width="360"
+    Height="280"
     MinHeight="280"
     ExtendsContentIntoTitleBar="True"
     Topmost="True"
@@ -44,7 +45,7 @@
                     Padding="40,15"
                     HorizontalAlignment="Center"
                     Click="Button_Click"
-                    Content="Done"
+                    Content="Set"
                     Icon="Checkmark32" />
             </Grid>
         </StackPanel>

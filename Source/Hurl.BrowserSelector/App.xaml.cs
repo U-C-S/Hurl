@@ -12,22 +12,17 @@ namespace Hurl.BrowserSelector
     public partial class App : Application, ISingleInstance
     {
         private MainWindow _mainWindow;
-        //private MainViewModel viewModel;
-        //private readonly Settings settings = SettingsFile.GetSettings();
 
         protected override void OnStartup(StartupEventArgs e)
         {
             bool isFirstInstance = this.InitializeAsFirstInstance("HurlTray");
             if (isFirstInstance)
             {
-                var x = CliArgs.GatherInfo(e.Args, false);
-
-                UriGlobal.Value = x.Url;
-                //viewModel = new MainViewModel();
+                var cliArgs = CliArgs.GatherInfo(e.Args, false);
+                UriGlobal.Value = cliArgs.Url;
 
                 _mainWindow = new();
-
-                _mainWindow.Init(x);
+                _mainWindow.Init(cliArgs);
             }
             else
             {
@@ -39,13 +34,13 @@ namespace Hurl.BrowserSelector
         {
             Current.Dispatcher.Invoke(() =>
             {
-                var x = CliArgs.GatherInfo(args, true);
-                var IsTimedSet = TimedBrowserSelect.CheckAndLaunch(x.Url);
+                var cliArgs = CliArgs.GatherInfo(args, true);
+                var IsTimedSet = TimedBrowserSelect.CheckAndLaunch(cliArgs.Url);
 
                 if (!IsTimedSet)
                 {
-                    UriGlobal.Value = x.Url;
-                    _mainWindow.Init(x);
+                    UriGlobal.Value = cliArgs.Url;
+                    _mainWindow.Init(cliArgs);
                 }
 
             });
