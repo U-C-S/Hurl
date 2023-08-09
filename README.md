@@ -25,7 +25,7 @@ Sometimes you might want to open a link in a browser of your choice, instead of 
 
 - Modern Windows UI with Multiple Customization Options
 - Supports adding own browser config with Launch Arguments
-- Rules to automatically open a browser without prompting (Alpha!)
+- Rules to automatically open a browser without prompting
 - Settings application to manage all the features (coming soon!)
 - Web Extension to open browser tabs in Hurl (experimental)
 
@@ -40,7 +40,7 @@ Sometimes you might want to open a link in a browser of your choice, instead of 
 
 ## Installation & Usage
 
-Download Install the latest [.NET 6 Desktop Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/6.0/runtime) and Get the Hurl_Installer from [Releases](https://github.com/U-C-S/Hurl/releases/latest). Your PC's Anti-Virus might warn that it's not secure to download or install it, You can ignore it as the executables are Un-signed. Lastly, After installing, You might need to set Hurl as the default `http/https` protocol handler in the Windows Settings, just like how you change the default browser.
+Download Install the latest [.NET 7 Desktop Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/7.0) and Get the Hurl_Installer from [Releases](https://github.com/U-C-S/Hurl/releases/latest). Your PC's Anti-Virus might warn that it's not secure to download or install it, You can ignore it as the executables are Un-signed. Lastly, After installing, You might need to set Hurl as the default `http/https` protocol handler in the Windows Settings, just like how you change the default browser.
 
 ### Check out wiki for configuring - [Editing UserSettings.json](https://github.com/U-C-S/Hurl/wiki/Editing-UserSettings.json)
 
@@ -48,7 +48,7 @@ Download Install the latest [.NET 6 Desktop Runtime](https://dotnet.microsoft.co
 
 - [Visual Studio](https://visualstudio.microsoft.com)
 - [Inno Setup](https://jrsoftware.org/isinfo.php)
-- [.NET 6.0](https://dot.net) , [C#](https://dotnet.microsoft.com/languages/csharp) and [WPF](https://docs.microsoft.com/en-us/visualstudio/designers/getting-started-with-wpf)
+- [.NET 7.0](https://dot.net) , [C#](https://dotnet.microsoft.com/languages/csharp) and [WPF](https://docs.microsoft.com/en-us/visualstudio/designers/getting-started-with-wpf)
 - [WPF UI](https://github.com/lepoco/wpfui)
 
 ## Building from Source
