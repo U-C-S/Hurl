@@ -1,4 +1,4 @@
-You might need to install .NET 6 Desktop Runtime for using this Application.
+You need to install .NET 7 Desktop Runtime for using this Application.
 
-- Visit https://dotnet.microsoft.com/en-us/download/dotnet/6.0
+- Visit https://dotnet.microsoft.com/en-us/download/dotnet/7.0
 - Find .NET Desktop Runtime and Download x64 version
