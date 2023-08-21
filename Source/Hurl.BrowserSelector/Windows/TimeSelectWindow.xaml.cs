@@ -1,13 +1,14 @@
 ﻿using Hurl.BrowserSelector.Helpers;
 using Hurl.Library.Models;
 using System.Collections.Generic;
+using Wpf.Ui.Controls;
 
 namespace Hurl.BrowserSelector.Windows
 {
     /// <summary>
     /// Interaction logic for TimeSelectWindow.xaml
     /// </summary>
-    public partial class TimeSelectWindow
+    public partial class TimeSelectWindow: UiWindow
     {
         private List<Browser> browsers;
 

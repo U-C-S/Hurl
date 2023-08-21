@@ -32,17 +32,17 @@ namespace Hurl.BrowserSelector.Windows
 
             if (backtype == "acrylic" && osbuild >= 22523)
             {
-                WindowBackdropType = Wpf.Ui.Controls.Window.WindowBackdropType.Acrylic;
+                WindowBackdropType = Wpf.Ui.Appearance.BackgroundType.Acrylic;
             }
             else if (backtype == "none" || osbuild < 22000)
             {
-                WindowBackdropType = Wpf.Ui.Controls.Window.WindowBackdropType.None;
+                WindowBackdropType = Wpf.Ui.Appearance.BackgroundType.None;
                 var brush = Color.FromRgb(150, 50, 50);
                 Background = new SolidColorBrush(brush);
             }
             else
             {
-                WindowBackdropType = Wpf.Ui.Controls.Window.WindowBackdropType.Mica;
+                WindowBackdropType = Wpf.Ui.Appearance.BackgroundType.Mica;
             }
         }
 

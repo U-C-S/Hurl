@@ -1,13 +1,14 @@
 ﻿using Hurl.BrowserSelector.Globals;
 using System.Collections.Generic;
 using System.Windows;
+using Wpf.Ui.Controls;
 
 namespace Hurl.BrowserSelector.Windows
 {
     /// <summary>
     /// Interaction logic for QuickRuleAddWindow.xaml
     /// </summary>
-    public partial class QuickRuleAddWindow
+    public partial class QuickRuleAddWindow: UiWindow
     {
         public QuickRuleAddWindow()
         {

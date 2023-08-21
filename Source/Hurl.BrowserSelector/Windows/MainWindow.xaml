@@ -1,4 +1,4 @@
-﻿<wpfui:FluentWindow
+﻿<wpfui:UiWindow
     x:Class="Hurl.BrowserSelector.Windows.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -159,4 +159,4 @@
             </Border>
         </Grid>
     </Border>
-</wpfui:FluentWindow>
+</wpfui:UiWindow>

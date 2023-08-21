@@ -1,4 +1,4 @@
-﻿<wpfui:FluentWindow
+﻿<wpfui:UiWindow
     x:Class="Hurl.BrowserSelector.Windows.QuickRuleAddWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -93,4 +93,4 @@
             </StackPanel>
         </StackPanel>
     </StackPanel>
-</wpfui:FluentWindow>
+</wpfui:UiWindow>

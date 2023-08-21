@@ -1,4 +1,4 @@
-﻿<wpfui:FluentWindow
+﻿<wpfui:UiWindow
     x:Class="Hurl.BrowserSelector.Windows.TimeSelectWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -50,4 +50,4 @@
             </Grid>
         </StackPanel>
     </StackPanel>
-</wpfui:FluentWindow>
+</wpfui:UiWindow>
