@@ -1,6 +1,6 @@
 #define MyAppName "Hurl"
 #define NameSmall "hurl"
-#define MyAppVersion "0.8.0.17"
+#define MyAppVersion "0.8.1.18"
 #define MyAppPublisher "The 3721 Tools"
 #define MyAppURL "https://github.com/U-C-S/Hurl"
 #define MyAppExeName "Hurl.exe"
