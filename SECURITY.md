@@ -5,11 +5,10 @@
 This section tells about which versions of this project are
 currently being supported with security updates.
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 0.7.1   | :white_check_mark: |
-| 0.0.8-alpha | :white_check_mark:|
-| < 0.7.1   | :x:                |
+| Version  | Supported          |
+| -------- | ------------------ |
+| >= 0.8.0 | :white_check_mark: |
+| < 0.8.0  | :x:                |
 
 ## Reporting a Vulnerability
 
