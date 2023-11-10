@@ -1,10 +1,11 @@
-﻿<wpfui:UiWindow
+﻿<wpfui:FluentWindow
     x:Class="Hurl.BrowserSelector.Windows.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Hurl.BrowserSelector.Windows"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tray="http://schemas.lepo.co/wpfui/2022/xaml/tray"
     xmlns:vs="clr-namespace:Hurl.BrowserSelector.Controls"
     xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="Hurl - Select a Browser"
@@ -32,43 +33,6 @@
                 <RowDefinition Height="45" />
             </Grid.RowDefinitions>
 
-            <wpfui:TitleBar MinimizeToTray="True" Visibility="Hidden">
-                <wpfui:TitleBar.Tray>
-                    <wpfui:NotifyIcon
-                        FocusOnLeftClick="True"
-                        Icon="pack://application:,,,/Assets/internet.ico"
-                        LeftClick="NotifyIcon_LeftClick"
-                        MenuOnRightClick="True"
-                        TooltipText="Hurl running at background for faster access">
-                        <wpfui:NotifyIcon.Menu>
-                            <ContextMenu>
-                                <wpfui:MenuItem
-                                    Click="TrayMenuItem_OnClick"
-                                    Header="Open"
-                                    SymbolIcon="Folder24"
-                                    Tag="open" />
-                                <wpfui:MenuItem
-                                    Click="TrayMenuItem_OnClick"
-                                    Header="Timed"
-                                    SymbolIcon="Clock24"
-                                    Tag="timed" />
-                                <Separator />
-                                <wpfui:MenuItem
-                                    Click="TrayMenuItem_OnClick"
-                                    Header="Reload"
-                                    SymbolIcon="ArrowClockwise24"
-                                    Tag="reload" />
-                                <wpfui:MenuItem
-                                    Click="TrayMenuItem_OnClick"
-                                    Header="Exit"
-                                    SymbolIcon="Save24"
-                                    Tag="exit" />
-                            </ContextMenu>
-                        </wpfui:NotifyIcon.Menu>
-                    </wpfui:NotifyIcon>
-                </wpfui:TitleBar.Tray>
-            </wpfui:TitleBar>
-
             <Grid
                 Height="36"
                 Margin="2"
@@ -88,20 +52,29 @@
                         Margin="0,0,4,0"
                         Padding="7,5"
                         Background="#40000000"
-                        Click="Button_Click"
-                        Icon="Clock24" />
+                        Click="Button_Click">
+                        <wpfui:Button.Icon>
+                            <wpfui:SymbolIcon Symbol="Clock24" />
+                        </wpfui:Button.Icon>
+                    </wpfui:Button>
                     <wpfui:Button
                         Margin="0,0,4,0"
                         Padding="7,5"
                         Background="#40000000"
-                        Click="SettingsBtnClick"
-                        Icon="Settings24" />
+                        Click="SettingsBtnClick">
+                        <wpfui:Button.Icon>
+                            <wpfui:SymbolIcon Symbol="Settings24" />
+                        </wpfui:Button.Icon>
+                    </wpfui:Button>
                     <wpfui:Button
                         Margin="0,0,4,0"
                         Padding="7,5"
                         Background="#40000000"
-                        Click="CloseBtnClick"
-                        Icon="Subtract24" />
+                        Click="CloseBtnClick">
+                        <wpfui:Button.Icon>
+                            <wpfui:SymbolIcon Symbol="ShapeSubtract24" />
+                        </wpfui:Button.Icon>
+                    </wpfui:Button>
                 </StackPanel>
             </Grid>
 
@@ -130,8 +103,11 @@
                         Click="LinkCopyBtnClick"
                         Cursor="Hand"
                         FontSize="16"
-                        Foreground="#BBFFFFFF"
-                        Icon="Copy24" />
+                        Foreground="#BBFFFFFF">
+                        <wpfui:Button.Icon>
+                            <wpfui:SymbolIcon Symbol="Copy24" />
+                        </wpfui:Button.Icon>
+                    </wpfui:Button>
                     <wpfui:Button
                         x:Name="linkpreview"
                         MaxWidth="330"
@@ -153,10 +129,13 @@
                         Click="Button_Click_1"
                         Cursor="Hand"
                         FontSize="16"
-                        Foreground="#BBFFFFFF"
-                        Icon="Add24" />
+                        Foreground="#BBFFFFFF">
+                        <wpfui:Button.Icon>
+                            <wpfui:SymbolIcon Symbol="Add24" />
+                        </wpfui:Button.Icon>
+                    </wpfui:Button>
                 </StackPanel>
             </Border>
         </Grid>
     </Border>
-</wpfui:UiWindow>
+</wpfui:FluentWindow>

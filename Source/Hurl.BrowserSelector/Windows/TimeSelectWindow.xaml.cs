@@ -8,7 +8,7 @@ namespace Hurl.BrowserSelector.Windows
     /// <summary>
     /// Interaction logic for TimeSelectWindow.xaml
     /// </summary>
-    public partial class TimeSelectWindow: UiWindow
+    public partial class TimeSelectWindow: FluentWindow
     {
         private List<Browser> browsers;
 

@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
 using MessageBox = Wpf.Ui.Controls.MessageBox;
 using TextBox = Wpf.Ui.Controls.TextBox;
@@ -34,9 +33,9 @@ public static class URLEditor
             Owner = window,
             Title = "Edit URL to open",
             Content = textBox,
-            ButtonLeftAppearance = ControlAppearance.Transparent,
-            ButtonLeftName = "OK",
-            ButtonRightName = "Cancel",
+            PrimaryButtonAppearance = ControlAppearance.Transparent,
+            PrimaryButtonText = "OK",
+            SecondaryButtonText = "Cancel",
             ShowInTaskbar = false,
             Topmost = false,
             SizeToContent = SizeToContent.Height,
@@ -46,27 +45,27 @@ public static class URLEditor
         textBox.TextChanged += (s, e) =>
         {
             var isEmpty = string.IsNullOrWhiteSpace(textBox.Text);
-            messageBox.ButtonLeftAppearance = isEmpty ? ControlAppearance.Transparent : ControlAppearance.Primary;
+            messageBox.PrimaryButtonAppearance = isEmpty ? ControlAppearance.Transparent : ControlAppearance.Primary;
         };
-        messageBox.ButtonLeftClick += (s, e) =>
-        {
-            var content = textBox.Text?.Trim();
-            var newText = string.IsNullOrWhiteSpace(content) ? null : content;
-            if (newText is null)
-                return;
-            tcs.SetResult(newText);
-            messageBox.Close();
-        };
-        messageBox.ButtonRightClick += (s, e) =>
-        {
-            tcs.SetResult(null);
-            messageBox.Close();
-        };
+        //messageBox.ButtonLeftClick += (s, e) =>
+        //{
+        //    var content = textBox.Text?.Trim();
+        //    var newText = string.IsNullOrWhiteSpace(content) ? null : content;
+        //    if (newText is null)
+        //        return;
+        //    tcs.SetResult(newText);
+        //    messageBox.Close();
+        //};
+        //messageBox.ButtonRightClick += (s, e) =>
+        //{
+        //    tcs.SetResult(null);
+        //    messageBox.Close();
+        //};
         messageBox.Closing += (s, e) =>
         {
             tcs.TrySetResult(null);
         };
-        messageBox.ShowDialog();
+        messageBox.ShowDialogAsync();
 
         FocusManager.SetFocusedElement(window, textBox);
 

@@ -8,7 +8,7 @@ namespace Hurl.BrowserSelector.Windows
     /// <summary>
     /// Interaction logic for QuickRuleAddWindow.xaml
     /// </summary>
-    public partial class QuickRuleAddWindow: UiWindow
+    public partial class QuickRuleAddWindow: FluentWindow
     {
         public QuickRuleAddWindow()
         {
