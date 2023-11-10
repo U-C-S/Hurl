@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation and Contributors.
 // Licensed under the MIT License.
 
-using CommunityToolkit.WinUI.UI;
+using CommunityToolkit.WinUI;
 using Hurl.SettingsApp.ViewModels;
 using Hurl.SettingsApp.Views;
 using Microsoft.UI.Xaml;

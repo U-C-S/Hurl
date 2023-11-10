@@ -5,7 +5,7 @@
     x:Class="Hurl.SettingsApp.Views.SettingsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:ctlabs="using:CommunityToolkit.Labs.WinUI"
+    xmlns:ctlabs="using:CommunityToolkit.WinUI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Hurl.SettingsApp.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
