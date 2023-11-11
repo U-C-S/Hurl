@@ -72,7 +72,7 @@
                         Background="#40000000"
                         Click="CloseBtnClick">
                         <wpfui:Button.Icon>
-                            <wpfui:SymbolIcon Symbol="ShapeSubtract24" />
+                            <wpfui:SymbolIcon Symbol="Subtract24" />
                         </wpfui:Button.Icon>
                     </wpfui:Button>
                 </StackPanel>
@@ -80,12 +80,6 @@
 
             <Grid Grid.Row="1">
                 <vs:BrowsersList />
-                <!--<StackPanel
-                        x:Name="stacky"
-                        VerticalAlignment="Center"
-                        MouseWheel="ScrollViewer_MouseWheel"
-                        Orientation="Horizontal">
-                </StackPanel>-->
             </Grid>
 
             <Border
@@ -136,6 +130,33 @@
                     </wpfui:Button>
                 </StackPanel>
             </Border>
+
+            <tray:NotifyIcon
+                FocusOnLeftClick="True"
+                LeftClick="NotifyIcon_LeftClick"
+                MenuOnRightClick="True"
+                TooltipText="Hurl is running in background for faster access">
+                <tray:NotifyIcon.Menu>
+                    <ContextMenu>
+                        <wpfui:MenuItem
+                            Click="TrayMenuItem_OnClick"
+                            Header="Reload"
+                            Tag="reload">
+                            <wpfui:MenuItem.Icon>
+                                <wpfui:SymbolIcon Symbol="ArrowClockwise24" />
+                            </wpfui:MenuItem.Icon>
+                        </wpfui:MenuItem>
+                        <wpfui:MenuItem
+                            Click="TrayMenuItem_OnClick"
+                            Header="Exit"
+                            Tag="exit">
+                            <wpfui:MenuItem.Icon>
+                                <wpfui:SymbolIcon Symbol="Save24" />
+                            </wpfui:MenuItem.Icon>
+                        </wpfui:MenuItem>
+                    </ContextMenu>
+                </tray:NotifyIcon.Menu>
+            </tray:NotifyIcon>
         </Grid>
     </Border>
 </wpfui:FluentWindow>

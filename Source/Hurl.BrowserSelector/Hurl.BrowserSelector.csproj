@@ -24,6 +24,7 @@
 		<PackageReference Include="SingleInstanceCore" Version="2.2.2" />
     <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
     <PackageReference Include="WPF-UI" Version="3.0.0-preview.8" />
+    <PackageReference Include="WPF-UI.Tray" Version="3.0.0-preview.8" />
 	</ItemGroup>
 	<ItemGroup>
 	  <None Remove="Assets\internet.ico" />
