@@ -70,7 +70,8 @@ namespace Hurl.BrowserSelector.Helpers
                     {
                         if (Check(link, rules.Rules))
                         {
-                            Process.Start(x.ExePath, link);
+                            string Args = string.IsNullOrEmpty(x.LaunchArgs) ? link + " " + x.LaunchArgs : link;
+                            Process.Start(x.ExePath, Args);
 
                             return true;
                         }
