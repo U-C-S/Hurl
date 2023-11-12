@@ -8,9 +8,9 @@
     xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="QuickRuleAddWindow"
     Width="550"
-    Height="270"
+    Height="370"
     MinWidth="550"
-    MinHeight="270"
+    MinHeight="370"
     ExtendsContentIntoTitleBar="True"
     Topmost="True"
     WindowBackdropType="Mica"
@@ -25,41 +25,52 @@
 
         <StackPanel HorizontalAlignment="Center">
 
-            <wpfui:Card
-                Padding="5"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center">
-                <StackPanel Margin="5" Orientation="Horizontal">
-                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                        <TextBlock
-                            Margin="0,0,10,0"
-                            VerticalAlignment="Center"
-                            Text="Rule Mode:" />
-                        <ComboBox
-                            x:Name="RuleModeInput"
-                            Width="100"
-                            SelectedIndex="2">
-                            <ComboBoxItem>Regex</ComboBoxItem>
-                            <ComboBoxItem>Glob</ComboBoxItem>
-                            <ComboBoxItem>String</ComboBoxItem>
-                        </ComboBox>
-                    </StackPanel>
+            <wpfui:Card Padding="5">
+                <Grid Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="150" />
+                    </Grid.ColumnDefinitions>
 
-
-                    <StackPanel
-                        Margin="25,0,0,0"
+                    <TextBlock VerticalAlignment="Center" Text="Rule Mode:" />
+                    <ComboBox
+                        x:Name="RuleModeInput"
+                        Grid.Column="1"
+                        Width="150"
+                        SelectedIndex="2">
+                        <ComboBoxItem>Regex</ComboBoxItem>
+                        <ComboBoxItem>Glob</ComboBoxItem>
+                        <ComboBoxItem>String</ComboBoxItem>
+                    </ComboBox>
+                    <TextBlock
+                        Grid.Row="1"
+                        Margin="0,0,10,0"
                         VerticalAlignment="Center"
-                        Orientation="Horizontal">
-                        <TextBlock
-                            Margin="0,0,10,0"
-                            VerticalAlignment="Center"
-                            Text="Target Browser:" />
-                        <ComboBox
-                            x:Name="TargetBrowser"
-                            Width="150"
-                            ItemsSource="{Binding}" />
-                    </StackPanel>
-                </StackPanel>
+                        Text="Target Browser:" />
+                    <ComboBox
+                        x:Name="TargetBrowser"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Width="150"
+                        Margin="0,10"
+                        ItemsSource="{Binding}" />
+                    <TextBlock
+                        Grid.Row="2"
+                        Margin="0,0,10,0"
+                        VerticalAlignment="Center"
+                        Text="Alternate Launch:" />
+                    <ComboBox
+                        x:Name="TargetBrowserx"
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Width="150"
+                        ItemsSource="{Binding}" />
+                </Grid>
             </wpfui:Card>
 
             <wpfui:Card
@@ -68,7 +79,18 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center">
                 <StackPanel>
-                    <TextBlock Margin="0,0,0,5" Text="Type the Rule:" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            Margin="0,0,0,5"
+                            VerticalAlignment="Center"
+                            Text="Type the Rules:" />
+                        <wpfui:Button>
+                            <wpfui:Button.Icon>
+                                <wpfui:SymbolIcon Symbol="Add24" />
+                            </wpfui:Button.Icon>
+                        </wpfui:Button>
+
+                    </StackPanel>
                     <wpfui:TextBox x:Name="RuleInput" Width="460" />
                 </StackPanel>
             </wpfui:Card>

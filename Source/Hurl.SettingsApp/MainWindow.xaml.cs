@@ -27,7 +27,7 @@ namespace Hurl.SettingsApp
             SetTitleBar(AppTitleBar);
             Title = "Hurl Settings";
 
-            this.AppWindow.ResizeClient(new SizeInt32(1000, 600));
+            this.AppWindow.ResizeClient(new SizeInt32(1200, 640));
             this.SystemBackdrop = new MicaBackdrop();
         }
 
@@ -48,7 +48,7 @@ namespace Hurl.SettingsApp
                         //ViewModel.Navigate(ContentPageType.Apps);
                         break;
                     case "rules":
-                        NavigationFrame.Navigate(typeof(RulesPage)); 
+                        NavigationFrame.Navigate(typeof(AddRulePage)); 
                         break;
                     case "settings":
                         NavigationFrame.Navigate(typeof(SettingsPage)); ;
