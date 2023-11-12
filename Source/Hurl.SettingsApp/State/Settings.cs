@@ -34,6 +34,11 @@ namespace Hurl.SettingsApp.State
             return Library.GetBrowsers.FromSettingsFile(Value, false);
         }
 
+        public static List<AutoRoutingRules> GetAutoRoutingRules()
+        {
+            return Value.AutoRoutingRules;
+        }
+
         #region AppSettingsMethods
 
         public static AppSettings GetAppSettings()

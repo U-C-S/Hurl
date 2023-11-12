@@ -48,7 +48,7 @@ namespace Hurl.SettingsApp
                         //ViewModel.Navigate(ContentPageType.Apps);
                         break;
                     case "rules":
-                        NavigationFrame.Navigate(typeof(AddRulePage)); 
+                        NavigationFrame.Navigate(typeof(RulesPage)); 
                         break;
                     case "settings":
                         NavigationFrame.Navigate(typeof(SettingsPage)); ;

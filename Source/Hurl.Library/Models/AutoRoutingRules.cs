@@ -9,7 +9,7 @@ namespace Hurl.Library.Models
 
         public string BrowserName { get; set; }
 
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public int AltLaunchIndex { get; set; }
     }
 }
