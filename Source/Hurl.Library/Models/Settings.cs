@@ -15,10 +15,4 @@ namespace Hurl.Library.Models
 
         public List<AutoRoutingRules> AutoRoutingRules { get; set; }
     }
-
-    public class AutoRoutingRules {
-        public List<String> Rules { get; set; }
-
-        public string BrowserName { get; set; }
-    }
 }

@@ -14,18 +14,19 @@ namespace Hurl.Library.Models
             this.Name = Name;
             this.ExePath = ExePath;
         }
+
         public string Name { get; set; }
 
         public string ExePath { get; set; }
 
         public string LaunchArgs { get; set; }
 
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-        public bool Hidden { get; set; } = false;
-
         public AlternateLaunch[] AlternateLaunches { get; set; }
 
         public string CustomIconPath { get; set; }
+
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public bool Hidden { get; set; } = false;
 
         [JsonIgnore]
         public ImageSource GetIcon
@@ -60,8 +61,6 @@ namespace Hurl.Library.Models
                 return AlternateLaunches == null || AlternateLaunches.Length == 0 ? Visibility.Hidden : Visibility.Visible;
             }
         }
-
-        // public string[] Rules { get; set; }
     }
 
     public class AlternateLaunch
