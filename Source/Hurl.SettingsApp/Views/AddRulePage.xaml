@@ -40,30 +40,12 @@
             <AppBarSeparator />
 
             <controls:SettingsCard Description="Add new rules into this ruleset" Header="Add Rules">
-                <Button Style="{StaticResource AccentButtonStyle}">
+                <Button Click="Button_Click" Style="{StaticResource AccentButtonStyle}">
                     Add
                 </Button>
             </controls:SettingsCard>
 
-            <controls:SettingsCard>
-                <controls:SettingsCard.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <ComboBox SelectedIndex="2">
-                            <ComboBoxItem>Regex</ComboBoxItem>
-                            <ComboBoxItem>Glob</ComboBoxItem>
-                            <ComboBoxItem>String</ComboBoxItem>
-                        </ComboBox>
-                        <TextBox
-                            Width="250"
-                            Margin="10,0,0,0"
-                            PlaceholderText="Rule Name" />
-                    </StackPanel>
-                </controls:SettingsCard.Header>
-
-                <Button Style="{StaticResource EllipsisButton}">
-                    <SymbolIcon Symbol="Delete" />
-                </Button>
-            </controls:SettingsCard>
+            <StackPanel x:Name="RulesStack" />
         </StackPanel>
     </ScrollViewer>
 

@@ -1,3 +1,4 @@
+using Hurl.SettingsApp.Controls;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -26,6 +27,11 @@ namespace Hurl.SettingsApp.Views
         public AddRulePage()
         {
             this.InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            RulesStack.Children.Add(new NewRuleCard());
         }
     }
 }
