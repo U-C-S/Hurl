@@ -33,5 +33,21 @@ namespace Hurl.SettingsApp.Views
         }
 
         public RulesViewModel ViewModel => new();
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ContentDialog createNewRulesetDialog = new ContentDialog
+            {
+                XamlRoot = this.XamlRoot,
+                Title = "Create new ruleset",
+                Content = "Enter a name for your new ruleset:",
+                CloseButtonText = "Cancel",
+                PrimaryButtonText = "Create",
+                DefaultButton = ContentDialogButton.Primary,
+            };
+            createNewRulesetDialog.Content = new AddRulePage();
+
+            await createNewRulesetDialog.ShowAsync();
+        }
     }
 }

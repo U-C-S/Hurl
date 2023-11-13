@@ -9,10 +9,25 @@
     mc:Ignorable="d">
 
     <StackPanel>
-        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Rulesets" />
-        <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="The following rulesets are checked in order when a link is clicked" />
+        <Grid Padding="10,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Rulesets" />
+                <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="The following rulesets are checked in order when a link is clicked" />
+            </StackPanel>
 
-        <StackPanel Margin="0,10,0,0">
+            <Button
+                Grid.Column="1"
+                Click="Button_Click"
+                Style="{StaticResource AccentButtonStyle}">
+                Create
+            </Button>
+        </Grid>
+
+        <StackPanel Margin="0,10,10,0">
             <ListView
                 AllowDrop="True"
                 CanDrag="True"
@@ -21,16 +36,53 @@
                 SelectionMode="Single">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <controls:SettingsExpander Header="{Binding BrowserName}">
-                            <StackPanel Orientation="Horizontal">
-                                <Button Style="{StaticResource EllipsisButton}">
-                                    <FontIcon Glyph="&#xE70F;" />
-                                </Button>
-                                <Button Style="{StaticResource EllipsisButton}">
-                                    <FontIcon Glyph="&#xE74D;" />
-                                </Button>
+                        <Grid Padding="0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                <TextBlock Text="{Binding BrowserName}" />
                             </StackPanel>
-                        </controls:SettingsExpander>
+
+                            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                <Button Style="{StaticResource EllipsisButton}" ToolTipService.ToolTip="View Rules">
+                                    <FontIcon Glyph="&#xE946;" />
+                                </Button>
+
+                                <DropDownButton Style="{StaticResource TextBlockButtonStyle}" ToolTipService.ToolTip="More Options">
+                                    <DropDownButton.Content>
+                                        <FontIcon Glyph="&#xE712;" />
+                                    </DropDownButton.Content>
+                                    <DropDownButton.Flyout>
+                                        <MenuFlyout Placement="Bottom">
+                                            <MenuFlyoutItem Text="Edit">
+                                                <MenuFlyoutItem.Icon>
+                                                    <FontIcon Glyph="&#xE70F;" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+                                            <MenuFlyoutItem Text="Move Up">
+                                                <MenuFlyoutItem.Icon>
+                                                    <FontIcon Glyph="&#xE74A;" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+                                            <MenuFlyoutItem Text="Move Down">
+                                                <MenuFlyoutItem.Icon>
+                                                    <FontIcon Glyph="&#xE74B;" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+                                            <MenuFlyoutItem Text="Delete">
+                                                <MenuFlyoutItem.Icon>
+                                                    <FontIcon Glyph="&#xE74D;" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+                                        </MenuFlyout>
+                                    </DropDownButton.Flyout>
+                                </DropDownButton>
+                            </StackPanel>
+
+                        </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

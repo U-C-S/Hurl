@@ -9,82 +9,62 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel Padding="5,0">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
+    <ScrollViewer>
+        <StackPanel MinWidth="497">
+            <controls:SettingsExpander
+                Description="Customize the browser launch options if a rule matches"
+                Header="Ruleset Options"
+                IsExpanded="True">
+                <controls:SettingsExpander.Items>
+                    <controls:SettingsCard Header="Target Browser">
+                        <ComboBox
+                            x:Name="TargetBrowser"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Width="150"
+                            Margin="0,10"
+                            ItemsSource="{Binding}" />
+                    </controls:SettingsCard>
 
-            <TextBlock
-                Padding="3,5"
-                Style="{StaticResource TitleTextBlockStyle}"
-                Text="Create new Ruleset" />
+                    <controls:SettingsCard Header="Alternate Launch">
+                        <ComboBox
+                            x:Name="TargetBrowserx"
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Width="150"
+                            ItemsSource="{Binding}" />
+                    </controls:SettingsCard>
+                </controls:SettingsExpander.Items>
+            </controls:SettingsExpander>
 
-            <Button
-                Grid.Column="1"
-                Width="80"
-                Margin="0,0,10,0"
-                Content="Create"
-                Style="{StaticResource AccentButtonStyle}" />
-        </Grid>
+            <AppBarSeparator />
 
-        <controls:SettingsExpander
-            Description="Customize the browser launch options if a rule matches"
-            Header="Ruleset Options"
-            IsExpanded="True">
-            <controls:SettingsExpander.Items>
-                <controls:SettingsCard Header="Rule Mode">
-                    <ComboBox
-                        x:Name="RuleModeInput"
-                        Width="150"
-                        SelectedIndex="2">
-                        <ComboBoxItem>Regex</ComboBoxItem>
-                        <ComboBoxItem>Glob</ComboBoxItem>
-                        <ComboBoxItem>String</ComboBoxItem>
-                    </ComboBox>
-                </controls:SettingsCard>
+            <controls:SettingsCard Description="Add new rules into this ruleset" Header="Add Rules">
+                <Button Style="{StaticResource AccentButtonStyle}">
+                    Add
+                </Button>
+            </controls:SettingsCard>
 
-                <controls:SettingsCard Header="Target Browser">
-                    <ComboBox
-                        x:Name="TargetBrowser"
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Width="150"
-                        Margin="0,10"
-                        ItemsSource="{Binding}" />
-                </controls:SettingsCard>
-
-                <controls:SettingsCard Header="Alternate Launch">
-                    <ComboBox
-                        x:Name="TargetBrowserx"
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        Width="150"
-                        ItemsSource="{Binding}" />
-                </controls:SettingsCard>
-            </controls:SettingsExpander.Items>
-        </controls:SettingsExpander>
-
-        <controls:SettingsExpander Description="Add new rules into this ruleset" Header="Add Rules">
-            <Button Style="{StaticResource AccentButtonStyle}">
-                Add
-            </Button>
-
-            <controls:SettingsExpander.Items>
-                <controls:SettingsCard>
-                    <controls:SettingsCard.Header>
+            <controls:SettingsCard>
+                <controls:SettingsCard.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <ComboBox SelectedIndex="2">
+                            <ComboBoxItem>Regex</ComboBoxItem>
+                            <ComboBoxItem>Glob</ComboBoxItem>
+                            <ComboBoxItem>String</ComboBoxItem>
+                        </ComboBox>
                         <TextBox
-                            x:Name="RuleNameInput"
-                            Width="240"
+                            Width="250"
+                            Margin="10,0,0,0"
                             PlaceholderText="Rule Name" />
-                    </controls:SettingsCard.Header>
+                    </StackPanel>
+                </controls:SettingsCard.Header>
 
-                    <Button Style="{StaticResource EllipsisButton}">
-                        <SymbolIcon Symbol="Delete" />
-                    </Button>
-                </controls:SettingsCard>
-            </controls:SettingsExpander.Items>
-        </controls:SettingsExpander>
-    </StackPanel>
+                <Button Style="{StaticResource EllipsisButton}">
+                    <SymbolIcon Symbol="Delete" />
+                </Button>
+            </controls:SettingsCard>
+        </StackPanel>
+    </ScrollViewer>
+
 </Page>
