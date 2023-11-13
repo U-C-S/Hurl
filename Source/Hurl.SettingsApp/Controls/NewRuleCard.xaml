@@ -13,15 +13,16 @@
         <controls:SettingsCard>
             <controls:SettingsCard.Header>
                 <StackPanel Orientation="Horizontal">
-                    <ComboBox SelectedIndex="2">
+                    <ComboBox x:Name="RuleTypeControl" SelectedIndex="2">
                         <ComboBoxItem>Regex</ComboBoxItem>
                         <ComboBoxItem>Glob</ComboBoxItem>
                         <ComboBoxItem>String</ComboBoxItem>
                     </ComboBox>
                     <TextBox
+                        x:Name="RuleValueControl"
                         Width="250"
                         Margin="10,0,0,0"
-                        PlaceholderText="Rule Name" />
+                        PlaceholderText="Rule" />
                 </StackPanel>
             </controls:SettingsCard.Header>
 

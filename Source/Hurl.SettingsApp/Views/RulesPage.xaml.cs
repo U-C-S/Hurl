@@ -47,7 +47,13 @@ namespace Hurl.SettingsApp.Views
             };
             createNewRulesetDialog.Content = new AddRulePage();
 
-            await createNewRulesetDialog.ShowAsync();
+            var result = await createNewRulesetDialog.ShowAsync();
+            if(result == ContentDialogResult.Primary)
+            {
+                var x = ((AddRulePage)createNewRulesetDialog.Content).Generate();
+
+                State.Settings.AddRuleset(x);
+            }
         }
     }
 }

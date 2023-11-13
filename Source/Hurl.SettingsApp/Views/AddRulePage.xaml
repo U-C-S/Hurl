@@ -22,17 +22,16 @@
                             Grid.Row="1"
                             Grid.Column="1"
                             Width="150"
-                            Margin="0,10"
-                            ItemsSource="{Binding}" />
+                            ItemsSource="{x:Bind AllBrowsers}" />
                     </controls:SettingsCard>
 
                     <controls:SettingsCard Header="Alternate Launch">
                         <ComboBox
-                            x:Name="TargetBrowserx"
+                            x:Name="TargetAltLaunch"
                             Grid.Row="2"
                             Grid.Column="1"
                             Width="150"
-                            ItemsSource="{Binding}" />
+                            ItemsSource="{x:Bind AltLaunches}" />
                     </controls:SettingsCard>
                 </controls:SettingsExpander.Items>
             </controls:SettingsExpander>

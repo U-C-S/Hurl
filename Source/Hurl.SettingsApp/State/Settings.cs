@@ -1,6 +1,7 @@
 ﻿using Hurl.Library;
 using Hurl.Library.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Hurl.SettingsApp.State
 {
@@ -63,6 +64,37 @@ namespace Hurl.SettingsApp.State
             Value.AppSettings.BackgroundType = value;
             Save();
         }
+        #endregion
+
+        #region BrowserMethods
+
+        public static List<string> GetBrowserNames()
+        {
+            return Value.Browsers.AsQueryable().Select(x => x.Name).ToList();
+        }
+
+        public static List<string> GetAltLaunchesNamesForBrowser(string name)
+        {
+            var selectedBrowser = from browser in Value.Browsers
+                                  where browser.Name == name
+                                  select browser;
+            var altLaunchesStrings = from alt in selectedBrowser.First().AlternateLaunches
+                                     select alt.ItemName;
+
+            return altLaunchesStrings.ToList();
+        }
+
+        #endregion
+
+        #region RulesetMethods
+
+        public static void AddRuleset(AutoRoutingRules set)
+        {
+            Value.AutoRoutingRules.Add(set);
+            Save();
+        }
+
+
         #endregion
 
         private static void Save()
