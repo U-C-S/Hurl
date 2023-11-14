@@ -12,7 +12,7 @@ namespace Hurl.BrowserSelector.Windows;
  */
 public static class URLEditor
 {
-    public static Task<string> ShowInputAsync(
+    async public static Task<string> ShowInputAsync(
         Window window,
         string text
     )
@@ -33,20 +33,19 @@ public static class URLEditor
             Owner = window,
             Title = "Edit URL to open",
             Content = textBox,
-            PrimaryButtonAppearance = ControlAppearance.Transparent,
+            PrimaryButtonAppearance = ControlAppearance.Primary,
             PrimaryButtonText = "OK",
-            SecondaryButtonText = "Cancel",
             ShowInTaskbar = false,
             Topmost = false,
-            SizeToContent = SizeToContent.Height,
-            ResizeMode = ResizeMode.NoResize,
+            SizeToContent = SizeToContent.Height
         };
 
         textBox.TextChanged += (s, e) =>
         {
             var isEmpty = string.IsNullOrWhiteSpace(textBox.Text);
-            messageBox.PrimaryButtonAppearance = isEmpty ? ControlAppearance.Transparent : ControlAppearance.Primary;
+            messageBox.IsPrimaryButtonEnabled = !isEmpty;
         };
+
         //messageBox.ButtonLeftClick += (s, e) =>
         //{
         //    var content = textBox.Text?.Trim();
@@ -65,10 +64,20 @@ public static class URLEditor
         {
             tcs.TrySetResult(null);
         };
-        messageBox.ShowDialogAsync();
+
+        var result = await messageBox.ShowDialogAsync();
 
         FocusManager.SetFocusedElement(window, textBox);
 
-        return tcs.Task;
+        if (result == Wpf.Ui.Controls.MessageBoxResult.Primary)
+        {
+            var content = textBox.Text?.Trim();
+            var newText = string.IsNullOrWhiteSpace(content) ? null : content;
+            if (newText is null)
+                return text;
+            else return newText;
+            //messageBox.Close();
+        }
+        else return text;
     }
 }
