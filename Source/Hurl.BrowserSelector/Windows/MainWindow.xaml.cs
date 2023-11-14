@@ -136,8 +136,8 @@ public partial class MainWindow : FluentWindow
                 case "open":
                     MaximizeWindow();
                     break;
-                case "timed":
-                    new TimeSelectWindow(settings.Browsers).ShowDialog();
+                case "settings":
+                    Process.Start(Constants.SETTINGS_APP_PATH);
                     break;
                 case "exit":
                     Application.Current.Shutdown();
@@ -200,11 +200,6 @@ public partial class MainWindow : FluentWindow
         }
 
         forcePreventWindowDeactivationEvent = false;
-    }
-
-    private void Button_Click_1(object sender, RoutedEventArgs e)
-    {
-        Process.Start(Constants.SETTINGS_APP_PATH, string.Concat("--newrule ", UriGlobal.Value));
     }
 }
 
