@@ -21,7 +21,7 @@ namespace Hurl.Library
 #if DEBUG
         public const string SETTINGS_APP_PATH = "..\\..\\..\\..\\Hurl.SettingsApp\\bin\\x64\\Debug\\net7.0-windows10.0.22000.0\\win10-x64\\Hurl.SettingsApp.exe";
 #else
-        public const string SETTINGS_APP_PATH = ".\Hurl.SettingsApp.exe";
+        public const string SETTINGS_APP_PATH = ".\\Hurl.SettingsApp.exe";
 #endif
 
     }
