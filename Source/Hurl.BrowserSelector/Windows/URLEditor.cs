@@ -46,20 +46,6 @@ public static class URLEditor
             messageBox.IsPrimaryButtonEnabled = !isEmpty;
         };
 
-        //messageBox.ButtonLeftClick += (s, e) =>
-        //{
-        //    var content = textBox.Text?.Trim();
-        //    var newText = string.IsNullOrWhiteSpace(content) ? null : content;
-        //    if (newText is null)
-        //        return;
-        //    tcs.SetResult(newText);
-        //    messageBox.Close();
-        //};
-        //messageBox.ButtonRightClick += (s, e) =>
-        //{
-        //    tcs.SetResult(null);
-        //    messageBox.Close();
-        //};
         messageBox.Closing += (s, e) =>
         {
             tcs.TrySetResult(null);

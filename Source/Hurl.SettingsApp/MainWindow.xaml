@@ -41,16 +41,16 @@
                                 <TextBlock Margin="12,0,0,0" Text="Home" />
                             </StackPanel>
                         </ListViewItem>
-                        <ListViewItem MinWidth="0" Tag="apps">
+                        <ListViewItem MinWidth="0" Tag="browsers">
                             <StackPanel Orientation="Horizontal">
                                 <FontIcon Glyph="&#xE774;" />
-                                <TextBlock Margin="12,0,0,0" Text="Apps" />
+                                <TextBlock Margin="12,0,0,0" Text="Browsers" />
                             </StackPanel>
                         </ListViewItem>
-                        <ListViewItem MinWidth="0" Tag="rules">
+                        <ListViewItem MinWidth="0" Tag="rulesets">
                             <StackPanel Orientation="Horizontal">
                                 <FontIcon Glyph="&#xE724;" />
-                                <TextBlock Margin="12,0,0,0" Text="Rules" />
+                                <TextBlock Margin="12,0,0,0" Text="Rulesets" />
                             </StackPanel>
                         </ListViewItem>
                     </ListView.Items>

@@ -15,7 +15,7 @@ namespace Hurl.SettingsApp
 
             ExtendsContentIntoTitleBar = true;
             SetTitleBar(AppTitleBar);
-            Title = "Hurl Settings";
+            Title = "Hurl Settings Preview";
 
             this.AppWindow.ResizeClient(new SizeInt32(1200, 750));
             this.SystemBackdrop = new MicaBackdrop();
@@ -33,11 +33,11 @@ namespace Hurl.SettingsApp
                     case "home":
                         NavigationFrame.Navigate(typeof(HomePage));
                         break;
-                    case "apps":
+                    case "browsers":
                         NavigationFrame.Navigate(typeof(AppsPage));
                         //ViewModel.Navigate(ContentPageType.Apps);
                         break;
-                    case "rules":
+                    case "rulesets":
                         NavigationFrame.Navigate(typeof(RulesPage));
                         break;
                     case "settings":
