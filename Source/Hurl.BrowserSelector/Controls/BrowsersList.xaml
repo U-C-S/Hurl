@@ -47,7 +47,7 @@
             <DataTemplate>
                 <Border
                     x:Name="BtnArea"
-                    Width="105"
+                    Width="120"
                     MaxHeight="130"
                     Margin="2"
                     Padding="5,10,5,10"
@@ -70,11 +70,11 @@
                     </Border.Style>
                     <StackPanel x:Name="BrowserBtn">
                         <Image
-                            Width="65"
-                            Height="65"
+                            Width="70"
+                            Height="70"
                             Source="{Binding Path=GetIcon}" />
                         <TextBlock
-                            Margin="75,-18,0,0"
+                            Margin="90,-18,0,0"
                             FontSize="18"
                             Foreground="#33FFFFFF"
                             Text="+"
@@ -82,7 +82,7 @@
                         <wpfui:Button
                             x:Name="AdditionalBtn"
                             Height="30"
-                            Margin="0,-80,-3,0"
+                            Margin="0,-85,-4,0"
                             Padding="1"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Top"
@@ -90,11 +90,11 @@
                             BorderBrush="#00000000"
                             Click="AdditionalBtn_Click"
                             Visibility="Hidden">
-                            <wpfui:SymbolIcon Symbol="MoreVertical20" />
+                            <wpfui:SymbolIcon Symbol="MoreVertical24" />
                         </wpfui:Button>
                         <TextBlock
                             Margin="0,2,0,0"
-                            FontSize="10"
+                            FontSize="11"
                             Foreground="AliceBlue"
                             Text="{Binding Path=Name}"
                             TextAlignment="Center"
