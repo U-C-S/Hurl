@@ -97,7 +97,8 @@
                         Click="LinkCopyBtnClick"
                         Cursor="Hand"
                         FontSize="16"
-                        Foreground="#BBFFFFFF">
+                        Foreground="#BBFFFFFF"
+                        ToolTip="Copy URL (C)">
                         <wpfui:Button.Icon>
                             <wpfui:SymbolIcon Symbol="Copy24" />
                         </wpfui:Button.Icon>
@@ -123,7 +124,8 @@
                         Click="Button_Click_1"
                         Cursor="Hand"
                         FontSize="16"
-                        Foreground="#BBFFFFFF">
+                        Foreground="#BBFFFFFF"
+                        ToolTip="Add Rule">
                         <wpfui:Button.Icon>
                             <wpfui:SymbolIcon Symbol="Add24" />
                         </wpfui:Button.Icon>

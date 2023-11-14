@@ -108,7 +108,7 @@ public partial class MainWindow : FluentWindow
     }
 
     private void LinkCopyBtnClick(object sender, RoutedEventArgs e) => Clipboard.SetText(UriGlobal.Value);
-    private void SettingsBtnClick(object sender, RoutedEventArgs e) => Process.Start("notepad.exe", Constants.APP_SETTINGS_MAIN);
+    private void SettingsBtnClick(object sender, RoutedEventArgs e) => Process.Start(Constants.SETTINGS_APP_PATH);
     private void Draggable(object sender, MouseButtonEventArgs e) => this.DragMove();
     private void CloseBtnClick(object sender, RoutedEventArgs e) => MinimizeWindow();
 
