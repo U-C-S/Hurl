@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="Hurl.Settings.Views.RulesetPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Hurl.Settings.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="using:Hurl.Settings.Controls"
+    mc:Ignorable="d">
+
+    <StackPanel>
+        <Grid Padding="10,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Rulesets" />
+                <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="The following rulesets are checked in order when a link is clicked" />
+            </StackPanel>
+
+            <Button
+                Grid.Column="1"
+                Click="Button_Click"
+                Style="{StaticResource AccentButtonStyle}">
+                Create
+            </Button>
+        </Grid>
+
+        <StackPanel Margin="0,10,10,0">
+            <ListView
+                AllowDrop="True"
+                CanReorderItems="True"
+                ItemsSource="{x:Bind ViewModel.rulesets}"
+                SelectionMode="Single">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <uc:RulesetItem />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+    </StackPanel>
+</Page>
