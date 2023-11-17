@@ -53,5 +53,30 @@ namespace Hurl.Settings.Views
                 State.Settings.AddRuleset(x);
             }
         }
+
+        private void ClickEditRuleset(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ClickMoveUpRuleset(object sender, RoutedEventArgs e)
+        {
+            int Id = (int)(sender as MenuFlyoutItem).Tag;
+
+            State.Settings.MoveRulesetUp(Id);
+        }
+        private void ClickMoveDownRuleset(object sender, RoutedEventArgs e)
+        {
+            int Id = (int)(sender as MenuFlyoutItem).Tag;
+
+            State.Settings.MoveRulesetDown(Id);
+        }
+
+        private void ClickDeleteRuleset(object sender, RoutedEventArgs e)
+        {
+            int Id = (int)(sender as MenuFlyoutItem).Tag;
+
+            State.Settings.DeleteRuleset(Id);
+        }
     }
 }

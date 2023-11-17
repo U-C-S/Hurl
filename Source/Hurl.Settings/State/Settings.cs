@@ -23,23 +23,6 @@ namespace Hurl.Settings.State
             }
         }
 
-        public static void AddBrowserRule(List<string> rules, string name)
-        {
-            Value.AutoRoutingRules.Add(new AutoRoutingRules() { Rules = rules, BrowserName = name });
-
-            Save();
-        }
-
-        public static List<Browser> GetBrowsers()
-        {
-            return Library.GetBrowsers.FromSettingsFile(Value, false);
-        }
-
-        public static List<AutoRoutingRules> GetAutoRoutingRules()
-        {
-            return Value.AutoRoutingRules;
-        }
-
         #region AppSettingsMethods
 
         public static AppSettings GetAppSettings()
@@ -67,6 +50,10 @@ namespace Hurl.Settings.State
         #endregion
 
         #region BrowserMethods
+        public static List<Browser> GetBrowsers()
+        {
+            return Library.GetBrowsers.FromSettingsFile(Value, false);
+        }
 
         public static List<string> GetBrowserNames()
         {
@@ -87,6 +74,10 @@ namespace Hurl.Settings.State
         #endregion
 
         #region RulesetMethods
+        public static List<AutoRoutingRules> GetAutoRoutingRules()
+        {
+            return Value.AutoRoutingRules;
+        }
 
         public static void AddRuleset(AutoRoutingRules set)
         {
@@ -94,6 +85,41 @@ namespace Hurl.Settings.State
             Save();
         }
 
+        internal static void MoveRulesetUp(int id)
+        {
+            var ruleset = Value.AutoRoutingRules.Where(x => x.Id == id).First();
+            var index = Value.AutoRoutingRules.IndexOf(ruleset);
+
+            if (index > 0)
+            {
+                Value.AutoRoutingRules.Remove(ruleset);
+                Value.AutoRoutingRules.Insert(index - 1, ruleset);
+            }
+
+            Save();
+        }
+
+        internal static void MoveRulesetDown(int id)
+        {
+            var ruleset = Value.AutoRoutingRules.Where(x => x.Id == id).First();
+            var index = Value.AutoRoutingRules.IndexOf(ruleset);
+
+            if (index < Value.AutoRoutingRules.Count - 1)
+            {
+                Value.AutoRoutingRules.Remove(ruleset);
+                Value.AutoRoutingRules.Insert(index + 1, ruleset);
+            }
+
+            Save();
+        }
+
+        internal static void DeleteRuleset(int id)
+        {
+            var ruleset = Value.AutoRoutingRules.Where(x => x.Id == id).First();
+            Value.AutoRoutingRules.Remove(ruleset);
+
+            Save();
+        }
 
         #endregion
 
