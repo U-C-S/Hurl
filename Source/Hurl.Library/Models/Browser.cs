@@ -5,76 +5,75 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace Hurl.Library.Models
+namespace Hurl.Library.Models;
+
+public class Browser
 {
-    public class Browser
+    public Browser(string Name, string ExePath)
     {
-        public Browser(string Name, string ExePath)
+        this.Name = Name;
+        this.ExePath = ExePath;
+    }
+
+    public string Name { get; set; }
+
+    public string ExePath { get; set; }
+
+    public string LaunchArgs { get; set; }
+
+    public AlternateLaunch[] AlternateLaunches { get; set; }
+
+    public string CustomIconPath { get; set; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public bool Hidden { get; set; } = false;
+
+    [JsonIgnore]
+    public ImageSource GetIcon
+    {
+        get
         {
-            this.Name = Name;
-            this.ExePath = ExePath;
-        }
-
-        public string Name { get; set; }
-
-        public string ExePath { get; set; }
-
-        public string LaunchArgs { get; set; }
-
-        public AlternateLaunch[] AlternateLaunches { get; set; }
-
-        public string CustomIconPath { get; set; }
-
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-        public bool Hidden { get; set; } = false;
-
-        [JsonIgnore]
-        public ImageSource GetIcon
-        {
-            get
+            if (!string.IsNullOrEmpty(CustomIconPath) && CustomIconPath.EndsWith(".ico"))
             {
-                if (!string.IsNullOrEmpty(CustomIconPath) && CustomIconPath.EndsWith(".ico"))
-                {
-                    Icon RawIcon = new(CustomIconPath, -1, -1);
-                    return IconUtilites.ToImageSource(RawIcon);
-                }
-                else if (!string.IsNullOrEmpty(CustomIconPath))
-                {
-                    return new BitmapImage(new Uri(CustomIconPath));
-                }
-                else if (!string.IsNullOrEmpty(ExePath))
-                {
-                    Icon RawIcon = IconExtractor.FromFile(ExePath.Trim('"'));
-
-                    return IconUtilites.ToImageSource(RawIcon);
-                }
-                else
-                    return null;
+                Icon RawIcon = new(CustomIconPath, -1, -1);
+                return IconUtilites.ToImageSource(RawIcon);
             }
-        }
-
-        [JsonIgnore]
-        public Visibility ShowAdditionalBtn
-        {
-            get
+            else if (!string.IsNullOrEmpty(CustomIconPath))
             {
-                return AlternateLaunches == null || AlternateLaunches.Length == 0 ? Visibility.Hidden : Visibility.Visible;
+                return new BitmapImage(new Uri(CustomIconPath));
             }
+            else if (!string.IsNullOrEmpty(ExePath))
+            {
+                Icon RawIcon = IconExtractor.FromFile(ExePath.Trim('"'));
+
+                return IconUtilites.ToImageSource(RawIcon);
+            }
+            else
+                return null;
         }
     }
 
-    public class AlternateLaunch
+    [JsonIgnore]
+    public Visibility ShowAdditionalBtn
     {
-        public AlternateLaunch() { }
-
-        public AlternateLaunch(string ItemName, string LaunchArgs)
+        get
         {
-            this.ItemName = ItemName;
-            this.LaunchArgs = LaunchArgs;
+            return AlternateLaunches == null || AlternateLaunches.Length == 0 ? Visibility.Hidden : Visibility.Visible;
         }
-
-        public string ItemName { get; set; }
-
-        public string LaunchArgs { get; set; }
     }
+}
+
+public class AlternateLaunch
+{
+    public AlternateLaunch() { }
+
+    public AlternateLaunch(string ItemName, string LaunchArgs)
+    {
+        this.ItemName = ItemName;
+        this.LaunchArgs = LaunchArgs;
+    }
+
+    public string ItemName { get; set; }
+
+    public string LaunchArgs { get; set; }
 }

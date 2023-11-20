@@ -3,58 +3,57 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Hurl.Library
+namespace Hurl.Library;
+
+public class SettingsFile
 {
-    public class SettingsFile
+    public Settings SettingsObject;
+
+    private SettingsFile(Settings settings)
     {
-        public Settings SettingsObject;
+        this.SettingsObject = settings;
+    }
 
-        private SettingsFile(Settings settings)
+    public static SettingsFile TryLoading()
+    {
+        return new SettingsFile(GetSettings());
+    }
+
+    public static Settings GetSettings()
+    {
+        try
         {
-            this.SettingsObject = settings;
+            return JsonOperations.FromJsonToModel<Settings>(Constants.APP_SETTINGS_MAIN);
         }
-
-        public static SettingsFile TryLoading()
+        catch (Exception e)
         {
-            return new SettingsFile(GetSettings());
-        }
-
-        public static Settings GetSettings()
-        {
-            try
+            switch (e)
             {
-                return JsonOperations.FromJsonToModel<Settings>(Constants.APP_SETTINGS_MAIN);
-            }
-            catch (Exception e)
-            {
-                switch (e)
-                {
-                    case FileNotFoundException _:
-                    case DirectoryNotFoundException _:
-                        return New(GetBrowsers.FromRegistry()).SettingsObject;
-                    default:
-                        throw;
-                }
+                case FileNotFoundException _:
+                case DirectoryNotFoundException _:
+                    return New(GetBrowsers.FromRegistry()).SettingsObject;
+                default:
+                    throw;
             }
         }
+    }
 
-        public static SettingsFile New(List<Browser> browsers)
+    public static SettingsFile New(List<Browser> browsers)
+    {
+        Directory.CreateDirectory(Constants.APP_SETTINGS_DIR);
+
+        var _settings = new Settings()
         {
-            Directory.CreateDirectory(Constants.APP_SETTINGS_DIR);
+            Browsers = browsers,
+        };
 
-            var _settings = new Settings()
-            {
-                Browsers = browsers,
-            };
+        JsonOperations.FromModelToJson(_settings, Constants.APP_SETTINGS_MAIN);
+        return new SettingsFile(_settings);
+    }
 
-            JsonOperations.FromModelToJson(_settings, Constants.APP_SETTINGS_MAIN);
-            return new SettingsFile(_settings);
-        }
-
-        public void Update()
-        {
-            SettingsObject.LastUpdated = DateTime.Now.ToString();
-            JsonOperations.FromModelToJson(SettingsObject, Constants.APP_SETTINGS_MAIN);
-        }
+    public void Update()
+    {
+        SettingsObject.LastUpdated = DateTime.Now.ToString();
+        JsonOperations.FromModelToJson(SettingsObject, Constants.APP_SETTINGS_MAIN);
     }
 }

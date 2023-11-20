@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace Hurl.Library.Models
+namespace Hurl.Library.Models;
+
+public class Ruleset
 {
-    public class Ruleset
-    {
-        // assign a random number to this
-        public int Id { get; set; } = new Random().Next(10000);
+    // assign a random number to this
+    public int Id { get; set; } = new Random().Next(10000);
 
-        public List<string> Rules { get; set; }
+    public List<string> Rules { get; set; }
 
-        public string BrowserName { get; set; }
+    public string BrowserName { get; set; }
 
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-        public int AltLaunchIndex { get; set; }
-    }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public int AltLaunchIndex { get; set; }
 }

@@ -1,13 +1,12 @@
 ﻿using System;
 
-namespace Hurl.Library.Models
+namespace Hurl.Library.Models;
+
+public class TemporaryDefaultBrowser
 {
-    public class TemporaryDefaultBrowser
-    {
-        public Browser TargetBrowser { get; set; }
+    public Browser TargetBrowser { get; set; }
 
-        public DateTime SelectedAt { get; set; }
+    public DateTime SelectedAt { get; set; }
 
-        public DateTime ValidTill { get; set; }
-    }
+    public DateTime ValidTill { get; set; }
 }
