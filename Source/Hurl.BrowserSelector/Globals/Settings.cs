@@ -25,11 +25,11 @@ namespace Hurl.BrowserSelector.Globals
 
         public static void AddBrowserRule(List<string> rules, string name)
         {
-            if (Value?.AutoRoutingRules == null)
+            if (Value?.Rulesets == null)
             {
-                Value.AutoRoutingRules = new List<AutoRoutingRules> { };
+                Value.Rulesets = new List<Ruleset> { };
             }
-            Value.AutoRoutingRules.Add(new AutoRoutingRules() { Rules = rules, BrowserName = name });
+            Value.Rulesets.Add(new Ruleset() { Rules = rules, BrowserName = name });
 
             Save();
         }

@@ -51,12 +51,12 @@ namespace Hurl.BrowserSelector.Helpers
         public static bool Start(string link)
         {
             var settings = SettingsGlobal.Value;
-            if (settings?.AutoRoutingRules == null) return false;
+            if (settings?.Rulesets == null) return false;
 
             Stopwatch sw = new();
             sw.Start();
 
-            foreach (var rules in settings.AutoRoutingRules)
+            foreach (var rules in settings.Rulesets)
             {
                 var isHurl = rules.BrowserName == "_Hurl";
                 if (isHurl && Check(link, rules.Rules))

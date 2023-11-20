@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace Hurl.Library.Models
 {
-    public class AutoRoutingRules
+    public class Ruleset
     {
         // assign a random number to this
         public int Id { get; set; } = new Random().Next(10000);

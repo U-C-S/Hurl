@@ -56,7 +56,7 @@ namespace Hurl.Settings.Views.Dialogs
             }
         }
 
-        public AutoRoutingRules Generate()
+        public Ruleset Generate()
         {
             var rulesControls = RulesStack.Children.Cast<NewRuleCard>();
             List<string> rules = new();
@@ -72,7 +72,7 @@ namespace Hurl.Settings.Views.Dialogs
 
             int AltLaunchIndex = TargetAltLaunch.SelectedIndex == -1 ? -1 : AltLaunches.IndexOf(TargetAltLaunch.SelectedValue.ToString());
 
-            AutoRoutingRules obj = new()
+            Ruleset obj = new()
             {
                 BrowserName = TargetBrowser.SelectedValue.ToString(),
                 AltLaunchIndex = AltLaunchIndex,

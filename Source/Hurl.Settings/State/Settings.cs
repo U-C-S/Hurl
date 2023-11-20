@@ -5,21 +5,21 @@ using System.Linq;
 
 namespace Hurl.Settings.State
 {
-    public class Settings
+    public partial class Settings
     {
         private static Settings _instance = new();
 
-        private Library.Models.Settings _settings = SettingsFile.GetSettings();
+        private Library.Models.Settings _data = SettingsFile.GetSettings();
 
         private static Library.Models.Settings Value
         {
             get
             {
-                return _instance._settings;
+                return _instance._data;
             }
             set
             {
-                _instance._settings = value;
+                _instance._data = value;
             }
         }
 
@@ -74,40 +74,41 @@ namespace Hurl.Settings.State
         #endregion
 
         #region RulesetMethods
-        public static List<AutoRoutingRules> GetAutoRoutingRules()
+        public static List<Ruleset> GetAutoRoutingRules()
         {
-            return Value.AutoRoutingRules;
+            return Value.Rulesets;
         }
 
-        public static void AddRuleset(AutoRoutingRules set)
+        public static void AddRuleset(Ruleset set)
         {
-            Value.AutoRoutingRules.Add(set);
+            Value.Rulesets.Add(set);
             Save();
         }
 
-        internal static void MoveRulesetUp(int id)
+        internal static List<Ruleset> MoveRulesetUp(int id)
         {
-            var ruleset = Value.AutoRoutingRules.Where(x => x.Id == id).First();
-            var index = Value.AutoRoutingRules.IndexOf(ruleset);
+            var ruleset = Value.Rulesets.Where(x => x.Id == id).First();
+            var index = Value.Rulesets.IndexOf(ruleset);
 
             if (index > 0)
             {
-                Value.AutoRoutingRules.Remove(ruleset);
-                Value.AutoRoutingRules.Insert(index - 1, ruleset);
+                Value.Rulesets.Remove(ruleset);
+                Value.Rulesets.Insert(index - 1, ruleset);
             }
 
             Save();
+            return Value.Rulesets;
         }
 
         internal static void MoveRulesetDown(int id)
         {
-            var ruleset = Value.AutoRoutingRules.Where(x => x.Id == id).First();
-            var index = Value.AutoRoutingRules.IndexOf(ruleset);
+            var ruleset = Value.Rulesets.Where(x => x.Id == id).First();
+            var index = Value.Rulesets.IndexOf(ruleset);
 
-            if (index < Value.AutoRoutingRules.Count - 1)
+            if (index < Value.Rulesets.Count - 1)
             {
-                Value.AutoRoutingRules.Remove(ruleset);
-                Value.AutoRoutingRules.Insert(index + 1, ruleset);
+                Value.Rulesets.Remove(ruleset);
+                Value.Rulesets.Insert(index + 1, ruleset);
             }
 
             Save();
@@ -115,8 +116,8 @@ namespace Hurl.Settings.State
 
         internal static void DeleteRuleset(int id)
         {
-            var ruleset = Value.AutoRoutingRules.Where(x => x.Id == id).First();
-            Value.AutoRoutingRules.Remove(ruleset);
+            var ruleset = Value.Rulesets.Where(x => x.Id == id).First();
+            Value.Rulesets.Remove(ruleset);
 
             Save();
         }
@@ -125,7 +126,7 @@ namespace Hurl.Settings.State
 
         private static void Save()
         {
-            JsonOperations.FromModelToJson(_instance._settings, Constants.APP_SETTINGS_MAIN);
+            JsonOperations.FromModelToJson(_instance._data, Constants.APP_SETTINGS_MAIN);
         }
     }
 }
