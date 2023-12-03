@@ -6,8 +6,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Hurl.Settings.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:model="using:Hurl.Library.Models"
     xmlns:uc="using:Hurl.Settings.Controls"
     mc:Ignorable="d">
+
+    <Page.Resources>
+        <CollectionViewSource x:Name="RulesetsViewSource" Source="{x:Bind ViewModel.Rulesets, Mode=OneWay}" />
+    </Page.Resources>
 
     <StackPanel>
         <Grid Padding="10,5">
@@ -16,6 +21,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <StackPanel>
+                <!--<TextBlock Text="{x:Bind ViewModel.Sample, Mode=TwoWay}" />-->
                 <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Rulesets" />
                 <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="The following rulesets are checked in order when a link is clicked" />
             </StackPanel>
@@ -29,13 +35,9 @@
         </Grid>
 
         <StackPanel Margin="0,10,10,0">
-            <ListView
-                AllowDrop="True"
-                CanReorderItems="True"
-                ItemsSource="{x:Bind ViewModel.rulesets}"
-                SelectionMode="Single">
+            <ListView ItemsSource="{x:Bind RulesetsViewSource.View, Mode=OneWay}">
                 <ListView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="model:Ruleset">
                         <Grid Padding="0,10">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
@@ -43,7 +45,7 @@
                             </Grid.ColumnDefinitions>
 
                             <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                <TextBlock Text="{Binding BrowserName}" />
+                                <TextBlock Text="{x:Bind BrowserName}" />
                             </StackPanel>
 
                             <StackPanel Grid.Column="1" Orientation="Horizontal">
@@ -64,7 +66,7 @@
                                             </MenuFlyoutItem>
                                             <MenuFlyoutItem
                                                 Click="ClickMoveUpRuleset"
-                                                Tag="{Binding Id}"
+                                                Tag="{x:Bind Id}"
                                                 Text="Move Up">
                                                 <MenuFlyoutItem.Icon>
                                                     <FontIcon Glyph="&#xE74A;" />
@@ -72,7 +74,7 @@
                                             </MenuFlyoutItem>
                                             <MenuFlyoutItem
                                                 Click="ClickMoveDownRuleset"
-                                                Tag="{Binding Id}"
+                                                Tag="{x:Bind Id}"
                                                 Text="Move Down">
                                                 <MenuFlyoutItem.Icon>
                                                     <FontIcon Glyph="&#xE74B;" />
@@ -80,7 +82,7 @@
                                             </MenuFlyoutItem>
                                             <MenuFlyoutItem
                                                 Click="ClickDeleteRuleset"
-                                                Tag="{Binding Id}"
+                                                Tag="{x:Bind Id}"
                                                 Text="Delete">
                                                 <MenuFlyoutItem.Icon>
                                                     <FontIcon Glyph="&#xE74D;" />

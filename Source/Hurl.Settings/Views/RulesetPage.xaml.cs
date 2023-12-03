@@ -56,14 +56,14 @@ namespace Hurl.Settings.Views
 
         private void ClickEditRuleset(object sender, RoutedEventArgs e)
         {
-
+            //(this.DataContext as RulesetViewModel).lol();
         }
 
         private void ClickMoveUpRuleset(object sender, RoutedEventArgs e)
         {
             int Id = (int)(sender as MenuFlyoutItem).Tag;
 
-            State.Settings.MoveRulesetUp(Id);
+            ViewModel.MoveRulesetUp(Id);
         }
         private void ClickMoveDownRuleset(object sender, RoutedEventArgs e)
         {
