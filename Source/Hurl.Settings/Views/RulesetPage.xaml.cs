@@ -25,12 +25,16 @@ namespace Hurl.Settings.Views
     /// </summary>
     public sealed partial class RulesetPage : Page
     {
+        public RulesetViewModel ViewModel { get; set; }
+
         public RulesetPage()
         {
+            ViewModel = new();
+            DataContext = ViewModel;
+
             this.InitializeComponent();
         }
 
-        public RulesetViewModel ViewModel => new();
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {

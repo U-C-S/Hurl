@@ -10,10 +10,6 @@
     xmlns:uc="using:Hurl.Settings.Controls"
     mc:Ignorable="d">
 
-    <Page.Resources>
-        <CollectionViewSource x:Name="RulesetsViewSource" Source="{x:Bind ViewModel.Rulesets, Mode=OneWay}" />
-    </Page.Resources>
-
     <StackPanel>
         <Grid Padding="10,5">
             <Grid.ColumnDefinitions>
@@ -35,7 +31,7 @@
         </Grid>
 
         <StackPanel Margin="0,10,10,0">
-            <ListView ItemsSource="{x:Bind RulesetsViewSource.View, Mode=OneWay}">
+            <ListView ItemsSource="{x:Bind ViewModel.Rulesets, Mode=OneWay}">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="model:Ruleset">
                         <Grid Padding="0,10">

@@ -1,24 +1,26 @@
 ﻿using CommunityToolkit.Mvvm.Collections;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Hurl.Library.Models;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Hurl.Settings.ViewModels
 {
     public partial class RulesetViewModel : ObservableObject
     {
-        public ObservableGroupedCollection<int, Ruleset> Rulesets { get; set; } = new();
+        public List<Ruleset> Rulesets { get; set; }
 
         public RulesetViewModel()
         {
-            Rulesets = new(State.Settings.GetAutoRoutingRules().ToLookup(x => x.Id, x => x));
+            //Rulesets = new(State.Settings.GetAutoRoutingRules().ToLookup(x => x.Id, x => x));
+            Rulesets = State.Settings.GetAutoRoutingRules();
         }
 
         public void MoveRulesetUp(int Id)
         {
             var newRulesets = State.Settings.MoveRulesetUp(Id);
 
-            this.Rulesets = new(newRulesets.ToLookup(x => x.Id, x => x));
+            this.Rulesets = newRulesets;
 
             // OnPropertyChanged(nameof(Rulesets));
 
