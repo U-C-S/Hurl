@@ -8,7 +8,7 @@ namespace Hurl.BrowserSelector.Windows
     /// <summary>
     /// Interaction logic for QuickRuleAddWindow.xaml
     /// </summary>
-    public partial class QuickRuleAddWindow: FluentWindow
+    public partial class QuickRuleAddWindow : FluentWindow
     {
         public QuickRuleAddWindow()
         {
@@ -21,22 +21,23 @@ namespace Hurl.BrowserSelector.Windows
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var rules = new List<string> { RuleInput.Text };
-            var ruleMode = RuleModeInput.SelectedValue.ToString();
-
-            switch (ruleMode)
+            var selectedBrowser = TargetBrowser.SelectedValue;
+            var rules = RuleInput.Text;
+            if (selectedBrowser == null || string.IsNullOrEmpty(rules))
             {
-                case "System.Windows.Controls.ComboBoxItem: Regex":
-                    rules[0] = "r$" + rules[0];
-                    break;
-                case "System.Windows.Controls.ComboBoxItem: Glob":
-                    rules[0] = "g$" + rules[0];
-                    break;
-                default:
-                    break;
-            }
+                WarnText.Visibility = Visibility.Visible;
+                WarnText.Height = 20;
+                return;
+            };
 
-            SettingsGlobal.AddBrowserRule(rules, TargetBrowser.SelectedValue.ToString());
+            var rulesList = new List<string>();
+
+            foreach (var rule in rules.Split('|'))
+            {
+                rulesList.Add(rule.Trim());
+            };
+
+            SettingsGlobal.AddBrowserRule(rulesList, TargetBrowser.SelectedValue.ToString());
 
             this.Close();
         }
