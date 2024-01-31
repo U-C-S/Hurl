@@ -117,7 +117,7 @@
                         FontSize="12"
                         Foreground="AliceBlue"
                         ToolTip="Edit URL (E)" />
-                    <!--<wpfui:Button
+                    <wpfui:Button
                         Padding="4"
                         Background="{x:Null}"
                         BorderBrush="{x:Null}"
@@ -129,7 +129,7 @@
                         <wpfui:Button.Icon>
                             <wpfui:SymbolIcon Symbol="Add24" />
                         </wpfui:Button.Icon>
-                    </wpfui:Button>-->
+                    </wpfui:Button>
                 </StackPanel>
             </Border>
 
