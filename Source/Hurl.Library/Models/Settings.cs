@@ -1,11 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Hurl.Library.Models;
 
 public class Settings
 {
-    public string Version = Constants.VERSION;
+    [JsonPropertyName("$schema")]
+    public string Schema { get; } = "https://raw.githubusercontent.com/U-C-S/Hurl/main/Utils/UserSettings.schema.json";
+
+    //public string Version = Constants.VERSION;
 
     public string LastUpdated { get; set; } = DateTime.Now.ToString();
 
