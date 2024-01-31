@@ -47,7 +47,7 @@ Source: "..\_Publish\*.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; Source: "..\_Publish\*.txt"; DestDir: "{app}/License"; Flags: ignoreversion
 Source: "..\LICENSE"; DestDir: "{app}/License"; Flags: ignoreversion
 Source: "..\Extensions\*"; Excludes: "package-lock.json,node_modules"; DestDir: "{app}\Extensions"; Flags: ignoreversion recursesubdirs; Tasks: Protocol;
-Source: "..\_Publish\Hurl.runtimeconfig.json"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\_Publish\*.json"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{autoprograms}\{#MyAppName}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
