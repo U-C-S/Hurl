@@ -2,6 +2,7 @@
 using Hurl.BrowserSelector.Helpers;
 using Hurl.BrowserSelector.Windows;
 using SingleInstanceCore;
+using System.Text.Json;
 using System.Windows;
 
 namespace Hurl.BrowserSelector
@@ -12,6 +13,32 @@ namespace Hurl.BrowserSelector
     public partial class App : Application, ISingleInstance
     {
         private MainWindow _mainWindow;
+
+        public App()
+        {
+            this.Dispatcher.UnhandledException += Dispatcher_UnhandledException;
+        }
+
+        private void Dispatcher_UnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            string ErrorMsgBuffer;
+            string ErrorWndTitle;
+            switch (e.Exception?.InnerException)
+            {
+                case JsonException:
+                    ErrorMsgBuffer = "The UserSettings.json file is in invalid JSON format. \n";
+                    ErrorWndTitle = "Invalid JSON";
+                    break;
+                default:
+                    ErrorMsgBuffer = "An unknown error has occurred. \n";
+                    ErrorWndTitle = "Unknown Error";
+                    break;
+
+            }
+            string errorMessage = string.Format("{0}\n{1}\n\n{2}", ErrorMsgBuffer, e.Exception?.InnerException?.Message, e.Exception.Message);
+            MessageBox.Show(errorMessage, ErrorWndTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+            e.Handled = true;
+        }
 
         protected override void OnStartup(StartupEventArgs e)
         {
