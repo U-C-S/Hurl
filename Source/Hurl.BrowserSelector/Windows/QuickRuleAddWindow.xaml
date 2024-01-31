@@ -1,0 +1,118 @@
+﻿<wpfui:FluentWindow
+    x:Class="Hurl.BrowserSelector.Windows.QuickRuleAddWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Hurl.BrowserSelector.Windows"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Title="QuickRuleAddWindow"
+    Width="550"
+    Height="370"
+    MinWidth="550"
+    MinHeight="370"
+    ExtendsContentIntoTitleBar="True"
+    Topmost="True"
+    WindowBackdropType="Mica"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <StackPanel>
+        <wpfui:TitleBar
+            Title="Add Rule"
+            FontSize="14"
+            ShowMaximize="False"
+            ShowMinimize="False" />
+
+        <StackPanel HorizontalAlignment="Center">
+
+            <wpfui:Card Padding="5">
+                <Grid Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="150" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock VerticalAlignment="Center" Text="Rule Mode:" />
+                    <ComboBox
+                        x:Name="RuleModeInput"
+                        Grid.Column="1"
+                        Width="150"
+                        SelectedIndex="2">
+                        <ComboBoxItem>Regex</ComboBoxItem>
+                        <ComboBoxItem>Glob</ComboBoxItem>
+                        <ComboBoxItem>String</ComboBoxItem>
+                    </ComboBox>
+                    <TextBlock
+                        Grid.Row="1"
+                        Margin="0,0,10,0"
+                        VerticalAlignment="Center"
+                        Text="Target Browser:" />
+                    <ComboBox
+                        x:Name="TargetBrowser"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Width="150"
+                        Margin="0,10"
+                        ItemsSource="{Binding}" />
+                    <TextBlock
+                        Grid.Row="2"
+                        Margin="0,0,10,0"
+                        VerticalAlignment="Center"
+                        Text="Alternate Launch:" />
+                    <ComboBox
+                        x:Name="TargetBrowserx"
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Width="150"
+                        ItemsSource="{Binding}" />
+                </Grid>
+            </wpfui:Card>
+
+            <wpfui:Card
+                Margin="0,10,0,0"
+                Padding="10"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            Margin="0,0,0,5"
+                            VerticalAlignment="Center"
+                            Text="Type the Rules:" />
+                        <wpfui:Button>
+                            <wpfui:Button.Icon>
+                                <wpfui:SymbolIcon Symbol="Add24" />
+                            </wpfui:Button.Icon>
+                        </wpfui:Button>
+
+                    </StackPanel>
+                    <wpfui:TextBox x:Name="RuleInput" Width="460" />
+                </StackPanel>
+            </wpfui:Card>
+
+            <StackPanel
+                Margin="0,10,0,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <wpfui:Button
+                    Width="100"
+                    Margin="0,0,10,0"
+                    Click="Button_Click_1"
+                    Content="Cancel"
+                    FontSize="20" />
+                <wpfui:Button
+                    Width="100"
+                    Appearance="Success"
+                    Click="Button_Click"
+                    Content="Add"
+                    FontSize="20" />
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</wpfui:FluentWindow>
