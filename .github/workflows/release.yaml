@@ -21,7 +21,7 @@ jobs:
       - name: Build
         run: .\Utils\build.ps1
       - name: Create Github Release
-        run: gh release create {{ github.ref_name }} './Utils/Hurl_Installer.exe' --title "v${{ github.ref_name }}" --draft --latest
+        run: gh release create ${{ github.ref_name }} './Utils/Hurl_Installer.exe' --title "${{ github.ref_name }}" --draft --latest --verify-tag --notes-from-tag
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
       - name: Upload artifact
