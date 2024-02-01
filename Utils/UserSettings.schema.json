@@ -13,22 +13,28 @@
         "type": "object",
         "properties": {
           "Name": {
-            "type": "string"
+            "type": "string",
+            "description": "The name of the browser. This must be unique."
           },
           "ExePath": {
-            "type": "string"
+            "type": "string",
+            "description": "The path to the browser executable. Use LaunchArgs to pass arguments to the executable."
           },
           "CustomIconPath": {
-            "type": "string"
+            "type": "string",
+            "description": "The path to a custom icon for the browser. This must be a .ico file."
           },
           "LaunchArgs": {
-            "type": "string"
+            "type": "string",
+            "description": "Arguments to pass to the browser executable. Use {url} to insert the URL."
           },
           "Hidden": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "If true, the browser will not be shown in the browser list."
           },
           "AlternateLaunches": {
             "type": "array",
+            "description": "Alternate ways to launch the browser. These will be shown in the browser list through a context menu.",
             "items": {
               "type": "object",
               "properties": {
@@ -50,16 +56,21 @@
       "type": "object",
       "properties": {
         "LaunchUnderMouse": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "If true, the browser will be launched under the mouse cursor."
         },
         "NoWhiteBorder": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "If true, the white border around the browser window will be removed."
         },
         "BackgroundType": {
-          "type": "string"
+          "type": "string",
+          "description": "The type of background to use for the browser window. mica or acrylic.",
+          "enum": ["mica", "acrylic"]
         },
         "WindowSize": {
           "type": "array",
+          "description": "The size of the Hurl browser selector window. define as an array of two integers for width and height.",
           "items": [
             {
               "type": "integer"
@@ -71,19 +82,23 @@
         }
       }
     },
-    "AutoRoutingRules": {
+    "Rulesets": {
       "type": "array",
+      "description": "Rulesets to apply to URLs. Each Ruleset can contain multiple rules and One browser can be assigned to multiple Rulesets.",
       "items": {
         "type": "object",
         "properties": {
           "Rules": {
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "string",
+              "description": "The URL pattern prefixed with s$, g$, or r$, followed by the pattern to match. s$ = simple string, g$ = glob, r$ = regex.",
+              "pattern": "^(s\\$|g\\$|r\\$).*"
             }
           },
           "BrowserName": {
-            "type": "string"
+            "type": "string",
+            "description": "The name of the browser to launch for this Ruleset. should match the Name property of a browser in the Browsers array."
           }
         },
         "required": ["Rules", "BrowserName"]
