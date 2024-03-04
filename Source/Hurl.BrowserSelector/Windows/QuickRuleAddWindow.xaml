@@ -24,10 +24,16 @@
             ShowMinimize="False" />
 
         <StackPanel HorizontalAlignment="Center">
-            <TextBlock x:Name="WarnText" Text="Atleast input Target Browser and Rules fields!" Foreground="Red" HorizontalAlignment="Center" Visibility="Hidden" Height="0"/>
-  
+            <TextBlock
+                x:Name="WarnText"
+                Height="0"
+                HorizontalAlignment="Center"
+                Foreground="Red"
+                Text="Atleast input Target Browser and Rules fields!"
+                Visibility="Hidden" />
+
             <wpfui:Card Padding="10">
-                <Grid >
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*" />
                         <RowDefinition Height="1*" />
@@ -48,9 +54,7 @@
                         <ComboBoxItem>Glob</ComboBoxItem>
                         <ComboBoxItem>String</ComboBoxItem>
                     </ComboBox>-->
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Text="Target Browser:" />
+                    <TextBlock VerticalAlignment="Center" Text="Target Browser:" />
                     <ComboBox
                         x:Name="TargetBrowser"
                         Grid.Column="1"
@@ -74,17 +78,17 @@
                 HorizontalAlignment="Center">
                 <StackPanel>
                     <Grid Margin="0,0,0,10">
-                        <TextBlock
-                            VerticalAlignment="Center"
-                            Text="Type the Rules: (Seperate multiple rules with a pipe | and space )" />
+                        <TextBlock VerticalAlignment="Center" Text="Type the Rules: (Seperate multiple rules with a pipe | and space )" />
                         <!--<wpfui:Button HorizontalAlignment="Right">
                             <wpfui:Button.Icon>
                                 <wpfui:SymbolIcon Symbol="Add24" />
                             </wpfui:Button.Icon>
                         </wpfui:Button>-->
                     </Grid>
-
-                    <wpfui:TextBox x:Name="RuleInput" Width="460" PlaceholderText="s$google.com | g$*.google.com | r$..."/>
+                    <wpfui:TextBox
+                        x:Name="RuleInput"
+                        Width="460"
+                        PlaceholderText="google.com | g$*.google.com | r$..." />
                 </StackPanel>
             </wpfui:Card>
 

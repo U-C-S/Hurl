@@ -50,6 +50,7 @@
                         Padding="7,5"
                         Background="#40000000"
                         Click="Button_Click"
+                        Cursor="Hand"
                         FontSize="16"
                         ToolTip="Timed Default">
                         <wpfui:Button.Icon>
@@ -61,6 +62,7 @@
                         Padding="7,5"
                         Background="#40000000"
                         Click="SettingsBtnClick"
+                        Cursor="Hand"
                         FontSize="16"
                         ToolTip="Settings">
                         <wpfui:Button.Icon>
@@ -72,6 +74,7 @@
                         Padding="7,5"
                         Background="#40000000"
                         Click="CloseBtnClick"
+                        Cursor="Hand"
                         FontSize="16"
                         ToolTip="Minimize to Tray">
                         <wpfui:Button.Icon>
@@ -109,15 +112,11 @@
                     <wpfui:Button
                         x:Name="linkpreview"
                         MaxWidth="330"
-                        Padding="5"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
+                        Padding="7,3"
                         Background="{x:Null}"
                         BorderBrush="{x:Null}"
                         Click="linkpreview_Click"
                         Cursor="Hand"
-                        FontFamily="Calibri"
-                        FontSize="12"
                         Foreground="AliceBlue"
                         ToolTip="Edit URL (E)" />
                     <wpfui:Button
