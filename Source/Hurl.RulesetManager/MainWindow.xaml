@@ -9,19 +9,111 @@
     Title="MainWindow"
     Width="800"
     Height="450"
-    ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
-    ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     ExtendsContentIntoTitleBar="True"
-    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     WindowBackdropType="Mica"
     WindowCornerPreference="Round"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="4*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="10*" />
+        </Grid.RowDefinitions>
+
         <ui:TitleBar
-            Title="WPF UI - Simple Demo"
-            Grid.Row="0"
+            Title="Ruleset Manager - Hurl"
+            Grid.ColumnSpan="2"
             Icon="pack://application:,,,/Assets/applicationIcon-256.png" />
 
+        <StackPanel Grid.Row="1" Grid.Column="0">
+            <TextBlock FontSize="18" Text="Rulesets:" />
+            <ui:Button HorizontalAlignment="Stretch">Create</ui:Button>
+            <ui:Card VerticalAlignment="Stretch">
+                <StackPanel />
+            </ui:Card>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <TextBlock
+                x:Name="WarnText"
+                Height="0"
+                HorizontalAlignment="Center"
+                Foreground="Red"
+                Text="Atleast input Target Browser and Rules fields!"
+                Visibility="Hidden" />
+
+            <ui:Card Padding="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="150" />
+                    </Grid.ColumnDefinitions>
+
+                    <!--<TextBlock VerticalAlignment="Center" Text="Rule Mode:" /> -->
+
+                    <TextBlock VerticalAlignment="Center" Text="Target Browser:" />
+                    <ComboBox
+                        x:Name="TargetBrowser"
+                        Grid.Column="1"
+                        Margin="0,0,0,10"
+                        ItemsSource="{Binding}" />
+                    <TextBlock
+                        Grid.Row="1"
+                        VerticalAlignment="Center"
+                        Text="Alternate Launch:" />
+                    <ComboBox
+                        x:Name="TargetBrowserx"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        ItemsSource="{Binding}" />
+                </Grid>
+            </ui:Card>
+
+            <ui:Card>
+                <StackPanel Orientation="Horizontal">
+                    <ComboBox
+                        x:Name="RuleModeInput"
+                        Margin="10"
+                        SelectedIndex="2">
+                        <ComboBoxItem>Regex</ComboBoxItem>
+                        <ComboBoxItem>Glob</ComboBoxItem>
+                        <ComboBoxItem>String</ComboBoxItem>
+                    </ComboBox>
+
+                    <ui:TextBox
+                        x:Name="RuleInputx"
+                        Margin="10"
+                        PlaceholderText="*.google.com" />
+
+                    <ui:Button>Add Rule</ui:Button>
+                </StackPanel>
+            </ui:Card>
+
+            <ui:Card Padding="10">
+                <StackPanel>
+                    <Grid Margin="0,0,0,10">
+                        <TextBlock VerticalAlignment="Center" Text="Type the Rules: (Seperate multiple rules with a pipe | and space )" />
+                        <!--<ui:Button HorizontalAlignment="Right">
+                        <ui:Button.Icon>
+                            <ui:SymbolIcon Symbol="Add24" />
+                        </ui:Button.Icon>
+                    </ui:Button>-->
+                    </Grid>
+                    <ui:TextBox
+                        x:Name="RuleInput"
+                        Width="460"
+                        PlaceholderText="google.com | g$*.google.com | r$..." />
+                </StackPanel>
+            </ui:Card>
+        </StackPanel>
     </Grid>
 </ui:FluentWindow>
