@@ -17,126 +17,113 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
-            <ColumnDefinition Width="4*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
         <ui:TitleBar
             Title="Ruleset Manager - Hurl"
-            Grid.ColumnSpan="2"
+            Grid.ColumnSpan="3"
             Icon="pack://application:,,,/Assets/applicationIcon-256.png" />
-
-        <StackPanel Grid.Row="1" Grid.Column="0">
-            <TextBlock FontSize="16" Text="Rulesets:" />
-            <ui:Button HorizontalAlignment="Stretch">Create</ui:Button>
-            <ui:Card VerticalAlignment="Stretch">
-                <StackPanel />
-            </ui:Card>
-        </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="1">
             <TextBlock
-                x:Name="WarnText"
-                Height="0"
+                Margin="0,0,0,8"
                 HorizontalAlignment="Center"
-                Foreground="Red"
-                Text="Atleast input Target Browser and Rules fields!"
-                Visibility="Hidden" />
+                VerticalAlignment="Center"
+                FontSize="20"
+                Text="Rulesets" />
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <ui:Button
+                    Width="2in"
+                    Margin="0,0,4,4"
+                    HorizontalAlignment="Stretch">
+                    Create
+                </ui:Button>
 
-            <ui:Card Padding="12">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="160" />
-                    </Grid.ColumnDefinitions>
-
-                    <TextBlock VerticalAlignment="Center" Text="Target Browser:" />
-                    <ComboBox
-                        x:Name="TargetBrowser"
-                        Grid.Column="1"
-                        Margin="0,0,0,12"
-                        ItemsSource="{Binding}" />
-                    <TextBlock
-                        Grid.Row="1"
-                        VerticalAlignment="Center"
-                        Text="Alternate Launch:" />
-                    <ComboBox
-                        x:Name="TargetBrowserx"
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        ItemsSource="{Binding}" />
-                </Grid>
-            </ui:Card>
-
-            <ui:CardControl Header="Add Rule" Icon="{ui:SymbolIcon AddCircle16}">
-                <StackPanel Orientation="Horizontal">
-                    <ComboBox
-                        x:Name="RuleModeInput"
-                        Width="120"
-                        Margin="8"
-                        SelectedIndex="2">
-                        <ComboBoxItem>Regex</ComboBoxItem>
-                        <ComboBoxItem>Glob</ComboBoxItem>
-                        <ComboBoxItem>Domain</ComboBoxItem>
-                        <ComboBoxItem>String</ComboBoxItem>
-                    </ComboBox>
-
-                    <ui:TextBox
-                        x:Name="RuleInputx"
-                        Width="240"
-                        Margin="8"
-                        PlaceholderText="*.google.com" />
-
-                    <ui:Button
-                        Width="80"
-                        Margin="8"
-                        Padding="12,8">
-                        Add
-                    </ui:Button>
-                </StackPanel>
-            </ui:CardControl>
-
-            <StackPanel Margin="0,8,0,0">
-                <TextBlock Margin="4" Text="No Rules Configured" />
-
-                <ui:Card>
-                    <StackPanel>
-                        <ui:Card>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="80" />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock
-                                    Margin="4"
-                                    VerticalAlignment="Center"
-                                    Text="Domain" />
-                                <TextBlock
-                                    Grid.Column="1"
-                                    Margin="4"
-                                    VerticalAlignment="Center"
-                                    Text="youtube.com" />
-                                <Button
-                                    Grid.Column="2"
-                                    Margin="4"
-                                    Padding="12,8"
-                                    VerticalAlignment="Center">
-                                    Remove
-                                </Button>
-                            </Grid>
-                        </ui:Card>
-                    </StackPanel>
-                </ui:Card>
+                <ui:Button
+                    Width="2in"
+                    Margin="4,0,0,4"
+                    HorizontalAlignment="Stretch">
+                    Test
+                </ui:Button>
             </StackPanel>
         </StackPanel>
+
+        <StackPanel
+            Grid.Row="2"
+            Grid.Column="1"
+            VerticalAlignment="Stretch">
+            <Separator Margin="0,4" />
+
+            <StackPanel>
+                <ItemsControl ItemsSource="{Binding}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <ui:CardExpander Header="{Binding BrowserName}">
+                                <StackPanel>
+                                    <Grid Margin="0,0,0,8">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+
+                                        <ui:Button
+                                            Margin="0,0,8,0"
+                                            Padding="12,6"
+                                            Icon="{ui:SymbolIcon Edit16}">
+                                            Edit
+                                        </ui:Button>
+
+                                        <StackPanel
+                                            Grid.Column="1"
+                                            HorizontalAlignment="Right"
+                                            Orientation="Horizontal">
+                                            <ui:Button
+                                                Margin="0,0,8,0"
+                                                Padding="12,7"
+                                                Icon="{ui:SymbolIcon ArrowUp16}" />
+                                            <ui:Button
+                                                Margin="0,0,8,0"
+                                                Padding="12,7"
+                                                Icon="{ui:SymbolIcon ArrowDown16}" />
+                                            <ui:Button Padding="12,7" Icon="{ui:SymbolIcon Delete16}" />
+                                        </StackPanel>
+                                    </Grid>
+
+                                    <StackPanel>
+                                        <ItemsControl ItemsSource="{Binding Rules}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <ui:Card Padding="8">
+                                                        <TextBlock Text="{Binding}" />
+                                                    </ui:Card>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </StackPanel>
+
+                                </StackPanel>
+                            </ui:CardExpander>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+            </StackPanel>
+
+        </StackPanel>
+
+
+
     </Grid>
 </ui:FluentWindow>
