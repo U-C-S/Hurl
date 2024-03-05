@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hurl.Library.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,9 +17,14 @@ namespace Hurl.RulesetManager.Windows;
 
 public partial class EditRuleset
 {
-    public EditRuleset()
+    //public Ruleset? Ruleset { get; set; }
+
+    public EditRuleset(Ruleset? set)
     {
         InitializeComponent();
+
+        //if (set != null) Ruleset
+        DataContext = set;
     }
 
     private void Button_Click(object sender, RoutedEventArgs e)

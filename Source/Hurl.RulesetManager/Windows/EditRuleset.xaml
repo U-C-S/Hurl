@@ -38,7 +38,7 @@
                         <ColumnDefinition Width="160" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock VerticalAlignment="Center" Text="Target Browser:" />
+                    <TextBlock VerticalAlignment="Center" Text="{Binding BrowserName}" />
                     <ComboBox
                         x:Name="TargetBrowser"
                         Grid.Column="1"

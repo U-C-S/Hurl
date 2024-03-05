@@ -60,11 +60,6 @@
 
             <StackPanel>
                 <ItemsControl ItemsSource="{Binding}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <ui:CardExpander Margin="0,2" Header="{Binding BrowserName}">
@@ -78,7 +73,9 @@
                                         <ui:Button
                                             Margin="0,0,8,0"
                                             Padding="12,6"
-                                            Icon="{ui:SymbolIcon Edit16}">
+                                            Click="Button_Click"
+                                            Icon="{ui:SymbolIcon Edit16}"
+                                            Tag="{Binding Id}">
                                             Edit
                                         </ui:Button>
 
