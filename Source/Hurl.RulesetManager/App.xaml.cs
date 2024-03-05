@@ -2,13 +2,9 @@
 using System.Data;
 using System.Windows;
 
-namespace Hurl.RulesetManager
-{
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : Application
-    {
-    }
+namespace Hurl.RulesetManager;
 
+
+public partial class App : Application
+{
 }

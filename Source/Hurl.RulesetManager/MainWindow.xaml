@@ -26,10 +26,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <ui:TitleBar
-            Title="Ruleset Manager - Hurl"
-            Grid.ColumnSpan="3"
-            Icon="pack://application:,,,/Assets/applicationIcon-256.png" />
+        <ui:TitleBar Title="Ruleset Manager - Hurl" Grid.ColumnSpan="3" />
 
         <StackPanel Grid.Row="1" Grid.Column="1">
             <TextBlock
@@ -70,7 +67,7 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <ui:CardExpander Header="{Binding BrowserName}">
+                            <ui:CardExpander Margin="0,2" Header="{Binding BrowserName}">
                                 <StackPanel>
                                     <Grid Margin="0,0,0,8">
                                         <Grid.ColumnDefinitions>
@@ -97,11 +94,18 @@
                                                 Margin="0,0,8,0"
                                                 Padding="12,7"
                                                 Icon="{ui:SymbolIcon ArrowDown16}" />
-                                            <ui:Button Padding="12,7" Icon="{ui:SymbolIcon Delete16}" />
+                                            <ui:Button
+                                                Padding="12,7"
+                                                Foreground="Red"
+                                                Icon="{ui:SymbolIcon Delete16}" />
                                         </StackPanel>
                                     </Grid>
 
                                     <StackPanel>
+                                        <TextBlock
+                                            Margin="0,0,0,8"
+                                            FontSize="14"
+                                            Text="{Binding Rules.Count, StringFormat={}{0} Rules Found}" />
                                         <ItemsControl ItemsSource="{Binding Rules}">
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
