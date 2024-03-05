@@ -36,7 +36,7 @@ namespace Hurl.RulesetManager
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var selectedBrowser = TargetBrowser.SelectedValue;
-            var rules = RuleInput.Text;
+            var rules = "RuleInput.Text";
             if (selectedBrowser == null || string.IsNullOrEmpty(rules))
             {
                 WarnText.Visibility = Visibility.Visible;

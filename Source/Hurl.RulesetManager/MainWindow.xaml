@@ -7,8 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="MainWindow"
-    Width="800"
-    Height="450"
+    Width="900"
+    Height="600"
     ExtendsContentIntoTitleBar="True"
     WindowBackdropType="Mica"
     WindowCornerPreference="Round"
@@ -16,12 +16,12 @@
     mc:Ignorable="d">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*" />
+            <ColumnDefinition />
             <ColumnDefinition Width="4*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="10*" />
+            <RowDefinition />
         </Grid.RowDefinitions>
 
         <ui:TitleBar
@@ -30,7 +30,7 @@
             Icon="pack://application:,,,/Assets/applicationIcon-256.png" />
 
         <StackPanel Grid.Row="1" Grid.Column="0">
-            <TextBlock FontSize="18" Text="Rulesets:" />
+            <TextBlock FontSize="16" Text="Rulesets:" />
             <ui:Button HorizontalAlignment="Stretch">Create</ui:Button>
             <ui:Card VerticalAlignment="Stretch">
                 <StackPanel />
@@ -46,25 +46,23 @@
                 Text="Atleast input Target Browser and Rules fields!"
                 Visibility="Hidden" />
 
-            <ui:Card Padding="10">
+            <ui:Card Padding="12">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="1*" />
-                        <RowDefinition Height="1*" />
-                        <RowDefinition Height="1*" />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="160" />
                     </Grid.ColumnDefinitions>
-
-                    <!--<TextBlock VerticalAlignment="Center" Text="Rule Mode:" /> -->
 
                     <TextBlock VerticalAlignment="Center" Text="Target Browser:" />
                     <ComboBox
                         x:Name="TargetBrowser"
                         Grid.Column="1"
-                        Margin="0,0,0,10"
+                        Margin="0,0,0,12"
                         ItemsSource="{Binding}" />
                     <TextBlock
                         Grid.Row="1"
@@ -78,42 +76,67 @@
                 </Grid>
             </ui:Card>
 
-            <ui:Card>
+            <ui:CardControl Header="Add Rule" Icon="{ui:SymbolIcon AddCircle16}">
                 <StackPanel Orientation="Horizontal">
                     <ComboBox
                         x:Name="RuleModeInput"
-                        Margin="10"
+                        Width="120"
+                        Margin="8"
                         SelectedIndex="2">
                         <ComboBoxItem>Regex</ComboBoxItem>
                         <ComboBoxItem>Glob</ComboBoxItem>
+                        <ComboBoxItem>Domain</ComboBoxItem>
                         <ComboBoxItem>String</ComboBoxItem>
                     </ComboBox>
 
                     <ui:TextBox
                         x:Name="RuleInputx"
-                        Margin="10"
+                        Width="240"
+                        Margin="8"
                         PlaceholderText="*.google.com" />
 
-                    <ui:Button>Add Rule</ui:Button>
+                    <ui:Button
+                        Width="80"
+                        Margin="8"
+                        Padding="12,8">
+                        Add
+                    </ui:Button>
                 </StackPanel>
-            </ui:Card>
+            </ui:CardControl>
 
-            <ui:Card Padding="10">
-                <StackPanel>
-                    <Grid Margin="0,0,0,10">
-                        <TextBlock VerticalAlignment="Center" Text="Type the Rules: (Seperate multiple rules with a pipe | and space )" />
-                        <!--<ui:Button HorizontalAlignment="Right">
-                        <ui:Button.Icon>
-                            <ui:SymbolIcon Symbol="Add24" />
-                        </ui:Button.Icon>
-                    </ui:Button>-->
-                    </Grid>
-                    <ui:TextBox
-                        x:Name="RuleInput"
-                        Width="460"
-                        PlaceholderText="google.com | g$*.google.com | r$..." />
-                </StackPanel>
-            </ui:Card>
+            <StackPanel Margin="0,8,0,0">
+                <TextBlock Margin="4" Text="No Rules Configured" />
+
+                <ui:Card>
+                    <StackPanel>
+                        <ui:Card>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock
+                                    Margin="4"
+                                    VerticalAlignment="Center"
+                                    Text="Domain" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    Margin="4"
+                                    VerticalAlignment="Center"
+                                    Text="youtube.com" />
+                                <Button
+                                    Grid.Column="2"
+                                    Margin="4"
+                                    Padding="12,8"
+                                    VerticalAlignment="Center">
+                                    Remove
+                                </Button>
+                            </Grid>
+                        </ui:Card>
+                    </StackPanel>
+                </ui:Card>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </ui:FluentWindow>
