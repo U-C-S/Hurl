@@ -69,6 +69,7 @@
                             x:Name="TargetBrowser"
                             Grid.Column="1"
                             Margin="0,0,0,12"
+                            SelectionChanged="TargetBrowser_SelectionChanged"
                             ItemsSource="{Binding Browsers, Mode=TwoWay}"
                             SelectedIndex="{Binding SelectedBrowser, Mode=TwoWay}" />
                         <TextBlock

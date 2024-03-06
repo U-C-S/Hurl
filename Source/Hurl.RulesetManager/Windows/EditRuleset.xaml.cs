@@ -18,8 +18,6 @@ namespace Hurl.RulesetManager.Windows;
 
 public partial class EditRuleset
 {
-    //public Ruleset? Ruleset { get; set; }
-
     public EditRuleset(EditRulesetViewModel? vm)
     {
         InitializeComponent();
@@ -55,11 +53,8 @@ public partial class EditRuleset
         this.Close();
     }
 
-    private void Save()
+    private void TargetBrowser_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        var id = ((Ruleset)DataContext).Id;
-
-
 
     }
 }
