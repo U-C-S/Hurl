@@ -1,4 +1,5 @@
 ﻿using Hurl.Library.Models;
+using Hurl.RulesetManager.ViewModels;
 using Hurl.RulesetManager.Windows;
 using System.Text;
 using System.Windows;
@@ -32,7 +33,8 @@ public partial class MainWindow
         var id = (int)((Button)sender).Tag;
         var ruleset = ((List<Ruleset>)DataContext).Find(x => x.Id == id);
 
-        var window = new EditRuleset(ruleset) { Owner = Window.GetWindow(this) };
+        var ViewModel = new EditRulesetViewModel(ruleset);
+        var window = new EditRuleset(ViewModel) { Owner = Window.GetWindow(this) };
         window.ShowDialog();
     }
 }

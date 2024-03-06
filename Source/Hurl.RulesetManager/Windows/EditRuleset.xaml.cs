@@ -1,4 +1,5 @@
 ﻿using Hurl.Library.Models;
+using Hurl.RulesetManager.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,12 +20,16 @@ public partial class EditRuleset
 {
     //public Ruleset? Ruleset { get; set; }
 
-    public EditRuleset(Ruleset? set)
+    public EditRuleset(EditRulesetViewModel? vm)
     {
         InitializeComponent();
 
-        //if (set != null) Ruleset
-        DataContext = set;
+        DataContext = vm;
+    }
+
+    private void Refresh()
+    {
+
     }
 
     private void Button_Click(object sender, RoutedEventArgs e)

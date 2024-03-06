@@ -69,16 +69,17 @@
                             x:Name="TargetBrowser"
                             Grid.Column="1"
                             Margin="0,0,0,12"
-                            ItemsSource="{Binding}" />
+                            ItemsSource="{Binding Browsers, Mode=TwoWay}"
+                            SelectedIndex="{Binding SelectedBrowser, Mode=TwoWay}" />
                         <TextBlock
                             Grid.Row="1"
                             VerticalAlignment="Center"
                             Text="Alternate Launch:" />
                         <ComboBox
-                            x:Name="TargetBrowserx"
+                            x:Name="TargetAltLaunch"
                             Grid.Row="1"
                             Grid.Column="1"
-                            ItemsSource="{Binding}" />
+                            ItemsSource="{Binding AltLaunches, Mode=TwoWay}" />
                     </Grid>
                 </ui:Card>
 
