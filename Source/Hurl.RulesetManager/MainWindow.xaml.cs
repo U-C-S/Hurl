@@ -23,7 +23,6 @@ public partial class MainWindow
 
         //Loaded += (sender, args) => SystemThemeWatcher.Watch(this, Wpf.Ui.Controls.WindowBackdropType.Mica, true);
         DataContext = Hurl.Library.SettingsFile.GetSettings().Rulesets;
-
     }
 
     private void Button_Click_1(object sender, RoutedEventArgs e) => this.Close();
@@ -36,5 +35,10 @@ public partial class MainWindow
         var ViewModel = new EditRulesetViewModel(ruleset);
         var window = new EditRuleset(ViewModel) { Owner = Window.GetWindow(this) };
         window.ShowDialog();
+    }
+
+    public void UpdateRuleset(EditRulesetViewModel vm)
+    {
+        var ruleset = vm.ToRuleSet();
     }
 }

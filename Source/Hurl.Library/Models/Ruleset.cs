@@ -66,7 +66,7 @@ public class Rule
         string RuleString = Mode switch
         {
             RuleMode.Domain => $"d${RuleContent}",
-            RuleMode.String => $"{RuleContent}",
+            RuleMode.String => $"{RuleContent}", // use this as default instead
             RuleMode.Regex => $"r${RuleContent}",
             RuleMode.Glob => $"g${RuleContent}",
             _ => throw new NotImplementedException()

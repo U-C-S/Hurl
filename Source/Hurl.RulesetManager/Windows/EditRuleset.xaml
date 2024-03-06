@@ -30,8 +30,8 @@
         </Grid.RowDefinitions>
 
         <ui:TitleBar
-            Title="Ruleset Manager - Hurl"
             Grid.ColumnSpan="3"
+            ShowMaximize="False"
             ShowMinimize="False" />
 
         <ScrollViewer
@@ -191,16 +191,16 @@
                 </Grid.ColumnDefinitions>
                 <ui:Button
                     Padding="40,8"
-                    Click="CancelButton_Click"
                     HorizontalAlignment="Center"
-                    Appearance="Transparent">
+                    Appearance="Transparent"
+                    Click="CancelButton_Click">
                     Cancel
                 </ui:Button>
                 <ui:Button
                     Grid.Column="1"
                     Padding="40,8"
-                    Click="SaveButton_Click"
-                    HorizontalAlignment="Center">
+                    HorizontalAlignment="Center"
+                    Click="SaveButton_Click">
                     Save
                 </ui:Button>
             </Grid>
