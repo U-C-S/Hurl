@@ -158,13 +158,13 @@
                                             <TextBlock
                                                 Margin="4"
                                                 VerticalAlignment="Center"
-                                                Text="Domain" />
+                                                Text="{Binding Mode}" />
                                             <TextBlock
                                                 Grid.Column="1"
                                                 Margin="4"
                                                 Padding="8"
                                                 VerticalAlignment="Center"
-                                                Text="{Binding}" />
+                                                Text="{Binding RuleContent}" />
                                             <Button
                                                 Grid.Column="2"
                                                 Margin="4"

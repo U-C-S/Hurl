@@ -70,16 +70,9 @@ public partial class EditRuleset
         var mode = _RuleInputType.Text;
         var vm = (EditRulesetViewModel)DataContext;
 
-        string newRuleGen = mode switch
-        {
-            "Domain" => $"d${rule}",
-            "String" => $"{rule}",
-            "Regex" => $"r${rule}",
-            "Glob" => $"g${rule}",
-            _ => throw new Exception("Invalid rule type")
-        };
+        var ruleObj = new Rule(rule, mode);
 
-        vm.Rules.Add(newRuleGen);
+        vm.Rules.Add(ruleObj);
         Refresh();
     }
 }

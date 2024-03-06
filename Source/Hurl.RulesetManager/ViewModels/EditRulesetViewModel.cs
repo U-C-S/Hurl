@@ -5,7 +5,7 @@ namespace Hurl.RulesetManager.ViewModels;
 
 public class EditRulesetViewModel
 {
-    public List<string> Rules { get; set; }
+    public List<Rule> Rules { get; set; }
 
     public List<string> Browsers { get; set; }
 
@@ -17,8 +17,9 @@ public class EditRulesetViewModel
                                .Browsers
                                .Select(x => x.Name)
                                .ToList();
-
-        Rules = set?.Rules ?? new List<string>();
+        Rules = set?.Rules?
+                    .Select(x => new Rule(x))
+                    .ToList() ?? new List<Rule>();
         SelectedBrowser = Browsers.IndexOf(set?.BrowserName);
         SelectedAltLaunch = set?.AltLaunchIndex;
     }
