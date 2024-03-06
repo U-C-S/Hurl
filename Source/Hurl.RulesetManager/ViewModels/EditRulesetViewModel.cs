@@ -24,18 +24,17 @@ public class EditRulesetViewModel
         SelectedAltLaunch = set?.AltLaunchIndex;
     }
 
-    private int? _selectedBrowser;
+    private int _selectedBrowser;
 
-    public int? SelectedBrowser
+    public int SelectedBrowser
     {
         get => _selectedBrowser;
         set
         {
-            if (value == null || value < 0)
+            if (value < 0)
             {
                 AltLaunches = null;
                 SelectedAltLaunch = null;
-                _selectedBrowser = null;
             }
             else
             {
@@ -58,6 +57,17 @@ public class EditRulesetViewModel
                                               .ToList() ?? new List<string>());
         AltLaunches = altLaunchesWithNone;
         SelectedAltLaunch = 0;
+    }
+
+    public Ruleset ToRuleSet()
+    {
+        return new()
+        {
+            BrowserName = Browsers[SelectedBrowser],
+            Rules = Rules.Select(x => x.ToString())
+                         .ToList(),
+            AltLaunchIndex = SelectedAltLaunch > 0 ? SelectedAltLaunch - 1 : null
+        };
     }
 }
 

@@ -14,7 +14,7 @@ public class Ruleset
     public string BrowserName { get; set; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-    public int AltLaunchIndex { get; set; }
+    public int? AltLaunchIndex { get; set; }
 }
 
 
