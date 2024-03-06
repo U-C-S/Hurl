@@ -102,7 +102,7 @@
                             </Grid.ColumnDefinitions>
 
                             <ComboBox
-                                x:Name="RuleModeInput"
+                                x:Name="_RuleInputType"
                                 Margin="8"
                                 SelectedIndex="2">
                                 <ComboBoxItem>Regex</ComboBoxItem>
@@ -112,7 +112,7 @@
                             </ComboBox>
 
                             <ui:TextBox
-                                x:Name="RuleInputx"
+                                x:Name="_Rule"
                                 Grid.Column="1"
                                 Margin="8"
                                 PlaceholderText="*.google.com" />
@@ -133,6 +133,7 @@
                                 Margin="8"
                                 Padding="12,8"
                                 HorizontalAlignment="Right"
+                                Click="RuleAddButton_Click"
                                 Icon="{ui:SymbolIcon Add16}">
                                 Add
                             </ui:Button>
@@ -144,7 +145,7 @@
                     <TextBlock Margin="4" Text="{Binding Rules.Count, StringFormat={}Rules Configured: {0}}" />
 
                     <StackPanel>
-                        <ItemsControl ItemsSource="{Binding Rules}">
+                        <ItemsControl x:Name="_RulesListControl" ItemsSource="{Binding Rules, Mode=TwoWay}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <ui:Card Padding="8">

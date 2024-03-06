@@ -21,13 +21,15 @@ public partial class EditRuleset
     public EditRuleset(EditRulesetViewModel? vm)
     {
         InitializeComponent();
-
         DataContext = vm;
     }
 
     private void Refresh()
     {
+        var vm = (EditRulesetViewModel)DataContext;
 
+        _RulesListControl.ItemsSource = vm.Rules;
+        _RulesListControl.Items.Refresh();
     }
 
     private void Button_Click(object sender, RoutedEventArgs e)
@@ -60,6 +62,25 @@ public partial class EditRuleset
 
         vm.SelectedBrowser = selectedIndex;
         TargetAltLaunch.ItemsSource = vm.AltLaunches;
+    }
+
+    private void RuleAddButton_Click(object sender, RoutedEventArgs e)
+    {
+        var rule = _Rule.Text;
+        var mode = _RuleInputType.Text;
+        var vm = (EditRulesetViewModel)DataContext;
+
+        string newRuleGen = mode switch
+        {
+            "Domain" => $"d${rule}",
+            "String" => $"{rule}",
+            "Regex" => $"r${rule}",
+            "Glob" => $"g${rule}",
+            _ => throw new Exception("Invalid rule type")
+        };
+
+        vm.Rules.Add(newRuleGen);
+        Refresh();
     }
 }
 
