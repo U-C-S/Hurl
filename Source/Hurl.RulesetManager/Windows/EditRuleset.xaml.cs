@@ -49,5 +49,13 @@ public partial class EditRuleset
 
         this.Close();
     }
+
+    private void Save()
+    {
+        var id = ((Ruleset)DataContext).Id;
+
+
+
+    }
 }
 

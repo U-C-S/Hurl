@@ -15,107 +15,168 @@
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid>
-        <ui:TitleBar Title="Ruleset Manager - Hurl" Grid.ColumnSpan="3" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition
+                Width="4*"
+                MinWidth="500"
+                MaxWidth="800" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="1" Grid.Column="1">
-            <TextBlock
-                x:Name="WarnText"
-                Height="0"
-                HorizontalAlignment="Center"
-                Foreground="Red"
-                Text="Atleast input Target Browser and Rules fields!"
-                Visibility="Hidden" />
+        <ui:TitleBar
+            Title="Ruleset Manager - Hurl"
+            Grid.ColumnSpan="3"
+            ShowMinimize="False" />
 
-            <ui:Card Padding="12">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="160" />
-                    </Grid.ColumnDefinitions>
+        <ScrollViewer
+            Grid.Row="1"
+            Grid.Column="1"
+            Padding="12,8">
+            <StackPanel>
+                <TextBlock
+                    x:Name="WarnText"
+                    Height="0"
+                    HorizontalAlignment="Center"
+                    Foreground="Red"
+                    Text="Atleast input Target Browser and Rules fields!"
+                    Visibility="Hidden" />
 
-                    <TextBlock VerticalAlignment="Center" Text="{Binding BrowserName}" />
-                    <ComboBox
-                        x:Name="TargetBrowser"
-                        Grid.Column="1"
-                        Margin="0,0,0,12"
-                        ItemsSource="{Binding}" />
-                    <TextBlock
-                        Grid.Row="1"
-                        VerticalAlignment="Center"
-                        Text="Alternate Launch:" />
-                    <ComboBox
-                        x:Name="TargetBrowserx"
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        ItemsSource="{Binding}" />
-                </Grid>
-            </ui:Card>
-
-            <ui:CardControl Header="Add Rule" Icon="{ui:SymbolIcon AddCircle16}">
-                <StackPanel Orientation="Horizontal">
-                    <ComboBox
-                        x:Name="RuleModeInput"
-                        Width="120"
-                        Margin="8"
-                        SelectedIndex="2">
-                        <ComboBoxItem>Regex</ComboBoxItem>
-                        <ComboBoxItem>Glob</ComboBoxItem>
-                        <ComboBoxItem>Domain</ComboBoxItem>
-                        <ComboBoxItem>String</ComboBoxItem>
-                    </ComboBox>
-
+                <ui:CardControl Header="Ruleset Title">
                     <ui:TextBox
-                        x:Name="RuleInputx"
+                        x:Name="RuleNameInput"
                         Width="240"
-                        Margin="8"
-                        PlaceholderText="*.google.com" />
+                        PlaceholderText="Title" />
+                </ui:CardControl>
 
-                    <ui:Button
-                        Width="80"
-                        Margin="8"
-                        Padding="12,8">
-                        Add
-                    </ui:Button>
-                </StackPanel>
-            </ui:CardControl>
+                <ui:Card Padding="12">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="160" />
+                        </Grid.ColumnDefinitions>
 
-            <StackPanel Margin="0,8,0,0">
-                <TextBlock Margin="4" Text="No Rules Configured" />
+                        <TextBlock VerticalAlignment="Center" Text="Browser Name" />
+                        <ComboBox
+                            x:Name="TargetBrowser"
+                            Grid.Column="1"
+                            Margin="0,0,0,12"
+                            ItemsSource="{Binding}" />
+                        <TextBlock
+                            Grid.Row="1"
+                            VerticalAlignment="Center"
+                            Text="Alternate Launch:" />
+                        <ComboBox
+                            x:Name="TargetBrowserx"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            ItemsSource="{Binding}" />
+                    </Grid>
+                </ui:Card>
 
-                <StackPanel>
-                    <ui:Card Padding="8">
-                        <Grid>
+                <ui:Card Padding="12">
+                    <Grid>
+                        <Grid.ColumnDefinitions />
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Padding="8" FontSize="16">Add Rule</TextBlock>
+
+                        <Grid Grid.Row="1">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="60" />
-                                <ColumnDefinition />
-                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="160" />
+                                <ColumnDefinition Width="1*" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock
-                                Margin="4"
-                                VerticalAlignment="Center"
-                                Text="Domain" />
-                            <TextBlock
+
+                            <ComboBox
+                                x:Name="RuleModeInput"
+                                Margin="8"
+                                SelectedIndex="2">
+                                <ComboBoxItem>Regex</ComboBoxItem>
+                                <ComboBoxItem>Glob</ComboBoxItem>
+                                <ComboBoxItem>Domain</ComboBoxItem>
+                                <ComboBoxItem>String</ComboBoxItem>
+                            </ComboBox>
+
+                            <ui:TextBox
+                                x:Name="RuleInputx"
                                 Grid.Column="1"
-                                Margin="4"
-                                Padding="8"
-                                VerticalAlignment="Center"
-                                Text="youtube.com" />
-                            <Button
-                                Grid.Column="2"
-                                Margin="4"
-                                Padding="12,8"
-                                VerticalAlignment="Center">
-                                Remove
-                            </Button>
+                                Margin="8"
+                                PlaceholderText="*.google.com" />
                         </Grid>
-                    </ui:Card>
+
+                        <Grid Grid.Row="2">
+                            <ui:Button
+                                Width="80"
+                                Margin="8"
+                                Padding="12,8"
+                                HorizontalAlignment="Left"
+                                Appearance="Transparent"
+                                Icon="{ui:SymbolIcon Info16}">
+                                Info
+                            </ui:Button>
+                            <ui:Button
+                                Width="120"
+                                Margin="8"
+                                Padding="12,8"
+                                HorizontalAlignment="Right"
+                                Icon="{ui:SymbolIcon Add16}">
+                                Add
+                            </ui:Button>
+                        </Grid>
+                    </Grid>
+                </ui:Card>
+
+                <StackPanel Margin="0,8,0,0">
+                    <TextBlock Margin="4" Text="{Binding Rules.Count, StringFormat={}Rules Configured: {0}}" />
+
+                    <StackPanel>
+                        <ItemsControl ItemsSource="{Binding Rules}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <ui:Card Padding="8">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="60" />
+                                                <ColumnDefinition />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock
+                                                Margin="4"
+                                                VerticalAlignment="Center"
+                                                Text="Domain" />
+                                            <TextBlock
+                                                Grid.Column="1"
+                                                Margin="4"
+                                                Padding="8"
+                                                VerticalAlignment="Center"
+                                                Text="{Binding}" />
+                                            <Button
+                                                Grid.Column="2"
+                                                Margin="4"
+                                                Padding="12,8"
+                                                VerticalAlignment="Center">
+                                                Remove
+                                            </Button>
+                                        </Grid>
+                                    </ui:Card>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
                 </StackPanel>
             </StackPanel>
-        </StackPanel>
+        </ScrollViewer>
     </Grid>
 </ui:FluentWindow>
