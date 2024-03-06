@@ -72,7 +72,7 @@
 
                                         <ui:Button
                                             Margin="0,0,8,0"
-                                            Padding="12,6"
+                                            Padding="12,7"
                                             Click="Button_Click"
                                             Icon="{ui:SymbolIcon Edit16}"
                                             Tag="{Binding Id}">
@@ -85,14 +85,14 @@
                                             Orientation="Horizontal">
                                             <ui:Button
                                                 Margin="0,0,8,0"
-                                                Padding="12,7"
+                                                Padding="12,8"
                                                 Icon="{ui:SymbolIcon ArrowUp16}" />
                                             <ui:Button
                                                 Margin="0,0,8,0"
-                                                Padding="12,7"
+                                                Padding="12,8"
                                                 Icon="{ui:SymbolIcon ArrowDown16}" />
                                             <ui:Button
-                                                Padding="12,7"
+                                                Padding="12,8"
                                                 Foreground="Red"
                                                 Icon="{ui:SymbolIcon Delete16}" />
                                         </StackPanel>
