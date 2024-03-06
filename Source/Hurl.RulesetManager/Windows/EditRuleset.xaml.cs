@@ -75,5 +75,17 @@ public partial class EditRuleset
         vm.Rules.Add(ruleObj);
         Refresh();
     }
+
+    private void SaveButton_Click(object sender, RoutedEventArgs e)
+    {
+        DialogResult = true;
+        this.Close();
+    }
+
+    private void CancelButton_Click(object sender, RoutedEventArgs e)
+    {
+        DialogResult = false;
+        this.Close();
+    }
 }
 

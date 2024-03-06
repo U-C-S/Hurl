@@ -8,7 +8,7 @@
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="EditRuleset"
     Width="800"
-    Height="450"
+    Height="520"
     ExtendsContentIntoTitleBar="True"
     WindowBackdropType="Mica"
     WindowCornerPreference="Round"
@@ -26,6 +26,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <ui:TitleBar
@@ -181,5 +182,28 @@
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
+
+        <ui:Card Grid.Row="2" Grid.ColumnSpan="3">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <ui:Button
+                    Padding="40,8"
+                    Click="CancelButton_Click"
+                    HorizontalAlignment="Center"
+                    Appearance="Transparent">
+                    Cancel
+                </ui:Button>
+                <ui:Button
+                    Grid.Column="1"
+                    Padding="40,8"
+                    Click="SaveButton_Click"
+                    HorizontalAlignment="Center">
+                    Save
+                </ui:Button>
+            </Grid>
+        </ui:Card>
     </Grid>
 </ui:FluentWindow>
