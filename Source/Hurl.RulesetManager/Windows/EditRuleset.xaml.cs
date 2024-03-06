@@ -55,7 +55,11 @@ public partial class EditRuleset
 
     private void TargetBrowser_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
+        var selectedIndex = ((ComboBox)sender).SelectedIndex;
+        var vm = (EditRulesetViewModel)DataContext;
 
+        vm.SelectedBrowser = selectedIndex;
+        TargetAltLaunch.ItemsSource = vm.AltLaunches;
     }
 }
 

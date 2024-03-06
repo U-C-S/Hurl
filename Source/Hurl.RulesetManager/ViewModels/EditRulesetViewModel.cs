@@ -51,9 +51,12 @@ public class EditRulesetViewModel
         var selected = SettingsFile.GetSettings()
                                    .Browsers[value ?? 0];
 
-        AltLaunches = selected?.AlternateLaunches?
-                              .Select(x => x.ItemName)
-                              .ToList();
+        var altLaunchesWithNone = new List<string> { "< None >" };
+        altLaunchesWithNone.AddRange(selected?.AlternateLaunches?
+                                              .Select(x => x.ItemName)
+                                              .ToList() ?? new List<string>());
+        AltLaunches = altLaunchesWithNone;
+        SelectedAltLaunch = 0;
     }
 }
 

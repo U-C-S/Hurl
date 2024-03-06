@@ -61,7 +61,7 @@
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*" />
-                            <ColumnDefinition Width="160" />
+                            <ColumnDefinition Width="200" />
                         </Grid.ColumnDefinitions>
 
                         <TextBlock VerticalAlignment="Center" Text="Browser Name" />
@@ -69,9 +69,9 @@
                             x:Name="TargetBrowser"
                             Grid.Column="1"
                             Margin="0,0,0,12"
-                            SelectionChanged="TargetBrowser_SelectionChanged"
                             ItemsSource="{Binding Browsers, Mode=TwoWay}"
-                            SelectedIndex="{Binding SelectedBrowser, Mode=TwoWay}" />
+                            SelectedIndex="{Binding SelectedBrowser, Mode=TwoWay}"
+                            SelectionChanged="TargetBrowser_SelectionChanged" />
                         <TextBlock
                             Grid.Row="1"
                             VerticalAlignment="Center"
