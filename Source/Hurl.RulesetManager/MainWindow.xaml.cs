@@ -33,7 +33,7 @@ public partial class MainWindow
         var ruleset = ((List<Ruleset>)DataContext).Find(x => x.Id == id);
 
         var ViewModel = new EditRulesetViewModel(ruleset);
-        var window = new EditRuleset(ViewModel) { Owner = Window.GetWindow(this) };
+        var window = new EditRuleset(ViewModel, UpdateRuleset) { Owner = Window.GetWindow(this) };
         window.ShowDialog();
     }
 

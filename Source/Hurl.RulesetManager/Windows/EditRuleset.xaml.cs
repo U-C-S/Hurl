@@ -18,11 +18,14 @@ namespace Hurl.RulesetManager.Windows;
 
 public partial class EditRuleset
 {
-    public EditRuleset(EditRulesetViewModel? vm)
+    public EditRuleset(EditRulesetViewModel? vm, Action<EditRulesetViewModel> successCallback)
     {
         InitializeComponent();
         DataContext = vm;
+        _successCallback = successCallback;
     }
+
+    private readonly Action<EditRulesetViewModel> _successCallback;
 
     private void Refresh()
     {
@@ -79,6 +82,7 @@ public partial class EditRuleset
     private void SaveButton_Click(object sender, RoutedEventArgs e)
     {
         DialogResult = true;
+        _successCallback(DataContext as EditRulesetViewModel);
         this.Close();
     }
 
