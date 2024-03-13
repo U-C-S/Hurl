@@ -13,7 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Wpf.Ui.Appearance;
 
-namespace Hurl.RulesetManager;
+namespace Hurl.RulesetManager.Windows;
 
 public partial class MainWindow
 {
