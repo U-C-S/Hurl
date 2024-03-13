@@ -6,9 +6,12 @@
     xmlns:local="clr-namespace:Hurl.RulesetManager.Windows"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:vm="clr-namespace:Hurl.RulesetManager.ViewModels"
     Title="EditRuleset"
     Width="600"
     Height="520"
+    d:DataContext="{d:DesignInstance vm:EditRulesetViewModel,
+                                     IsDesignTimeCreatable=False}"
     ExtendsContentIntoTitleBar="True"
     WindowBackdropType="Mica"
     WindowCornerPreference="Round"

@@ -5,23 +5,29 @@ namespace Hurl.RulesetManager.ViewModels;
 
 public class EditRulesetViewModel
 {
+    private readonly Settings _settings;
+
+    public int RulesetIndex { get; }
+
     public List<Rule> Rules { get; set; }
 
     public List<string> Browsers { get; set; }
 
     public List<string>? AltLaunches { get; set; }
 
-    public EditRulesetViewModel(Ruleset? set)
+    public EditRulesetViewModel(Ruleset set)
     {
-        Browsers = SettingsFile.GetSettings()
-                               .Browsers
-                               .Select(x => x.Name)
-                               .ToList();
-        Rules = set?.Rules?
-                    .Select(x => new Rule(x))
-                    .ToList() ?? new List<Rule>();
-        SelectedBrowser = Browsers.IndexOf(set?.BrowserName);
-        SelectedAltLaunch = set?.AltLaunchIndex;
+        // Make settings a singleton
+        _settings = SettingsFile.GetSettings();
+
+        Browsers = _settings.Browsers
+                            .Select(x => x.Name)
+                            .ToList();
+        Rules = set.Rules?
+                   .Select(x => new Rule(x))
+                   .ToList() ?? new List<Rule>();
+        SelectedBrowser = Browsers.IndexOf(set.BrowserName);
+        SelectedAltLaunch = set.AltLaunchIndex;
     }
 
     private int _selectedBrowser;
@@ -48,8 +54,7 @@ public class EditRulesetViewModel
 
     private void SelectedBrowserChanged(int? value)
     {
-        var selected = SettingsFile.GetSettings()
-                                   .Browsers[value ?? 0];
+        var selected = _settings.Browsers[value ?? 0];
 
         var altLaunchesWithNone = new List<string> { "< None >" };
         altLaunchesWithNone.AddRange(selected?.AlternateLaunches?
