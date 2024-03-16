@@ -1,4 +1,5 @@
 ﻿using Hurl.Library.Models;
+using Hurl.RulesetManager.Controls;
 using Hurl.RulesetManager.ViewModels;
 using Hurl.RulesetManager.Windows;
 using System.Text;
@@ -21,24 +22,27 @@ public partial class MainWindow
     {
         InitializeComponent();
 
-        //Loaded += (sender, args) => SystemThemeWatcher.Watch(this, Wpf.Ui.Controls.WindowBackdropType.Mica, true);
-        DataContext = Hurl.Library.SettingsFile.GetSettings().Rulesets;
+        IsVisibleChanged += MainWindow_IsVisibleChanged;
     }
 
-    private void Button_Click_1(object sender, RoutedEventArgs e) => this.Close();
-
-    private void Button_Click(object sender, RoutedEventArgs e)
+    private async void MainWindow_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
-        var id = (int)((Button)sender).Tag;
-        var ruleset = ((List<Ruleset>)DataContext).Find(x => x.Id == id);
-
-        var ViewModel = new EditRulesetViewModel(ruleset);
-        var window = new EditRuleset(ViewModel, UpdateRuleset) { Owner = Window.GetWindow(this) };
-        window.ShowDialog();
+        if ((bool)e.NewValue)
+        {
+            await RefreshAsync();
+        }
     }
 
-    public void UpdateRuleset(EditRulesetViewModel vm)
+    private Task RefreshAsync()
     {
-        var ruleset = vm.ToRuleSet();
+        _rulesetsList.Children.Clear();
+
+        foreach (var ruleset in Hurl.Library.SettingsFile.GetSettings().Rulesets)
+        {
+            var accordion = new RulesetAccordion(ruleset);
+            _rulesetsList.Children.Add(accordion);
+        }
+
+        return Task.CompletedTask;
     }
 }

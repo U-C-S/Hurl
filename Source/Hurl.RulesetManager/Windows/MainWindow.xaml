@@ -58,69 +58,7 @@
             VerticalAlignment="Stretch">
             <Separator Margin="0,4" />
 
-            <StackPanel>
-                <ItemsControl ItemsSource="{Binding}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <ui:CardExpander Margin="0,2" Header="{Binding BrowserName}">
-                                <StackPanel>
-                                    <Grid Margin="0,0,0,8">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
-
-                                        <ui:Button
-                                            Margin="0,0,8,0"
-                                            Padding="12,7"
-                                            Click="Button_Click"
-                                            Icon="{ui:SymbolIcon Edit16}"
-                                            Tag="{Binding Id}">
-                                            Edit
-                                        </ui:Button>
-
-                                        <StackPanel
-                                            Grid.Column="1"
-                                            HorizontalAlignment="Right"
-                                            Orientation="Horizontal">
-                                            <ui:Button
-                                                Margin="0,0,8,0"
-                                                Padding="12,8"
-                                                Icon="{ui:SymbolIcon ArrowUp16}" />
-                                            <ui:Button
-                                                Margin="0,0,8,0"
-                                                Padding="12,8"
-                                                Icon="{ui:SymbolIcon ArrowDown16}" />
-                                            <ui:Button
-                                                Padding="12,8"
-                                                Foreground="Red"
-                                                Icon="{ui:SymbolIcon Delete16}" />
-                                        </StackPanel>
-                                    </Grid>
-
-                                    <StackPanel>
-                                        <TextBlock
-                                            Margin="0,0,0,8"
-                                            FontSize="14"
-                                            Text="{Binding Rules.Count, StringFormat={}{0} Rules Found}" />
-                                        <ItemsControl ItemsSource="{Binding Rules}">
-                                            <ItemsControl.ItemTemplate>
-                                                <DataTemplate>
-                                                    <ui:Card Padding="8">
-                                                        <TextBlock Text="{Binding}" />
-                                                    </ui:Card>
-                                                </DataTemplate>
-                                            </ItemsControl.ItemTemplate>
-                                        </ItemsControl>
-                                    </StackPanel>
-
-                                </StackPanel>
-                            </ui:CardExpander>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-
-            </StackPanel>
+            <StackPanel x:Name="_rulesetsList"/>
 
         </StackPanel>
 
