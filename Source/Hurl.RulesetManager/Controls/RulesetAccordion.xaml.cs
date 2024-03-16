@@ -31,6 +31,11 @@ public partial class RulesetAccordion : UserControl
     {
         var ruleset = vm.ToRuleSet();
         DataContext = ruleset;
+
+        SettingsState.Rulesets = SettingsState.Rulesets
+            .Select((x, i) => i == _index ? ruleset : x)
+            .ToList();
+        SettingsState.Update();
     }
 }
 

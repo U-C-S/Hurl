@@ -35,7 +35,7 @@ public partial class MainWindow
     {
         _rulesetsList.Children.Clear();
 
-        foreach (var (ruleset, i) in Hurl.Library.SettingsFile.GetSettings().Rulesets.WithIndex())
+        foreach (var (ruleset, i) in SettingsState.Rulesets.WithIndex())
         {
             var accordion = new RulesetAccordion(i, ruleset);
             _rulesetsList.Children.Add(accordion);

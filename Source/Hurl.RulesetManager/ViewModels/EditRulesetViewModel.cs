@@ -1,4 +1,4 @@
-using Hurl.Library;
+﻿using Hurl.Library;
 using Hurl.Library.Models;
 
 namespace Hurl.RulesetManager.ViewModels;
@@ -16,10 +16,9 @@ public class EditRulesetViewModel
     public EditRulesetViewModel(int index, Ruleset? set)
     {
         Index = index;
-        Browsers = SettingsFile.GetSettings()
-                               .Browsers
-                               .Select(x => x.Name)
-                               .ToList();
+        Browsers = SettingsState.GetBrowsers()
+            .Select(x => x.Name)
+            .ToList();
         Rules = set?.Rules?
                     .Select(x => new Rule(x))
                     .ToList() ?? new List<Rule>();
@@ -51,8 +50,7 @@ public class EditRulesetViewModel
 
     private void SelectedBrowserChanged(int? value)
     {
-        var selected = SettingsFile.GetSettings()
-                                   .Browsers[value ?? 0];
+        var selected = SettingsState.GetBrowsers()[value ?? 0];
 
         var altLaunchesWithNone = new List<string> { "< None >" };
         altLaunchesWithNone.AddRange(selected?.AlternateLaunches?
