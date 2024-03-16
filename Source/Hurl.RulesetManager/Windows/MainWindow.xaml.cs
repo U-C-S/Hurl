@@ -50,6 +50,12 @@ public partial class MainWindow
         window.ShowDialog();
     }
 
+    private void TestButton_Click(object sender, RoutedEventArgs e)
+    {
+        var window = new RuleTestingWindow();
+        window.ShowDialog();
+    }
+
     public void CreateRuleset(EditRulesetViewModel vm)
     {
         SettingsState.Rulesets.Add(vm.ToRuleSet());
