@@ -1,4 +1,5 @@
-﻿using Hurl.Library.Models;
+﻿using Hurl.Library.Extensions;
+using Hurl.Library.Models;
 using Hurl.RulesetManager.Controls;
 using Hurl.RulesetManager.ViewModels;
 using Hurl.RulesetManager.Windows;
@@ -27,19 +28,16 @@ public partial class MainWindow
 
     private async void MainWindow_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
-        if ((bool)e.NewValue)
-        {
-            await RefreshAsync();
-        }
+        await RefreshAsync();
     }
 
     private Task RefreshAsync()
     {
         _rulesetsList.Children.Clear();
 
-        foreach (var ruleset in Hurl.Library.SettingsFile.GetSettings().Rulesets)
+        foreach (var (ruleset, i) in Hurl.Library.SettingsFile.GetSettings().Rulesets.WithIndex())
         {
-            var accordion = new RulesetAccordion(ruleset);
+            var accordion = new RulesetAccordion(i, ruleset);
             _rulesetsList.Children.Add(accordion);
         }
 

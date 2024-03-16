@@ -1,18 +1,21 @@
-﻿using Hurl.Library;
+using Hurl.Library;
 using Hurl.Library.Models;
 
 namespace Hurl.RulesetManager.ViewModels;
 
 public class EditRulesetViewModel
 {
+    public readonly int Index;
+
     public List<Rule> Rules { get; set; }
 
     public List<string> Browsers { get; set; }
 
     public List<string>? AltLaunches { get; set; }
 
-    public EditRulesetViewModel(Ruleset? set)
+    public EditRulesetViewModel(int index, Ruleset? set)
     {
+        Index = index;
         Browsers = SettingsFile.GetSettings()
                                .Browsers
                                .Select(x => x.Name)

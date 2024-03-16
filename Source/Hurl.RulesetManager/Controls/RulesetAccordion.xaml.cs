@@ -1,4 +1,4 @@
-﻿using Hurl.Library.Models;
+using Hurl.Library.Models;
 using Hurl.RulesetManager.ViewModels;
 using Hurl.RulesetManager.Windows;
 using System.Windows;
@@ -8,8 +8,11 @@ namespace Hurl.RulesetManager.Controls;
 
 public partial class RulesetAccordion : UserControl
 {
-    public RulesetAccordion(Ruleset ruleset)
+    private readonly int _index;
+
+    public RulesetAccordion(int index, Ruleset ruleset)
     {
+        _index = index;
         InitializeComponent();
 
         DataContext = ruleset;
@@ -19,7 +22,7 @@ public partial class RulesetAccordion : UserControl
     {
         var ruleset = ((Ruleset)DataContext);
 
-        var ViewModel = new EditRulesetViewModel(ruleset);
+        var ViewModel = new EditRulesetViewModel(_index, ruleset);
         var window = new EditRuleset(ViewModel, UpdateRuleset) { Owner = Window.GetWindow(this) };
         window.ShowDialog();
     }
