@@ -31,13 +31,13 @@ public partial class MainWindow
         await RefreshAsync();
     }
 
-    private Task RefreshAsync()
+    public Task RefreshAsync()
     {
         _rulesetsList.Children.Clear();
 
         foreach (var (ruleset, i) in SettingsState.Rulesets.WithIndex())
         {
-            var accordion = new RulesetAccordion(i, ruleset);
+            var accordion = new RulesetAccordion(i, ruleset) { Refresh = RefreshAsync };
             _rulesetsList.Children.Add(accordion);
         }
 

@@ -20,7 +20,7 @@
                 <ui:Button
                     Margin="0,0,8,0"
                     Padding="12,7"
-                    Click="Button_Click"
+                    Click="EditButton_Click"
                     Icon="{ui:SymbolIcon Edit16}"
                     Tag="{Binding Id}">
                     Edit
@@ -33,14 +33,17 @@
                     <ui:Button
                         Margin="0,0,8,0"
                         Padding="12,8"
+                        Click="UpButton_Click"
                         Icon="{ui:SymbolIcon ArrowUp16}" />
                     <ui:Button
                         Margin="0,0,8,0"
                         Padding="12,8"
+                        Click="DownButton_Click"
                         Icon="{ui:SymbolIcon ArrowDown16}" />
                     <ui:Button
                         Padding="12,8"
                         Foreground="Red"
+                        Click="DeleteButton_Click"
                         Icon="{ui:SymbolIcon Delete16}" />
                 </StackPanel>
             </Grid>
