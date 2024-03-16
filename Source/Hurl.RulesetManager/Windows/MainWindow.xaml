@@ -39,6 +39,7 @@
                 <ui:Button
                     Width="2in"
                     Margin="0,0,4,4"
+                    Click="CreateButton_Click"
                     HorizontalAlignment="Stretch">
                     Create
                 </ui:Button>

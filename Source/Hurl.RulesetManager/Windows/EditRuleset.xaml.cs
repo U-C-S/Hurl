@@ -1,4 +1,4 @@
-﻿using Hurl.Library.Models;
+using Hurl.Library.Models;
 using Hurl.RulesetManager.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -23,6 +23,13 @@ public partial class EditRuleset
         InitializeComponent();
         DataContext = vm;
         _successCallback = successCallback;
+    }
+
+    public EditRuleset(Action<EditRulesetViewModel> createSuccessCallback)
+    {
+        InitializeComponent();
+        DataContext = new EditRulesetViewModel();
+        _successCallback = createSuccessCallback;
     }
 
     private readonly Action<EditRulesetViewModel> _successCallback;

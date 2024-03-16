@@ -1,4 +1,4 @@
-﻿using Hurl.Library.Extensions;
+using Hurl.Library.Extensions;
 using Hurl.Library.Models;
 using Hurl.RulesetManager.Controls;
 using Hurl.RulesetManager.ViewModels;
@@ -42,5 +42,18 @@ public partial class MainWindow
         }
 
         return Task.CompletedTask;
+    }
+
+    private void CreateButton_Click(object sender, RoutedEventArgs e)
+    {
+        var window = new EditRuleset(CreateRuleset);
+        window.ShowDialog();
+    }
+
+    public void CreateRuleset(EditRulesetViewModel vm)
+    {
+        SettingsState.Rulesets.Add(vm.ToRuleSet());
+        SettingsState.Update();
+        RefreshAsync();
     }
 }
