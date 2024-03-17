@@ -1,65 +1,24 @@
-﻿using DotNet.Globbing;
-using Hurl.BrowserSelector.Globals;
-using System.Collections.Generic;
+﻿using Hurl.BrowserSelector.Globals;
+using Hurl.Library;
 using System.Diagnostics;
-using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace Hurl.BrowserSelector.Helpers
 {
     internal class AutoRulesCheck
     {
-        private static bool Check(string link, List<string> rules)
-        {
-            var value = rules.FirstOrDefault(rule =>
-            {
-                // TODO: decide what to do with https:// at the beginning of the link
-
-                // regex mode
-                // ex: "r$.*\\.google\\.com"
-                if (rule.StartsWith("r$"))
-                {
-                    var r = new Regex(rule.Substring(2));
-                    return r.IsMatch(link);
-                }
-                // glob mode
-                // ex: "g$*.google.com"
-                else if (rule.StartsWith("g$"))
-                {
-                    var globpattern = rule.Substring(2);
-                    string newLink = link;
-                    if (newLink.StartsWith("http")) // temp workaround for glob not working with https://
-                    {
-                        int index = newLink.IndexOf("://");
-                        if (index != -1)
-                        {
-                            newLink = newLink.Substring(index + 3);
-                        }
-                    }
-                    var x = Glob.Parse(globpattern).IsMatch(newLink);
-                    return x;
-                }
-                else
-                {
-                    return link.Equals(rule);
-                }
-            }, null);
-
-            return value != null;
-        }
-
         public static bool Start(string link)
         {
             var settings = SettingsGlobal.Value;
             if (settings?.Rulesets == null) return false;
 
+#if DEBUG
             Stopwatch sw = new();
             sw.Start();
-
+#endif
             foreach (var rules in settings.Rulesets)
             {
                 var isHurl = rules.BrowserName == "_Hurl";
-                if (isHurl && Check(link, rules.Rules))
+                if (isHurl && RuleMatch.CheckMultiple(link, rules.Rules))
                 {
                     return false;
                 }
@@ -68,7 +27,7 @@ namespace Hurl.BrowserSelector.Helpers
                     var x = settings.Browsers.Find(x => x.Name == rules.BrowserName);
                     if (x != null)
                     {
-                        if (Check(link, rules.Rules))
+                        if (RuleMatch.CheckMultiple(link, rules.Rules))
                         {
                             string Args = string.IsNullOrEmpty(x.LaunchArgs) ? link + " " + x.LaunchArgs : link;
                             Process.Start(x.ExePath, Args);
@@ -78,10 +37,10 @@ namespace Hurl.BrowserSelector.Helpers
                     }
                 }
             }
-
+#if DEBUG
             sw.Stop();
             Debug.WriteLine(sw.Elapsed.TotalSeconds);
-
+#endif
             return false;
         }
     }
