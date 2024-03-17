@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="MainWindow"
-    Width="900"
+    Width="800"
     Height="600"
     ExtendsContentIntoTitleBar="True"
     WindowBackdropType="Mica"
@@ -17,7 +17,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
-            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="4*" MinWidth="420" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -28,43 +28,48 @@
 
         <ui:TitleBar Title="Ruleset Manager - Hurl [BETA]" Grid.ColumnSpan="3" />
 
-        <StackPanel Grid.Row="1" Grid.Column="1">
-            <TextBlock
-                Margin="0,0,0,8"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                FontSize="20"
-                Text="Rulesets" />
-            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                <ui:Button
-                    Width="2in"
-                    Margin="0,0,4,4"
-                    HorizontalAlignment="Stretch"
-                    Click="CreateButton_Click">
-                    Create
-                </ui:Button>
-
-                <ui:Button
-                    Width="2in"
-                    Margin="4,0,0,4"
-                    HorizontalAlignment="Stretch"
-                    Click="TestButton_Click">
-                    Test
-                </ui:Button>
-            </StackPanel>
-        </StackPanel>
-
-        <StackPanel
-            Grid.Row="2"
+        <Border
+            Grid.Row="1"
             Grid.Column="1"
-            VerticalAlignment="Stretch">
-            <Separator Margin="0,4" />
+            Margin="0,0,0,4"
+            BorderBrush="#3377787E"
+            BorderThickness="0,0,0,2">
+            <StackPanel>
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="20"
+                    Text="Rulesets" />
+                <StackPanel
+                    Margin="0,8"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+                    <ui:Button
+                        Width="2in"
+                        Margin="0,0,4,0"
+                        HorizontalAlignment="Stretch"
+                        Click="CreateButton_Click">
+                        Create
+                    </ui:Button>
 
-            <StackPanel x:Name="_rulesetsList" />
+                    <ui:Button
+                        Width="2in"
+                        Margin="4,0,0,0"
+                        HorizontalAlignment="Stretch"
+                        Click="TestButton_Click">
+                        Test
+                    </ui:Button>
+                </StackPanel>
+            </StackPanel>
+        </Border>
 
-        </StackPanel>
 
-
+        <ScrollViewer Grid.Row="2" Grid.Column="1">
+            <StackPanel
+                x:Name="_rulesetsList"
+                Margin="10,0"
+                VerticalAlignment="Stretch" />
+        </ScrollViewer>
 
     </Grid>
 </ui:FluentWindow>
