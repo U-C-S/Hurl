@@ -70,7 +70,7 @@
                             x:Name="TargetBrowser"
                             Grid.Column="1"
                             Margin="0,0,0,12"
-                            ItemsSource="{Binding Browsers, Mode=TwoWay}"
+                            ItemsSource="{Binding Browsers}"
                             SelectedIndex="{Binding SelectedBrowser, Mode=TwoWay}"
                             SelectionChanged="TargetBrowser_SelectionChanged" />
                         <TextBlock
@@ -81,6 +81,7 @@
                             x:Name="TargetAltLaunch"
                             Grid.Row="1"
                             Grid.Column="1"
+                            SelectedIndex="{Binding SelectedAltLaunch, Mode=TwoWay}"
                             ItemsSource="{Binding AltLaunches, Mode=TwoWay}" />
                     </Grid>
                 </ui:Card>

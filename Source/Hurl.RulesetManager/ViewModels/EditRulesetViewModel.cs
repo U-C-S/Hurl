@@ -23,7 +23,7 @@ public class EditRulesetViewModel
                     .Select(x => new Rule(x))
                     .ToList() ?? new List<Rule>();
         SelectedBrowser = Browsers.IndexOf(set?.BrowserName);
-        SelectedAltLaunch = set?.AltLaunchIndex;
+        SelectedAltLaunch = set?.AltLaunchIndex != null ? set?.AltLaunchIndex + 1 : null;
     }
 
     public EditRulesetViewModel()
@@ -65,7 +65,7 @@ public class EditRulesetViewModel
                                               .Select(x => x.ItemName)
                                               .ToList() ?? new List<string>());
         AltLaunches = altLaunchesWithNone;
-        SelectedAltLaunch = 0;
+        //SelectedAltLaunch = 0;
     }
 
     public Ruleset ToRuleSet()
