@@ -15,6 +15,11 @@ public class Constants
     public static string ROAMING = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
     public static string APP_SETTINGS_DIR = Path.Combine(ROAMING, "Hurl");
     public static string APP_SETTINGS_MAIN = Path.Combine(APP_SETTINGS_DIR, "UserSettings.json");
+#if DEBUG
+    public static string SETTINGS_APP = Path.GetFullPath(Path.Combine(APP_PARENT_DIR, "../../../../Hurl.RulesetManager/bin/Debug/net8.0-windows/Hurl.RulesetManager.exe"));
+#else
+    public static string SETTINGS_APP = Path.Combine(APP_PARENT_DIR, "Hurl.RulesetManager.exe");
+#endif
 
     public const string NEW_LINE = "1&#x0a;";
 }
