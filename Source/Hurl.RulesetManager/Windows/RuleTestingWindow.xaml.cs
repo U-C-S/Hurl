@@ -16,7 +16,7 @@ public partial class RuleTestingWindow
     private void TestRuleButton_Click(object sender, RoutedEventArgs e)
     {
         var uri = _UriInput.Text;
-        var ruleMode = _RuleTypeInput.SelectedValue;
+        var ruleMode = _RuleTypeInput.Text;
         var ruleContent = _RuleInput.Text;
 
         if (string.IsNullOrWhiteSpace(uri) || string.IsNullOrWhiteSpace(ruleContent))

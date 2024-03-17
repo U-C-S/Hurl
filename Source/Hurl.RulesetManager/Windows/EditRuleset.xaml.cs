@@ -43,7 +43,7 @@ public partial class EditRuleset
     private void RuleAddButton_Click(object sender, RoutedEventArgs e)
     {
         var rule = _Rule.Text;
-        var mode = _RuleInputType.SelectedValue?.ToString();
+        var mode = _RuleInputType.Text;
 
         if(string.IsNullOrWhiteSpace(rule) || string.IsNullOrWhiteSpace(mode))
         {
