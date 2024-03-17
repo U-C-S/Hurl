@@ -6,8 +6,7 @@ namespace Hurl.Library.Models;
 
 public class Ruleset
 {
-    // assign a random number to this
-    public int Id { get; set; } = new Random().Next(10000);
+    public string Name { get; set; }
 
     public List<string> Rules { get; set; }
 
@@ -43,7 +42,7 @@ public class Rule
 
     public Rule(string storedRule)
     {
-        var split = storedRule.Split('$', 2);
+        var split = storedRule.Split('$', 2); // TODO: handle for when there is no $ in the string
         var modeLetter = split[0];
         var content = split[1];
 

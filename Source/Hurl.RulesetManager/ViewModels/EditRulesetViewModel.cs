@@ -4,7 +4,7 @@ namespace Hurl.RulesetManager.ViewModels;
 
 public class EditRulesetViewModel
 {
-    //public readonly int Index;
+    public string Name { get; set; }
 
     public List<Rule> Rules { get; set; }
 
@@ -71,6 +71,7 @@ public class EditRulesetViewModel
     {
         return new()
         {
+            Name = Name,
             BrowserName = Browsers[SelectedBrowser],
             Rules = Rules.Select(x => x.ToString())
                          .ToList(),

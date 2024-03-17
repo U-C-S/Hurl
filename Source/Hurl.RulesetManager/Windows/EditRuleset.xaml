@@ -51,7 +51,8 @@
                     <ui:TextBox
                         x:Name="RuleNameInput"
                         Width="240"
-                        PlaceholderText="Title" />
+                        PlaceholderText="Title"
+                        Text="{Binding Name, Mode=TwoWay}" />
                 </ui:CardControl>
 
                 <ui:Card Padding="12">
@@ -81,8 +82,8 @@
                             x:Name="TargetAltLaunch"
                             Grid.Row="1"
                             Grid.Column="1"
-                            SelectedIndex="{Binding SelectedAltLaunch, Mode=TwoWay}"
-                            ItemsSource="{Binding AltLaunches, Mode=TwoWay}" />
+                            ItemsSource="{Binding AltLaunches, Mode=TwoWay}"
+                            SelectedIndex="{Binding SelectedAltLaunch, Mode=TwoWay}" />
                     </Grid>
                 </ui:Card>
 
