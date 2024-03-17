@@ -18,7 +18,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition
-                Width="4*"
+                Width="5*"
                 MinWidth="400"
                 MaxWidth="700" />
             <ColumnDefinition />
@@ -37,35 +37,41 @@
         <StackPanel Grid.Row="1" Grid.Column="1">
             <ui:Card Padding="12">
                 <StackPanel>
-                    <TextBlock FontSize="16" Text="URI" />
+                    <TextBlock>
+                        Enter a URI to test
+                    </TextBlock>
                     <TextBox
                         x:Name="_UriInput"
                         Margin="0,12,0,0"
                         HorizontalAlignment="Stretch"
-                        AcceptsReturn="True"
-                        FontSize="14" />
-
+                        AcceptsReturn="True" />
                     <ui:Button
                         x:Name="_TestExistingButton"
                         Width="200"
                         Margin="0,12,0,0"
                         Padding="12,6"
                         HorizontalAlignment="Right">
-                        Check with Existing Rules
+                        Test against Existing Rules
                     </ui:Button>
                 </StackPanel>
             </ui:Card>
 
             <ui:Card Padding="12">
                 <StackPanel>
-                    <TextBlock FontSize="16" Text="Rule" />
-                    <StackPanel Margin="0,12,0,0" Orientation="Horizontal">
-                        <TextBlock FontSize="16" Text="Type" />
+                    <TextBlock>
+                        Test the above URI with a custom rule
+                    </TextBlock>
+                    <Grid Margin="0,16,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock VerticalAlignment="Center" Text="Rule Type:" />
                         <ComboBox
                             x:Name="_RuleTypeInput"
+                            Grid.Column="1"
                             Width="120"
                             MinWidth="120"
-                            Margin="0,0,0,12"
                             Padding="12,6"
                             HorizontalAlignment="Right">
                             <ComboBoxItem Content="Regex" />
@@ -73,25 +79,41 @@
                             <ComboBoxItem Content="Domain" />
                             <ComboBoxItem Content="String" />
                         </ComboBox>
-                    </StackPanel>
-                    <TextBox
-                        x:Name="_RuleInput"
-                        Margin="0,12,0,0"
-                        HorizontalAlignment="Stretch"
-                        AcceptsReturn="True"
-                        FontSize="14" />
-                    <ui:Button
-                        x:Name="_TestButton"
-                        Width="200"
-                        Margin="0,12,0,0"
-                        Padding="12,6"
-                        HorizontalAlignment="Right">
-                        Test with Rule
-                    </ui:Button>
+                    </Grid>
+                    <Grid Margin="0,12,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock VerticalAlignment="Center" Text="Rule:" />
+                        <TextBox
+                            x:Name="_RuleInput"
+                            Grid.Column="1"
+                            Margin="24,0,0,0"
+                            HorizontalAlignment="Stretch"
+                            AcceptsReturn="True" />
+                    </Grid>
+                    <Grid>
+                        <ui:Button
+                            x:Name="_CopyRuleButton"
+                            Margin="0,12,0,0"
+                            Padding="12,8"
+                            HorizontalAlignment="Left"
+                            Icon="{ui:SymbolIcon Copy20}"
+                            ToolTipService.ToolTip="Copy Rule" />
+                        <ui:Button
+                            x:Name="_TestButton"
+                            Width="200"
+                            Margin="0,12,0,0"
+                            Padding="12,6"
+                            HorizontalAlignment="Right">
+                            Test with Rule
+                        </ui:Button>
+                    </Grid>
                 </StackPanel>
             </ui:Card>
 
-            <ui:Card Padding="12" />
+            <ui:Card x:Name="_outputCard" Padding="12" />
         </StackPanel>
     </Grid>
 </ui:FluentWindow>
