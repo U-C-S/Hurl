@@ -49,6 +49,21 @@
                         Margin="0,0,4,0"
                         Padding="7,5"
                         Background="#40000000"
+                        Click="Button_Click_1"
+                        Cursor="Hand"
+                        FontSize="16"
+                        ToolTip="Add Rule">
+                        <wpfui:Button.Icon>
+                            <wpfui:SymbolIcon Symbol="Add24" />
+                        </wpfui:Button.Icon>
+                        <wpfui:Button.Content>
+                            Rules
+                        </wpfui:Button.Content>
+                    </wpfui:Button>
+                    <wpfui:Button
+                        Margin="0,0,4,0"
+                        Padding="7,5"
+                        Background="#40000000"
                         Click="Button_Click"
                         Cursor="Hand"
                         FontSize="16"
@@ -119,19 +134,7 @@
                         Cursor="Hand"
                         Foreground="AliceBlue"
                         ToolTip="Edit URL (E)" />
-                    <wpfui:Button
-                        Padding="4"
-                        Background="{x:Null}"
-                        BorderBrush="{x:Null}"
-                        Click="Button_Click_1"
-                        Cursor="Hand"
-                        FontSize="16"
-                        Foreground="#BBFFFFFF"
-                        ToolTip="Add Rule">
-                        <wpfui:Button.Icon>
-                            <wpfui:SymbolIcon Symbol="Add24" />
-                        </wpfui:Button.Icon>
-                    </wpfui:Button>
+
                 </StackPanel>
             </Border>
 

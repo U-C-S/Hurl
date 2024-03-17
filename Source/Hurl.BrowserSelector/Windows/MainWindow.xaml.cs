@@ -204,7 +204,8 @@ public partial class MainWindow : FluentWindow
 
     private void Button_Click_1(object sender, RoutedEventArgs e)
     {
-        new QuickRuleAddWindow().ShowDialog();
+        MinimizeWindow();
+        Process.Start(Constants.SETTINGS_APP);
     }
 }
 
