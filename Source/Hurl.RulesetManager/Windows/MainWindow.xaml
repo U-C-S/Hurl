@@ -47,6 +47,7 @@
                 <ui:Button
                     Width="2in"
                     Margin="4,0,0,4"
+                    Click="TestButton_Click"
                     HorizontalAlignment="Stretch">
                     Test
                 </ui:Button>

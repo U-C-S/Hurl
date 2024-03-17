@@ -7,9 +7,9 @@ using System.Text.RegularExpressions;
 
 namespace Hurl.Library;
 
-internal class RuleMatch
+public class RuleMatch
 {
-    private static bool CheckMultiple(string link, List<string> rules)
+    public static bool CheckMultiple(string link, List<string> rules)
     {
         var value = rules.FirstOrDefault(rule => CheckRule(link, rule), null);
 
@@ -19,16 +19,28 @@ internal class RuleMatch
     public static bool CheckRule(string link, string rule)
     {
         var ruleObj = new Rule(rule);
+        return CheckRule(link, ruleObj);
+    }
 
-        Func<string, string, bool> check = ruleObj.Mode switch
+    public static bool CheckRule(string link, Rule rule)
+    {
+        try
         {
-            RuleMode.Domain => DomainCheck,
-            RuleMode.Regex => RegexCheck,
-            RuleMode.Glob => GlobCheck,
-            _ => (link, rule) => link.Equals(rule)
-        };
+            Func<string, string, bool> check = rule.Mode switch
+            {
+                RuleMode.Domain => DomainCheck,
+                RuleMode.Regex => RegexCheck,
+                RuleMode.Glob => GlobCheck,
+                _ => (link, rule) => link.Equals(rule)
+            };
 
-        return check(link, ruleObj.RuleContent);
+            return check(link, rule.RuleContent);
+
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
     }
 
     public static bool DomainCheck(string link, string rule)

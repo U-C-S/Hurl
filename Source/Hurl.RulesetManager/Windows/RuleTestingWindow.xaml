@@ -43,14 +43,14 @@
                     <TextBox
                         x:Name="_UriInput"
                         Margin="0,12,0,0"
-                        HorizontalAlignment="Stretch"
-                        AcceptsReturn="True" />
+                        HorizontalAlignment="Stretch" />
                     <ui:Button
                         x:Name="_TestExistingButton"
                         Width="200"
                         Margin="0,12,0,0"
                         Padding="12,6"
-                        HorizontalAlignment="Right">
+                        HorizontalAlignment="Right"
+                        Click="TestExistingButton_Click">
                         Test against Existing Rules
                     </ui:Button>
                 </StackPanel>
@@ -102,18 +102,20 @@
                             Icon="{ui:SymbolIcon Copy20}"
                             ToolTipService.ToolTip="Copy Rule" />
                         <ui:Button
-                            x:Name="_TestButton"
                             Width="200"
                             Margin="0,12,0,0"
                             Padding="12,6"
-                            HorizontalAlignment="Right">
+                            HorizontalAlignment="Right"
+                            Click="TestRuleButton_Click">
                             Test with Rule
                         </ui:Button>
                     </Grid>
                 </StackPanel>
             </ui:Card>
 
-            <ui:Card x:Name="_outputCard" Padding="12" />
+            <ui:Card Padding="12" Visibility="Hidden">
+                <StackPanel x:Name="_outputCard" />
+            </ui:Card>
         </StackPanel>
     </Grid>
 </ui:FluentWindow>
