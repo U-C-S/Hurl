@@ -55,7 +55,6 @@ public partial class RulesetAccordion : UserControl
             SettingsState.Update();
             Refresh?.Invoke();
         }
-
     }
 
     private void DownButton_Click(object sender, RoutedEventArgs e)

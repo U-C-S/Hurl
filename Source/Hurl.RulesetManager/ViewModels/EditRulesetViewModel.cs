@@ -1,11 +1,10 @@
-using Hurl.Library;
-using Hurl.Library.Models;
+﻿using Hurl.Library.Models;
 
 namespace Hurl.RulesetManager.ViewModels;
 
 public class EditRulesetViewModel
 {
-    public readonly int Index;
+    //public readonly int Index;
 
     public List<Rule> Rules { get; set; }
 
@@ -15,7 +14,7 @@ public class EditRulesetViewModel
 
     public EditRulesetViewModel(int index, Ruleset? set)
     {
-        Index = index;
+        //Index = index;
         Browsers = SettingsState.GetBrowsers()
             .Select(x => x.Name)
             .ToList();
