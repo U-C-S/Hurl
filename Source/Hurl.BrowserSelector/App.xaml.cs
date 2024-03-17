@@ -37,7 +37,6 @@ namespace Hurl.BrowserSelector
             }
             string errorMessage = string.Format("{0}\n{1}\n\n{2}", ErrorMsgBuffer, e.Exception?.InnerException?.Message, e.Exception.Message);
             MessageBox.Show(errorMessage, ErrorWndTitle, MessageBoxButton.OK, MessageBoxImage.Error);
-            e.Handled = true;
         }
 
         protected override void OnStartup(StartupEventArgs e)
