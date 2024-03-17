@@ -9,7 +9,7 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <ui:CardExpander Margin="0,2" Header="{Binding BrowserName}">
+    <ui:CardExpander x:Name="_CardExpander" Margin="0,2">
         <StackPanel>
             <Grid Margin="0,0,0,8">
                 <Grid.ColumnDefinitions>
@@ -41,8 +41,8 @@
                         Icon="{ui:SymbolIcon ArrowDown16}" />
                     <ui:Button
                         Padding="12,8"
-                        Foreground="Red"
                         Click="DeleteButton_Click"
+                        Foreground="Red"
                         Icon="{ui:SymbolIcon Delete16}" />
                 </StackPanel>
             </Grid>

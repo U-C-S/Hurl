@@ -18,6 +18,8 @@ public partial class RulesetAccordion : UserControl
         InitializeComponent();
 
         DataContext = ruleset;
+
+        _CardExpander.Header = $"{ruleset.Name} ({ruleset.BrowserName})";
     }
 
     private void EditButton_Click(object sender, RoutedEventArgs e)
