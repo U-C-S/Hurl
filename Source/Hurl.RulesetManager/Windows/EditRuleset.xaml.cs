@@ -31,29 +31,6 @@ public partial class EditRuleset
         _RulesListControl.Items.Refresh();
     }
 
-    private void Button_Click(object sender, RoutedEventArgs e)
-    {
-        var selectedBrowser = TargetBrowser.SelectedValue;
-        var rules = "RuleInput.Text";
-        if (selectedBrowser == null || string.IsNullOrEmpty(rules))
-        {
-            WarnText.Visibility = Visibility.Visible;
-            WarnText.Height = 20;
-            return;
-        };
-
-        var rulesList = new List<string>();
-
-        foreach (var rule in rules.Split('|'))
-        {
-            rulesList.Add(rule.Trim());
-        };
-
-        //SettingsGlobal.AddBrowserRule(rulesList, TargetBrowser.SelectedValue.ToString());
-
-        this.Close();
-    }
-
     private void TargetBrowser_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var selectedIndex = ((ComboBox)sender).SelectedIndex;
@@ -66,7 +43,13 @@ public partial class EditRuleset
     private void RuleAddButton_Click(object sender, RoutedEventArgs e)
     {
         var rule = _Rule.Text;
-        var mode = _RuleInputType.Text;
+        var mode = _RuleInputType.SelectedValue?.ToString();
+
+        if(string.IsNullOrWhiteSpace(rule) || string.IsNullOrWhiteSpace(mode))
+        {
+            return;
+        }
+
         var vm = (EditRulesetViewModel)DataContext;
 
         var ruleObj = new Rule(rule, mode);

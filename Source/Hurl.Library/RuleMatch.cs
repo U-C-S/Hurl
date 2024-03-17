@@ -37,7 +37,7 @@ public class RuleMatch
             return check(link, rule.RuleContent);
 
         }
-        catch (Exception e)
+        catch (Exception)
         {
             return false;
         }

@@ -21,8 +21,7 @@
                     Margin="0,0,8,0"
                     Padding="12,7"
                     Click="EditButton_Click"
-                    Icon="{ui:SymbolIcon Edit16}"
-                    Tag="{Binding Id}">
+                    Icon="{ui:SymbolIcon Edit16}">
                     Edit
                 </ui:Button>
 
