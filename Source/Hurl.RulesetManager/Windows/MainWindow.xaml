@@ -26,7 +26,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <ui:TitleBar Title="Ruleset Manager - Hurl" Grid.ColumnSpan="3" />
+        <ui:TitleBar Title="Ruleset Manager - Hurl [BETA]" Grid.ColumnSpan="3" />
 
         <StackPanel Grid.Row="1" Grid.Column="1">
             <TextBlock
@@ -39,16 +39,16 @@
                 <ui:Button
                     Width="2in"
                     Margin="0,0,4,4"
-                    Click="CreateButton_Click"
-                    HorizontalAlignment="Stretch">
+                    HorizontalAlignment="Stretch"
+                    Click="CreateButton_Click">
                     Create
                 </ui:Button>
 
                 <ui:Button
                     Width="2in"
                     Margin="4,0,0,4"
-                    Click="TestButton_Click"
-                    HorizontalAlignment="Stretch">
+                    HorizontalAlignment="Stretch"
+                    Click="TestButton_Click">
                     Test
                 </ui:Button>
             </StackPanel>
@@ -60,7 +60,7 @@
             VerticalAlignment="Stretch">
             <Separator Margin="0,4" />
 
-            <StackPanel x:Name="_rulesetsList"/>
+            <StackPanel x:Name="_rulesetsList" />
 
         </StackPanel>
 

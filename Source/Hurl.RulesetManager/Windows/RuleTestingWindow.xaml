@@ -29,7 +29,7 @@
         </Grid.RowDefinitions>
 
         <ui:TitleBar
-            Title="Rule Testing"
+            Title="Rule Testing Suite"
             Grid.ColumnSpan="3"
             ShowMaximize="False"
             ShowMinimize="False" />

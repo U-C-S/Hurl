@@ -12,6 +12,7 @@ public partial class EditRuleset
         InitializeComponent();
         DataContext = vm;
         _successCallback = successCallback;
+        _TitleBar.Title = $"Edit Ruleset - {vm?.Name}";
     }
 
     public EditRuleset(Action<EditRulesetViewModel> createSuccessCallback)
@@ -19,6 +20,7 @@ public partial class EditRuleset
         InitializeComponent();
         DataContext = new EditRulesetViewModel();
         _successCallback = createSuccessCallback;
+        _TitleBar.Title = "Create New Ruleset";
     }
 
     private readonly Action<EditRulesetViewModel> _successCallback;

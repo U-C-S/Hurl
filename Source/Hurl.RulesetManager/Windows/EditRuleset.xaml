@@ -30,6 +30,7 @@
         </Grid.RowDefinitions>
 
         <ui:TitleBar
+            x:Name="_TitleBar"
             Grid.ColumnSpan="3"
             ShowMaximize="False"
             ShowMinimize="False" />
