@@ -95,10 +95,10 @@
                     </Grid>
                     <Grid>
                         <ui:Button
-                            x:Name="_CopyRuleButton"
                             Margin="0,12,0,0"
                             Padding="12,8"
                             HorizontalAlignment="Left"
+                            Click="CopyRuleButton_Click"
                             Icon="{ui:SymbolIcon Copy20}"
                             ToolTipService.ToolTip="Copy Rule" />
                         <ui:Button

@@ -79,4 +79,9 @@ public partial class RuleTestingWindow
         _outputCard.Children.Clear();
         _outputCard.Children.Add(elem);
     }
+
+    private void CopyRuleButton_Click(object sender, RoutedEventArgs e)
+    {
+        Clipboard.SetText(_RuleInput.Text);
+    }
 }
