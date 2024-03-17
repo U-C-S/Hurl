@@ -19,27 +19,26 @@ public partial class RuleTestingWindow
         var ruleMode = _RuleTypeInput.SelectedValue;
         var ruleContent = _RuleInput.Text;
 
+        if (string.IsNullOrWhiteSpace(uri) || string.IsNullOrWhiteSpace(ruleContent))
+        {
+            PresentOutput("Please fill in all fields - URI, Rule Type, Rule", Brushes.Red);
+            return;
+        }
+        else if (ruleMode == null)
+        {
+            PresentOutput("Select a rule type", Brushes.Red);
+            return;
+        }
+
         var rule = new Rule(ruleContent, ruleMode.ToString());
 
         if (RuleMatch.CheckRule(uri, rule))
         {
-            PresentOutput(new TextBlock
-            {
-                Text = "Rule Match",
-                FontSize = 16,
-                Foreground = Brushes.Green,
-                HorizontalAlignment = HorizontalAlignment.Center
-            });
+            PresentOutput("Rule matches", Brushes.Green);
         }
         else
         {
-            PresentOutput(new TextBlock
-            {
-                Text = "Rule does not Match",
-                FontSize = 16,
-                Foreground = Brushes.Red,
-                HorizontalAlignment = HorizontalAlignment.Center
-            });
+            PresentOutput("Rule does not match", Brushes.Red);
         }
     }
 
@@ -48,36 +47,37 @@ public partial class RuleTestingWindow
         var uri = _UriInput.Text;
         var rulesets = SettingsState.Rulesets;
 
+        if(string.IsNullOrWhiteSpace(uri))
+        {
+            PresentOutput("Please fill in the URI field", Brushes.Red);
+            return;
+        }
+
         var matchingRuleset = rulesets
             .FirstOrDefault(ruleset => RuleMatch.CheckMultiple(uri, ruleset.Rules), null);
 
         if (matchingRuleset != null)
         {
-            PresentOutput(new TextBlock
-            {
-                Text = $"Ruleset Match: {matchingRuleset.BrowserName}\nRuleset Index: {matchingRuleset.Id}",
-                FontSize = 16,
-                Foreground = Brushes.Green,
-                HorizontalAlignment = HorizontalAlignment.Center
-            });
+            PresentOutput($"Ruleset Match: {matchingRuleset.BrowserName}", Brushes.Green);
         }
         else
         {
-            PresentOutput(new TextBlock
-            {
-                Text = "No Ruleset Match",
-                FontSize = 16,
-                Foreground = Brushes.Red,
-                HorizontalAlignment = HorizontalAlignment.Center
-            });
+            PresentOutput("No Ruleset Match", Brushes.Red);
         }
     }
 
-    private void PresentOutput(UIElement elem)
+    private void PresentOutput(string text, Brush foregroudColor)
     {
+        var textBlock = new TextBlock
+        {
+            Text = text,
+            FontSize = 16,
+            Foreground = foregroudColor,
+            HorizontalAlignment = HorizontalAlignment.Center
+        };
         _outputCard.Visibility = Visibility.Visible;
         _outputCard.Children.Clear();
-        _outputCard.Children.Add(elem);
+        _outputCard.Children.Add(textBlock);
     }
 
     private void CopyRuleButton_Click(object sender, RoutedEventArgs e)

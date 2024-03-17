@@ -113,7 +113,7 @@
                 </StackPanel>
             </ui:Card>
 
-            <ui:Card Padding="12" Visibility="Hidden">
+            <ui:Card Padding="12">
                 <StackPanel x:Name="_outputCard" />
             </ui:Card>
         </StackPanel>
