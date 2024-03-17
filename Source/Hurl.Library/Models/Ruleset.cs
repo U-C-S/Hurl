@@ -42,18 +42,26 @@ public class Rule
 
     public Rule(string storedRule)
     {
-        var split = storedRule.Split('$', 2); // TODO: handle for when there is no $ in the string
-        var modeLetter = split[0];
-        var content = split[1];
-
-        this.RuleContent = content;
-        this.Mode = modeLetter switch
+        if (storedRule.Contains('$'))
         {
-            "d" => RuleMode.Domain,
-            "r" => RuleMode.Regex,
-            "g" => RuleMode.Glob,
-            _ => RuleMode.String
-        };
+            var split = storedRule.Split('$', 2);
+            var modeLetter = split[0];
+            var content = split[1];
+
+            this.RuleContent = content;
+            this.Mode = modeLetter switch
+            {
+                "d" => RuleMode.Domain,
+                "r" => RuleMode.Regex,
+                "g" => RuleMode.Glob,
+                _ => RuleMode.String
+            };
+        }
+        else
+        {
+            this.RuleContent = storedRule;
+            this.Mode = RuleMode.String;
+        }
     }
 
     public string RuleContent { get; set; }

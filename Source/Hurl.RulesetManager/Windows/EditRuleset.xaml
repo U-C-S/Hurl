@@ -104,10 +104,7 @@
                                 <ColumnDefinition Width="1*" />
                             </Grid.ColumnDefinitions>
 
-                            <ComboBox
-                                x:Name="_RuleInputType"
-                                Margin="8"
-                                SelectedIndex="2">
+                            <ComboBox x:Name="_RuleInputType" Margin="8">
                                 <ComboBoxItem>Regex</ComboBoxItem>
                                 <ComboBoxItem>Glob</ComboBoxItem>
                                 <ComboBoxItem>Domain</ComboBoxItem>
