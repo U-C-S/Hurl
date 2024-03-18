@@ -95,7 +95,8 @@ public partial class MainWindow : FluentWindow
                 Clipboard.SetText(UriGlobal.Value);
                 break;
             case Key.R:
-                new QuickRuleAddWindow().ShowDialog();
+                MinimizeWindow();
+                Process.Start(Constants.SETTINGS_APP);
                 break;
             case Key.T:
                 new TimeSelectWindow(SettingsGlobal.Value.Browsers).ShowDialog();
