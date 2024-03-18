@@ -26,7 +26,7 @@ public partial class RulesetAccordion : UserControl
     {
         var ruleset = ((Ruleset)DataContext);
 
-        var ViewModel = new EditRulesetViewModel(_index, ruleset);
+        var ViewModel = new EditRulesetViewModel(ruleset);
         var window = new EditRuleset(ViewModel, UpdateRuleset) { Owner = Window.GetWindow(this) };
         window.ShowDialog();
     }
