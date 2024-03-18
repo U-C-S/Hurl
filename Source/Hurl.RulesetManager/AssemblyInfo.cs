@@ -1,10 +1,16 @@
-using System.Windows;
+using System.Reflection;
+using System.Runtime.InteropServices;
 
-[assembly: ThemeInfo(
-    ResourceDictionaryLocation.None,            //where theme specific resource dictionaries are located
-                                                //(used if a resource is not found in the page,
-                                                // or application resource dictionaries)
-    ResourceDictionaryLocation.SourceAssembly   //where the generic resource dictionary is located
-                                                //(used if a resource is not found in the page,
-                                                // app, or any theme specific resource dictionaries)
-)]
+[assembly: AssemblyTitle("Ruleset Manager - Hurl")]
+[assembly: AssemblyDescription("Hurl - Your Handy Browser Selector")]
+[assembly: AssemblyConfiguration("retail")]
+[assembly: AssemblyCompany("https://github.com/U-C-S")]
+[assembly: AssemblyProduct("Hurl")]
+[assembly: AssemblyCopyright("Copyright (c) 2024 Chanakya")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+
+[assembly: ComVisible(false)]
+[assembly: AssemblyVersion("0.8.2.19")]
+[assembly: AssemblyFileVersion("0.8.2.19")]
+[assembly: System.Runtime.Versioning.SupportedOSPlatform("windows")]

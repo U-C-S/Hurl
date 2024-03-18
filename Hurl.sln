@@ -6,11 +6,12 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hurl.BrowserSelector", "Source\Hurl.BrowserSelector\Hurl.BrowserSelector.csproj", "{3B8293BB-A929-44CD-BC07-EC718CB60823}"
 	ProjectSection(ProjectDependencies) = postProject
 		{30822343-5DFD-4B1A-AD87-14396AA8B995} = {30822343-5DFD-4B1A-AD87-14396AA8B995}
+		{CDA5934B-912D-43EF-8E9C-6AF5A829C036} = {CDA5934B-912D-43EF-8E9C-6AF5A829C036}
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hurl.Library", "Source\Hurl.Library\Hurl.Library.csproj", "{30822343-5DFD-4B1A-AD87-14396AA8B995}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hurl.RulesetManager", "Source\Hurl.RulesetManager\Hurl.RulesetManager.csproj", "{CDA5934B-912D-43EF-8E9C-6AF5A829C036}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hurl.RulesetManager", "Source\Hurl.RulesetManager\Hurl.RulesetManager.csproj", "{CDA5934B-912D-43EF-8E9C-6AF5A829C036}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

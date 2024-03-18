@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:Hurl.RulesetManager.Windows"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    Title="EditRuleset"
+    Title="Ruleset Editor"
     Width="600"
     Height="520"
     ExtendsContentIntoTitleBar="True"
