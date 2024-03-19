@@ -48,7 +48,7 @@ Download Install the latest [.NET 8 Desktop Runtime](https://dotnet.microsoft.co
 
 - [Visual Studio](https://visualstudio.microsoft.com)
 - [Inno Setup](https://jrsoftware.org/isinfo.php)
-- [.NET 7.0](https://dot.net) , [C#](https://dotnet.microsoft.com/languages/csharp) and [WPF](https://docs.microsoft.com/en-us/visualstudio/designers/getting-started-with-wpf)
+- [.NET 8.0](https://dot.net) , [C#](https://dotnet.microsoft.com/languages/csharp) and [WPF](https://docs.microsoft.com/en-us/visualstudio/designers/getting-started-with-wpf)
 - [WPF UI](https://github.com/lepoco/wpfui)
 
 ## Building from Source
