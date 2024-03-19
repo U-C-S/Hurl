@@ -40,13 +40,14 @@
                     ItemsSource="{Binding}" />
             </wpfui:CardControl>
             <Grid Margin="0,10">
-                <!--  TODO: show whats the current default one and a option to remove it  -->
+                <wpfui:Button Padding="40,15" Click="Button_Click_1">
+                    Cancel Current
+                </wpfui:Button>
                 <wpfui:Button
                     Padding="40,15"
-                    HorizontalAlignment="Center"
+                    HorizontalAlignment="Right"
                     Click="Button_Click"
-                    Content="Set"
-                    Icon="Checkmark32" />
+                    Content="Set" />
             </Grid>
         </StackPanel>
     </StackPanel>

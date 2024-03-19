@@ -1,4 +1,4 @@
-﻿using Hurl.BrowserSelector.Helpers;
+using Hurl.BrowserSelector.Helpers;
 using Hurl.Library.Models;
 using System.Collections.Generic;
 using Wpf.Ui.Controls;
@@ -30,6 +30,12 @@ namespace Hurl.BrowserSelector.Windows
 
                 this.Close();
             }
+        }
+
+        private void Button_Click_1(object sender, System.Windows.RoutedEventArgs e)
+        {
+            TimedBrowserSelect.DeleteCurrent();
+            this.Close();
         }
     }
 }

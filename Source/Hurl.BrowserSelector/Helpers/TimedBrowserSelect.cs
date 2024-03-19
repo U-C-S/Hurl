@@ -39,5 +39,32 @@ namespace Hurl.BrowserSelector.Helpers
 
             JsonOperations.FromModelToJson(dataObject, Path.Combine(Constants.APP_SETTINGS_DIR, "TempDefault.json"));
         }
+
+        public static TemporaryDefaultBrowser? Get()
+        {
+            var Path_TempDef = Path.Combine(Constants.APP_SETTINGS_DIR, "TempDefault.json");
+            if (File.Exists(Path_TempDef))
+            {
+                var obj = JsonOperations.FromJsonToModel<TemporaryDefaultBrowser>(Path_TempDef);
+                if (obj.ValidTill >= DateTime.Now)
+                {
+                    return obj;
+                }
+                else
+                {
+                    File.Delete(Path_TempDef);
+                }
+            }
+            return null;
+        }
+
+        internal static void DeleteCurrent()
+        {
+            var Path_TempDef = Path.Combine(Constants.APP_SETTINGS_DIR, "TempDefault.json");
+            if (File.Exists(Path_TempDef))
+            {
+                File.Delete(Path_TempDef);
+            }
+        }
     }
 }
