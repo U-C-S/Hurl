@@ -115,8 +115,7 @@
                             <ui:TextBox
                                 x:Name="_Rule"
                                 Grid.Column="1"
-                                Margin="8"
-                                PlaceholderText="*.google.com" />
+                                Margin="8" />
                         </Grid>
 
                         <Grid Grid.Row="2">

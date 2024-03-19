@@ -47,17 +47,19 @@ public partial class EditRuleset
         var rule = _Rule.Text;
         var mode = _RuleInputType.Text;
 
-        if(string.IsNullOrWhiteSpace(rule) || string.IsNullOrWhiteSpace(mode))
+        if (string.IsNullOrWhiteSpace(rule) || string.IsNullOrWhiteSpace(mode))
         {
             return;
         }
 
         var vm = (EditRulesetViewModel)DataContext;
-
         var ruleObj = new Rule(rule, mode);
-
         vm.Rules.Add(ruleObj);
+
         Refresh();
+
+        _Rule.Text = string.Empty;
+        _Rule.Focus();
     }
 
     private void SaveButton_Click(object sender, RoutedEventArgs e)

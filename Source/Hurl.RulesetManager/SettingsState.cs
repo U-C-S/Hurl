@@ -18,7 +18,14 @@ internal class SettingsState
 
     public static List<Ruleset> Rulesets
     {
-        get => Get.Rulesets;
+        get
+        {
+            if (Get.Rulesets == null)
+            {
+                Get.Rulesets = new();
+            }
+            return Get.Rulesets;
+        }
         set
         {
             _state._settings.Rulesets = value;
