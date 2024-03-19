@@ -27,6 +27,8 @@ namespace Hurl.BrowserSelector.Helpers
             {
                 this.IsSecondInstance = true;
                 if (ArgsLength >= 2) Args = Args[1..];
+                else if (ArgsLength == 1 && Args[0].Contains("Hurl.dll"))
+                    return;
             }
 
             if (Args[0].StartsWith("hurl://"))

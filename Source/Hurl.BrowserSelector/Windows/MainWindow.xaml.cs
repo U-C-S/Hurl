@@ -1,4 +1,4 @@
-﻿using Hurl.BrowserSelector.Globals;
+using Hurl.BrowserSelector.Globals;
 using Hurl.BrowserSelector.Helpers;
 using Hurl.Library;
 using System;
@@ -108,7 +108,7 @@ public partial class MainWindow : FluentWindow
     }
 
     private void LinkCopyBtnClick(object sender, RoutedEventArgs e) => Clipboard.SetText(UriGlobal.Value);
-    private void SettingsBtnClick(object sender, RoutedEventArgs e) => Process.Start("notepad.exe", Constants.APP_SETTINGS_MAIN);
+    private void SettingsBtnClick(object sender, RoutedEventArgs e) => Process.Start("explorer", "\"" + Constants.APP_SETTINGS_MAIN + "\"");
     private void Draggable(object sender, MouseButtonEventArgs e) => this.DragMove();
     private void CloseBtnClick(object sender, RoutedEventArgs e) => MinimizeWindow();
 
@@ -184,7 +184,12 @@ public partial class MainWindow : FluentWindow
         }
     }
 
-    private void Button_Click(object sender, RoutedEventArgs e) => new TimeSelectWindow(Globals.SettingsGlobal.Value.Browsers).ShowDialog();
+    private void Button_Click(object sender, RoutedEventArgs e)
+    {
+        forcePreventWindowDeactivationEvent = true;
+        new TimeSelectWindow(Globals.SettingsGlobal.Value.Browsers).ShowDialog();
+        forcePreventWindowDeactivationEvent = false;
+    }
 
     private void UiWindow_SizeChanged(object sender, SizeChangedEventArgs e) => Globals.SettingsGlobal.AdjustWindowSize(e);
 
