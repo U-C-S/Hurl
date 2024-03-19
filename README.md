@@ -40,7 +40,7 @@ Sometimes you might want to open a link in a browser of your choice, instead of 
 
 ## Installation & Usage
 
-Download Install the latest [.NET 8 Desktop Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) and Get the Hurl_Installer from [Releases](https://github.com/U-C-S/Hurl/releases/latest). Your PC's Anti-Virus might warn that it's not secure to download or install it, You can ignore it as the executables are Un-signed. Lastly, After installing, You might need to set Hurl as the default `http/https` protocol handler in the Windows Settings, just like how you change the default browser.
+Download Install the latest [.NET 8 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/8.0) and Get the Hurl_Installer from [Releases](https://github.com/U-C-S/Hurl/releases/latest). Your PC's Anti-Virus might warn that it's not secure to download or install it, You can ignore it as the executables are Un-signed. Lastly, After installing, You might need to set Hurl as the default `http/https` protocol handler in the Windows Settings, just like how you change the default browser.
 
 ### Check out wiki for configuring - [Editing UserSettings.json](https://github.com/U-C-S/Hurl/wiki/Editing-UserSettings.json)
 
@@ -48,7 +48,7 @@ Download Install the latest [.NET 8 Desktop Runtime](https://dotnet.microsoft.co
 
 - [Visual Studio](https://visualstudio.microsoft.com)
 - [Inno Setup](https://jrsoftware.org/isinfo.php)
-- [.NET 8.0](https://dot.net) , [C#](https://dotnet.microsoft.com/languages/csharp) and [WPF](https://docs.microsoft.com/en-us/visualstudio/designers/getting-started-with-wpf)
+- [.NET 8.0](https://dot.net) , [C#](https://dotnet.microsoft.com/languages/csharp) and WPF
 - [WPF UI](https://github.com/lepoco/wpfui)
 
 ## Building from Source
