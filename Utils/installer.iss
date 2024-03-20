@@ -1,3 +1,5 @@
+#include "install_dotnet.iss"
+
 #define MyAppName "Hurl"
 #define NameSmall "hurl"
 #define MyAppVersion "0.8.2.19"
@@ -88,3 +90,10 @@ Root: HKCR ; Subkey: "{#NameSmall}\shell\open\command"; ValueType: string; Value
 [CustomMessages]
 OtherOptions=Other Options
 CreateProtocol=Create Protocol (Required for Extension)
+
+[Code]
+function InitializeSetup: Boolean;
+begin
+  InstallDotNetDesktopRuntime;
+  Result := True;
+end;
