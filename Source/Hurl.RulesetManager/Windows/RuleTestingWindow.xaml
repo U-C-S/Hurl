@@ -6,116 +6,109 @@
     xmlns:local="clr-namespace:Hurl.RulesetManager.Windows"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    Title="Rule Testing Suite"
+    Title="Rule testing suite"
     Width="500"
-    Height="500"
     ExtendsContentIntoTitleBar="True"
+    ResizeMode="NoResize"
+    SizeToContent="Height"
     WindowBackdropType="Mica"
     WindowCornerPreference="Round"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
+
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition
-                Width="5*"
-                MinWidth="400"
-                MaxWidth="700" />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <ui:TitleBar
-            Title="Rule Testing Suite"
-            Grid.ColumnSpan="3"
+            Title="Rule testing suite"
             ShowMaximize="False"
             ShowMinimize="False" />
 
-        <StackPanel Grid.Row="1" Grid.Column="1">
-            <ui:Card Padding="12">
-                <StackPanel>
-                    <TextBlock>
-                        Enter a URI to test
-                    </TextBlock>
-                    <TextBox
-                        x:Name="_UriInput"
-                        Margin="0,12,0,0"
-                        HorizontalAlignment="Stretch" />
-                    <ui:Button
-                        x:Name="_TestExistingButton"
-                        Width="200"
-                        Margin="0,12,0,0"
-                        Padding="12,6"
+        <TextBlock
+            Grid.Row="1"
+            Margin="16,8"
+            FontSize="20"
+            FontWeight="SemiBold"
+            Text="Test a URI" />
+
+        <ui:Card Grid.Row="2" Margin="16,0,16,8">
+            <TextBox x:Name="_UriInput" HorizontalAlignment="Stretch" />
+        </ui:Card>
+
+        <ui:Card Grid.Row="3" Margin="16,0,16,8">
+            <StackPanel>
+                <CheckBox x:Name="UseCustomRule" Content="Test this URI using a custom rule" />
+
+                <Grid Margin="0,8,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="240" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        Margin="0,0,0,8"
+                        VerticalAlignment="Center"
+                        Text="Rule Type" />
+                    <ComboBox
+                        x:Name="_RuleTypeInput"
+                        Grid.Column="1"
+                        MinWidth="120"
+                        Margin="0,0,0,8"
                         HorizontalAlignment="Right"
-                        Click="TestExistingButton_Click">
-                        Test against Existing Rules
-                    </ui:Button>
-                </StackPanel>
-            </ui:Card>
+                        IsEnabled="{Binding UseCustomRule.IsChecked}">
+                        <ComboBoxItem Content="Regex" />
+                        <ComboBoxItem Content="Glob" />
+                        <ComboBoxItem Content="Domain" />
+                        <ComboBoxItem Content="String" />
+                    </ComboBox>
 
-            <ui:Card Padding="12">
-                <StackPanel>
-                    <TextBlock>
-                        Test the above URI with a custom rule
-                    </TextBlock>
-                    <Grid Margin="0,16,0,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock VerticalAlignment="Center" Text="Rule Type:" />
-                        <ComboBox
-                            x:Name="_RuleTypeInput"
-                            Grid.Column="1"
-                            Width="120"
-                            MinWidth="120"
-                            Padding="12,6"
-                            HorizontalAlignment="Right">
-                            <ComboBoxItem Content="Regex" />
-                            <ComboBoxItem Content="Glob" />
-                            <ComboBoxItem Content="Domain" />
-                            <ComboBoxItem Content="String" />
-                        </ComboBox>
-                    </Grid>
-                    <Grid Margin="0,12,0,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock VerticalAlignment="Center" Text="Rule:" />
-                        <TextBox
-                            x:Name="_RuleInput"
-                            Grid.Column="1"
-                            Margin="24,0,0,0"
-                            HorizontalAlignment="Stretch"
-                            AcceptsReturn="True" />
-                    </Grid>
-                    <Grid>
-                        <ui:Button
-                            Margin="0,12,0,0"
-                            Padding="12,8"
-                            HorizontalAlignment="Left"
-                            Click="CopyRuleButton_Click"
-                            Icon="{ui:SymbolIcon Copy20}"
-                            ToolTipService.ToolTip="Copy Rule" />
-                        <ui:Button
-                            Width="200"
-                            Margin="0,12,0,0"
-                            Padding="12,6"
-                            HorizontalAlignment="Right"
-                            Click="TestRuleButton_Click">
-                            Test with Rule
-                        </ui:Button>
-                    </Grid>
-                </StackPanel>
-            </ui:Card>
+                    <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Text="Rule" />
+                    <TextBox
+                        x:Name="_RuleInput"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        HorizontalAlignment="Stretch"
+                        AcceptsReturn="False"
+                        IsEnabled="{Binding UseCustomRule.IsChecked}" />
+                </Grid>
+            </StackPanel>
+        </ui:Card>
 
-            <ui:Card Padding="12">
-                <StackPanel x:Name="_outputCard" />
-            </ui:Card>
-        </StackPanel>
+        <ui:Button
+            x:Name="_TestButton"
+            Grid.Row="4"
+            Margin="16,0,16,8"
+            HorizontalAlignment="Right"
+            Appearance="Primary"
+            Click="TestRuleButton_Click"
+            Content="Test" />
+
+        <ui:InfoBar
+            x:Name="_errorCard"
+            Title="Error"
+            Grid.Row="5"
+            Margin="16,0,16,8"
+            Severity="Error" />
+        <ui:InfoBar
+            x:Name="_outputCard"
+            Title="Result"
+            Grid.Row="5"
+            Margin="16,0,16,8"
+            Severity="Informational" />
     </Grid>
 </ui:FluentWindow>

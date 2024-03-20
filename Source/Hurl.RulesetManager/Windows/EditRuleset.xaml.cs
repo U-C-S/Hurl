@@ -20,7 +20,7 @@ public partial class EditRuleset
         InitializeComponent();
         DataContext = new EditRulesetViewModel();
         _successCallback = createSuccessCallback;
-        _TitleBar.Title = "Create New Ruleset";
+        _TitleBar.Title = "Create new ruleset";
     }
 
     private readonly Action<EditRulesetViewModel> _successCallback;
@@ -35,7 +35,7 @@ public partial class EditRuleset
 
     private void TargetBrowser_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        var selectedIndex = ((ComboBox)sender).SelectedIndex;
+        int selectedIndex = ((ComboBox)sender).SelectedIndex;
         var vm = (EditRulesetViewModel)DataContext;
 
         vm.SelectedBrowser = selectedIndex;
@@ -44,8 +44,8 @@ public partial class EditRuleset
 
     private void RuleAddButton_Click(object sender, RoutedEventArgs e)
     {
-        var rule = _Rule.Text;
-        var mode = _RuleInputType.Text;
+        string rule = _Rule.Text;
+        string mode = _RuleInputType.Text;
 
         if (string.IsNullOrWhiteSpace(rule) || string.IsNullOrWhiteSpace(mode))
         {
@@ -66,13 +66,13 @@ public partial class EditRuleset
     {
         DialogResult = true;
         _successCallback(DataContext as EditRulesetViewModel);
-        this.Close();
+        Close();
     }
 
     private void CancelButton_Click(object sender, RoutedEventArgs e)
     {
         DialogResult = false;
-        this.Close();
+        Close();
     }
 
     private void RuleRemoveButton_Click(object sender, RoutedEventArgs e)
