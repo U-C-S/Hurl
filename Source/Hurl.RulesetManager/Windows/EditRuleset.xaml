@@ -168,6 +168,7 @@
                                             <Button
                                                 Grid.Column="2"
                                                 Margin="4"
+                                                Click="RuleRemoveButton_Click"
                                                 Padding="12,8"
                                                 VerticalAlignment="Center">
                                                 Remove

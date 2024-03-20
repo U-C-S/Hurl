@@ -74,5 +74,14 @@ public partial class EditRuleset
         DialogResult = false;
         this.Close();
     }
+
+    private void RuleRemoveButton_Click(object sender, RoutedEventArgs e)
+    {
+        var rule = (Rule)((Button)sender).DataContext;
+        var vm = (EditRulesetViewModel)DataContext;
+        vm.Rules.Remove(rule);
+
+        Refresh();
+    }
 }
 
