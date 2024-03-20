@@ -2,7 +2,7 @@
 
 #define MyAppName "Hurl"
 #define NameSmall "hurl"
-#define MyAppVersion "0.8.2.19"
+#define MyAppVersion "0.8.3.20"
 #define MyAppPublisher "The 3721 Tools"
 #define MyAppURL "https://github.com/U-C-S/Hurl"
 #define MyAppExeName "Hurl.exe"
@@ -41,7 +41,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
-Name: "protocol"; Description: "{cm:CreateProtocol}"; GroupDescription: "{cm:OtherOptions}"; Flags: unchecked
+Name: "protocol"; Description: "{cm:CreateProtocol}"; GroupDescription: "{cm:OtherOptions}"
 
 [Files]
 Source: "..\_Publish\*.exe"; DestDir: "{app}"; Flags: ignoreversion

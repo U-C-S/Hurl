@@ -156,7 +156,7 @@ public partial class MainWindow : FluentWindow
                     MaximizeWindow();
                     break;
                 case "settings":
-                    Process.Start("notepad.exe", Constants.APP_SETTINGS_MAIN);
+                    Process.Start("explorer", "\"" + Constants.APP_SETTINGS_MAIN + "\"");
                     break;
                 case "exit":
                     Application.Current.Shutdown();
