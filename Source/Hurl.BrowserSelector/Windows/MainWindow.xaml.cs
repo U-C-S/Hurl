@@ -92,7 +92,14 @@ public partial class MainWindow : FluentWindow
                     break;
                 }
             case Key.C:
-                Clipboard.SetText(UriGlobal.Value);
+                try
+                {
+                    Clipboard.SetText(UriGlobal.Value);
+                }
+                catch (Exception err)
+                {
+                    System.Windows.MessageBox.Show(err.Message);
+                }
                 break;
             case Key.R:
                 MinimizeWindow();
@@ -107,7 +114,18 @@ public partial class MainWindow : FluentWindow
 
     }
 
-    private void LinkCopyBtnClick(object sender, RoutedEventArgs e) => Clipboard.SetText(UriGlobal.Value);
+    private void LinkCopyBtnClick(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            Clipboard.SetText(UriGlobal.Value);
+        }
+        catch (Exception err)
+        {
+            System.Windows.MessageBox.Show(err.Message);
+        }
+    }
+
     private void SettingsBtnClick(object sender, RoutedEventArgs e) => Process.Start("explorer", "\"" + Constants.APP_SETTINGS_MAIN + "\"");
     private void Draggable(object sender, MouseButtonEventArgs e) => this.DragMove();
     private void CloseBtnClick(object sender, RoutedEventArgs e) => MinimizeWindow();
