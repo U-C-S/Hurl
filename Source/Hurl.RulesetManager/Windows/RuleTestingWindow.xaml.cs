@@ -52,7 +52,7 @@ public partial class RuleTestingWindow
                 //PresentOutput($"Ruleset Match: {matchingRuleset.BrowserName}\nRuleset Name: {matchingRuleset?.Name}", Brushes.Green);
                 _outputCard.IsOpen = true;
                 _outputCard.Severity = Wpf.Ui.Controls.InfoBarSeverity.Success;
-                _outputCard.Title = "Match:";
+                _outputCard.Title = "Match";
                 _outputCard.Message = $"Browser: {matchingRuleset.BrowserName}\nRuleset Name: {matchingRuleset?.Name}";
             }
             else
