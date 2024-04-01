@@ -19,6 +19,8 @@
   </a>
 </p>
 
+> This software is currently in pre-v1.0 version, which means it can frequently introduce breaking changes with new versions.
+
 ## Why and What?
 
 Sometimes you might want to open a link in a browser of your choice, instead of the default one. Hurl can let you choose the browser eachtime you click a link (links outside of browser). So naturally, It acts as default browser to do that. And hurl can be powered up with a _browser extension_ to let you open a browser tab in different browser.
