@@ -8,4 +8,9 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="WPF-UI" Version="3.0.3" />
+    <PackageReference Include="WPF-UI.Tray" Version="3.0.3" />
+  </ItemGroup>
+
 </Project>
