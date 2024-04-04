@@ -18,7 +18,7 @@ public class EditRulesetViewModel
         Browsers = SettingsState.GetBrowsers()
             .Select(x => x.Name)
             .ToList();
-        Name = set?.Name;
+        Name = set?.RuleName;
         Rules = set?.Rules?
                     .Select(x => new Rule(x))
                     .ToList() ?? new List<Rule>();
@@ -75,7 +75,7 @@ public class EditRulesetViewModel
     {
         return new()
         {
-            Name = Name,
+            RuleName = Name,
             BrowserName = Browsers[SelectedBrowser],
             Rules = Rules.Select(x => x.ToString())
                          .ToList(),

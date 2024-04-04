@@ -9,28 +9,24 @@
     Title="Ruleset Mananger - Hurl"
     Width="800"
     Height="600"
+    MinWidth="500"
     ExtendsContentIntoTitleBar="True"
     WindowBackdropType="Mica"
     WindowCornerPreference="Round"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
+    
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition Width="4*" MinWidth="420" />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <ui:TitleBar Title="Ruleset Manager - Hurl [BETA]" Grid.ColumnSpan="3" />
+        <ui:TitleBar Title="Ruleset Manager - Hurl [BETA]" />
 
         <Border
             Grid.Row="1"
-            Grid.Column="1"
             Margin="0,0,0,4"
             BorderBrush="#3377787E"
             BorderThickness="0,0,0,2">
@@ -63,13 +59,8 @@
             </StackPanel>
         </Border>
 
-
-        <ScrollViewer Grid.Row="2" Grid.Column="1">
-            <StackPanel
-                x:Name="_rulesetsList"
-                Margin="10,0"
-                VerticalAlignment="Stretch" />
+        <ScrollViewer Grid.Row="2">
+            <StackPanel x:Name="_rulesetsList" Margin="16,0" />
         </ScrollViewer>
-
     </Grid>
 </ui:FluentWindow>

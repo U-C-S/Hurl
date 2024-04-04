@@ -6,9 +6,9 @@ namespace Hurl.Library.Models;
 
 public class Ruleset
 {
-    public string Name { get; set; }
-
     public List<string> Rules { get; set; }
+
+    public string RuleName { get; set; }
 
     public string BrowserName { get; set; }
 
