@@ -20,7 +20,7 @@ public partial class RulesetAccordion : UserControl
         DataContext = ruleset;
 
         //This content should really be set via a Binding
-        Header_RuleName.Text = $"{ruleset.RuleName}";
+        Header_RuleName.Text = $"{ruleset.RulesetName}";
         Header_RuleBrowser.Text = $"{ruleset.BrowserName}";
     }
 
