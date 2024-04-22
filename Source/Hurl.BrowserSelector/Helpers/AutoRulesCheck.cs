@@ -29,7 +29,7 @@ namespace Hurl.BrowserSelector.Helpers
                     {
                         if (RuleMatch.CheckMultiple(link, rules.Rules))
                         {
-                            string Args = string.IsNullOrEmpty(x.LaunchArgs) ? link + " " + x.LaunchArgs : link;
+                            string Args = string.IsNullOrEmpty(x.LaunchArgs) ? link : link + " " + x.LaunchArgs;
                             Process.Start(x.ExePath, Args);
 
                             return true;
