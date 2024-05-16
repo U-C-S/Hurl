@@ -19,7 +19,9 @@ public partial class RulesetAccordion : UserControl
 
         DataContext = ruleset;
 
-        _CardExpander.Header = $"{ruleset.Name} ({ruleset.BrowserName})";
+        //This content should really be set via a Binding
+        Header_RuleName.Text = $"{ruleset.RulesetName}";
+        Header_RuleBrowser.Text = $"{ruleset.BrowserName}";
     }
 
     private void EditButton_Click(object sender, RoutedEventArgs e)

@@ -6,16 +6,15 @@ namespace Hurl.Library.Models;
 
 public class Ruleset
 {
-    public string Name { get; set; }
-
     public List<string> Rules { get; set; }
+
+    public string RulesetName { get; set; }
 
     public string BrowserName { get; set; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public int? AltLaunchIndex { get; set; }
 }
-
 
 public enum RuleMode
 {
@@ -24,7 +23,6 @@ public enum RuleMode
     Regex,
     Glob
 }
-
 
 public class Rule
 {

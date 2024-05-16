@@ -58,11 +58,11 @@ public partial class RuleTestingWindow
 
         if (matchingRuleset != null)
         {
-            PresentOutput($"Ruleset Match: {matchingRuleset.BrowserName}\nRuleset Name: {matchingRuleset?.Name}", Brushes.Green);
+            PresentOutput($"Ruleset match: {matchingRuleset.BrowserName}\nRuleset name: {matchingRuleset?.RulesetName}", Brushes.Green);
         }
         else
         {
-            PresentOutput("No Ruleset Match", Brushes.Red);
+            PresentOutput("No Ruleset match", Brushes.Red);
         }
     }
 
