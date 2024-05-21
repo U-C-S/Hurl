@@ -3,15 +3,21 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:Hurl.RulesetManager"
-    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
     DispatcherUnhandledException="Dispatcher_UnhandledException"
     Startup="Application_Startup">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ui:ThemesDictionary Theme="Dark" />
-                <ui:ControlsDictionary />
+                <wpfui:ControlsDictionary />
+                <wpfui:ThemesDictionary Theme="Light" />
             </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="BottomBarStyle" TargetType="Border">
+                <Setter Property="Padding" Value="16" />
+                <Setter Property="Background" Value="{wpfui:ThemeResource SolidBackgroundFillColorBaseBrush}" />
+                <Setter Property="BorderBrush" Value="{wpfui:ThemeResource DividerStrokeColorDefaultBrush}" />
+                <Setter Property="BorderThickness" Value="0,1,0,0" />
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

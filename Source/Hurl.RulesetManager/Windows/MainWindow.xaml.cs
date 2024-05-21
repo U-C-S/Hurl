@@ -2,6 +2,7 @@
 using Hurl.RulesetManager.Controls;
 using Hurl.RulesetManager.ViewModels;
 using System.Windows;
+using Wpf.Ui.Appearance;
 
 namespace Hurl.RulesetManager.Windows;
 
@@ -12,6 +13,7 @@ public partial class MainWindow
         InitializeComponent();
 
         IsVisibleChanged += MainWindow_IsVisibleChanged;
+        SystemThemeWatcher.Watch(this);
     }
 
     private async void MainWindow_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)

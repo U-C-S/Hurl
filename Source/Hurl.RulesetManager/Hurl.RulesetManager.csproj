@@ -11,10 +11,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="WPF-UI" Version="3.0.1" />
+    <None Remove="Windows\internet.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="WPF-UI" Version="3.0.4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Hurl.Library\Hurl.Library.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Windows\internet.ico" />
   </ItemGroup>
 </Project>

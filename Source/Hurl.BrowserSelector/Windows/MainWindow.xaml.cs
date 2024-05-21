@@ -5,7 +5,7 @@ using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
+using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 using Path = System.IO.Path;
 
@@ -13,34 +13,11 @@ namespace Hurl.BrowserSelector.Windows;
 
 public partial class MainWindow : FluentWindow
 {
-    private bool forcePreventWindowDeactivationEvent = false;
-
     public MainWindow()
     {
-        var settings = Globals.SettingsGlobal.Value;
-
+        _ = Globals.SettingsGlobal.Value;
         InitializeComponent();
-
-        var osbuild = Environment.OSVersion.Version.Build;
-        var backtype = settings.AppSettings?.BackgroundType;
-
-        if (settings.AppSettings?.NoWhiteBorder == true) WindowBorder.BorderThickness = new Thickness(0);
-        if (osbuild < 22000) WindowBorder.CornerRadius = new CornerRadius(0);
-
-        if (backtype == "acrylic" && osbuild >= 22523)
-        {
-            WindowBackdropType = WindowBackdropType.Acrylic;
-        }
-        else if (backtype == "none" || osbuild < 22000)
-        {
-            WindowBackdropType = WindowBackdropType.None;
-            var brush = Color.FromRgb(150, 50, 50);
-            Background = new SolidColorBrush(brush);
-        }
-        else
-        {
-            WindowBackdropType = WindowBackdropType.Mica;
-        }
+        SystemThemeWatcher.Watch(this);
     }
 
     public void Init(CliArgs data)
@@ -56,104 +33,69 @@ public partial class MainWindow : FluentWindow
 
         if (data.IsRunAsMin || isRuleCheckSuccess)
         {
-            Show(); // TODO: try to remove the flashing
             MinimizeWindow();
+            Show();
         }
         else
         {
-            Show();
             PositionWindowUnderTheMouse();
+            Show();
             if (data.IsSecondInstance)
             {
                 WindowState = WindowState.Normal;
             }
         }
 
-        linkpreview.Content = string.IsNullOrEmpty(UriGlobal.Value) ? "No Url Opened" : UriGlobal.Value;
+        linkpreview.Text = string.IsNullOrEmpty(UriGlobal.Value) ? string.Empty : UriGlobal.Value;
     }
 
-    async private void Window_KeyEvents(object sender, KeyEventArgs e)
-    {
-        switch (e.Key)
-        {
-            case Key.Escape:
-                MinimizeWindow();
-                break;
-            case Key.E:
-                {
-                    var NewUrl = await URLEditor.ShowInputAsync(this, UriGlobal.Value);
-                    if (!string.IsNullOrEmpty(NewUrl))
-                    {
-                        UriGlobal.Value = NewUrl;
-                        linkpreview.Content = NewUrl;
-                        linkpreview.ToolTip = NewUrl;
-                    }
+    //private void Window_KeyEvents(object sender, KeyEventArgs e)
+    //{
+    //    switch (e.Key)
+    //    {
+    //        case Key.Escape:
+    //            MinimizeWindow();
+    //            break;
+    //        case Key.R:
+    //            MinimizeWindow();
+    //            Process.Start(Constants.SETTINGS_APP);
+    //            break;
+    //        case Key.T:
+    //            new TimeSelectWindow(SettingsGlobal.Value.Browsers).ShowDialog();
+    //            break;
+    //        default:
+    //            break;
+    //    }
+    //}
 
-                    break;
-                }
-            case Key.C:
-                try
-                {
-                    Clipboard.SetText(UriGlobal.Value);
-                }
-                catch (Exception err)
-                {
-                    System.Windows.MessageBox.Show(err.Message);
-                }
-                break;
-            case Key.R:
-                MinimizeWindow();
-                Process.Start(Constants.SETTINGS_APP);
-                break;
-            case Key.T:
-                new TimeSelectWindow(SettingsGlobal.Value.Browsers).ShowDialog();
-                break;
-            default:
-                break;
-        }
-
-    }
-
-    private void LinkCopyBtnClick(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            Clipboard.SetText(UriGlobal.Value);
-        }
-        catch (Exception err)
-        {
-            System.Windows.MessageBox.Show(err.Message);
-        }
-    }
-
-    private void SettingsBtnClick(object sender, RoutedEventArgs e) => Process.Start("explorer", "\"" + Constants.APP_SETTINGS_MAIN + "\"");
-    private void Draggable(object sender, MouseButtonEventArgs e) => this.DragMove();
-    private void CloseBtnClick(object sender, RoutedEventArgs e) => MinimizeWindow();
+    private void SettingsBtn_Click(object sender, RoutedEventArgs e) => Process.Start("explorer", "\"" + Constants.APP_SETTINGS_MAIN + "\"");
+    private void Draggable(object sender, MouseButtonEventArgs e) => DragMove();
+    private void CloseBtn_Click(object sender, RoutedEventArgs e) => MinimizeWindow();
 
     private void MinimizeWindow()
     {
-        this.WindowState = WindowState.Minimized;
-        this.Hide();
+        WindowState = WindowState.Minimized;
+        Hide();
     }
 
-    private void MaximizeWindow()
+    private void ShowWindow()
     {
-        this.Show();
         PositionWindowUnderTheMouse();
-        this.WindowState = WindowState.Normal;
+        Show();
+        WindowState = WindowState.Normal;
     }
 
     private void TrayMenuItem_OnClick(object sender, RoutedEventArgs e)
     {
-        var settings = Globals.SettingsGlobal.Value;
+        _ = Globals.SettingsGlobal.Value;
 
-        string tag = (sender as Wpf.Ui.Controls.MenuItem).Tag as string;
+        string? tag = ((MenuItem)sender).Tag as string;
         try
         {
             switch (tag)
             {
                 case "open":
-                    MaximizeWindow();
+                    ShowWindow();
                     break;
                 case "settings":
                     Process.Start("explorer", "\"" + Constants.APP_SETTINGS_MAIN + "\"");
@@ -176,7 +118,7 @@ public partial class MainWindow : FluentWindow
         }
     }
 
-    private void NotifyIcon_LeftClick(object sender, RoutedEventArgs e) => MaximizeWindow();
+    private void NotifyIcon_LeftClick(object sender, RoutedEventArgs e) => ShowWindow();
 
     private void Window_Deactivated(object sender, EventArgs e)
     {
@@ -198,38 +140,26 @@ public partial class MainWindow : FluentWindow
             Left = mouse.X;
             Top = mouse.Y;
 
-            Debug.WriteLine($"{Left}x{Top} while screen res: {SystemParameters.FullPrimaryScreenWidth}x{SystemParameters.FullPrimaryScreenHeight}");
+            Debug.WriteLine($"{Left}×{Top} with screen resolution: {SystemParameters.FullPrimaryScreenWidth}x{SystemParameters.FullPrimaryScreenHeight}");
         }
     }
 
-    private void Button_Click(object sender, RoutedEventArgs e)
+    private void BtnTimed_Click(object sender, RoutedEventArgs e)
     {
-        forcePreventWindowDeactivationEvent = true;
         new TimeSelectWindow(Globals.SettingsGlobal.Value.Browsers).ShowDialog();
-        forcePreventWindowDeactivationEvent = false;
     }
 
-    private void UiWindow_SizeChanged(object sender, SizeChangedEventArgs e) => Globals.SettingsGlobal.AdjustWindowSize(e);
+    private void Window_SizeChanged(object sender, SizeChangedEventArgs e) => Globals.SettingsGlobal.AdjustWindowSize(e);
 
-    async private void linkpreview_Click(object sender, RoutedEventArgs e)
-    {
-        forcePreventWindowDeactivationEvent = true;
-
-        var NewUrl = await URLEditor.ShowInputAsync(this, UriGlobal.Value);
-        if (!string.IsNullOrEmpty(NewUrl))
-        {
-            UriGlobal.Value = NewUrl;
-            (sender as Wpf.Ui.Controls.Button).Content = NewUrl;
-            (sender as Wpf.Ui.Controls.Button).ToolTip = NewUrl;
-        }
-
-        forcePreventWindowDeactivationEvent = false;
-    }
-
-    private void Button_Click_1(object sender, RoutedEventArgs e)
+    private void ManageBtn_Click(object sender, RoutedEventArgs e)
     {
         MinimizeWindow();
         Process.Start(Constants.SETTINGS_APP);
     }
-}
 
+    private void MinimizeWindow(TitleBar sender, RoutedEventArgs args)
+    {
+        WindowState = WindowState.Minimized;
+        Hide();
+    }
+}
