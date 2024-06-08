@@ -1,35 +1,25 @@
-#![windows_subsystem = "windows"]
+// #![windows_subsystem = "windows"]
+
+use tokio::net::windows::named_pipe::{self, ClientOptions};
 
 mod models;
 
-use windows::{core::*, Win32::System::Pipes::CallNamedPipeA};
+// use windows::{core::*, Win32::System::Pipes::CallNamedPipeA};
 
 const USER_SETTINGS: &str = "C:\\Users\\uchan\\AppData\\Roaming\\Hurl\\UserSettings.json";
-const PIPE_NAME: &str = "\\\\.\\pipe\\HurlNamedPipe";
+const PIPE_NAME: &str = r"\\.\pipe\HurlNamedPipe";
 
-fn main() {
+#[tokio::main]
+async fn main() {
     let file = std::fs::read_to_string(USER_SETTINGS).unwrap();
     let user_settings: models::Settings = serde_json::from_str(&file).unwrap();
     let user_settings_json = serde_json::to_string(&user_settings).unwrap();
-    std::fs::write("./lol.txt", &user_settings_json);
-    // anonymous pipes
-    // let (tx, rx) = std::sync::mpsc::channel();
 
-    unsafe {
-        let x: PCSTR = PCSTR(PIPE_NAME.as_ptr());
-        let lpinbuffer = user_settings_json.as_ptr() as *const std::ffi::c_void;
-        let ninbuffersize = user_settings_json.len() as u32;
-        let lpbytesread = std::ptr::null_mut();
-        let x = CallNamedPipeA(
-            x,
-            Some(lpinbuffer),
-            ninbuffersize,
-            None,
-            0,
-            lpbytesread,
-            100000,
-        );
-    }
+    print!("Waiting for server to be ready...");
+    let client = ClientOptions::new().open(PIPE_NAME).unwrap();
+
+    client.writable().await.unwrap();
+    client.try_write(user_settings_json.as_bytes());
 
     println!("{:?}", user_settings);
 }

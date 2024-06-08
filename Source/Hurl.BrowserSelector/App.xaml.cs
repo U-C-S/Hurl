@@ -10,6 +10,8 @@ using Windows.Win32.Storage.FileSystem;
 using System;
 using Windows.Win32.Foundation;
 using System.Diagnostics;
+using System.IO.Pipes;
+using System.IO;
 
 
 namespace Hurl.BrowserSelector
@@ -48,39 +50,17 @@ namespace Hurl.BrowserSelector
 
         protected unsafe override void OnStartup(StartupEventArgs e)
         {
-            var PIPE_NAME = "\\\\.\\pipe\\HurlNamedPipe";
-            var pipeHandle = PInvoke.CreateNamedPipe(PIPE_NAME,
-                FILE_FLAGS_AND_ATTRIBUTES.PIPE_ACCESS_INBOUND,
-                NAMED_PIPE_MODE.PIPE_TYPE_BYTE,
-                2,
-                0,
-                16000,
-                0,
-                null);
-
-            while (PInvoke.WaitNamedPipe(PIPE_NAME, 0xffffffff))
+            using(NamedPipeServerStream pipeserver = new NamedPipeServerStream("HurlNamedPipe", PipeDirection.In))
             {
-                Debug.WriteLine("Pipe is ready for connection");
-                var connected = PInvoke.ConnectNamedPipe(pipeHandle, null);
-                Debug.WriteLine($"Pipe is connected {connected}");
-                if (connected && pipeHandle != null)
+                Debug.WriteLine("Waiting for connection");
+                pipeserver.WaitForConnection();
+                Debug.WriteLine("Connected");
+                using (StreamReader sr = new StreamReader(pipeserver))
                 {
-                    var buffer = new byte[16000];
-                    fixed (byte* pBuffer = buffer)
-                    {
-                        var readSuccess = PInvoke.ReadFile(new HANDLE(pipeHandle.DangerousGetHandle()), pBuffer, 16000);
-                        if (readSuccess)
-                        {
-                            var args = System.Text.Encoding.UTF8.GetString(buffer);
-
-                            MessageBox.Show(args);
-                        }
-                    }
+                    string args = sr.ReadToEnd();
+                    MessageBox.Show(args);
                 }
             }
-
-
-
 
             bool isFirstInstance = this.InitializeAsFirstInstance("HurlTray");
             if (isFirstInstance)
