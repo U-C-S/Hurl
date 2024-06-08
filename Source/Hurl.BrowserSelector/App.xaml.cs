@@ -7,6 +7,9 @@ using System.Windows;
 using Windows.Win32;
 using Windows.Win32.System.Pipes;
 using Windows.Win32.Storage.FileSystem;
+using System;
+using Windows.Win32.Foundation;
+using System.Diagnostics;
 
 
 namespace Hurl.BrowserSelector
@@ -43,9 +46,10 @@ namespace Hurl.BrowserSelector
             MessageBox.Show(errorMessage, ErrorWndTitle, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
-        protected override void OnStartup(StartupEventArgs e)
+        protected unsafe override void OnStartup(StartupEventArgs e)
         {
-            var pipeHandle = PInvoke.CreateNamedPipe("\\\\.\\pipe\\HurlNamedPipe",
+            var PIPE_NAME = "\\\\.\\pipe\\HurlNamedPipe";
+            var pipeHandle = PInvoke.CreateNamedPipe(PIPE_NAME,
                 FILE_FLAGS_AND_ATTRIBUTES.PIPE_ACCESS_INBOUND,
                 NAMED_PIPE_MODE.PIPE_TYPE_BYTE,
                 2,
@@ -53,6 +57,30 @@ namespace Hurl.BrowserSelector
                 16000,
                 0,
                 null);
+
+            while (PInvoke.WaitNamedPipe(PIPE_NAME, 0xffffffff))
+            {
+                Debug.WriteLine("Pipe is ready for connection");
+                var connected = PInvoke.ConnectNamedPipe(pipeHandle, null);
+                Debug.WriteLine($"Pipe is connected {connected}");
+                if (connected && pipeHandle != null)
+                {
+                    var buffer = new byte[16000];
+                    fixed (byte* pBuffer = buffer)
+                    {
+                        var readSuccess = PInvoke.ReadFile(new HANDLE(pipeHandle.DangerousGetHandle()), pBuffer, 16000);
+                        if (readSuccess)
+                        {
+                            var args = System.Text.Encoding.UTF8.GetString(buffer);
+
+                            MessageBox.Show(args);
+                        }
+                    }
+                }
+            }
+
+
+
 
             bool isFirstInstance = this.InitializeAsFirstInstance("HurlTray");
             if (isFirstInstance)

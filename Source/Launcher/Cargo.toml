@@ -7,3 +7,8 @@ edition = "2021"
 regex = "1.10.4"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
+windows = { version = "0.57.0", features = [
+  "Win32_Foundation",
+  "Win32_System_Pipes",
+  "Win32_Security",
+] }
