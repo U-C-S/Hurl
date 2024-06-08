@@ -1,18 +1,26 @@
+use serde::{Deserialize, Serialize};
+
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "PascalCase")]
 pub struct RuleSet {
-    pub id: i32,
-    pub rules: Vec<Rule>,
-    pub name: String,
+    pub rules: Vec<String>,
+    pub browser_name: String,
 }
 
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "PascalCase")]
 struct Rule {}
 
-struct Browser {
-    pub id: i32,
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct Browser {
     pub name: String,
-    pub version: String,
+    pub exe_path: String,
 }
 
-struct Settings {
-    pub rule_sets: Vec<RuleSet>,
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct Settings {
+    pub rulesets: Vec<RuleSet>,
     pub browsers: Vec<Browser>,
 }
