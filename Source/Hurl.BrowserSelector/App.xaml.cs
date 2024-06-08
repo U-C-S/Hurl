@@ -4,6 +4,10 @@ using Hurl.BrowserSelector.Windows;
 using SingleInstanceCore;
 using System.Text.Json;
 using System.Windows;
+using Windows.Win32;
+using Windows.Win32.System.Pipes;
+using Windows.Win32.Storage.FileSystem;
+
 
 namespace Hurl.BrowserSelector
 {
@@ -41,6 +45,15 @@ namespace Hurl.BrowserSelector
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            var pipeHandle = PInvoke.CreateNamedPipe("\\\\.\\pipe\\HurlNamedPipe",
+                FILE_FLAGS_AND_ATTRIBUTES.PIPE_ACCESS_INBOUND,
+                NAMED_PIPE_MODE.PIPE_TYPE_BYTE,
+                2,
+                0,
+                16000,
+                0,
+                null);
+
             bool isFirstInstance = this.InitializeAsFirstInstance("HurlTray");
             if (isFirstInstance)
             {

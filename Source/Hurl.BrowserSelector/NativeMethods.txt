@@ -1,0 +1,5 @@
+﻿CreateNamedPipe
+ConnectNamedPipe
+
+FILE_FLAGS_AND_ATTRIBUTES
+NAMED_PIPE_MODE
