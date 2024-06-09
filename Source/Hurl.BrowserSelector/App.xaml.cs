@@ -11,6 +11,7 @@ using Windows.Win32.Foundation;
 using System.Diagnostics;
 using System.IO.Pipes;
 using System.IO;
+using System.Threading;
 
 
 namespace Hurl.BrowserSelector
@@ -49,12 +50,14 @@ namespace Hurl.BrowserSelector
 
         protected unsafe override void OnStartup(StartupEventArgs e)
         {
+            Thread thread = new Thread(PipeServer);
+            thread.Start();
+
             var cliArgs = CliArgs.GatherInfo(e.Args, false);
             UriGlobal.Value = cliArgs.Url;
 
             _mainWindow = new();
             _mainWindow.Init(cliArgs);
-
         }
 
         public void OnInstanceInvoked(string[] args)
@@ -69,22 +72,23 @@ namespace Hurl.BrowserSelector
                     UriGlobal.Value = cliArgs.Url;
                     _mainWindow.Init(cliArgs);
                 }
-
             });
         }
 
         public unsafe void PipeServer()
         {
-            using (NamedPipeServerStream pipeserver = new("HurlNamedPipe", PipeDirection.InOut, 3))
+            while (true)
             {
-                Debug.WriteLine("Waiting for connection");
+                using NamedPipeServerStream pipeserver = new("HurlNamedPipe", PipeDirection.InOut, 3);
+
                 pipeserver.WaitForConnection();
-                Debug.WriteLine("Connected");
-                using (StreamReader sr = new StreamReader(pipeserver))
+                using (StreamReader sr = new(pipeserver))
                 {
                     string args = sr.ReadToEnd();
-                    MessageBox.Show(args);
+                    Debug.WriteLine(args);
                 }
+
+                pipeserver.Close();
             }
         }
     }
