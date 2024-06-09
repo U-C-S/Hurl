@@ -25,7 +25,6 @@
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="SingleInstanceCore" Version="2.2.2" />
     <PackageReference Include="System.Drawing.Common" Version="8.0.3" />
     <PackageReference Include="WPF-UI" Version="3.0.1" />
     <PackageReference Include="WPF-UI.Tray" Version="3.0.0-preview.11" />

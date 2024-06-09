@@ -1,7 +1,6 @@
 ﻿using Hurl.BrowserSelector.Globals;
 using Hurl.BrowserSelector.Helpers;
 using Hurl.BrowserSelector.Windows;
-using SingleInstanceCore;
 using System.Text.Json;
 using System.Windows;
 using Windows.Win32;
@@ -19,7 +18,7 @@ namespace Hurl.BrowserSelector
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application, ISingleInstance
+    public partial class App : Application
     {
         private MainWindow _mainWindow;
 
@@ -50,31 +49,12 @@ namespace Hurl.BrowserSelector
 
         protected unsafe override void OnStartup(StartupEventArgs e)
         {
-            using (NamedPipeServerStream pipeserver = new("HurlNamedPipe", PipeDirection.InOut, 3))
-            {
-                Debug.WriteLine("Waiting for connection");
-                pipeserver.WaitForConnection();
-                Debug.WriteLine("Connected");
-                using (StreamReader sr = new StreamReader(pipeserver))
-                {
-                    string args = sr.ReadToEnd();
-                    MessageBox.Show(args);
-                }
-            }
+            var cliArgs = CliArgs.GatherInfo(e.Args, false);
+            UriGlobal.Value = cliArgs.Url;
 
-            bool isFirstInstance = this.InitializeAsFirstInstance("HurlTray");
-            if (isFirstInstance)
-            {
-                var cliArgs = CliArgs.GatherInfo(e.Args, false);
-                UriGlobal.Value = cliArgs.Url;
+            _mainWindow = new();
+            _mainWindow.Init(cliArgs);
 
-                _mainWindow = new();
-                _mainWindow.Init(cliArgs);
-            }
-            else
-            {
-                Current.Shutdown();
-            }
         }
 
         public void OnInstanceInvoked(string[] args)
@@ -93,6 +73,19 @@ namespace Hurl.BrowserSelector
             });
         }
 
-        protected override void OnExit(ExitEventArgs e) => SingleInstance.Cleanup();
+        public unsafe void PipeServer()
+        {
+            using (NamedPipeServerStream pipeserver = new("HurlNamedPipe", PipeDirection.InOut, 3))
+            {
+                Debug.WriteLine("Waiting for connection");
+                pipeserver.WaitForConnection();
+                Debug.WriteLine("Connected");
+                using (StreamReader sr = new StreamReader(pipeserver))
+                {
+                    string args = sr.ReadToEnd();
+                    MessageBox.Show(args);
+                }
+            }
+        }
     }
 }
