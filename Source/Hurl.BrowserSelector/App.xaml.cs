@@ -3,11 +3,7 @@ using Hurl.BrowserSelector.Helpers;
 using Hurl.BrowserSelector.Windows;
 using System.Text.Json;
 using System.Windows;
-using Windows.Win32;
-using Windows.Win32.System.Pipes;
-using Windows.Win32.Storage.FileSystem;
 using System;
-using Windows.Win32.Foundation;
 using System.Diagnostics;
 using System.IO.Pipes;
 using System.IO;
@@ -48,7 +44,7 @@ namespace Hurl.BrowserSelector
             MessageBox.Show(errorMessage, ErrorWndTitle, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
-        protected unsafe override void OnStartup(StartupEventArgs e)
+        protected override void OnStartup(StartupEventArgs e)
         {
             Thread thread = new Thread(PipeServer);
             thread.Start();
@@ -75,7 +71,7 @@ namespace Hurl.BrowserSelector
             });
         }
 
-        public unsafe void PipeServer()
+        public void PipeServer()
         {
             while (true)
             {
