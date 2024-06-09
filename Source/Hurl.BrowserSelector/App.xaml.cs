@@ -19,6 +19,10 @@ namespace Hurl.BrowserSelector
     {
         private MainWindow _mainWindow;
 
+        private const string MUTEX_NAME = "Hurl_Mutex_3721";
+
+        private Mutex? _singleInstanceMutex;
+
         public App()
         {
             this.Dispatcher.UnhandledException += Dispatcher_UnhandledException;
@@ -46,6 +50,14 @@ namespace Hurl.BrowserSelector
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            _singleInstanceMutex = new Mutex(true, MUTEX_NAME, out var isOwned);
+
+            if (!isOwned)
+            {
+                Shutdown();
+                return;
+            }
+
             Thread thread = new Thread(PipeServer);
             thread.Start();
 
@@ -54,6 +66,11 @@ namespace Hurl.BrowserSelector
 
             _mainWindow = new();
             _mainWindow.Init(cliArgs);
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            _singleInstanceMutex?.Close();
         }
 
         public void OnInstanceInvoked(string[] args)
@@ -82,7 +99,6 @@ namespace Hurl.BrowserSelector
                 {
                     string args = sr.ReadToEnd();
                     string[] argsArray = JsonSerializer.Deserialize<string[]>(args);
-                    //Debug.WriteLine(argsArray);
                     OnInstanceInvoked(argsArray);
                 }
 

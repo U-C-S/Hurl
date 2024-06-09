@@ -136,7 +136,7 @@ public partial class MainWindow : FluentWindow
         this.Hide();
     }
 
-    private void MaximizeWindow()
+    public void MaximizeWindow()
     {
         this.Show();
         PositionWindowUnderTheMouse();
