@@ -50,7 +50,7 @@ namespace Hurl.BrowserSelector
 
         protected unsafe override void OnStartup(StartupEventArgs e)
         {
-            using(NamedPipeServerStream pipeserver = new NamedPipeServerStream("HurlNamedPipe", PipeDirection.In))
+            using (NamedPipeServerStream pipeserver = new("HurlNamedPipe", PipeDirection.InOut, 3))
             {
                 Debug.WriteLine("Waiting for connection");
                 pipeserver.WaitForConnection();
