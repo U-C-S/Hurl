@@ -85,7 +85,9 @@ namespace Hurl.BrowserSelector
                 using (StreamReader sr = new(pipeserver))
                 {
                     string args = sr.ReadToEnd();
-                    Debug.WriteLine(args);
+                    string[] argsArray = JsonSerializer.Deserialize<string[]>(args);
+                    //Debug.WriteLine(argsArray);
+                    OnInstanceInvoked(argsArray);
                 }
 
                 pipeserver.Close();
