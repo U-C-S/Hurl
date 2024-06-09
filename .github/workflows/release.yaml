@@ -11,21 +11,21 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+      - name: rustup toolchain install
+        uses: dtolnay/rust-toolchain@v1
       - name: Setup .NET
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.x
-      - name: Dotnet Restore
-        run: dotnet restore
-      - name: Build
-        run: .\Utils\build.ps1
+      - name: Build Hurl and its components
+        run: .\build.ps1
       - name: Create Github Release
         run: gh release create ${{ github.ref_name }} './Utils/Hurl_Installer.exe' --title "${{ github.ref_name }}" --draft --latest --verify-tag --notes-from-tag
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Hurl_Installer
           path: ./Utils/Hurl_Installer.exe
