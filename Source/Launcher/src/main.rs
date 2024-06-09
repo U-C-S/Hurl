@@ -27,12 +27,12 @@ async fn main() {
     let pipe_conn = ClientOptions::new().open(PIPE_NAME);
     match pipe_conn {
         Ok(client) => {
-            print!("Connected to the server");
+            println!("Connected to the server");
             client.writable().await.unwrap();
             let _ = client.try_write(args_str.as_bytes());
         }
         Err(_) => {
-            print!("Failed to connect to the server");
+            println!("Failed to connect to the server");
             let _ = Command::new(hurl_exe_path).args(args).spawn();
         }
     }
