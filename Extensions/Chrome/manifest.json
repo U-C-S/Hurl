@@ -1,5 +1,4 @@
 {
-  "$schema": "https://json.schemastore.org/chrome-manifest",
   "name": "Hurl Extension",
   "description": "Lets you open tabs in other Browsers",
   "version": "0.3.0",
@@ -14,7 +13,7 @@
     "service_worker": "background.js"
   },
 
-  "permissions": ["contextMenus", "scripting", "activeTab"],
+  "permissions": ["contextMenus", "scripting", "activeTab", "nativeMessaging"],
   "host_permissions": ["<all_urls>"],
 
   "homepage_url": "https://github.com/U-C-S/Hurl",

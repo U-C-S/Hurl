@@ -20,7 +20,6 @@ chrome.runtime.onInstalled.addListener(function () {
 });
 
 function OpenHurl(link) {
-  //console.log("lol");
   let anchor = document.createElement("a");
   anchor.href = "hurl://" + link;
   anchor.click();
@@ -37,11 +36,14 @@ chrome.contextMenus.onClicked.addListener(async function (info, tab) {
 
   let currentTab = await getCurrentTab();
 
-  chrome.scripting.executeScript({
-    target: { tabId: currentTab.id },
-    func: OpenHurl,
-    args: [LINK],
-  });
+  console.log("Sending " + LINK);
+  chrome.runtime.sendNativeMessage(
+    "com.3721tools.hurl",
+    { url: LINK },
+    function (response) {
+      console.log("Received " + response);
+    }
+  );
 });
 
 // chrome.tabs.create({
