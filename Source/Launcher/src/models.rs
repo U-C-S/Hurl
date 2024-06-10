@@ -24,3 +24,8 @@ pub struct Settings {
     pub rulesets: Vec<RuleSet>,
     pub browsers: Vec<Browser>,
 }
+
+#[derive(Deserialize, Serialize)]
+pub struct NativeMessage {
+    pub url: String,
+}
