@@ -1,7 +1,8 @@
 {
+  "$schema": "https://json.schemastore.org/chrome-manifest",
   "name": "Hurl Extension",
   "description": "Lets you open tabs in other Browsers",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "manifest_version": 3,
   "icons": {
     "16": "icons/internet16.png",

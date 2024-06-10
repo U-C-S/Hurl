@@ -1,0 +1,7 @@
+{
+  "name": "com.3721tools.hurl",
+  "description": "Hurl",
+  "path": "E:\\Code\\Hurl\\Source\\Launcher\\target\\debug\\Launcher.exe",
+  "type": "stdio",
+  "allowed_origins": ["chrome-extension://dhicolihilgbjmchkamcpfhboihhodfb/"]
+}
