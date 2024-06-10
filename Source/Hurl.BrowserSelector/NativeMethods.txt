@@ -1,0 +1,8 @@
+﻿CreateNamedPipe
+ConnectNamedPipe
+WaitNamedPipe
+
+ReadFile
+
+FILE_FLAGS_AND_ATTRIBUTES
+NAMED_PIPE_MODE

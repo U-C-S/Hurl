@@ -2,10 +2,10 @@
 
 #define MyAppName "Hurl"
 #define NameSmall "hurl"
-#define MyAppVersion "0.8.3.20"
+#define MyAppVersion "0.9.0.21"
 #define MyAppPublisher "The 3721 Tools"
 #define MyAppURL "https://github.com/U-C-S/Hurl"
-#define MyAppExeName "Hurl.exe"
+#define MyAppExeName "Launcher.exe"
 
 [Setup]
 AppId={{56C63D05-9D83-492A-ABDD-618FE36ACBFB}}
@@ -44,9 +44,9 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "protocol"; Description: "{cm:CreateProtocol}"; GroupDescription: "{cm:OtherOptions}"
 
 [Files]
+Source: "..\Source\Launcher\target\release\Launcher.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\_Publish\*.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\_Publish\*.dll"; DestDir: "{app}"; Flags: ignoreversion
-; Source: "..\_Publish\*.txt"; DestDir: "{app}/License"; Flags: ignoreversion
 Source: "..\LICENSE"; DestDir: "{app}/License"; Flags: ignoreversion
 Source: "..\Extensions\*"; Excludes: "package-lock.json,node_modules"; DestDir: "{app}\Extensions"; Flags: ignoreversion recursesubdirs; Tasks: Protocol;
 Source: "..\_Publish\*.json"; DestDir: "{app}"; Flags: ignoreversion
