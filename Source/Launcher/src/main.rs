@@ -8,7 +8,7 @@ use std::{
 
 use byteorder::{NativeEndian, ReadBytesExt};
 use models::NativeMessage;
-use tokio::net::windows::named_pipe::ClientOptions;
+use tokio::net::windows::named_pipe;
 
 mod models;
 
@@ -16,6 +16,7 @@ static PIPE_NAME: &str = r"\\.\pipe\HurlNamedPipe";
 
 #[tokio::main]
 async fn main() {
+    // Try get the url from browser through native messaging
     let native_msg_url = match read_input(io::stdin()) {
         Ok(val) => {
             let json_val: Result<NativeMessage, _> = serde_json::from_slice(&val);
@@ -39,15 +40,13 @@ async fn main() {
         None => serde_json::to_string(&args).unwrap(),
     };
 
-    let pipe_conn = ClientOptions::new().open(PIPE_NAME);
+    let pipe_conn = named_pipe::ClientOptions::new().open(PIPE_NAME);
     match pipe_conn {
         Ok(client) => {
-            println!("Connected to the server");
             client.writable().await.unwrap();
             let _ = client.try_write(args_str.as_bytes());
         }
         Err(_) => {
-            println!("Failed to connect to the server");
             let _ = Command::new(hurl_exe_path).args(args).spawn();
         }
     }

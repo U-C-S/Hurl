@@ -13,7 +13,7 @@
     "service_worker": "background.js"
   },
 
-  "permissions": ["contextMenus", "scripting", "activeTab", "nativeMessaging"],
+  "permissions": ["contextMenus", "activeTab", "nativeMessaging"],
   "host_permissions": ["<all_urls>"],
 
   "homepage_url": "https://github.com/U-C-S/Hurl",
