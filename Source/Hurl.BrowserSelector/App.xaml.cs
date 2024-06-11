@@ -136,7 +136,10 @@ namespace Hurl.BrowserSelector
                         OnInstanceInvoked(argsArray);
                     }
                 }
-                catch (Exception _) { }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.Message);
+                }
 
                 pipeserver.Close();
             }
