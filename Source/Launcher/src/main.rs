@@ -53,10 +53,14 @@ async fn main() {
 }
 
 pub fn read_input<R: Read>(mut input: R) -> io::Result<Vec<u8>> {
-    let length = input.read_u32::<NativeEndian>().unwrap();
-    let mut buffer = vec![0; length as usize];
-    input.read_exact(&mut buffer)?;
-    Ok(buffer)
+    match input.read_u32::<NativeEndian>() {
+        Ok(len) => {
+            let mut buffer = vec![0; len as usize];
+            input.read_exact(&mut buffer)?;
+            Ok(buffer)
+        }
+        Err(_) => Err(io::Error::new(io::ErrorKind::Other, "Failed to read input")),
+    }
 }
 
 // static USER_SETTINGS: &str = "C:\\Users\\uchan\\AppData\\Roaming\\Hurl\\UserSettings.json";
