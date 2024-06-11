@@ -44,6 +44,8 @@ Sometimes you might want to open a link in a browser of your choice, instead of 
 
 Download Install the latest [.NET 8 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/8.0) and Get the Hurl_Installer from [Releases](https://github.com/U-C-S/Hurl/releases/latest). Your PC's Anti-Virus might warn that it's not secure to download or install it, You can ignore it as the executables are Un-signed. Lastly, After installing, You might need to set Hurl as the default `http/https` protocol handler in the Windows Settings, just like how you change the default browser.
 
+Check out [Extensions/README.md](./Extensions/README.md) for installing the Browser Extension.
+
 ### Check out wiki for configuring - [Editing UserSettings.json](https://github.com/U-C-S/Hurl/wiki/Editing-UserSettings.json)
 
 ## Dependencies and Tools used
@@ -63,13 +65,6 @@ Download Install the latest [.NET 8 Desktop Runtime](https://dotnet.microsoft.co
 or Simply use the Build Script from `Utils/build.ps1` to build the Application in release mode and successively build the installer.
 
 For checking out older versions source code, Check the [Tags](https://github.com/U-C-S/Hurl/tags).
-
-### Using the Extension
-
-This is a experimental feature. Is implemented as hacky way. Use at ur own risk!
-
-- Enable the Developer Mode for Extensions in Edge or Chrome (Not tested in Firefox)
-- Choose the folder `{installationDir}/Extensions/Chrome` after clicking `Load Unpacked` Button available after enabling Developer mode
 
 ## Contributing
 
