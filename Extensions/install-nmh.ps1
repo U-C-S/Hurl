@@ -14,7 +14,7 @@ $NMH_MANIFEST = @"
 {
   "name": "com.3721tools.hurl",
   "description": "Hurl Proxy Native Messaging Host",
-  "path": "$CURRENT_DIR/Laucher.exe",
+  "path": "$CURRENT_DIR/Launcher.exe",
   "type": "stdio",
   "allowed_origins": ["chrome-extension://$EXTENSION_ID/"]
 }
