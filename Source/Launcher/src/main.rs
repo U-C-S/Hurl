@@ -2,6 +2,7 @@
 
 use std::{
     env,
+    fs::write,
     io::{self, Read},
     process::Command,
 };
@@ -32,21 +33,29 @@ async fn main() {
         let current_exe_path = env::current_exe().unwrap();
         let current_dir = current_exe_path.parent().unwrap();
         current_dir.join("Hurl.exe")
+
+        // ; String::from("../../../Hurl.BrowserSelector/bin/Debug/net8.0-windows/Hurl.exe")
     };
 
-    let args: Vec<String> = env::args().collect();
-    let args_str = match native_msg_url {
-        Some(url) => serde_json::to_string(&vec![url]).unwrap(),
-        None => serde_json::to_string(&args).unwrap(),
-    };
+    let args = env::args().collect::<Vec<String>>();
+    let trimed_args = &args[1..];
 
     let pipe_conn = named_pipe::ClientOptions::new().open(PIPE_NAME);
     match pipe_conn {
         Ok(client) => {
             client.writable().await.unwrap();
+
+            let args_str = match native_msg_url {
+                Some(ref url) => serde_json::to_string(&vec![url]).unwrap(),
+                None => serde_json::to_string(&trimed_args).unwrap(),
+            };
             let _ = client.try_write(args_str.as_bytes());
         }
         Err(_) => {
+            let args = match native_msg_url {
+                Some(url) => vec![url],
+                None => trimed_args.to_vec(),
+            };
             let _ = Command::new(hurl_exe_path).args(args).spawn();
         }
     }
