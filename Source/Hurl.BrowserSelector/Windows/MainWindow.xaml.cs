@@ -78,7 +78,7 @@ public partial class MainWindow : FluentWindow
         Hide();
     }
 
-    private void ShowWindow()
+    public void ShowWindow()
     {
         PositionWindowUnderTheMouse();
         Show();
