@@ -107,7 +107,11 @@
                     <wpfui:MenuItem
                         Click="TrayMenuItem_OnClick"
                         Header="Close"
-                        Tag="exit" />
+                        Tag="exit">
+                        <wpfui:MenuItem.Icon>
+                            <wpfui:SymbolIcon Symbol="Dismiss16" />
+                        </wpfui:MenuItem.Icon>
+                    </wpfui:MenuItem>
                 </ContextMenu>
             </tray:NotifyIcon.Menu>
         </tray:NotifyIcon>

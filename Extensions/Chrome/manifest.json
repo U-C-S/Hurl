@@ -1,7 +1,7 @@
 {
   "name": "Hurl Extension",
   "description": "Lets you open tabs in other Browsers",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "manifest_version": 3,
   "icons": {
     "16": "icons/internet16.png",
@@ -13,7 +13,7 @@
     "service_worker": "background.js"
   },
 
-  "permissions": ["contextMenus", "scripting", "activeTab"],
+  "permissions": ["contextMenus", "activeTab", "nativeMessaging"],
   "host_permissions": ["<all_urls>"],
 
   "homepage_url": "https://github.com/U-C-S/Hurl",
