@@ -41,59 +41,58 @@
                     FontSize="16"
                     Foreground="AliceBlue"
                     Text="Select a Browser" />
+
                 <StackPanel
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     Orientation="Horizontal">
-                    <wpfui:Button
+                    <wpfui:DropDownButton
                         Margin="0,0,4,0"
-                        Padding="7,5"
-                        Background="#40000000"
-                        Click="Button_Click_1"
-                        Cursor="Hand"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Background="#20000000"
                         FontSize="16"
-                        ToolTip="Add Rule">
-                        <wpfui:Button.Icon>
-                            <wpfui:SymbolIcon Symbol="Add24" />
-                        </wpfui:Button.Icon>
-                        <wpfui:Button.Content>
-                            Rules
-                        </wpfui:Button.Content>
-                    </wpfui:Button>
+                        Icon="{wpfui:SymbolIcon Navigation24}">
+                        <wpfui:DropDownButton.Flyout>
+                            <ContextMenu>
+                                <wpfui:MenuItem
+                                    Click="Button_Click_1"
+                                    Header="Rules"
+                                    Tag="settings">
+                                    <wpfui:MenuItem.Icon>
+                                        <wpfui:SymbolIcon Symbol="Add24" />
+                                    </wpfui:MenuItem.Icon>
+                                </wpfui:MenuItem>
+                                <wpfui:MenuItem
+                                    Click="Button_Click"
+                                    Header="Timed"
+                                    Tag="reload">
+                                    <wpfui:MenuItem.Icon>
+                                        <wpfui:SymbolIcon Symbol="Clock24" />
+                                    </wpfui:MenuItem.Icon>
+                                </wpfui:MenuItem>
+                                <wpfui:MenuItem
+                                    Click="SettingsBtnClick"
+                                    Header="Settings"
+                                    Tag="exit">
+                                    <wpfui:MenuItem.Icon>
+                                        <wpfui:SymbolIcon Symbol="Settings24" />
+                                    </wpfui:MenuItem.Icon>
+                                </wpfui:MenuItem>
+                            </ContextMenu>
+                        </wpfui:DropDownButton.Flyout>
+                    </wpfui:DropDownButton>
                     <wpfui:Button
                         Margin="0,0,4,0"
                         Padding="7,5"
-                        Background="#40000000"
-                        Click="Button_Click"
-                        Cursor="Hand"
-                        FontSize="16"
-                        ToolTip="Timed Default">
-                        <wpfui:Button.Icon>
-                            <wpfui:SymbolIcon Symbol="Clock24" />
-                        </wpfui:Button.Icon>
-                    </wpfui:Button>
-                    <wpfui:Button
-                        Margin="0,0,4,0"
-                        Padding="7,5"
-                        Background="#40000000"
-                        Click="SettingsBtnClick"
-                        Cursor="Hand"
-                        FontSize="16"
-                        ToolTip="Settings">
-                        <wpfui:Button.Icon>
-                            <wpfui:SymbolIcon Symbol="Settings24" />
-                        </wpfui:Button.Icon>
-                    </wpfui:Button>
-                    <wpfui:Button
-                        Margin="0,0,4,0"
-                        Padding="7,5"
-                        Background="#40000000"
+                        Background="Transparent"
+                        BorderBrush="Transparent"
                         Click="CloseBtnClick"
                         Cursor="Hand"
                         FontSize="16"
                         ToolTip="Minimize to Tray">
                         <wpfui:Button.Icon>
-                            <wpfui:SymbolIcon Symbol="Subtract24" />
+                            <wpfui:SymbolIcon Symbol="Dismiss24" />
                         </wpfui:Button.Icon>
                     </wpfui:Button>
                 </StackPanel>
@@ -134,7 +133,6 @@
                         Cursor="Hand"
                         Foreground="AliceBlue"
                         ToolTip="Edit URL (E)" />
-
                 </StackPanel>
             </Border>
 
