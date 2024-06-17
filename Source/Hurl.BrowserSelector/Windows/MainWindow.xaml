@@ -22,8 +22,8 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
@@ -34,14 +34,15 @@
             ShowClose="False"
             ShowMaximize="False" />
 
+        <vs:BrowsersList Grid.Row="1" Margin="16,8" />
+
         <wpfui:TextBox
             x:Name="linkpreview"
-            Grid.Row="1"
+            Grid.Row="2"
             Margin="16,8"
             HorizontalAlignment="Stretch"
+            Background="Transparent"
             PlaceholderText="Enter URL" />
-
-        <vs:BrowsersList Grid.Row="2" Margin="16,8" />
 
         <Border Grid.Row="3" Style="{DynamicResource BottomBarStyle}">
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">

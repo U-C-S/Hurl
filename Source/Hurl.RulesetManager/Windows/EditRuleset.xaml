@@ -93,7 +93,24 @@
                                 Margin="8,0,0,0"
                                 PlaceholderText="content" />
                         </Grid>
+                        <Grid Margin="0,8,0,0">
+                            <wpfui:Button
+                                HorizontalAlignment="Left"
+                                Appearance="Transparent"
+                                Icon="{wpfui:SymbolIcon Info16}"
+                                Visibility="Collapsed">
+                                Info
+                            </wpfui:Button>
+                            <wpfui:Button
+                                HorizontalAlignment="Right"
+                                Appearance="Primary"
+                                Click="RuleAddButton_Click"
+                                Icon="{wpfui:SymbolIcon Add16}">
+                                Add
+                            </wpfui:Button>
+                        </Grid>
                     </StackPanel>
+
                 </wpfui:Card>
 
                 <TextBlock
@@ -102,23 +119,6 @@
                     Foreground="{wpfui:ThemeResource SystemFillColorCriticalBrush}"
                     Text="Target Browser and Rules fields are mandatory"
                     Visibility="Collapsed" />
-
-                <Grid Margin="0,8,0,0">
-                    <wpfui:Button
-                        HorizontalAlignment="Left"
-                        Appearance="Transparent"
-                        Icon="{wpfui:SymbolIcon Info16}"
-                        Visibility="Collapsed">
-                        Info
-                    </wpfui:Button>
-                    <wpfui:Button
-                        HorizontalAlignment="Right"
-                        Appearance="Primary"
-                        Click="RuleAddButton_Click"
-                        Icon="{wpfui:SymbolIcon Add16}">
-                        Add
-                    </wpfui:Button>
-                </Grid>
 
                 <TextBlock
                     Margin="0,8,0,0"
