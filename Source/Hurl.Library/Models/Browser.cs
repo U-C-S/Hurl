@@ -7,17 +7,11 @@ using System.Windows.Media.Imaging;
 
 namespace Hurl.Library.Models;
 
-public class Browser
+public class Browser(string Name, string ExePath)
 {
-    public Browser(string Name, string ExePath)
-    {
-        this.Name = Name;
-        this.ExePath = ExePath;
-    }
+    public string Name { get; set; } = Name;
 
-    public string Name { get; set; }
-
-    public string ExePath { get; set; }
+    public string ExePath { get; set; } = ExePath;
 
     public string LaunchArgs { get; set; }
 
@@ -58,7 +52,7 @@ public class Browser
     {
         get
         {
-            return AlternateLaunches == null || AlternateLaunches.Length == 0 ? Visibility.Hidden : Visibility.Visible;
+            return AlternateLaunches == null || AlternateLaunches.Length == 0 ? Visibility.Collapsed : Visibility.Visible;
         }
     }
 }

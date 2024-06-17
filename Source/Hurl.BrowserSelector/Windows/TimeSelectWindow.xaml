@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:Hurl.BrowserSelector.Windows"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
-    Title="TimeSelectWindow"
+    Title="Timed Default Browser"
     Width="360"
     Height="280"
     MinHeight="280"
@@ -15,40 +15,52 @@
     WindowBackdropType="Mica"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-    <StackPanel>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
         <wpfui:TitleBar
             Title="Timed Default Browser"
-            FontSize="14"
             ShowMaximize="False"
             ShowMinimize="False" />
 
-        <StackPanel Margin="10,0">
-            <wpfui:CardControl
-                Margin="0,0,0,10"
-                Header="Time (in mins)"
-                Icon="Clock24">
+        <StackPanel Grid.Row="1" Margin="16,0">
+            <wpfui:CardControl Header="Time (minutes)" Icon="Clock24">
                 <wpfui:NumberBox
                     x:Name="TimeBox"
                     Maximum="300"
                     Minimum="0"
                     Value="10" />
             </wpfui:CardControl>
-            <wpfui:CardControl Header="Browser" Icon="Globe24">
-                <ComboBox
-                    x:Name="BrowserBox"
-                    Width="150"
-                    ItemsSource="{Binding}" />
+
+            <wpfui:CardControl
+                Margin="0,8,0,0"
+                Header="Browser"
+                Icon="Globe24">
+                <ComboBox x:Name="BrowserBox" ItemsSource="{Binding}" />
             </wpfui:CardControl>
-            <Grid Margin="0,10">
-                <wpfui:Button Padding="40,15" Click="Button_Click_1">
-                    Cancel Current
-                </wpfui:Button>
+
+        </StackPanel>
+
+        <Border Grid.Row="2" Style="{DynamicResource BottomBarStyle}">
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <wpfui:Button Click="CancelBtn_Click" Content="Cancel" />
                 <wpfui:Button
-                    Padding="40,15"
-                    HorizontalAlignment="Right"
-                    Click="Button_Click"
+                    Grid.Column="2"
+                    Appearance="Primary"
+                    Click="SetBtn_Click"
                     Content="Set" />
             </Grid>
-        </StackPanel>
-    </StackPanel>
+        </Border>
+    </Grid>
 </wpfui:FluentWindow>

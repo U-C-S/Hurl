@@ -17,4 +17,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Hurl.Library\Hurl.Library.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Windows\internet.ico" />
+  </ItemGroup>
 </Project>

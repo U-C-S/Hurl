@@ -9,6 +9,7 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
+
     <UserControl.Resources>
         <conv:AltLaunchParentConverter x:Key="AltLaunchParentConverter" />
         <ContextMenu
@@ -32,11 +33,11 @@
         </ContextMenu>
     </UserControl.Resources>
 
-    <ItemsControl ItemsSource="{Binding}">
+    <ItemsControl IsTabStop="False" ItemsSource="{Binding}">
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
                 <WrapPanel
-                    Margin="5"
+                    Margin="8"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Orientation="Horizontal" />
@@ -45,65 +46,37 @@
 
         <ItemsControl.ItemTemplate>
             <DataTemplate>
-                <Border
-                    x:Name="BtnArea"
-                    Width="120"
-                    MaxHeight="130"
-                    Margin="2"
-                    Padding="5,10,5,10"
-                    BorderThickness="0"
-                    CornerRadius="5"
-                    Cursor="Hand"
-                    Focusable="True"
-                    MouseLeftButtonUp="BtnArea_MouseLeftButtonUp"
+                <wpfui:Button
+                    Width="128"
+                    Margin="4"
+                    VerticalAlignment="Stretch"
+                    VerticalContentAlignment="Top"
+                    Appearance="Transparent"
+                    BorderBrush="Transparent"
+                    Click="BrowserButton_Click"
                     Tag="{Binding}"
                     ToolTip="{Binding Path=Name}">
-                    <Border.Style>
-                        <Style TargetType="Border">
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#55000000" />
-                                    <Setter Property="BorderBrush" Value="AliceBlue" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Border.Style>
-                    <StackPanel x:Name="BrowserBtn">
+                    <StackPanel>
                         <Image
-                            Width="70"
-                            Height="70"
+                            MaxWidth="64"
+                            MaxHeight="64"
                             Source="{Binding Path=GetIcon}" />
-                        <TextBlock
-                            Margin="90,-18,0,0"
-                            FontSize="18"
-                            Foreground="#33FFFFFF"
-                            Text="+"
-                            Visibility="{Binding ShowAdditionalBtn}" />
+                        <TextBlock Text="+" Visibility="{Binding ShowAdditionalBtn}" />
                         <wpfui:Button
                             x:Name="AdditionalBtn"
-                            Height="30"
-                            Margin="0,-85,-4,0"
-                            Padding="1"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Top"
-                            Background="#00000000"
-                            BorderBrush="#00000000"
                             Click="AdditionalBtn_Click"
-                            Visibility="Hidden">
-                            <wpfui:SymbolIcon Symbol="MoreVertical24" />
+                            Visibility="Collapsed">
+                            <wpfui:SymbolIcon Symbol="MoreVertical16" />
                         </wpfui:Button>
                         <TextBlock
-                            Margin="0,2,0,0"
-                            FontSize="11"
-                            Foreground="AliceBlue"
+                            Margin="0,12,0,0"
                             Text="{Binding Path=Name}"
                             TextAlignment="Center"
-                            TextWrapping="NoWrap" />
+                            TextWrapping="Wrap" />
                         <StackPanel.ContextMenu>
-                            <ContextMenu
-                                x:Name="MainContextMenu"
-                                ItemsSource="{Binding Path=AlternateLaunches}"
-                                Visibility="{Binding ShowAdditionalBtn}">
+                            <ContextMenu ItemsSource="{Binding Path=AlternateLaunches}" Visibility="{Binding ShowAdditionalBtn}">
                                 <ContextMenu.ItemContainerStyle>
                                     <Style TargetType="MenuItem">
                                         <Setter Property="Header" Value="{Binding Path=ItemName}" />
@@ -121,7 +94,7 @@
                             </ContextMenu>
                         </StackPanel.ContextMenu>
                     </StackPanel>
-                </Border>
+                </wpfui:Button>
                 <DataTemplate.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
                         <Setter TargetName="AdditionalBtn" Property="Visibility" Value="{Binding ShowAdditionalBtn}" />
@@ -130,6 +103,4 @@
             </DataTemplate>
         </ItemsControl.ItemTemplate>
     </ItemsControl>
-
-
 </UserControl>
