@@ -7,11 +7,11 @@ namespace Hurl.BrowserSelector.Globals
 {
     public class SettingsGlobal
     {
-        private static SettingsGlobal _instance = new();
+        private static readonly SettingsGlobal _instance = new();
 
-        private Library.Models.Settings _settings = SettingsFile.GetSettings();
+        private Settings _settings = SettingsFile.GetSettings();
 
-        public static Library.Models.Settings Value
+        public static Settings Value
         {
             get
             {
@@ -27,7 +27,7 @@ namespace Hurl.BrowserSelector.Globals
         {
             if (Value?.Rulesets == null)
             {
-                Value.Rulesets = new List<Ruleset> { };
+                Value.Rulesets = [];
             }
             Value.Rulesets.Add(new Ruleset() { Rules = rules, BrowserName = name });
 
@@ -40,11 +40,11 @@ namespace Hurl.BrowserSelector.Globals
             {
                 if (Value.AppSettings != null)
                 {
-                    Value.AppSettings.WindowSize = new int[] { (int)e.NewSize.Width, (int)e.NewSize.Height };
+                    Value.AppSettings.WindowSize = [(int)e.NewSize.Width, (int)e.NewSize.Height];
                 }
                 else
                 {
-                    Value.AppSettings = new AppSettings() { WindowSize = new int[] { (int)e.NewSize.Width, (int)e.NewSize.Height } };
+                    Value.AppSettings = new AppSettings() { WindowSize = [(int)e.NewSize.Width, (int)e.NewSize.Height] };
                 }
 
                 Save();

@@ -15,7 +15,7 @@ namespace Hurl.BrowserSelector.Controls
     {
         public BrowsersList()
         {
-            DataContext = Globals.SettingsGlobal.GetBrowsers();
+            DataContext = SettingsGlobal.GetBrowsers();
             InitializeComponent();
             Loaded += (s, e) =>
             {
@@ -41,7 +41,7 @@ namespace Hurl.BrowserSelector.Controls
             //if (Keyboard.Modifiers.HasFlag(ModifierKeys.Control)) { }
         }
 
-        private void BtnArea_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void BtnArea_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             var tag = (sender as Border).Tag as Browser;
             OpenLink(tag);
@@ -71,7 +71,7 @@ namespace Hurl.BrowserSelector.Controls
             MinimizeWindow();
         }
 
-        public void OpenLink(Browser clickedbrowser)
+        public static void OpenLink(Browser clickedbrowser)
         {
             var browser = clickedbrowser;
             var Link = UriGlobal.Value;
@@ -88,7 +88,7 @@ namespace Hurl.BrowserSelector.Controls
             }
         }
 
-        public void OpenAltLaunch(AlternateLaunch alt, Browser browser)
+        public static void OpenAltLaunch(AlternateLaunch alt, Browser browser)
         {
             if (alt.LaunchArgs.Contains("%URL%"))
             {

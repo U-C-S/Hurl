@@ -9,7 +9,7 @@ public class SettingsFile
 
     private SettingsFile(Settings settings)
     {
-        this.SettingsObject = settings;
+        SettingsObject = settings;
     }
 
     public static SettingsFile TryLoading()

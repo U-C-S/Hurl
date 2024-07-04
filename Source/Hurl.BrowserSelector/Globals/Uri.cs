@@ -30,18 +30,12 @@ namespace Hurl.BrowserSelector.Globals
         {
             get
             {
-                if (_instance == null)
-                {
-                    _instance = new UriGlobal(string.Empty);
-                }
+                _instance ??= new UriGlobal(string.Empty);
                 return _instance.Url;
             }
             set
             {
-                if (_instance == null)
-                {
-                    _instance = new UriGlobal(value);
-                }
+                _instance ??= new UriGlobal(value);
                 _instance.Url = value;
             }
         }

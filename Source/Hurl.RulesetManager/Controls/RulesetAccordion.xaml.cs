@@ -53,9 +53,7 @@ public partial class RulesetAccordion : UserControl
         }
         else
         {
-            var temp = SettingsState.Rulesets[index];
-            SettingsState.Rulesets[index] = SettingsState.Rulesets[index - 1];
-            SettingsState.Rulesets[index - 1] = temp;
+            (SettingsState.Rulesets[index - 1], SettingsState.Rulesets[index]) = (SettingsState.Rulesets[index], SettingsState.Rulesets[index - 1]);
             SettingsState.Update();
             Refresh?.Invoke();
         }
@@ -71,9 +69,7 @@ public partial class RulesetAccordion : UserControl
         }
         else
         {
-            var temp = SettingsState.Rulesets[index];
-            SettingsState.Rulesets[index] = SettingsState.Rulesets[index + 1];
-            SettingsState.Rulesets[index + 1] = temp;
+            (SettingsState.Rulesets[index + 1], SettingsState.Rulesets[index]) = (SettingsState.Rulesets[index], SettingsState.Rulesets[index + 1]);
             SettingsState.Update();
             Refresh?.Invoke();
         }
@@ -91,4 +87,3 @@ public partial class RulesetAccordion : UserControl
         }
     }
 }
-

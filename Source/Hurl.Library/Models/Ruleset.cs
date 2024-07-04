@@ -44,8 +44,8 @@ public class Rule
             var modeLetter = split[0];
             var content = split[1];
 
-            this.RuleContent = content;
-            this.Mode = modeLetter switch
+            RuleContent = content;
+            Mode = modeLetter switch
             {
                 "d" => RuleMode.Domain,
                 "r" => RuleMode.Regex,
@@ -55,8 +55,8 @@ public class Rule
         }
         else
         {
-            this.RuleContent = storedRule;
-            this.Mode = RuleMode.String;
+            RuleContent = storedRule;
+            Mode = RuleMode.String;
         }
     }
 

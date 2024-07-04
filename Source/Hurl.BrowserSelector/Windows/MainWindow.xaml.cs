@@ -5,6 +5,7 @@ using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using Wpf.Ui.Controls;
 using Path = System.IO.Path;
 
@@ -16,7 +17,7 @@ public partial class MainWindow : FluentWindow
 
     public MainWindow()
     {
-        var settings = Globals.SettingsGlobal.Value;
+        var settings = SettingsGlobal.Value;
 
         InitializeComponent();
 
@@ -126,27 +127,27 @@ public partial class MainWindow : FluentWindow
     }
 
     private void SettingsBtnClick(object sender, RoutedEventArgs e) => Process.Start("explorer", "\"" + Constants.APP_SETTINGS_MAIN + "\"");
-    private void Draggable(object sender, MouseButtonEventArgs e) => this.DragMove();
+    private void Draggable(object sender, MouseButtonEventArgs e) => DragMove();
     private void CloseBtnClick(object sender, RoutedEventArgs e) => MinimizeWindow();
 
     private void MinimizeWindow()
     {
-        this.WindowState = WindowState.Minimized;
-        this.Hide();
+        WindowState = WindowState.Minimized;
+        Hide();
     }
 
     public void MaximizeWindow()
     {
-        this.Show();
+        Show();
         PositionWindowUnderTheMouse();
-        this.WindowState = WindowState.Normal;
+        WindowState = WindowState.Normal;
     }
 
     private void TrayMenuItem_OnClick(object sender, RoutedEventArgs e)
     {
-        var settings = Globals.SettingsGlobal.Value;
+        _ = SettingsGlobal.Value;
 
-        string tag = (sender as Wpf.Ui.Controls.MenuItem).Tag as string;
+        string tag = (sender as MenuItem).Tag as string;
         try
         {
             switch (tag)
@@ -188,7 +189,7 @@ public partial class MainWindow : FluentWindow
 
     private void PositionWindowUnderTheMouse()
     {
-        var settings = Globals.SettingsGlobal.Value;
+        var settings = SettingsGlobal.Value;
 
         if (settings.AppSettings != null && settings.AppSettings.LaunchUnderMouse)
         {
@@ -204,13 +205,13 @@ public partial class MainWindow : FluentWindow
     private void Button_Click(object sender, RoutedEventArgs e)
     {
         forcePreventWindowDeactivationEvent = true;
-        new TimeSelectWindow(Globals.SettingsGlobal.Value.Browsers).ShowDialog();
+        new TimeSelectWindow(SettingsGlobal.Value.Browsers).ShowDialog();
         forcePreventWindowDeactivationEvent = false;
     }
 
-    private void UiWindow_SizeChanged(object sender, SizeChangedEventArgs e) => Globals.SettingsGlobal.AdjustWindowSize(e);
+    private void UiWindow_SizeChanged(object sender, SizeChangedEventArgs e) => SettingsGlobal.AdjustWindowSize(e);
 
-    async private void linkpreview_Click(object sender, RoutedEventArgs e)
+    async private void Linkpreview_Click(object sender, RoutedEventArgs e)
     {
         forcePreventWindowDeactivationEvent = true;
 
@@ -218,8 +219,8 @@ public partial class MainWindow : FluentWindow
         if (!string.IsNullOrEmpty(NewUrl))
         {
             UriGlobal.Value = NewUrl;
-            (sender as Wpf.Ui.Controls.Button).Content = NewUrl;
-            (sender as Wpf.Ui.Controls.Button).ToolTip = NewUrl;
+            (sender as Button).Content = NewUrl;
+            (sender as Button).ToolTip = NewUrl;
         }
 
         forcePreventWindowDeactivationEvent = false;
@@ -231,4 +232,3 @@ public partial class MainWindow : FluentWindow
         Process.Start(Constants.SETTINGS_APP);
     }
 }
-
