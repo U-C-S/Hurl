@@ -22,7 +22,7 @@
                     Grid.Column="0"
                     Margin="0,0,8,0"
                     VerticalAlignment="Center"
-                    FontWeight="SemiBold"
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
                     TextTrimming="CharacterEllipsis"
                     TextWrapping="NoWrap"
                     ToolTip="{Binding ruleset.RuleName}" />

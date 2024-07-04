@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:Hurl.BrowserSelector.Windows"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
-    Title="TimeSelectWindow"
+    Title="Timed default browser - Hurl"
     Width="360"
     Height="280"
     MinHeight="280"
@@ -15,36 +15,37 @@
     WindowBackdropType="Mica"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
+
     <StackPanel>
         <wpfui:TitleBar
             Title="Timed Default Browser"
-            FontSize="14"
             ShowMaximize="False"
             ShowMinimize="False" />
 
-        <StackPanel Margin="10,0">
+        <StackPanel Margin="8,0">
             <wpfui:CardControl
-                Margin="0,0,0,10"
+                Margin="0,0,0,8"
                 Header="Time (in mins)"
-                Icon="Clock24">
+                Icon="Clock16">
                 <wpfui:NumberBox
                     x:Name="TimeBox"
+                    MinWidth="120"
                     Maximum="300"
                     Minimum="0"
                     Value="10" />
             </wpfui:CardControl>
-            <wpfui:CardControl Header="Browser" Icon="Globe24">
+            <wpfui:CardControl Header="Browser" Icon="Globe16">
                 <ComboBox
                     x:Name="BrowserBox"
-                    Width="150"
+                    MinWidth="120"
                     ItemsSource="{Binding}" />
             </wpfui:CardControl>
-            <Grid Margin="0,10">
-                <wpfui:Button Padding="40,15" Click="Button_Click_1">
-                    Cancel Current
+            <Grid>
+                <wpfui:Button MinWidth="120" Click="Button_Click_1">
+                    Cancel
                 </wpfui:Button>
                 <wpfui:Button
-                    Padding="40,15"
+                    MinWidth="120"
                     HorizontalAlignment="Right"
                     Click="Button_Click"
                     Content="Set" />

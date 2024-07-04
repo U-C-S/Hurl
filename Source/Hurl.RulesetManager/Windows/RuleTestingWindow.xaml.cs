@@ -71,7 +71,6 @@ public partial class RuleTestingWindow
         var textBlock = new TextBlock
         {
             Text = text,
-            FontSize = 16,
             Foreground = foregroudColor,
             HorizontalAlignment = HorizontalAlignment.Center
         };

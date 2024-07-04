@@ -6,14 +6,14 @@
     xmlns:local="clr-namespace:Hurl.RulesetManager.Windows"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    Title="Rule Testing Suite"
+    Title="Rule test - Hurl"
     Width="500"
-    Height="500"
     ExtendsContentIntoTitleBar="True"
+    SizeToContent="Height"
     WindowBackdropType="Mica"
-    WindowCornerPreference="Round"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -46,12 +46,11 @@
                         HorizontalAlignment="Stretch" />
                     <ui:Button
                         x:Name="_TestExistingButton"
-                        Width="200"
+                        MinWidth="120"
                         Margin="0,12,0,0"
-                        Padding="12,6"
                         HorizontalAlignment="Right"
                         Click="TestExistingButton_Click">
-                        Test against Existing Rules
+                        Test against existing rules
                     </ui:Button>
                 </StackPanel>
             </ui:Card>
@@ -70,9 +69,7 @@
                         <ComboBox
                             x:Name="_RuleTypeInput"
                             Grid.Column="1"
-                            Width="120"
                             MinWidth="120"
-                            Padding="12,6"
                             HorizontalAlignment="Right">
                             <ComboBoxItem Content="Regex" />
                             <ComboBoxItem Content="Glob" />
@@ -93,18 +90,15 @@
                             HorizontalAlignment="Stretch"
                             AcceptsReturn="True" />
                     </Grid>
-                    <Grid>
+                    <Grid Margin="0,12,0,0">
                         <ui:Button
-                            Margin="0,12,0,0"
-                            Padding="12,8"
                             HorizontalAlignment="Left"
                             Click="CopyRuleButton_Click"
-                            Icon="{ui:SymbolIcon Copy20}"
+                            FontSize="16"
+                            Icon="{ui:SymbolIcon Copy16}"
                             ToolTipService.ToolTip="Copy Rule" />
                         <ui:Button
-                            Width="200"
-                            Margin="0,12,0,0"
-                            Padding="12,6"
+                            MinWidth="120"
                             HorizontalAlignment="Right"
                             Click="TestRuleButton_Click">
                             Test with Rule

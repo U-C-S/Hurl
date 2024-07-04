@@ -24,9 +24,6 @@ public partial class MainWindow : FluentWindow
         var osbuild = Environment.OSVersion.Version.Build;
         var backtype = settings.AppSettings?.BackgroundType;
 
-        if (settings.AppSettings?.NoWhiteBorder == true) WindowBorder.BorderThickness = new Thickness(0);
-        if (osbuild < 22000) WindowBorder.CornerRadius = new CornerRadius(0);
-
         if (backtype == "acrylic" && osbuild >= 22523)
         {
             WindowBackdropType = WindowBackdropType.Acrylic;
