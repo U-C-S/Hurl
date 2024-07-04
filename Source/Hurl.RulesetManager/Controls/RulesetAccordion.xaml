@@ -5,11 +5,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Hurl.RulesetManager.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
     mc:Ignorable="d">
 
-    <ui:CardExpander x:Name="_CardExpander" Margin="0,0,0,12">
-        <ui:CardExpander.Header>
+    <wpfui:CardExpander x:Name="_CardExpander" Margin="0,0,0,12">
+        <wpfui:CardExpander.Header>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -37,34 +37,34 @@
                     Grid.Column="2"
                     Margin="8,0"
                     Orientation="Horizontal">
-                    <ui:Button
+                    <wpfui:Button
                         Margin="0,0,8,0"
                         Click="EditButton_Click"
-                        Icon="{ui:SymbolIcon Edit16}" />
-                    <ui:Button
+                        Icon="{wpfui:SymbolIcon Edit16}" />
+                    <wpfui:Button
                         Margin="0,0,8,0"
                         Click="UpButton_Click"
-                        Icon="{ui:SymbolIcon ArrowUp16}" />
-                    <ui:Button
+                        Icon="{wpfui:SymbolIcon ArrowUp16}" />
+                    <wpfui:Button
                         Margin="0,0,8,0"
                         Click="DownButton_Click"
-                        Icon="{ui:SymbolIcon ArrowDown16}" />
-                    <ui:Button
+                        Icon="{wpfui:SymbolIcon ArrowDown16}" />
+                    <wpfui:Button
                         Click="DeleteButton_Click"
-                        Foreground="{ui:ThemeResource SystemFillColorCriticalBrush}"
-                        Icon="{ui:SymbolIcon Delete16}" />
+                        Foreground="{wpfui:ThemeResource SystemFillColorCriticalBrush}"
+                        Icon="{wpfui:SymbolIcon Delete16}" />
                 </StackPanel>
             </Grid>
-        </ui:CardExpander.Header>
+        </wpfui:CardExpander.Header>
 
         <ItemsControl ItemsSource="{Binding Rules}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <ui:Card Padding="8">
+                    <wpfui:Card Padding="8">
                         <TextBlock Text="{Binding}" />
-                    </ui:Card>
+                    </wpfui:Card>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-    </ui:CardExpander>
+    </wpfui:CardExpander>
 </UserControl>

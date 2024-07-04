@@ -130,6 +130,4 @@
             </DataTemplate>
         </ItemsControl.ItemTemplate>
     </ItemsControl>
-
-
 </UserControl>

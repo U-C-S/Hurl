@@ -1,11 +1,11 @@
-﻿<ui:FluentWindow
+﻿<wpfui:FluentWindow
     x:Class="Hurl.RulesetManager.Windows.RuleTestingWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Hurl.RulesetManager.Windows"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="Rule Testing Suite"
     Width="500"
     Height="500"
@@ -28,14 +28,14 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <ui:TitleBar
+        <wpfui:TitleBar
             Title="Rule Testing Suite"
             Grid.ColumnSpan="3"
             ShowMaximize="False"
             ShowMinimize="False" />
 
         <StackPanel Grid.Row="1" Grid.Column="1">
-            <ui:Card Padding="12">
+            <wpfui:Card Padding="12">
                 <StackPanel>
                     <TextBlock>
                         Enter a URI to test
@@ -44,7 +44,7 @@
                         x:Name="_UriInput"
                         Margin="0,12,0,0"
                         HorizontalAlignment="Stretch" />
-                    <ui:Button
+                    <wpfui:Button
                         x:Name="_TestExistingButton"
                         Width="200"
                         Margin="0,12,0,0"
@@ -52,11 +52,11 @@
                         HorizontalAlignment="Right"
                         Click="TestExistingButton_Click">
                         Test against Existing Rules
-                    </ui:Button>
+                    </wpfui:Button>
                 </StackPanel>
-            </ui:Card>
+            </wpfui:Card>
 
-            <ui:Card Padding="12">
+            <wpfui:Card Padding="12">
                 <StackPanel>
                     <TextBlock>
                         Test the above URI with a custom rule
@@ -94,28 +94,28 @@
                             AcceptsReturn="True" />
                     </Grid>
                     <Grid>
-                        <ui:Button
+                        <wpfui:Button
                             Margin="0,12,0,0"
                             Padding="12,8"
                             HorizontalAlignment="Left"
                             Click="CopyRuleButton_Click"
-                            Icon="{ui:SymbolIcon Copy20}"
+                            Icon="{wpfui:SymbolIcon Copy20}"
                             ToolTipService.ToolTip="Copy Rule" />
-                        <ui:Button
+                        <wpfui:Button
                             Width="200"
                             Margin="0,12,0,0"
                             Padding="12,6"
                             HorizontalAlignment="Right"
                             Click="TestRuleButton_Click">
                             Test with Rule
-                        </ui:Button>
+                        </wpfui:Button>
                     </Grid>
                 </StackPanel>
-            </ui:Card>
+            </wpfui:Card>
 
-            <ui:Card Padding="12">
+            <wpfui:Card Padding="12">
                 <StackPanel x:Name="_outputCard" />
-            </ui:Card>
+            </wpfui:Card>
         </StackPanel>
     </Grid>
-</ui:FluentWindow>
+</wpfui:FluentWindow>
