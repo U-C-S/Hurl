@@ -228,5 +228,11 @@ public partial class MainWindow : FluentWindow
         MinimizeWindow();
         Process.Start(Constants.SETTINGS_APP);
     }
+
+    private void HideMainWindow(TitleBar sender, RoutedEventArgs args)
+    {
+        WindowState = WindowState.Minimized;
+        Hide();
+    }
 }
 

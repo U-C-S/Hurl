@@ -47,13 +47,17 @@
                     Text="Atleast input Target Browser and Rules fields!"
                     Visibility="Hidden" />
 
-                <ui:CardControl Header="Ruleset Title">
-                    <ui:TextBox
-                        x:Name="RuleNameInput"
-                        Width="240"
-                        PlaceholderText="Title"
-                        Text="{Binding Name, Mode=TwoWay}" />
-                </ui:CardControl>
+                <ui:Card>
+                    <Grid>
+                        <TextBlock Text="Title" />
+                        <ui:TextBox
+                            x:Name="RuleNameInput"
+                            Width="240"
+                            HorizontalAlignment="Right"
+                            PlaceholderText="Title"
+                            Text="{Binding Name, Mode=TwoWay}" />
+                    </Grid>
+                </ui:Card>
 
                 <ui:Card Padding="12">
                     <Grid>
@@ -164,8 +168,8 @@
                                             <Button
                                                 Grid.Column="2"
                                                 Margin="4"
-                                                Click="RuleRemoveButton_Click"
-                                                VerticalAlignment="Center">
+                                                VerticalAlignment="Center"
+                                                Click="RuleRemoveButton_Click">
                                                 Remove
                                             </Button>
                                         </Grid>

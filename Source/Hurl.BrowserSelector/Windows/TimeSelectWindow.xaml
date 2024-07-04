@@ -18,28 +18,33 @@
 
     <StackPanel>
         <wpfui:TitleBar
-            Title="Timed Default Browser"
+            Title="Timed default browser - Hurl"
             ShowMaximize="False"
             ShowMinimize="False" />
 
         <StackPanel Margin="8,0">
-            <wpfui:CardControl
-                Margin="0,0,0,8"
-                Header="Time (in mins)"
-                Icon="Clock16">
-                <wpfui:NumberBox
-                    x:Name="TimeBox"
-                    MinWidth="120"
-                    Maximum="300"
-                    Minimum="0"
-                    Value="10" />
-            </wpfui:CardControl>
-            <wpfui:CardControl Header="Browser" Icon="Globe16">
-                <ComboBox
-                    x:Name="BrowserBox"
-                    MinWidth="120"
-                    ItemsSource="{Binding}" />
-            </wpfui:CardControl>
+            <wpfui:Card Margin="0,0,0,8">
+                <Grid>
+                    <TextBlock Text="Time (minutes)" />
+                    <wpfui:NumberBox
+                        x:Name="TimeBox"
+                        MinWidth="120"
+                        HorizontalAlignment="Right"
+                        Maximum="300"
+                        Minimum="0"
+                        Value="10" />
+                </Grid>
+            </wpfui:Card>
+            <wpfui:Card>
+                <Grid>
+                    <TextBlock Text="Browser" />
+                    <ComboBox
+                        x:Name="BrowserBox"
+                        MinWidth="120"
+                        HorizontalAlignment="Right"
+                        ItemsSource="{Binding}" />
+                </Grid>
+            </wpfui:Card>
             <Grid>
                 <wpfui:Button MinWidth="120" Click="Button_Click_1">
                     Cancel
