@@ -56,17 +56,17 @@ public partial class MainWindow : FluentWindow
 
         if (data.IsRunAsMin || isRuleCheckSuccess)
         {
-            Show(); // TODO: try to remove the flashing
             MinimizeWindow();
+            Show();
         }
         else
         {
-            Show();
             PositionWindowUnderTheMouse();
             if (data.IsSecondInstance)
             {
                 WindowState = WindowState.Normal;
             }
+            Show();
         }
 
         linkpreview.Content = string.IsNullOrEmpty(UriGlobal.Value) ? "No Url Opened" : UriGlobal.Value;
@@ -138,16 +138,16 @@ public partial class MainWindow : FluentWindow
 
     public void MaximizeWindow()
     {
-        Show();
         PositionWindowUnderTheMouse();
         WindowState = WindowState.Normal;
+        Show();
     }
 
     private void TrayMenuItem_OnClick(object sender, RoutedEventArgs e)
     {
         _ = SettingsGlobal.Value;
 
-        string tag = (sender as MenuItem).Tag as string;
+        string tag = ((MenuItem)sender).Tag as string;
         try
         {
             switch (tag)
@@ -198,7 +198,7 @@ public partial class MainWindow : FluentWindow
             Left = mouse.X;
             Top = mouse.Y;
 
-            Debug.WriteLine($"{Left}x{Top} while screen res: {SystemParameters.FullPrimaryScreenWidth}x{SystemParameters.FullPrimaryScreenHeight}");
+            Debug.WriteLine($"{Left}×{Top} with screen resolution: {SystemParameters.FullPrimaryScreenWidth}×{SystemParameters.FullPrimaryScreenHeight}");
         }
     }
 
@@ -219,8 +219,8 @@ public partial class MainWindow : FluentWindow
         if (!string.IsNullOrEmpty(NewUrl))
         {
             UriGlobal.Value = NewUrl;
-            (sender as Button).Content = NewUrl;
-            (sender as Button).ToolTip = NewUrl;
+            ((Button)sender).Content = NewUrl;
+            ((Button)sender).ToolTip = NewUrl;
         }
 
         forcePreventWindowDeactivationEvent = false;

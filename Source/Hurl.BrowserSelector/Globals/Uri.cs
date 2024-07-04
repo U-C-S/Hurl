@@ -5,10 +5,7 @@ namespace Hurl.BrowserSelector.Globals
 {
     public sealed class UriGlobal : INotifyPropertyChanged
     {
-        private UriGlobal(string Url)
-        {
-            this.Url = Url;
-        }
+        private UriGlobal(string Url) => this.Url = Url;
         private string _url;
 
         private string Url
@@ -24,7 +21,7 @@ namespace Hurl.BrowserSelector.Globals
             }
         }
 
-        private static UriGlobal _instance = null;
+        private static UriGlobal? _instance;
 
         public static string Value
         {
@@ -42,7 +39,7 @@ namespace Hurl.BrowserSelector.Globals
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        protected void OnPropertyChanged([CallerMemberName] string? name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
