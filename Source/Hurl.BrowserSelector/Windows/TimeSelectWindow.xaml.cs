@@ -19,7 +19,7 @@ namespace Hurl.BrowserSelector.Windows
             DataContext = x.ConvertAll(y => y.Name);
         }
 
-        private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void SetBtn_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             var x = TimeBox.Value;
             var y = BrowserBox.SelectedIndex;
@@ -32,7 +32,7 @@ namespace Hurl.BrowserSelector.Windows
             }
         }
 
-        private void Button_Click_1(object sender, System.Windows.RoutedEventArgs e)
+        private void CancelBtn_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             TimedBrowserSelect.DeleteCurrent();
             Close();

@@ -16,7 +16,7 @@
     Deactivated="Window_Deactivated"
     ExtendsContentIntoTitleBar="True"
     PreviewKeyUp="Window_KeyEvents"
-    SizeChanged="UiWindow_SizeChanged"
+    SizeChanged="Window_SizeChanged"
     Topmost="True"
     WindowBackdropType="Mica"
     WindowStartupLocation="CenterScreen"

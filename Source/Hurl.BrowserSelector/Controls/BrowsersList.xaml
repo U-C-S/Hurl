@@ -55,7 +55,7 @@
                     CornerRadius="5"
                     Cursor="Hand"
                     Focusable="True"
-                    MouseLeftButtonUp="BtnArea_MouseLeftButtonUp"
+                    MouseLeftButtonUp="BrowserButton_Click"
                     Tag="{Binding}"
                     ToolTip="{Binding Path=Name}">
                     <Border.Style>

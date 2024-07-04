@@ -72,7 +72,7 @@ namespace Hurl.BrowserSelector
                     {
                         if (Current.MainWindow is { } window)
                         {
-                            _mainWindow.MaximizeWindow();
+                            _mainWindow.ShowWindow();
                         }
                         else
                         {

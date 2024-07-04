@@ -41,9 +41,9 @@ namespace Hurl.BrowserSelector.Controls
             //if (Keyboard.Modifiers.HasFlag(ModifierKeys.Control)) { }
         }
 
-        private void BtnArea_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void BrowserButton_Click(object sender, MouseButtonEventArgs e)
         {
-            var tag = (sender as Border).Tag as Browser;
+            var tag = ((Border)sender).Tag as Browser;
             OpenLink(tag);
             MinimizeWindow();
         }
@@ -66,7 +66,7 @@ namespace Hurl.BrowserSelector.Controls
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var alt = (sender as MenuItem).Tag as AltLaunchParentConverter.AltLaunchParent;
+            var alt = ((MenuItem)sender).Tag as AltLaunchParentConverter.AltLaunchParent;
             OpenAltLaunch(alt.AltLaunch, alt.Browser);
             MinimizeWindow();
         }

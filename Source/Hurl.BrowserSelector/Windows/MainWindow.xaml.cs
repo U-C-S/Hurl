@@ -136,7 +136,7 @@ public partial class MainWindow : FluentWindow
         Hide();
     }
 
-    public void MaximizeWindow()
+    public void ShowWindow()
     {
         PositionWindowUnderTheMouse();
         WindowState = WindowState.Normal;
@@ -153,7 +153,7 @@ public partial class MainWindow : FluentWindow
             switch (tag)
             {
                 case "open":
-                    MaximizeWindow();
+                    ShowWindow();
                     break;
                 case "settings":
                     Process.Start("explorer", "\"" + Constants.APP_SETTINGS_MAIN + "\"");
@@ -176,7 +176,7 @@ public partial class MainWindow : FluentWindow
         }
     }
 
-    private void NotifyIcon_LeftClick(object sender, RoutedEventArgs e) => MaximizeWindow();
+    private void NotifyIcon_LeftClick(object sender, RoutedEventArgs e) => ShowWindow();
 
     private void Window_Deactivated(object sender, EventArgs e)
     {
@@ -209,7 +209,7 @@ public partial class MainWindow : FluentWindow
         forcePreventWindowDeactivationEvent = false;
     }
 
-    private void UiWindow_SizeChanged(object sender, SizeChangedEventArgs e) => SettingsGlobal.AdjustWindowSize(e);
+    private void Window_SizeChanged(object sender, SizeChangedEventArgs e) => SettingsGlobal.AdjustWindowSize(e);
 
     async private void Linkpreview_Click(object sender, RoutedEventArgs e)
     {
