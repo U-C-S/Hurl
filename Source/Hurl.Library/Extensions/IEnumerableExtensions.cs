@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace Hurl.Library.Extensions;
+﻿namespace Hurl.Library.Extensions;
 
 public static class IEnumerableExtensions
 {
