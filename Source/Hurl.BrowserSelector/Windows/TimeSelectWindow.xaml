@@ -50,9 +50,11 @@
                 </Grid>
             </wpfui:Card>
             <Grid>
-                <wpfui:Button MinWidth="120" Click="Button_Click_1">
-                    Cancel
-                </wpfui:Button>
+                <wpfui:Button
+                    MinWidth="120"
+                    Click="CancelBtn_Click"
+                    Content="Cancel" />
+
                 <wpfui:Button
                     MinWidth="120"
                     HorizontalAlignment="Right"

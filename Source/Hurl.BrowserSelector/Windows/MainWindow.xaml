@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:Hurl.BrowserSelector.Windows"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:tray="http://schemas.lepo.co/wpfui/2022/xaml/tray"
-    xmlns:vs="clr-namespace:Hurl.BrowserSelector.Controls"
+    xmlns:controls="clr-namespace:Hurl.BrowserSelector.Controls"
     xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="Select a Browser - Hurl"
     MinWidth="480"
@@ -34,7 +34,7 @@
             ShowClose="False"
             ShowMaximize="False" />
 
-        <vs:BrowsersList Grid.Row="1" Margin="16,0" />
+        <controls:BrowsersList Grid.Row="1" Margin="16,0" />
 
         <Grid Grid.Row="2" Margin="16">
             <Grid.ColumnDefinitions>
@@ -58,7 +58,7 @@
                 Grid.Column="1"
                 Margin="0,0,8,0"
                 HorizontalAlignment="Stretch"
-                Click="linkpreview_Click"
+                Click="Linkpreview_Click"
                 Cursor="Hand"
                 ToolTip="Edit URL (E)" />
             <wpfui:DropDownButton
