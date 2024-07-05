@@ -40,17 +40,21 @@
                     <wpfui:Button
                         Margin="0,0,8,0"
                         Click="EditButton_Click"
+                        FontSize="16"
                         Icon="{wpfui:SymbolIcon Edit16}" />
                     <wpfui:Button
                         Margin="0,0,8,0"
                         Click="UpButton_Click"
+                        FontSize="16"
                         Icon="{wpfui:SymbolIcon ArrowUp16}" />
                     <wpfui:Button
                         Margin="0,0,8,0"
                         Click="DownButton_Click"
+                        FontSize="16"
                         Icon="{wpfui:SymbolIcon ArrowDown16}" />
                     <wpfui:Button
                         Click="DeleteButton_Click"
+                        FontSize="16"
                         Foreground="{wpfui:ThemeResource SystemFillColorCriticalBrush}"
                         Icon="{wpfui:SymbolIcon Delete16}" />
                 </StackPanel>
@@ -60,9 +64,7 @@
         <ItemsControl ItemsSource="{Binding Rules}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <wpfui:Card Padding="8">
-                        <TextBlock Text="{Binding}" />
-                    </wpfui:Card>
+                    <TextBlock Text="{Binding}" />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
