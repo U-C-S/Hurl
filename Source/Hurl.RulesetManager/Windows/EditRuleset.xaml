@@ -12,7 +12,7 @@
     ExtendsContentIntoTitleBar="True"
     WindowBackdropType="Mica"
     WindowStartupLocation="CenterScreen"
-    mc:Ignorable="d">
+    mc:Ignorable="d" Icon="/Windows/internet.ico">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

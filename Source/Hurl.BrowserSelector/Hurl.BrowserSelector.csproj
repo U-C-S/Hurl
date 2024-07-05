@@ -28,11 +28,13 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <None Remove="Assets\internet.ico" />
+	  <None Remove="Windows\internet.ico" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\Hurl.Library\Hurl.Library.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Resource Include="Assets\internet.ico" />
+	  <Resource Include="Windows\internet.ico" />
 	</ItemGroup>
 </Project>

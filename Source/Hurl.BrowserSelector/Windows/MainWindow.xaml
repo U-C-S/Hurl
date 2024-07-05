@@ -8,7 +8,7 @@
     xmlns:tray="http://schemas.lepo.co/wpfui/2022/xaml/tray"
     xmlns:controls="clr-namespace:Hurl.BrowserSelector.Controls"
     xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
-    Title="Select a Browser - Hurl"
+    Title="Select a browser - Hurl"
     MinWidth="480"
     MinHeight="320"
     Deactivated="Window_Deactivated"
@@ -18,7 +18,7 @@
     Topmost="True"
     WindowBackdropType="Mica"
     WindowStartupLocation="CenterScreen"
-    mc:Ignorable="d">
+    mc:Ignorable="d" Icon="/Windows/internet.ico">
 
     <Grid>
         <Grid.RowDefinitions>
