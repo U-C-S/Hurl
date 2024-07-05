@@ -11,6 +11,8 @@
     Height="280"
     MinHeight="280"
     ExtendsContentIntoTitleBar="True"
+    ResizeMode="NoResize"
+    SizeToContent="Height"
     Topmost="True"
     WindowBackdropType="Mica"
     WindowStartupLocation="CenterScreen"
@@ -20,13 +22,14 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <wpfui:TitleBar
             Title="Timed default browser - Hurl"
             ShowMaximize="False"
             ShowMinimize="False" />
 
-        <StackPanel Grid.Row="1" Margin="16">
+        <StackPanel Grid.Row="1" Margin="16,0">
             <wpfui:Card Margin="0,0,0,8">
                 <Grid>
                     <TextBlock VerticalAlignment="Center" Text="Time (minutes)" />
@@ -49,18 +52,22 @@
                         ItemsSource="{Binding}" />
                 </Grid>
             </wpfui:Card>
-            <Grid>
+        </StackPanel>
+
+        <Border Grid.Row="2" Style="{DynamicResource BottomBarStyle}">
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <wpfui:Button
+                    MinWidth="120"
+                    Margin="0,0,8,0"
+                    HorizontalAlignment="Right"
+                    Appearance="Primary"
+                    Click="SetBtn_Click"
+                    Content="Set" />
                 <wpfui:Button
                     MinWidth="120"
                     Click="CancelBtn_Click"
                     Content="Cancel" />
-
-                <wpfui:Button
-                    MinWidth="120"
-                    HorizontalAlignment="Right"
-                    Click="SetBtn_Click"
-                    Content="Set" />
-            </Grid>
-        </StackPanel>
+            </StackPanel>
+        </Border>
     </Grid>
 </wpfui:FluentWindow>

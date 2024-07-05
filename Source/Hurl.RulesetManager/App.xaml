@@ -12,6 +12,12 @@
                 <wpfui:ControlsDictionary />
                 <wpfui:ThemesDictionary Theme="Dark" />
             </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="BottomBarStyle" TargetType="Border">
+                <Setter Property="Padding" Value="16" />
+                <Setter Property="Background" Value="{wpfui:ThemeResource SolidBackgroundFillColorBaseBrush}" />
+                <Setter Property="BorderBrush" Value="{wpfui:ThemeResource DividerStrokeColorDefaultBrush}" />
+                <Setter Property="BorderThickness" Value="0,1,0,0" />
+            </Style>        
         </ResourceDictionary>
     </Application.Resources>
 </Application>

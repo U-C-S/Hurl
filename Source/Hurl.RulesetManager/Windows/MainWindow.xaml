@@ -18,34 +18,30 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <wpfui:TitleBar Title="Ruleset Manager - Hurl [BETA]" />
 
-        <StackPanel
-            Grid.Row="1"
-            Margin="16"
-            Orientation="Horizontal">
-            <wpfui:Button
-                MinWidth="120"
-                Margin="0,0,8,0"
-                HorizontalAlignment="Stretch"
-                Click="CreateButton_Click">
-                Create
-            </wpfui:Button>
-
-            <wpfui:Button
-                MinWidth="120"
-                HorizontalAlignment="Stretch"
-                Click="TestButton_Click">
-                Test
-            </wpfui:Button>
-        </StackPanel>
-
-        <ScrollViewer Grid.Row="2">
+        <ScrollViewer Grid.Row="1">
             <StackPanel x:Name="_rulesetsList" Margin="16,0" />
         </ScrollViewer>
+
+        <Border Grid.Row="2" Style="{DynamicResource BottomBarStyle}">
+            <StackPanel Orientation="Horizontal">
+                <wpfui:Button
+                    MinWidth="120"
+                    Margin="0,0,8,0"
+                    HorizontalAlignment="Stretch"
+                    Click="CreateButton_Click"
+                    Content="Create" />
+                <wpfui:Button
+                    MinWidth="120"
+                    HorizontalAlignment="Stretch"
+                    Click="TestButton_Click"
+                    Content="Test" />
+            </StackPanel>
+        </Border>
     </Grid>
 </wpfui:FluentWindow>

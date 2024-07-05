@@ -162,11 +162,13 @@
             </StackPanel>
         </ScrollViewer>
 
-        <wpfui:Card Grid.Row="2" Grid.ColumnSpan="3">
+
+        <Border Grid.Row="2" Style="{DynamicResource BottomBarStyle}">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <TextBlock
                     x:Name="WarnText"
@@ -192,6 +194,6 @@
                         Content="Cancel" />
                 </StackPanel>
             </Grid>
-        </wpfui:Card>
+        </Border>
     </Grid>
 </wpfui:FluentWindow>
