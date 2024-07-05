@@ -138,9 +138,9 @@ public partial class MainWindow : FluentWindow
 
     public void ShowWindow()
     {
+        Show();
         PositionWindowUnderTheMouse();
         WindowState = WindowState.Normal;
-        Show();
     }
 
     private void TrayMenuItem_OnClick(object sender, RoutedEventArgs e)
