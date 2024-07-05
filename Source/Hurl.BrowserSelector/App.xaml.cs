@@ -29,7 +29,7 @@ namespace Hurl.BrowserSelector
 
         public App()
         {
-            this.Dispatcher.UnhandledException += Dispatcher_UnhandledException;
+            Dispatcher.UnhandledException += Dispatcher_UnhandledException;
         }
 
         private void Dispatcher_UnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
@@ -72,7 +72,7 @@ namespace Hurl.BrowserSelector
                     {
                         if (Current.MainWindow is { } window)
                         {
-                            _mainWindow.MaximizeWindow();
+                            _mainWindow.ShowWindow();
                         }
                         else
                         {
@@ -129,12 +129,10 @@ namespace Hurl.BrowserSelector
 
                 try
                 {
-                    using (StreamReader sr = new(pipeserver))
-                    {
-                        string args = sr.ReadToEnd();
-                        string[] argsArray = JsonSerializer.Deserialize<string[]>(args) ?? [];
-                        OnInstanceInvoked(argsArray);
-                    }
+                    using StreamReader sr = new(pipeserver);
+                    string args = sr.ReadToEnd();
+                    string[] argsArray = JsonSerializer.Deserialize<string[]>(args) ?? [];
+                    OnInstanceInvoked(argsArray);
                 }
                 catch (Exception e)
                 {

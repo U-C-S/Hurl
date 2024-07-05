@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.InteropServices;
@@ -19,8 +18,8 @@ public static class IconExtractor
     {
         try
         {
-            IntPtr[] phicon = new IntPtr[] { IntPtr.Zero };
-            IntPtr[] piconid = new IntPtr[] { IntPtr.Zero };
+            IntPtr[] phicon = [IntPtr.Zero];
+            IntPtr[] piconid = [IntPtr.Zero];
 
             PrivateExtractIcons(filename, 0, 128, 128, phicon, piconid, 1, 0);
 

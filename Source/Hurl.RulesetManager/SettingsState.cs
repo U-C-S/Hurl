@@ -12,7 +12,7 @@ internal class SettingsState
 
     private static readonly SettingsState _state = new();
 
-    private Settings _settings;
+    private readonly Settings _settings;
 
     public static Settings Get => _state._settings;
 
@@ -22,7 +22,7 @@ internal class SettingsState
         {
             if (Get.Rulesets == null)
             {
-                Get.Rulesets = new();
+                Get.Rulesets = [];
             }
             return Get.Rulesets;
         }

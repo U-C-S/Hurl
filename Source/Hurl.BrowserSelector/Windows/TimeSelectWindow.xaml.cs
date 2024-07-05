@@ -10,7 +10,7 @@ namespace Hurl.BrowserSelector.Windows
     /// </summary>
     public partial class TimeSelectWindow : FluentWindow
     {
-        private List<Browser> browsers;
+        private readonly List<Browser> browsers;
 
         public TimeSelectWindow(List<Browser> x)
         {
@@ -19,7 +19,7 @@ namespace Hurl.BrowserSelector.Windows
             DataContext = x.ConvertAll(y => y.Name);
         }
 
-        private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void SetBtn_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             var x = TimeBox.Value;
             var y = BrowserBox.SelectedIndex;
@@ -28,14 +28,14 @@ namespace Hurl.BrowserSelector.Windows
             {
                 TimedBrowserSelect.Create((int)x, browsers[y]);
 
-                this.Close();
+                Close();
             }
         }
 
-        private void Button_Click_1(object sender, System.Windows.RoutedEventArgs e)
+        private void CancelBtn_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             TimedBrowserSelect.DeleteCurrent();
-            this.Close();
+            Close();
         }
     }
 }

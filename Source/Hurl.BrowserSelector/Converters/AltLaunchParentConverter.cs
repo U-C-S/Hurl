@@ -24,10 +24,10 @@ namespace Hurl.BrowserSelector.Converters
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
-            return new object[] {
+            return [
                 (value as AltLaunchParent).AltLaunch,
                 (value as AltLaunchParent).Browser
-            };
+            ];
         }
     }
 }

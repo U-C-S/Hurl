@@ -16,7 +16,7 @@
     Deactivated="Window_Deactivated"
     ExtendsContentIntoTitleBar="True"
     PreviewKeyUp="Window_KeyEvents"
-    SizeChanged="UiWindow_SizeChanged"
+    SizeChanged="Window_SizeChanged"
     Topmost="True"
     WindowBackdropType="Mica"
     WindowStartupLocation="CenterScreen"
@@ -129,7 +129,7 @@
                         Padding="7,3"
                         Background="{x:Null}"
                         BorderBrush="{x:Null}"
-                        Click="linkpreview_Click"
+                        Click="Linkpreview_Click"
                         Cursor="Hand"
                         Foreground="AliceBlue"
                         ToolTip="Edit URL (E)" />

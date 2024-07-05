@@ -1,6 +1,4 @@
 using Hurl.Library.Models;
-using System;
-using System.Collections.Generic;
 using System.IO;
 
 namespace Hurl.Library;
@@ -11,7 +9,7 @@ public class SettingsFile
 
     private SettingsFile(Settings settings)
     {
-        this.SettingsObject = settings;
+        SettingsObject = settings;
     }
 
     public static SettingsFile TryLoading()

@@ -40,13 +40,13 @@
                     ItemsSource="{Binding}" />
             </wpfui:CardControl>
             <Grid Margin="0,10">
-                <wpfui:Button Padding="40,15" Click="Button_Click_1">
+                <wpfui:Button Padding="40,15" Click="CancelBtn_Click">
                     Cancel Current
                 </wpfui:Button>
                 <wpfui:Button
                     Padding="40,15"
                     HorizontalAlignment="Right"
-                    Click="Button_Click"
+                    Click="SetBtn_Click"
                     Content="Set" />
             </Grid>
         </StackPanel>

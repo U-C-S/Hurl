@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Hurl.Library.Models;
+﻿namespace Hurl.Library.Models;
 
 public class TemporaryDefaultBrowser
 {

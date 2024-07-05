@@ -3,11 +3,11 @@ using System.Windows;
 
 namespace Hurl.BrowserSelector.Helpers
 {
-    public static class CursorPosition
+    public static partial class CursorPosition
     {
-        [DllImport("user32.dll")]
+        [LibraryImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool GetCursorPos(ref Win32Point pt);
+        internal static partial bool GetCursorPos(ref Win32Point pt);
 
         [StructLayout(LayoutKind.Sequential)]
         internal struct Win32Point

@@ -21,7 +21,7 @@ public class EditRulesetViewModel
         Name = set?.RulesetName;
         Rules = set?.Rules?
                     .Select(x => new Rule(x))
-                    .ToList() ?? new List<Rule>();
+                    .ToList() ?? [];
 
         if (set?.BrowserName is string browser)
             SelectedBrowser = Browsers.IndexOf(browser);
@@ -34,7 +34,7 @@ public class EditRulesetViewModel
         Browsers = SettingsState.GetBrowsers()
             .Select(x => x.Name)
             .ToList();
-        Rules = new List<Rule>();
+        Rules = [];
     }
 
     private int _selectedBrowser;
@@ -66,7 +66,7 @@ public class EditRulesetViewModel
         var altLaunchesWithNone = new List<string> { "< None >" };
         altLaunchesWithNone.AddRange(selected?.AlternateLaunches?
                                               .Select(x => x.ItemName)
-                                              .ToList() ?? new List<string>());
+                                              .ToList() ?? []);
         AltLaunches = altLaunchesWithNone;
         //SelectedAltLaunch = 0;
     }
