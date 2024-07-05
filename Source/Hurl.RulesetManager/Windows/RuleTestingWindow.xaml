@@ -8,6 +8,7 @@
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="Rule test - Hurl"
     Width="500"
+    ResizeMode="NoResize"
     ExtendsContentIntoTitleBar="True"
     SizeToContent="Height"
     WindowBackdropType="Mica"
@@ -15,14 +16,6 @@
     mc:Ignorable="d">
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition
-                Width="5*"
-                MinWidth="400"
-                MaxWidth="700" />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
@@ -30,11 +23,10 @@
 
         <ui:TitleBar
             Title="Rule Testing Suite"
-            Grid.ColumnSpan="3"
             ShowMaximize="False"
             ShowMinimize="False" />
 
-        <StackPanel Grid.Row="1" Grid.Column="1">
+        <StackPanel Grid.Row="1">
             <ui:Card Padding="12">
                 <StackPanel>
                     <TextBlock>

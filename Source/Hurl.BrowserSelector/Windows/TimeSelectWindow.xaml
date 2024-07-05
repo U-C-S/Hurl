@@ -16,16 +16,20 @@
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
-    <StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
         <wpfui:TitleBar
             Title="Timed default browser - Hurl"
             ShowMaximize="False"
             ShowMinimize="False" />
 
-        <StackPanel Margin="8,0">
+        <StackPanel Grid.Row="1" Margin="16">
             <wpfui:Card Margin="0,0,0,8">
                 <Grid>
-                    <TextBlock Text="Time (minutes)" />
+                    <TextBlock VerticalAlignment="Center" Text="Time (minutes)" />
                     <wpfui:NumberBox
                         x:Name="TimeBox"
                         MinWidth="120"
@@ -37,7 +41,7 @@
             </wpfui:Card>
             <wpfui:Card>
                 <Grid>
-                    <TextBlock Text="Browser" />
+                    <TextBlock VerticalAlignment="Center" Text="Browser" />
                     <ComboBox
                         x:Name="BrowserBox"
                         MinWidth="120"
@@ -56,5 +60,5 @@
                     Content="Set" />
             </Grid>
         </StackPanel>
-    </StackPanel>
+    </Grid>
 </wpfui:FluentWindow>
