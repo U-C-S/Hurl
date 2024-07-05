@@ -41,7 +41,7 @@ namespace Hurl.BrowserSelector.Controls
             //if (Keyboard.Modifiers.HasFlag(ModifierKeys.Control)) { }
         }
 
-        private void Button(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void BrowserButton_Click(object sender, RoutedEventArgs e)
         {
             var tag = ((Button)sender).Tag as Browser;
             OpenLink(tag);

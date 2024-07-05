@@ -31,17 +31,21 @@
                     x:Name="WarnText"
                     Height="0"
                     HorizontalAlignment="Center"
-                    Foreground="{ui:ThemeResource SystemFillColorCriticalBrush}"
+                    Foreground="{wpfui:ThemeResource SystemFillColorCriticalBrush}"
                     Text="Atleast input Target Browser and Rules fields!"
                     Visibility="Hidden" />
 
-                <wpfui:CardControl Header="Ruleset Title">
-                    <wpfui:TextBox
-                        x:Name="RuleNameInput"
-                        Width="240"
-                        PlaceholderText="Title"
-                        Text="{Binding Name, Mode=TwoWay}" />
-                </wpfui:CardControl>
+                <wpfui:Card>
+                    <Grid>
+                        <TextBlock VerticalAlignment="Center" Text="Title" />
+                        <wpfui:TextBox
+                            x:Name="RuleNameInput"
+                            Width="240"
+                            HorizontalAlignment="Right"
+                            PlaceholderText="Title"
+                            Text="{Binding Name, Mode=TwoWay}" />
+                    </Grid>
+                </wpfui:Card>
 
                 <wpfui:Card Padding="12">
                     <Grid>
@@ -65,7 +69,7 @@
                         <TextBlock
                             Grid.Row="1"
                             VerticalAlignment="Center"
-                            Text="Alternate Launch:" />
+                            Text="Alternate Launch" />
                         <ComboBox
                             x:Name="TargetAltLaunch"
                             Grid.Row="1"
