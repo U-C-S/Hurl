@@ -10,9 +10,10 @@
     Width="500"
     Height="600"
     ExtendsContentIntoTitleBar="True"
+    Icon="/Windows/internet.ico"
     WindowBackdropType="Mica"
     WindowStartupLocation="CenterScreen"
-    mc:Ignorable="d" Icon="/Windows/internet.ico">
+    mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -129,7 +130,7 @@
                         <ItemsControl x:Name="_RulesListControl" ItemsSource="{Binding Rules, Mode=TwoWay}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <wpfui:Card>
+                                    <wpfui:Card AutomationProperties.Name="{Binding Path=RuleContent}">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="Auto" />
@@ -148,6 +149,7 @@
                                             <wpfui:Button
                                                 Grid.Column="2"
                                                 VerticalAlignment="Center"
+                                                AutomationProperties.Name="Delete"
                                                 Click="RuleRemoveButton_Click"
                                                 FontSize="16"
                                                 Foreground="{wpfui:ThemeResource SystemFillColorCriticalBrush}"

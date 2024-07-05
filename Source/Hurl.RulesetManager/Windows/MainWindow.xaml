@@ -11,9 +11,10 @@
     Height="600"
     MinWidth="500"
     ExtendsContentIntoTitleBar="True"
+    Icon="/Windows/internet.ico"
     WindowBackdropType="Mica"
     WindowStartupLocation="CenterScreen"
-    mc:Ignorable="d" Icon="/Windows/internet.ico">
+    mc:Ignorable="d">
 
     <Grid>
         <Grid.RowDefinitions>

@@ -51,6 +51,7 @@
                     VerticalAlignment="Stretch"
                     VerticalContentAlignment="Top"
                     Appearance="Transparent"
+                    AutomationProperties.Name="{Binding Path=Name}"
                     BorderBrush="Transparent"
                     Click="BrowserButton_Click"
                     Tag="{Binding}"
