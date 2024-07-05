@@ -6,10 +6,10 @@
     xmlns:local="clr-namespace:Hurl.RulesetManager.Windows"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
-    Title="Rule Testing Suite"
+    Title="Rule testing"
     Width="500"
-    ResizeMode="NoResize"
     ExtendsContentIntoTitleBar="True"
+    ResizeMode="NoResize"
     SizeToContent="Height"
     WindowBackdropType="Mica"
     WindowStartupLocation="CenterScreen"
@@ -22,42 +22,40 @@
         </Grid.RowDefinitions>
 
         <wpfui:TitleBar
-            Title="Rule Testing Suite"
+            Title="Rule testing"
             ShowMaximize="False"
             ShowMinimize="False" />
 
-        <StackPanel Grid.Row="1">
-            <wpfui:Card Padding="12">
+        <StackPanel Grid.Row="1" Margin="16">
+            <wpfui:Card Margin="0,0,0,8">
                 <StackPanel>
-                    <TextBlock>
-                        Enter a URI to test
-                    </TextBlock>
+                    <TextBlock Margin="0,0,0,8" Text="Enter a URL to test" />
                     <TextBox
                         x:Name="_UriInput"
-                        Margin="0,12,0,0"
+                        Margin="0,0,0,8"
                         HorizontalAlignment="Stretch" />
                     <wpfui:Button
                         x:Name="_TestExistingButton"
                         MinWidth="120"
-                        Margin="0,12,0,0"
                         HorizontalAlignment="Right"
-                        Click="TestExistingButton_Click">
-                        Test against Existing Rules
-                    </wpfui:Button>
+                        Appearance="Primary"
+                        Click="TestExistingButton_Click"
+                        Content="Test against existing rules" />
                 </StackPanel>
             </wpfui:Card>
 
-            <wpfui:Card Padding="12">
+            <TextBlock
+                Margin="0,4,0,8"
+                Style="{StaticResource BodyStrongTextBlockStyle}"
+                Text="Test the above URL with a custom rule" />
+            <wpfui:Card Margin="0,0,0,8">
                 <StackPanel>
-                    <TextBlock>
-                        Test the above URI with a custom rule
-                    </TextBlock>
-                    <Grid Margin="0,16,0,0">
+                    <Grid Margin="0,12,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <TextBlock VerticalAlignment="Center" Text="Rule Type:" />
+                        <TextBlock VerticalAlignment="Center" Text="Rule type" />
                         <ComboBox
                             x:Name="_RuleTypeInput"
                             Grid.Column="1"
@@ -74,7 +72,7 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <TextBlock VerticalAlignment="Center" Text="Rule:" />
+                        <TextBlock VerticalAlignment="Center" Text="Rule" />
                         <TextBox
                             x:Name="_RuleInput"
                             Grid.Column="1"
@@ -92,9 +90,8 @@
                         <wpfui:Button
                             MinWidth="120"
                             HorizontalAlignment="Right"
-                            Click="TestRuleButton_Click">
-                            Test with Rule
-                        </wpfui:Button>
+                            Click="TestRuleButton_Click"
+                            Content="Test with Rule" />
                     </Grid>
                 </StackPanel>
             </wpfui:Card>
