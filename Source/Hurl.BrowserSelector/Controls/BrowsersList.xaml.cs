@@ -17,16 +17,16 @@ namespace Hurl.BrowserSelector.Controls
         {
             DataContext = Globals.SettingsGlobal.GetBrowsers();
             InitializeComponent();
-            Loaded += (s, e) =>
-            {
-                var parent = Window.GetWindow(this);
-                parent.PreviewKeyUp += OnPreviewKeyUp;
-            };
-            Unloaded += (s, e) =>
-            {
-                var parent = Window.GetWindow(this);
-                parent.PreviewKeyUp -= OnPreviewKeyUp;
-            };
+            //Loaded += (s, e) =>
+            //{
+            //    var parent = Window.GetWindow(this);
+            //    parent.PreviewKeyUp += OnPreviewKeyUp;
+            //};
+            //Unloaded += (s, e) =>
+            //{
+            //    var parent = Window.GetWindow(this);
+            //    parent.PreviewKeyUp -= OnPreviewKeyUp;
+            //};
         }
 
         private void OnPreviewKeyUp(object sender, KeyEventArgs e)
@@ -41,9 +41,9 @@ namespace Hurl.BrowserSelector.Controls
             //if (Keyboard.Modifiers.HasFlag(ModifierKeys.Control)) { }
         }
 
-        private void BtnArea_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void Button(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            var tag = (sender as Border).Tag as Browser;
+            var tag = ((Button)sender).Tag as Browser;
             OpenLink(tag);
             MinimizeWindow();
         }
