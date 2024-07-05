@@ -63,15 +63,15 @@
                         <TextBlock
                             Style="{StaticResource CaptionTextBlockStyle}"
                             Text="+"
-                            Visibility="Visible" />
+                            Visibility="{Binding ShowAdditionalBtn}" />
                         <wpfui:Button
                             x:Name="AdditionalBtn"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Top"
                             Click="AdditionalBtn_Click"
                             FontSize="16"
-                            Visibility="Visible">
-                            <wpfui:SymbolIcon Symbol="MoreVertical16" />
+                            Visibility="{Binding ShowAdditionalBtn}">
+                            <wpfui:SymbolIcon Symbol="MoreHorizontal16" />
                         </wpfui:Button>
                         <TextBlock
                             Margin="0,8,0,0"
@@ -82,7 +82,7 @@
                             <ContextMenu
                                 x:Name="MainContextMenu"
                                 ItemsSource="{Binding Path=AlternateLaunches}"
-                                Visibility="Visible">
+                                Visibility="{Binding ShowAdditionalBtn}">
                                 <ContextMenu.ItemContainerStyle>
                                     <Style TargetType="MenuItem">
                                         <Setter Property="Header" Value="{Binding Path=ItemName}" />
