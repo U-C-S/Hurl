@@ -1,11 +1,11 @@
-﻿<ui:FluentWindow
+﻿<wpfui:FluentWindow
     x:Class="Hurl.RulesetManager.Windows.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Hurl.RulesetManager.Windows"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="Ruleset Mananger - Hurl"
     Width="800"
     Height="600"
@@ -22,30 +22,30 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <ui:TitleBar Title="Ruleset Manager - Hurl" />
+        <wpfui:TitleBar Title="Ruleset Manager - Hurl [BETA]" />
 
         <StackPanel
             Grid.Row="1"
             Margin="16"
             Orientation="Horizontal">
-            <ui:Button
+            <wpfui:Button
                 MinWidth="120"
                 Margin="0,0,8,0"
                 HorizontalAlignment="Stretch"
                 Click="CreateButton_Click">
                 Create
-            </ui:Button>
+            </wpfui:Button>
 
-            <ui:Button
+            <wpfui:Button
                 MinWidth="120"
                 HorizontalAlignment="Stretch"
                 Click="TestButton_Click">
                 Test
-            </ui:Button>
+            </wpfui:Button>
         </StackPanel>
 
         <ScrollViewer Grid.Row="2">
             <StackPanel x:Name="_rulesetsList" Margin="16,0" />
         </ScrollViewer>
     </Grid>
-</ui:FluentWindow>
+</wpfui:FluentWindow>

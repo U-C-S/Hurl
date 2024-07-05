@@ -66,13 +66,13 @@ public partial class EditRuleset
     {
         DialogResult = true;
         _successCallback(DataContext as EditRulesetViewModel);
-        this.Close();
+        Close();
     }
 
     private void CancelButton_Click(object sender, RoutedEventArgs e)
     {
         DialogResult = false;
-        this.Close();
+        Close();
     }
 
     private void RuleRemoveButton_Click(object sender, RoutedEventArgs e)
@@ -84,4 +84,3 @@ public partial class EditRuleset
         Refresh();
     }
 }
-

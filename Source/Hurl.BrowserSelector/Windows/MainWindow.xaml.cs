@@ -17,7 +17,7 @@ public partial class MainWindow : FluentWindow
 
     public MainWindow()
     {
-        var settings = Globals.SettingsGlobal.Value;
+        var settings = SettingsGlobal.Value;
 
         InitializeComponent();
 
@@ -37,17 +37,17 @@ public partial class MainWindow : FluentWindow
 
         if (data.IsRunAsMin || isRuleCheckSuccess)
         {
-            Show(); // TODO: try to remove the flashing
             MinimizeWindow();
+            Show();
         }
         else
         {
-            Show();
             PositionWindowUnderTheMouse();
             if (data.IsSecondInstance)
             {
                 WindowState = WindowState.Normal;
             }
+            Show();
         }
 
         linkpreview.Content = string.IsNullOrEmpty(UriGlobal.Value) ? "No Url Opened" : UriGlobal.Value;
@@ -108,33 +108,33 @@ public partial class MainWindow : FluentWindow
     }
 
     private void SettingsBtnClick(object sender, RoutedEventArgs e) => Process.Start("explorer", "\"" + Constants.APP_SETTINGS_MAIN + "\"");
-    private void Draggable(object sender, MouseButtonEventArgs e) => this.DragMove();
+    private void Draggable(object sender, MouseButtonEventArgs e) => DragMove();
     private void CloseBtnClick(object sender, RoutedEventArgs e) => MinimizeWindow();
 
     private void MinimizeWindow()
     {
-        this.WindowState = WindowState.Minimized;
-        this.Hide();
+        WindowState = WindowState.Minimized;
+        Hide();
     }
 
-    public void MaximizeWindow()
+    public void ShowWindow()
     {
-        this.Show();
+        Show();
         PositionWindowUnderTheMouse();
-        this.WindowState = WindowState.Normal;
+        WindowState = WindowState.Normal;
     }
 
     private void TrayMenuItem_OnClick(object sender, RoutedEventArgs e)
     {
-        var settings = Globals.SettingsGlobal.Value;
+        _ = SettingsGlobal.Value;
 
-        string tag = (sender as Wpf.Ui.Controls.MenuItem).Tag as string;
+        string tag = ((MenuItem)sender).Tag as string;
         try
         {
             switch (tag)
             {
                 case "open":
-                    MaximizeWindow();
+                    ShowWindow();
                     break;
                 case "settings":
                     Process.Start("explorer", "\"" + Constants.APP_SETTINGS_MAIN + "\"");
@@ -157,7 +157,7 @@ public partial class MainWindow : FluentWindow
         }
     }
 
-    private void NotifyIcon_LeftClick(object sender, RoutedEventArgs e) => MaximizeWindow();
+    private void NotifyIcon_LeftClick(object sender, RoutedEventArgs e) => ShowWindow();
 
     private void Window_Deactivated(object sender, EventArgs e)
     {
@@ -170,7 +170,7 @@ public partial class MainWindow : FluentWindow
 
     private void PositionWindowUnderTheMouse()
     {
-        var settings = Globals.SettingsGlobal.Value;
+        var settings = SettingsGlobal.Value;
 
         if (settings.AppSettings != null && settings.AppSettings.LaunchUnderMouse)
         {
@@ -179,20 +179,20 @@ public partial class MainWindow : FluentWindow
             Left = mouse.X;
             Top = mouse.Y;
 
-            Debug.WriteLine($"{Left}x{Top} while screen res: {SystemParameters.FullPrimaryScreenWidth}x{SystemParameters.FullPrimaryScreenHeight}");
+            Debug.WriteLine($"{Left}×{Top} with screen resolution: {SystemParameters.FullPrimaryScreenWidth}×{SystemParameters.FullPrimaryScreenHeight}");
         }
     }
 
     private void Button_Click(object sender, RoutedEventArgs e)
     {
         forcePreventWindowDeactivationEvent = true;
-        new TimeSelectWindow(Globals.SettingsGlobal.Value.Browsers).ShowDialog();
+        new TimeSelectWindow(SettingsGlobal.Value.Browsers).ShowDialog();
         forcePreventWindowDeactivationEvent = false;
     }
 
-    private void UiWindow_SizeChanged(object sender, SizeChangedEventArgs e) => Globals.SettingsGlobal.AdjustWindowSize(e);
+    private void Window_SizeChanged(object sender, SizeChangedEventArgs e) => SettingsGlobal.AdjustWindowSize(e);
 
-    async private void linkpreview_Click(object sender, RoutedEventArgs e)
+    async private void Linkpreview_Click(object sender, RoutedEventArgs e)
     {
         forcePreventWindowDeactivationEvent = true;
 
@@ -200,8 +200,8 @@ public partial class MainWindow : FluentWindow
         if (!string.IsNullOrEmpty(NewUrl))
         {
             UriGlobal.Value = NewUrl;
-            (sender as Wpf.Ui.Controls.Button).Content = NewUrl;
-            (sender as Wpf.Ui.Controls.Button).ToolTip = NewUrl;
+            ((Button)sender).Content = NewUrl;
+            ((Button)sender).ToolTip = NewUrl;
         }
 
         forcePreventWindowDeactivationEvent = false;
@@ -219,4 +219,3 @@ public partial class MainWindow : FluentWindow
         Hide();
     }
 }
-

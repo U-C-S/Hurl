@@ -8,5 +8,5 @@ public class AppSettings
 
     public string BackgroundType { get; set; } = "mica";
 
-    public int[] WindowSize { get; set; } = new int[] { 420, 210 };
+    public int[] WindowSize { get; set; } = [420, 210];
 }

@@ -1,8 +1,6 @@
 ﻿using Hurl.Library.Models;
 using Microsoft.Win32;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace Hurl.Library;
 
@@ -14,7 +12,7 @@ public static class GetBrowsers
 
         using (RegistryKey key = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Clients\\StartMenuInternet"))
         {
-            browsers = new List<Browser>();
+            browsers = [];
             string[] x = key.GetSubKeyNames();
             for (int i = 0; i < x.Length; i++)
             {

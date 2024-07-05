@@ -56,7 +56,7 @@
                 <wpfui:Button
                     MinWidth="120"
                     HorizontalAlignment="Right"
-                    Click="Button_Click"
+                    Click="SetBtn_Click"
                     Content="Set" />
             </Grid>
         </StackPanel>
