@@ -6,49 +6,68 @@
     xmlns:local="clr-namespace:Hurl.BrowserSelector.Windows"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
-    Title="TimeSelectWindow"
+    Title="Timed default browser - Hurl"
     Width="360"
     Height="280"
     MinHeight="280"
     ExtendsContentIntoTitleBar="True"
+    ResizeMode="NoResize"
+    SizeToContent="Height"
     Topmost="True"
     WindowBackdropType="Mica"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-    <StackPanel>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
         <wpfui:TitleBar
-            Title="Timed Default Browser"
-            FontSize="14"
+            Title="Timed default browser - Hurl"
             ShowMaximize="False"
             ShowMinimize="False" />
 
-        <StackPanel Margin="10,0">
-            <wpfui:CardControl
-                Margin="0,0,0,10"
-                Header="Time (in mins)"
-                Icon="Clock24">
-                <wpfui:NumberBox
-                    x:Name="TimeBox"
-                    Maximum="300"
-                    Minimum="0"
-                    Value="10" />
-            </wpfui:CardControl>
-            <wpfui:CardControl Header="Browser" Icon="Globe24">
-                <ComboBox
-                    x:Name="BrowserBox"
-                    Width="150"
-                    ItemsSource="{Binding}" />
-            </wpfui:CardControl>
-            <Grid Margin="0,10">
-                <wpfui:Button Padding="40,15" Click="CancelBtn_Click">
-                    Cancel Current
-                </wpfui:Button>
+        <StackPanel Grid.Row="1" Margin="16,0">
+            <wpfui:Card Margin="0,0,0,8">
+                <Grid>
+                    <TextBlock VerticalAlignment="Center" Text="Time (minutes)" />
+                    <wpfui:NumberBox
+                        x:Name="TimeBox"
+                        MinWidth="120"
+                        HorizontalAlignment="Right"
+                        Maximum="300"
+                        Minimum="0"
+                        Value="10" />
+                </Grid>
+            </wpfui:Card>
+            <wpfui:Card>
+                <Grid>
+                    <TextBlock VerticalAlignment="Center" Text="Browser" />
+                    <ComboBox
+                        x:Name="BrowserBox"
+                        MinWidth="120"
+                        HorizontalAlignment="Right"
+                        ItemsSource="{Binding}" />
+                </Grid>
+            </wpfui:Card>
+        </StackPanel>
+
+        <Border Grid.Row="2" Style="{DynamicResource BottomBarStyle}">
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                 <wpfui:Button
-                    Padding="40,15"
+                    MinWidth="120"
+                    Margin="0,0,8,0"
                     HorizontalAlignment="Right"
+                    Appearance="Primary"
                     Click="SetBtn_Click"
                     Content="Set" />
-            </Grid>
-        </StackPanel>
-    </StackPanel>
+                <wpfui:Button
+                    MinWidth="120"
+                    Click="CancelBtn_Click"
+                    Content="Cancel" />
+            </StackPanel>
+        </Border>
+    </Grid>
 </wpfui:FluentWindow>

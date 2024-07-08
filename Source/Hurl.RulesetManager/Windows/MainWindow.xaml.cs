@@ -2,6 +2,7 @@
 using Hurl.RulesetManager.Controls;
 using Hurl.RulesetManager.ViewModels;
 using System.Windows;
+using Wpf.Ui.Appearance;
 
 namespace Hurl.RulesetManager.Windows;
 
@@ -10,6 +11,8 @@ public partial class MainWindow
     public MainWindow()
     {
         InitializeComponent();
+
+        SystemThemeWatcher.Watch(this);
 
         IsVisibleChanged += MainWindow_IsVisibleChanged;
     }

@@ -57,7 +57,7 @@ public class Browser
     {
         get
         {
-            return AlternateLaunches == null || AlternateLaunches.Length == 0 ? Visibility.Hidden : Visibility.Visible;
+            return AlternateLaunches == null || AlternateLaunches.Length == 0 ? Visibility.Collapsed : Visibility.Visible;
         }
     }
 }

@@ -6,13 +6,11 @@
     xmlns:local="clr-namespace:Hurl.BrowserSelector.Windows"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:tray="http://schemas.lepo.co/wpfui/2022/xaml/tray"
-    xmlns:vs="clr-namespace:Hurl.BrowserSelector.Controls"
+    xmlns:controls="clr-namespace:Hurl.BrowserSelector.Controls"
     xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
-    Title="Hurl - Select a Browser"
-    MinWidth="410"
-    MinHeight="220"
-    MaxWidth="560"
-    MaxHeight="450"
+    Title="Select a browser - Hurl"
+    MinWidth="480"
+    MinHeight="320"
     Deactivated="Window_Deactivated"
     ExtendsContentIntoTitleBar="True"
     PreviewKeyUp="Window_KeyEvents"
@@ -20,156 +18,121 @@
     Topmost="True"
     WindowBackdropType="Mica"
     WindowStartupLocation="CenterScreen"
-    mc:Ignorable="d">
-    <Border
-        x:Name="WindowBorder"
-        BorderBrush="AliceBlue"
-        BorderThickness="2"
-        CornerRadius="8">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40" />
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="45" />
-            </Grid.RowDefinitions>
+    mc:Ignorable="d" Icon="/Windows/internet.ico">
 
-            <Grid Margin="2,0" MouseLeftButtonDown="Draggable">
-                <TextBlock
-                    Padding="10,0"
-                    VerticalAlignment="Center"
-                    Panel.ZIndex="-1"
-                    FontSize="16"
-                    Foreground="AliceBlue"
-                    Text="Select a Browser" />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-                <StackPanel
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Orientation="Horizontal">
-                    <wpfui:DropDownButton
-                        Margin="0,0,4,0"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Background="#20000000"
-                        FontSize="16"
-                        Icon="{wpfui:SymbolIcon Navigation24}">
-                        <wpfui:DropDownButton.Flyout>
-                            <ContextMenu>
-                                <wpfui:MenuItem
-                                    Click="Button_Click_1"
-                                    Header="Rules"
-                                    Tag="settings">
-                                    <wpfui:MenuItem.Icon>
-                                        <wpfui:SymbolIcon Symbol="Add24" />
-                                    </wpfui:MenuItem.Icon>
-                                </wpfui:MenuItem>
-                                <wpfui:MenuItem
-                                    Click="Button_Click"
-                                    Header="Timed"
-                                    Tag="reload">
-                                    <wpfui:MenuItem.Icon>
-                                        <wpfui:SymbolIcon Symbol="Clock24" />
-                                    </wpfui:MenuItem.Icon>
-                                </wpfui:MenuItem>
-                                <wpfui:MenuItem
-                                    Click="SettingsBtnClick"
-                                    Header="Settings"
-                                    Tag="exit">
-                                    <wpfui:MenuItem.Icon>
-                                        <wpfui:SymbolIcon Symbol="Settings24" />
-                                    </wpfui:MenuItem.Icon>
-                                </wpfui:MenuItem>
-                            </ContextMenu>
-                        </wpfui:DropDownButton.Flyout>
-                    </wpfui:DropDownButton>
-                    <wpfui:Button
-                        Margin="0,0,4,0"
-                        Padding="7,5"
-                        Background="Transparent"
-                        BorderBrush="Transparent"
-                        Click="CloseBtnClick"
-                        Cursor="Hand"
-                        FontSize="16"
-                        ToolTip="Minimize to Tray">
-                        <wpfui:Button.Icon>
-                            <wpfui:SymbolIcon Symbol="Dismiss24" />
-                        </wpfui:Button.Icon>
-                    </wpfui:Button>
-                </StackPanel>
-            </Grid>
+        <wpfui:TitleBar
+            Title="Select a browser"
+            Height="40"
+            MinimizeClicked="HideMainWindow"
+            ShowClose="False"
+            ShowMaximize="False" />
 
-            <Grid Grid.Row="1">
-                <vs:BrowsersList />
-            </Grid>
+        <controls:BrowsersList Grid.Row="1" Margin="16,0" />
 
-            <Border
-                Grid.Row="2"
-                Margin="0,0,0,5"
+        <Grid Grid.Row="2" Margin="16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <wpfui:Button
+                Grid.Column="0"
+                Margin="0,0,8,0"
+                Click="LinkCopyBtnClick"
+                Cursor="Hand"
+                FontSize="16"
+                ToolTip="Copy URL (C)">
+                <wpfui:Button.Icon>
+                    <wpfui:SymbolIcon Symbol="Copy16" />
+                </wpfui:Button.Icon>
+            </wpfui:Button>
+            <wpfui:Button
+                x:Name="linkpreview"
+                Grid.Column="1"
+                Margin="0,0,8,0"
+                HorizontalAlignment="Stretch"
+                Click="Linkpreview_Click"
+                Cursor="Hand"
+                ToolTip="Edit URL (E)" />
+            <wpfui:DropDownButton
+                Grid.Column="2"
                 HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Background="#40000000"
-                CornerRadius="5">
-                <StackPanel Margin="5" Orientation="Horizontal">
-                    <wpfui:Button
-                        Padding="4"
-                        Background="{x:Null}"
-                        BorderBrush="{x:Null}"
-                        Click="LinkCopyBtnClick"
-                        Cursor="Hand"
-                        FontSize="16"
-                        Foreground="#BBFFFFFF"
-                        ToolTip="Copy URL (C)">
-                        <wpfui:Button.Icon>
-                            <wpfui:SymbolIcon Symbol="Copy24" />
-                        </wpfui:Button.Icon>
-                    </wpfui:Button>
-                    <wpfui:Button
-                        x:Name="linkpreview"
-                        MaxWidth="330"
-                        Padding="7,3"
-                        Background="{x:Null}"
-                        BorderBrush="{x:Null}"
-                        Click="Linkpreview_Click"
-                        Cursor="Hand"
-                        Foreground="AliceBlue"
-                        ToolTip="Edit URL (E)" />
-                </StackPanel>
-            </Border>
-
-            <tray:NotifyIcon
-                FocusOnLeftClick="True"
-                LeftClick="NotifyIcon_LeftClick"
-                MenuOnRightClick="True"
-                TooltipText="Hurl is running in background for faster access">
-                <tray:NotifyIcon.Menu>
+                FontSize="16"
+                Icon="{wpfui:SymbolIcon Navigation16}">
+                <wpfui:DropDownButton.Flyout>
                     <ContextMenu>
                         <wpfui:MenuItem
-                            Click="TrayMenuItem_OnClick"
-                            Header="Settings"
-                            Tag="settings">
+                            Click="Button_Click_1"
+                            FontSize="16"
+                            Header="Rules">
                             <wpfui:MenuItem.Icon>
-                                <wpfui:SymbolIcon Symbol="Settings24" />
+                                <wpfui:SymbolIcon Symbol="Filter16" />
                             </wpfui:MenuItem.Icon>
                         </wpfui:MenuItem>
                         <wpfui:MenuItem
-                            Click="TrayMenuItem_OnClick"
-                            Header="Reload"
-                            Tag="reload">
+                            Click="Button_Click"
+                            FontSize="16"
+                            Header="Timed">
                             <wpfui:MenuItem.Icon>
-                                <wpfui:SymbolIcon Symbol="ArrowClockwise24" />
+                                <wpfui:SymbolIcon Symbol="Clock16" />
                             </wpfui:MenuItem.Icon>
                         </wpfui:MenuItem>
                         <wpfui:MenuItem
-                            Click="TrayMenuItem_OnClick"
-                            Header="Exit"
-                            Tag="exit">
+                            Click="SettingsBtnClick"
+                            FontSize="16"
+                            Header="Settings">
                             <wpfui:MenuItem.Icon>
-                                <wpfui:SymbolIcon Symbol="Save24" />
+                                <wpfui:SymbolIcon Symbol="Settings16" />
                             </wpfui:MenuItem.Icon>
                         </wpfui:MenuItem>
                     </ContextMenu>
-                </tray:NotifyIcon.Menu>
-            </tray:NotifyIcon>
+                </wpfui:DropDownButton.Flyout>
+            </wpfui:DropDownButton>
         </Grid>
-    </Border>
+
+        <tray:NotifyIcon
+            FocusOnLeftClick="True"
+            LeftClick="NotifyIcon_LeftClick"
+            MenuOnRightClick="True"
+            TooltipText="Hurl is running in background for faster access">
+            <tray:NotifyIcon.Menu>
+                <ContextMenu>
+                    <wpfui:MenuItem
+                        Click="TrayMenuItem_OnClick"
+                        FontSize="16"
+                        Header="Settings"
+                        Tag="settings">
+                        <wpfui:MenuItem.Icon>
+                            <wpfui:SymbolIcon Symbol="Settings16" />
+                        </wpfui:MenuItem.Icon>
+                    </wpfui:MenuItem>
+                    <wpfui:MenuItem
+                        Click="TrayMenuItem_OnClick"
+                        FontSize="16"
+                        Header="Reload"
+                        Tag="reload">
+                        <wpfui:MenuItem.Icon>
+                            <wpfui:SymbolIcon Symbol="ArrowClockwise16" />
+                        </wpfui:MenuItem.Icon>
+                    </wpfui:MenuItem>
+                    <wpfui:MenuItem
+                        Click="TrayMenuItem_OnClick"
+                        FontSize="16"
+                        Header="Exit"
+                        Tag="exit">
+                        <wpfui:MenuItem.Icon>
+                            <wpfui:SymbolIcon Symbol="Dismiss16" />
+                        </wpfui:MenuItem.Icon>
+                    </wpfui:MenuItem>
+                </ContextMenu>
+            </tray:NotifyIcon.Menu>
+        </tray:NotifyIcon>
+    </Grid>
 </wpfui:FluentWindow>

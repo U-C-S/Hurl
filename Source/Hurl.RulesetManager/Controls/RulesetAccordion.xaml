@@ -22,7 +22,7 @@
                     Grid.Column="0"
                     Margin="0,0,8,0"
                     VerticalAlignment="Center"
-                    FontWeight="SemiBold"
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
                     TextTrimming="CharacterEllipsis"
                     TextWrapping="NoWrap"
                     ToolTip="{Binding ruleset.RuleName}" />
@@ -39,18 +39,26 @@
                     Orientation="Horizontal">
                     <wpfui:Button
                         Margin="0,0,8,0"
+                        AutomationProperties.Name="Edit"
                         Click="EditButton_Click"
+                        FontSize="16"
                         Icon="{wpfui:SymbolIcon Edit16}" />
                     <wpfui:Button
                         Margin="0,0,8,0"
+                        AutomationProperties.Name="Move up"
                         Click="UpButton_Click"
+                        FontSize="16"
                         Icon="{wpfui:SymbolIcon ArrowUp16}" />
                     <wpfui:Button
                         Margin="0,0,8,0"
+                        AutomationProperties.Name="Move down"
                         Click="DownButton_Click"
+                        FontSize="16"
                         Icon="{wpfui:SymbolIcon ArrowDown16}" />
                     <wpfui:Button
+                        AutomationProperties.Name="Delete"
                         Click="DeleteButton_Click"
+                        FontSize="16"
                         Foreground="{wpfui:ThemeResource SystemFillColorCriticalBrush}"
                         Icon="{wpfui:SymbolIcon Delete16}" />
                 </StackPanel>
@@ -60,9 +68,7 @@
         <ItemsControl ItemsSource="{Binding Rules}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <wpfui:Card Padding="8">
-                        <TextBlock Text="{Binding}" />
-                    </wpfui:Card>
+                    <TextBlock Text="{Binding}" />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
