@@ -7,22 +7,14 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="Ruleset Editor"
-    Width="600"
-    Height="520"
+    Width="500"
+    Height="600"
     ExtendsContentIntoTitleBar="True"
+    Icon="/Windows/internet.ico"
     WindowBackdropType="Mica"
-    WindowCornerPreference="Round"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition
-                Width="4*"
-                MinWidth="500"
-                MaxWidth="800" />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
@@ -31,43 +23,38 @@
 
         <wpfui:TitleBar
             x:Name="_TitleBar"
-            Grid.ColumnSpan="3"
             ShowMaximize="False"
             ShowMinimize="False" />
 
-        <ScrollViewer
-            Grid.Row="1"
-            Grid.Column="1"
-            Padding="12,8">
-            <StackPanel>
-                <TextBlock
-                    x:Name="WarnText"
-                    Height="0"
-                    HorizontalAlignment="Center"
-                    Foreground="Red"
-                    Text="Atleast input Target Browser and Rules fields!"
-                    Visibility="Hidden" />
+        <ScrollViewer Grid.Row="1">
+            <StackPanel Margin="16,0,16,16">
+                <wpfui:Card Margin="0,0,0,8">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="240" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock VerticalAlignment="Center" Text="Title" />
+                        <wpfui:TextBox
+                            x:Name="RuleNameInput"
+                            Grid.Column="1"
+                            PlaceholderText="Title"
+                            Text="{Binding Name, Mode=TwoWay}" />
+                    </Grid>
+                </wpfui:Card>
 
-                <wpfui:CardControl Header="Ruleset Title">
-                    <wpfui:TextBox
-                        x:Name="RuleNameInput"
-                        Width="240"
-                        PlaceholderText="Title"
-                        Text="{Binding Name, Mode=TwoWay}" />
-                </wpfui:CardControl>
-
-                <wpfui:Card Padding="12">
+                <wpfui:Card Margin="0,0,0,8">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*" />
-                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="240" />
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock VerticalAlignment="Center" Text="Browser Name" />
+                        <TextBlock VerticalAlignment="Center" Text="Browser" />
                         <ComboBox
                             x:Name="TargetBrowser"
                             Grid.Column="1"
@@ -78,7 +65,7 @@
                         <TextBlock
                             Grid.Row="1"
                             VerticalAlignment="Center"
-                            Text="Alternate Launch:" />
+                            Text="Alternate launch" />
                         <ComboBox
                             x:Name="TargetAltLaunch"
                             Grid.Row="1"
@@ -88,24 +75,25 @@
                     </Grid>
                 </wpfui:Card>
 
-                <wpfui:Card Padding="12">
+                <wpfui:Card Margin="0,0,0,8">
                     <Grid>
-                        <Grid.ColumnDefinitions />
                         <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
+                        <TextBlock Margin="0,0,0,8" Text="Rule type &amp; content" />
 
-                        <TextBlock Padding="8" FontSize="16">Add Rule</TextBlock>
-
-                        <Grid Grid.Row="1">
+                        <Grid Grid.Row="1" Margin="0,0,0,8">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="160" />
-                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
                             </Grid.ColumnDefinitions>
 
-                            <ComboBox x:Name="_RuleInputType" Margin="8">
+                            <ComboBox
+                                x:Name="_RuleInputType"
+                                MinWidth="120"
+                                Margin="0,0,8,0">
                                 <ComboBoxItem>Regex</ComboBoxItem>
                                 <ComboBoxItem>Glob</ComboBoxItem>
                                 <ComboBoxItem>Domain</ComboBoxItem>
@@ -115,64 +103,57 @@
                             <wpfui:TextBox
                                 x:Name="_Rule"
                                 Grid.Column="1"
-                                Margin="8" />
+                                HorizontalAlignment="Stretch" />
                         </Grid>
 
-                        <Grid Grid.Row="2">
+                        <Grid Grid.Row="2" Margin="0,0,0,8">
                             <wpfui:Button
-                                Width="80"
-                                Margin="8"
-                                Padding="12,8"
                                 HorizontalAlignment="Left"
                                 Appearance="Transparent"
-                                Icon="{wpfui:SymbolIcon Info16}">
-                                Info
-                            </wpfui:Button>
+                                Content="Info"
+                                Icon="{wpfui:SymbolIcon Info16}" />
                             <wpfui:Button
-                                Width="120"
-                                Margin="8"
-                                Padding="12,8"
+                                MinWidth="120"
                                 HorizontalAlignment="Right"
+                                Appearance="Primary"
                                 Click="RuleAddButton_Click"
-                                Icon="{wpfui:SymbolIcon Add16}">
-                                Add
-                            </wpfui:Button>
+                                Content="Add"
+                                Icon="{wpfui:SymbolIcon Add16}" />
                         </Grid>
                     </Grid>
                 </wpfui:Card>
 
-                <StackPanel Margin="0,8,0,0">
-                    <TextBlock Margin="4" Text="{Binding Rules.Count, StringFormat={}Rules Configured: {0}}" />
+                <StackPanel>
+                    <TextBlock Text="{Binding Rules.Count, StringFormat='Rules: {0}'}" />
 
                     <StackPanel>
                         <ItemsControl x:Name="_RulesListControl" ItemsSource="{Binding Rules, Mode=TwoWay}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <wpfui:Card Padding="8">
+                                    <wpfui:Card AutomationProperties.Name="{Binding Path=RuleContent}">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="60" />
+                                                <ColumnDefinition Width="Auto" />
                                                 <ColumnDefinition />
                                                 <ColumnDefinition Width="Auto" />
                                             </Grid.ColumnDefinitions>
                                             <TextBlock
-                                                Margin="4"
                                                 VerticalAlignment="Center"
+                                                Foreground="{wpfui:ThemeResource TextFillColorSecondaryBrush}"
                                                 Text="{Binding Mode}" />
                                             <TextBlock
                                                 Grid.Column="1"
-                                                Margin="4"
-                                                Padding="8"
+                                                Margin="8,0"
                                                 VerticalAlignment="Center"
                                                 Text="{Binding RuleContent}" />
-                                            <Button
+                                            <wpfui:Button
                                                 Grid.Column="2"
-                                                Margin="4"
+                                                VerticalAlignment="Center"
+                                                AutomationProperties.Name="Delete"
                                                 Click="RuleRemoveButton_Click"
-                                                Padding="12,8"
-                                                VerticalAlignment="Center">
-                                                Remove
-                                            </Button>
+                                                FontSize="16"
+                                                Foreground="{wpfui:ThemeResource SystemFillColorCriticalBrush}"
+                                                Icon="{wpfui:SymbolIcon Delete16}" />
                                         </Grid>
                                     </wpfui:Card>
                                 </DataTemplate>
@@ -183,27 +164,38 @@
             </StackPanel>
         </ScrollViewer>
 
-        <wpfui:Card Grid.Row="2" Grid.ColumnSpan="3">
+
+        <Border Grid.Row="2" Style="{DynamicResource BottomBarStyle}">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <wpfui:Button
-                    Padding="40,8"
+                <TextBlock
+                    x:Name="WarnText"
                     HorizontalAlignment="Center"
-                    Appearance="Transparent"
-                    Click="CancelButton_Click">
-                    Cancel
-                </wpfui:Button>
-                <wpfui:Button
-                    Grid.Column="1"
-                    Padding="40,8"
-                    HorizontalAlignment="Center"
-                    Click="SaveButton_Click">
-                    Save
-                </wpfui:Button>
+                    Foreground="{wpfui:ThemeResource SystemFillColorCriticalBrush}"
+                    Text="Atleast input Target Browser and Rules fields!"
+                    Visibility="Collapsed" />
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                    <wpfui:Button
+                        Grid.Column="1"
+                        MinWidth="120"
+                        Margin="0,0,8,0"
+                        HorizontalAlignment="Center"
+                        Appearance="Primary"
+                        Click="SaveButton_Click"
+                        Content="Save" />
+                    <wpfui:Button
+                        MinWidth="120"
+                        HorizontalAlignment="Center"
+                        Appearance="Transparent"
+                        Click="CancelButton_Click"
+                        Content="Cancel" />
+                </StackPanel>
             </Grid>
-        </wpfui:Card>
+        </Border>
     </Grid>
 </wpfui:FluentWindow>

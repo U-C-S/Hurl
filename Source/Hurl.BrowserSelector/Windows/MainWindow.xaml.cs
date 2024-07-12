@@ -5,7 +5,7 @@ using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
+using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 using Path = System.IO.Path;
 
@@ -21,26 +21,7 @@ public partial class MainWindow : FluentWindow
 
         InitializeComponent();
 
-        var osbuild = Environment.OSVersion.Version.Build;
-        var backtype = settings.AppSettings?.BackgroundType;
-
-        if (settings.AppSettings?.NoWhiteBorder == true) WindowBorder.BorderThickness = new Thickness(0);
-        if (osbuild < 22000) WindowBorder.CornerRadius = new CornerRadius(0);
-
-        if (backtype == "acrylic" && osbuild >= 22523)
-        {
-            WindowBackdropType = WindowBackdropType.Acrylic;
-        }
-        else if (backtype == "none" || osbuild < 22000)
-        {
-            WindowBackdropType = WindowBackdropType.None;
-            var brush = Color.FromRgb(150, 50, 50);
-            Background = new SolidColorBrush(brush);
-        }
-        else
-        {
-            WindowBackdropType = WindowBackdropType.Mica;
-        }
+        SystemThemeWatcher.Watch(this);
     }
 
     public void Init(CliArgs data)
@@ -230,5 +211,11 @@ public partial class MainWindow : FluentWindow
     {
         MinimizeWindow();
         Process.Start(Constants.SETTINGS_APP);
+    }
+
+    private void HideMainWindow(TitleBar sender, RoutedEventArgs args)
+    {
+        WindowState = WindowState.Minimized;
+        Hide();
     }
 }
