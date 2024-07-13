@@ -12,7 +12,6 @@
     d:DesignWidth="300"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <converters:AltLaunchParentConverter x:Key="AltLaunchParentConverter" />
         <ContextMenu
             x:Key="TheCM"
             x:Name="TheCM"
@@ -20,14 +19,7 @@
             <ContextMenu.ItemContainerStyle>
                 <Style TargetType="MenuItem">
                     <Setter Property="Header" Value="{Binding Path=ItemName}" />
-                    <Setter Property="Tag">
-                        <Setter.Value>
-                            <MultiBinding Converter="{StaticResource AltLaunchParentConverter}">
-                                <Binding />
-                                <Binding Path="DataContext" RelativeSource="{RelativeSource AncestorType=StackPanel}" />
-                            </MultiBinding>
-                        </Setter.Value>
-                    </Setter>
+                    <Setter Property="Tag" Value="{Binding}" />
                     <EventSetter Event="Click" Handler="MenuItem_Click" />
                 </Style>
             </ContextMenu.ItemContainerStyle>
@@ -42,6 +34,7 @@
             Appearance="Transparent"
             AutomationProperties.Name="{Binding Path=Name}"
             BorderBrush="Transparent"
+            Click="BrowserButton_Click"
             Cursor="Hand"
             GotFocus="Button_GotFocus"
             LostFocus="Button_LostFocus"
@@ -90,14 +83,7 @@
                         <ContextMenu.ItemContainerStyle>
                             <Style TargetType="MenuItem">
                                 <Setter Property="Header" Value="{Binding Path=ItemName}" />
-                                <Setter Property="Tag">
-                                    <Setter.Value>
-                                        <MultiBinding Converter="{StaticResource AltLaunchParentConverter}">
-                                            <Binding />
-                                            <Binding Path="DataContext" RelativeSource="{RelativeSource AncestorType=StackPanel}" />
-                                        </MultiBinding>
-                                    </Setter.Value>
-                                </Setter>
+                                <Setter Property="Tag" Value="{Binding}" />
                                 <EventSetter Event="Click" Handler="MenuItem_Click" />
                             </Style>
                         </ContextMenu.ItemContainerStyle>
