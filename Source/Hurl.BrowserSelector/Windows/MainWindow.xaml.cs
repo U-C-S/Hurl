@@ -1,3 +1,4 @@
+using Hurl.BrowserSelector.Controls;
 using Hurl.BrowserSelector.Globals;
 using Hurl.BrowserSelector.Helpers;
 using Hurl.Library;
@@ -41,6 +42,8 @@ public partial class MainWindow : FluentWindow
         {
             WindowBackdropType = WindowBackdropType.Mica;
         }
+
+        LoadBrowsers();
     }
 
     public void Init(CliArgs data)
@@ -70,6 +73,15 @@ public partial class MainWindow : FluentWindow
         }
 
         linkpreview.Content = string.IsNullOrEmpty(UriGlobal.Value) ? "No Url Opened" : UriGlobal.Value;
+    }
+
+    public void LoadBrowsers()
+    {
+        foreach (var browser in SettingsGlobal.Value.Browsers)
+        {
+            var browserBtn = new BrowserButton(browser);
+            BrowsersList.Children.Add(browserBtn);
+        }
     }
 
     async private void Window_KeyEvents(object sender, KeyEventArgs e)
