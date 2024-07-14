@@ -29,7 +29,7 @@ namespace Hurl.BrowserSelector.Controls
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             var alt = ((MenuItem)sender).Tag as AlternateLaunch;
-            OpenAltLaunch(alt, (Browser)DataContext);
+            UriLauncher.Alternative(UriGlobal.Value, (Browser)DataContext, alt);
             MinimizeWindow();
         }
 
@@ -47,38 +47,6 @@ namespace Hurl.BrowserSelector.Controls
             var parent = Window.GetWindow(this);
             parent.WindowState = WindowState.Minimized;
             parent.Hide();
-        }
-
-        public static void OpenAltLaunch(AlternateLaunch alt, Browser browser)
-        {
-            if (alt.LaunchArgs.Contains("%URL%"))
-            {
-                Process.Start(browser.ExePath, alt.LaunchArgs.Replace("%URL%", UriGlobal.Value));
-            }
-            else
-            {
-                Process.Start(browser.ExePath, UriGlobal.Value + " " + alt.LaunchArgs);
-            }
-        }
-
-        private void Button_MouseEnter(object sender, MouseEventArgs e)
-        {
-            AdditionalBtn.Visibility = Visibility.Visible;
-        }
-
-        private void Button_MouseLeave(object sender, MouseEventArgs e)
-        {
-            AdditionalBtn.Visibility = Visibility.Hidden;
-        }
-
-        private void Button_GotFocus(object sender, RoutedEventArgs e)
-        {
-            AdditionalBtn.Visibility = Visibility.Visible;
-        }
-
-        private void Button_LostFocus(object sender, RoutedEventArgs e)
-        {
-            AdditionalBtn.Visibility = Visibility.Hidden;
         }
     }
 }

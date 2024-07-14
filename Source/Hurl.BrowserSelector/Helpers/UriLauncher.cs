@@ -48,5 +48,19 @@ class UriLauncher
             Process.Start(browser.ExePath, args);
         }
     }
+
+    public static void Alternative(string uri, Browser browser, AlternateLaunch alt)
+    {
+        if (alt.LaunchArgs.Contains("%URL%"))
+        {
+            var args = alt.LaunchArgs.Replace("%URL%", uri);
+            Process.Start(browser.ExePath, args);
+        }
+        else
+        {
+            var args = uri + " " + alt.LaunchArgs;
+            Process.Start(browser.ExePath, args);
+        }
+    }
 }
 

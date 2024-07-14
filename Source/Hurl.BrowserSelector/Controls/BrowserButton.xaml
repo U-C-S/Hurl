@@ -36,10 +36,6 @@
             BorderBrush="Transparent"
             Click="BrowserButton_Click"
             Cursor="Hand"
-            GotFocus="Button_GotFocus"
-            LostFocus="Button_LostFocus"
-            MouseEnter="Button_MouseEnter"
-            MouseLeave="Button_MouseLeave"
             ToolTip="{Binding Path=Name}">
             <Grid x:Name="BrowserArea">
                 <Grid.RowDefinitions>
@@ -56,23 +52,16 @@
                     TextAlignment="Center"
                     TextWrapping="NoWrap" />
                 <Grid Grid.RowSpan="2" Visibility="{Binding ShowAdditionalBtn}">
-                    <TextBlock
-                        Margin="0,50,-18,0"
-                        HorizontalAlignment="Right"
-                        FontSize="18"
-                        Foreground="#33FFFFFF"
-                        Text="+" />
                     <wpfui:Button
                         x:Name="AdditionalBtn"
                         Margin="0,-15,-25,0"
-                        Padding="3,5"
+                        Padding="5"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Top"
-                        Background="#00000000"
-                        BorderBrush="#00000000"
-                        Click="AdditionalBtn_Click"
-                        Visibility="Hidden">
-                        <wpfui:SymbolIcon Symbol="MoreVertical24" />
+                        Appearance="Transparent"
+                        BorderBrush="Transparent"
+                        Click="AdditionalBtn_Click">
+                        <wpfui:SymbolIcon Symbol="MoreVertical28" />
                     </wpfui:Button>
                 </Grid>
                 <Grid.ContextMenu>
