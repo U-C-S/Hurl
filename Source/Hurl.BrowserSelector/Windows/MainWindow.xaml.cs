@@ -43,7 +43,8 @@ public partial class MainWindow : FluentWindow
             WindowBackdropType = WindowBackdropType.Mica;
         }
 
-        LoadBrowsers();
+
+        MainFrame.Navigate(new SelectPage());
     }
 
     public void Init(CliArgs data)
@@ -72,16 +73,6 @@ public partial class MainWindow : FluentWindow
             Show();
         }
 
-        linkpreview.Content = string.IsNullOrEmpty(UriGlobal.Value) ? "No Url Opened" : UriGlobal.Value;
-    }
-
-    public void LoadBrowsers()
-    {
-        foreach (var browser in SettingsGlobal.Value.Browsers)
-        {
-            var browserBtn = new BrowserButton(browser);
-            BrowsersList.Children.Add(browserBtn);
-        }
     }
 
     async private void Window_KeyEvents(object sender, KeyEventArgs e)
@@ -97,8 +88,8 @@ public partial class MainWindow : FluentWindow
                     if (!string.IsNullOrEmpty(NewUrl))
                     {
                         UriGlobal.Value = NewUrl;
-                        linkpreview.Content = NewUrl;
-                        linkpreview.ToolTip = NewUrl;
+                        //linkpreview.Content = NewUrl;
+                        //linkpreview.ToolTip = NewUrl;
                     }
 
                     break;
@@ -124,18 +115,6 @@ public partial class MainWindow : FluentWindow
                 break;
         }
 
-    }
-
-    private void LinkCopyBtnClick(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            Clipboard.SetText(UriGlobal.Value);
-        }
-        catch (Exception err)
-        {
-            System.Windows.MessageBox.Show(err.Message);
-        }
     }
 
     private void SettingsBtnClick(object sender, RoutedEventArgs e) => Process.Start("explorer", "\"" + Constants.APP_SETTINGS_MAIN + "\"");
@@ -223,20 +202,7 @@ public partial class MainWindow : FluentWindow
 
     private void Window_SizeChanged(object sender, SizeChangedEventArgs e) => SettingsGlobal.AdjustWindowSize(e);
 
-    async private void Linkpreview_Click(object sender, RoutedEventArgs e)
-    {
-        forcePreventWindowDeactivationEvent = true;
 
-        var NewUrl = await URLEditor.ShowInputAsync(this, UriGlobal.Value);
-        if (!string.IsNullOrEmpty(NewUrl))
-        {
-            UriGlobal.Value = NewUrl;
-            ((Button)sender).Content = NewUrl;
-            ((Button)sender).ToolTip = NewUrl;
-        }
-
-        forcePreventWindowDeactivationEvent = false;
-    }
 
     private void Button_Click_1(object sender, RoutedEventArgs e)
     {
