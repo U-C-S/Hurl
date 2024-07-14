@@ -1,11 +1,8 @@
-﻿using Hurl.BrowserSelector.Converters;
-using Hurl.BrowserSelector.Globals;
+﻿using Hurl.BrowserSelector.Globals;
 using Hurl.BrowserSelector.Helpers;
 using Hurl.Library.Models;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace Hurl.BrowserSelector.Controls
 {
