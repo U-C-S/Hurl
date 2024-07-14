@@ -42,11 +42,10 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Image Source="{Binding Path=GetIcon}" />
-                <TextBlock
+                <wpfui:TextBlock
                     Grid.Row="1"
                     Margin="0,8,0,0"
-                    FontSize="12"
-                    Foreground="AliceBlue"
+                    FontTypography="Caption"
                     Text="{Binding Path=Name}"
                     TextAlignment="Center"
                     TextWrapping="NoWrap" />
