@@ -1,4 +1,4 @@
-﻿<wpfui:FluentWindow
+<wpfui:FluentWindow
     x:Class="Hurl.BrowserSelector.Windows.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -9,9 +9,9 @@
     xmlns:vs="clr-namespace:Hurl.BrowserSelector.Controls"
     xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="Hurl - Select a Browser"
-    MinWidth="410"
-    MinHeight="220"
-    MaxWidth="560"
+    MinWidth="460"
+    MinHeight="230"
+    MaxWidth="640"
     MaxHeight="450"
     Deactivated="Window_Deactivated"
     ExtendsContentIntoTitleBar="True"
@@ -34,12 +34,11 @@
             </Grid.RowDefinitions>
 
             <Grid Margin="2,0" MouseLeftButtonDown="Draggable">
-                <TextBlock
+                <wpfui:TextBlock
                     Padding="10,0"
                     VerticalAlignment="Center"
                     Panel.ZIndex="-1"
                     FontSize="16"
-                    Foreground="AliceBlue"
                     Text="Select a Browser" />
 
                 <StackPanel
