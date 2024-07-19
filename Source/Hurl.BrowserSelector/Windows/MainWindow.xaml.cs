@@ -196,9 +196,11 @@ public partial class MainWindow : FluentWindow
 
     private void Button_Click(object sender, RoutedEventArgs e)
     {
-        forcePreventWindowDeactivationEvent = true;
-        new TimeSelectWindow(SettingsGlobal.Value.Browsers).ShowDialog();
-        forcePreventWindowDeactivationEvent = false;
+        //forcePreventWindowDeactivationEvent = true;
+        //new TimeSelectWindow(SettingsGlobal.Value.Browsers).ShowDialog();
+        //forcePreventWindowDeactivationEvent = false;
+
+        MainFrame.Navigate(new TimedDefaultPage());
     }
 
     private void Window_SizeChanged(object sender, SizeChangedEventArgs e) => SettingsGlobal.AdjustWindowSize(e);
