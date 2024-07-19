@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Wpf.Ui.Controls;
 using Path = System.IO.Path;
+using Hurl.BrowserSelector.Pages;
 
 namespace Hurl.BrowserSelector.Windows;
 

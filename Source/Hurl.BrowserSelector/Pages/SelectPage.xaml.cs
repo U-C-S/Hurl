@@ -14,8 +14,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Hurl.BrowserSelector.Windows;
 
-namespace Hurl.BrowserSelector.Windows
+namespace Hurl.BrowserSelector.Pages
 {
     /// <summary>
     /// Interaction logic for SelectPage.xaml
