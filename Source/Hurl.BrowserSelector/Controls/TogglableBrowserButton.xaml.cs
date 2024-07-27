@@ -1,8 +1,11 @@
 ﻿using Hurl.BrowserSelector.Globals;
 using Hurl.BrowserSelector.Helpers;
 using Hurl.Library.Models;
+using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 
 namespace Hurl.BrowserSelector.Controls
 {
@@ -11,23 +14,42 @@ namespace Hurl.BrowserSelector.Controls
     /// </summary>
     public partial class TogglableBrowserButton : UserControl
     {
-        public TogglableBrowserButton(Browser browser)
+        public int BrowserIndex { get; }
+
+        public Browser Browser { get; }
+
+        public bool? IsChecked
         {
-            InitializeComponent();
-            DataContext = browser;
+            get => ToggleBtn.IsChecked;
+            set
+            {
+                ToggleBtn.IsChecked = value;
+            }
         }
 
-        //private void BrowserButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    UriLauncher.Default(UriGlobal.Value, (Browser)DataContext);
-        //    MinimizeWindow();
-        //}
+        private readonly Action<int, bool> _clickCallback;
+
+        public TogglableBrowserButton(Browser browser, int index, Action<int, bool> clickCallback)
+        {
+            Browser = browser;
+            BrowserIndex = index;
+            _clickCallback = clickCallback;
+
+            InitializeComponent();
+            DataContext = this;
+        }
+
+        private void BrowserButton_Click(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine(IsChecked);
+            _clickCallback(BrowserIndex, IsChecked ?? false);
+        }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             var alt = ((MenuItem)sender).Tag as AlternateLaunch;
-            UriLauncher.Alternative(UriGlobal.Value, (Browser)DataContext, alt);
-            MinimizeWindow();
+            //UriLauncher.Alternative(UriGlobal.Value, (Browser)DataContext, alt);
+            _clickCallback(BrowserIndex, IsChecked ?? false);
         }
 
         private void AdditionalBtn_Click(object sender, RoutedEventArgs e)
@@ -37,13 +59,6 @@ namespace Hurl.BrowserSelector.Controls
             x.PlacementTarget = btn;
             x.IsOpen = true;
             e.Handled = true;
-        }
-
-        private void MinimizeWindow()
-        {
-            var parent = Window.GetWindow(this);
-            parent.WindowState = WindowState.Minimized;
-            parent.Hide();
         }
     }
 }

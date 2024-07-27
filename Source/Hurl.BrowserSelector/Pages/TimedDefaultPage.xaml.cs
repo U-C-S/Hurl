@@ -1,6 +1,7 @@
 ﻿using Hurl.BrowserSelector.Controls;
 using Hurl.BrowserSelector.Globals;
 using Hurl.BrowserSelector.Helpers;
+using Hurl.BrowserSelector.Pages.ViewModels;
 using Hurl.Library.Models;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -27,27 +29,42 @@ namespace Hurl.BrowserSelector.Pages
         public TimedDefaultPage()
         {
             InitializeComponent();
+            DataContext = new TimedDefaultViewModel();
 
             LoadBrowsers();
         }
 
         public void LoadBrowsers()
         {
-            foreach (var browser in SettingsGlobal.Value.Browsers)
+            foreach (var (browser, i) in (DataContext as TimedDefaultViewModel).Browsers)
             {
-                var browserBtn = new TogglableBrowserButton(browser);
+                var browserBtn = new TogglableBrowserButton(browser, i, ChangeSelectedItem);
                 BrowsersList.Children.Add(browserBtn);
             }
         }
 
-        private void SetBtn_Click(object sender, System.Windows.RoutedEventArgs e)
+        public int? CurrentSelectedIndex { get; set; }
+
+        public void ChangeSelectedItem(int index, bool isChecked)
+        {
+            int? prev = CurrentSelectedIndex;
+            CurrentSelectedIndex = isChecked ? index : null;
+
+            var browserList = BrowsersList.Children;
+
+            if (prev is int prevInt)
+                (browserList[prevInt] as TogglableBrowserButton)!.IsChecked = false;
+
+            if (CurrentSelectedIndex is int i)
+                (browserList[i] as TogglableBrowserButton)!.IsChecked = isChecked;
+        }
+
+        private void SetBtn_Click(object sender, RoutedEventArgs e)
         {
             var x = TimeBox.Value;
-            var y = 0;
-
-            if (y != -1)
+            if (CurrentSelectedIndex is int i)
             {
-                //TimedBrowserSelect.Create((int)x, browsers[y]);
+                TimedBrowserSelect.Create((int)x, SettingsGlobal.Value.Browsers[i]);
             }
         }
     }

@@ -14,7 +14,7 @@
         <ContextMenu
             x:Key="TheCM"
             x:Name="TheCM"
-            ItemsSource="{Binding Path=AlternateLaunches}">
+            ItemsSource="{Binding Browser.AlternateLaunches}">
             <ContextMenu.ItemContainerStyle>
                 <Style TargetType="MenuItem">
                     <Setter Property="Header" Value="{Binding Path=ItemName}" />
@@ -26,28 +26,30 @@
     </UserControl.Resources>
     <Grid>
         <ToggleButton
+            x:Name="ToggleBtn"
             Width="120"
             Height="120"
             Margin="4"
             Padding="5,10,5,10"
-            AutomationProperties.Name="{Binding Path=Name}"
+            AutomationProperties.Name="{Binding Browser.Name}"
             BorderBrush="Transparent"
+            Click="BrowserButton_Click"
             Cursor="Hand"
-            ToolTip="{Binding Path=Name}">
+            ToolTip="{Binding Browser.Name}">
             <Grid x:Name="BrowserArea">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="64" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Image Source="{Binding Path=GetIcon}" />
+                <Image Source="{Binding Browser.GetIcon}" />
                 <wpfui:TextBlock
                     Grid.Row="1"
                     Margin="0,8,0,0"
                     FontTypography="Caption"
-                    Text="{Binding Path=Name}"
+                    Text="{Binding Browser.Name}"
                     TextAlignment="Center"
                     TextWrapping="NoWrap" />
-                <Grid Grid.RowSpan="2" Visibility="{Binding ShowAdditionalBtn}">
+                <Grid Grid.RowSpan="2" Visibility="{Binding Browser.ShowAdditionalBtn}">
                     <wpfui:Button
                         x:Name="AdditionalBtn"
                         Margin="0,-15,-25,0"
@@ -63,8 +65,8 @@
                 <Grid.ContextMenu>
                     <ContextMenu
                         x:Name="MainContextMenu"
-                        ItemsSource="{Binding Path=AlternateLaunches}"
-                        Visibility="{Binding ShowAdditionalBtn}">
+                        ItemsSource="{Binding Browser.AlternateLaunches}"
+                        Visibility="{Binding Browser.ShowAdditionalBtn}">
                         <ContextMenu.ItemContainerStyle>
                             <Style TargetType="MenuItem">
                                 <Setter Property="Header" Value="{Binding Path=ItemName}" />
