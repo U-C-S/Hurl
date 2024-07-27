@@ -10,6 +10,7 @@ using System.Windows.Media;
 using Wpf.Ui.Controls;
 using Path = System.IO.Path;
 using Hurl.BrowserSelector.Pages;
+using Hurl.BrowserSelector.Helpers.Interfaces;
 
 namespace Hurl.BrowserSelector.Windows;
 
@@ -45,7 +46,7 @@ public partial class MainWindow : FluentWindow
         }
 
 
-        MainFrame.Navigate(new SelectPage());
+        NavigateToNewPage(new SelectPage());
     }
 
     public void Init(CliArgs data)
@@ -137,9 +138,7 @@ public partial class MainWindow : FluentWindow
 
     private void TrayMenuItem_OnClick(object sender, RoutedEventArgs e)
     {
-        _ = SettingsGlobal.Value;
-
-        string tag = ((MenuItem)sender).Tag as string;
+        string tag = ((Wpf.Ui.Controls.MenuItem)sender).Tag as string;
         try
         {
             switch (tag)
@@ -182,7 +181,6 @@ public partial class MainWindow : FluentWindow
     private void PositionWindowUnderTheMouse()
     {
         var settings = SettingsGlobal.Value;
-
         if (settings.AppSettings != null && settings.AppSettings.LaunchUnderMouse)
         {
             var transform = PresentationSource.FromVisual(this).CompositionTarget.TransformFromDevice;
@@ -190,26 +188,28 @@ public partial class MainWindow : FluentWindow
             Left = mouse.X;
             Top = mouse.Y;
 
-            Debug.WriteLine($"{Left}×{Top} with screen resolution: {SystemParameters.FullPrimaryScreenWidth}×{SystemParameters.FullPrimaryScreenHeight}");
+            Debug.WriteLine($"{Left}ï¿½{Top} with screen resolution: {SystemParameters.FullPrimaryScreenWidth}ï¿½{SystemParameters.FullPrimaryScreenHeight}");
         }
     }
 
     private void Button_Click(object sender, RoutedEventArgs e)
     {
-        //forcePreventWindowDeactivationEvent = true;
-        //new TimeSelectWindow(SettingsGlobal.Value.Browsers).ShowDialog();
-        //forcePreventWindowDeactivationEvent = false;
-
-        MainFrame.Navigate(new TimedDefaultPage());
+        var page = new TimedDefaultPage();
+        NavigateToNewPage(page);
     }
 
     private void Window_SizeChanged(object sender, SizeChangedEventArgs e) => SettingsGlobal.AdjustWindowSize(e);
-
-
 
     private void Button_Click_1(object sender, RoutedEventArgs e)
     {
         MinimizeWindow();
         Process.Start(Constants.SETTINGS_APP);
     }
+
+    public void NavigateToNewPage<T>(T config) where T: Page, IHurlPage
+    {
+        HeaderText.Text = config.HeaderTitle;
+        MainFrame.Navigate(config);
+    }
+}
 }

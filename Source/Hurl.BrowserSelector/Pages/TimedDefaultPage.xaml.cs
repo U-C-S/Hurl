@@ -1,6 +1,7 @@
 ﻿using Hurl.BrowserSelector.Controls;
 using Hurl.BrowserSelector.Globals;
 using Hurl.BrowserSelector.Helpers;
+using Hurl.BrowserSelector.Helpers.Interfaces;
 using Hurl.BrowserSelector.Pages.ViewModels;
 using Hurl.Library.Models;
 using System;
@@ -24,8 +25,12 @@ namespace Hurl.BrowserSelector.Pages
     /// <summary>
     /// Interaction logic for TimedDefaultPage.xaml
     /// </summary>
-    public partial class TimedDefaultPage : Page
+    public partial class TimedDefaultPage : Page, IHurlPage
     {
+        public string HeaderTitle => "Choose a default browser";
+
+        public bool IsBackButtonVisible => true;
+
         public TimedDefaultPage()
         {
             InitializeComponent();
@@ -36,7 +41,7 @@ namespace Hurl.BrowserSelector.Pages
 
         public void LoadBrowsers()
         {
-            foreach (var (browser, i) in (DataContext as TimedDefaultViewModel).Browsers)
+            foreach (var (browser, i) in (DataContext as TimedDefaultViewModel)!.Browsers)
             {
                 var browserBtn = new TogglableBrowserButton(browser, i, ChangeSelectedItem);
                 BrowsersList.Children.Add(browserBtn);
@@ -61,10 +66,10 @@ namespace Hurl.BrowserSelector.Pages
 
         private void SetBtn_Click(object sender, RoutedEventArgs e)
         {
-            var x = TimeBox.Value;
+            var time = TimeBox.Value;
             if (CurrentSelectedIndex is int i)
             {
-                TimedBrowserSelect.Create((int)x, SettingsGlobal.Value.Browsers[i]);
+                TimedBrowserSelect.Create((int)time!, SettingsGlobal.Value.Browsers[i]);
             }
         }
     }

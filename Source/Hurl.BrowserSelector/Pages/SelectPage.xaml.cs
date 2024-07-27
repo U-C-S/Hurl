@@ -15,14 +15,19 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Hurl.BrowserSelector.Windows;
+using Hurl.BrowserSelector.Helpers.Interfaces;
 
 namespace Hurl.BrowserSelector.Pages
 {
     /// <summary>
     /// Interaction logic for SelectPage.xaml
     /// </summary>
-    public partial class SelectPage : Page
+    public partial class SelectPage : Page, IHurlPage
     {
+        public string HeaderTitle => "Select a Browser";
+
+        public bool IsBackButtonVisible => true;
+
         private bool forcePreventWindowDeactivationEvent = false;
 
         public SelectPage()

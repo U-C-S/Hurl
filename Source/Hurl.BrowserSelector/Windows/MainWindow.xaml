@@ -1,4 +1,4 @@
-﻿<wpfui:FluentWindow
+<wpfui:FluentWindow
     x:Class="Hurl.BrowserSelector.Windows.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -33,12 +33,12 @@
             </Grid.RowDefinitions>
 
             <Grid Margin="2,0" MouseLeftButtonDown="Draggable">
-                <wpfui:TextBlock
-                    Padding="10,0"
-                    VerticalAlignment="Center"
-                    Panel.ZIndex="-1"
-                    FontSize="16"
-                    Text="Select a Browser" />
+                    <wpfui:TextBlock
+                        x:Name="HeaderText"
+                        VerticalAlignment="Center"
+                        Panel.ZIndex="-1"
+                        FontSize="16"
+                        Text="Select a Browser" />
 
                 <StackPanel
                     HorizontalAlignment="Right"
