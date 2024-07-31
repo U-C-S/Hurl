@@ -14,7 +14,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
-            <RowDefinition Height="60" />
+            <RowDefinition Height="50" />
         </Grid.RowDefinitions>
         <WrapPanel
             x:Name="BrowsersList"

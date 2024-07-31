@@ -35,18 +35,18 @@
             BorderBrush="Transparent"
             Click="BrowserButton_Click"
             Cursor="Hand"
-            ToolTip="{Binding Path=Name}">
+            ToolTip="{Binding Name}">
             <Grid x:Name="BrowserArea">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="72" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Image Source="{Binding Path=GetIcon}" />
+                <Image Source="{Binding GetIcon}" />
                 <wpfui:TextBlock
                     Grid.Row="1"
                     Margin="0,8,0,0"
                     FontTypography="Caption"
-                    Text="{Binding Path=Name}"
+                    Text="{Binding Name}"
                     TextAlignment="Center"
                     TextWrapping="NoWrap" />
                 <Grid Grid.RowSpan="2" Visibility="{Binding ShowAdditionalBtn}">
