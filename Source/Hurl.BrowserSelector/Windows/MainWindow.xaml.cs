@@ -11,6 +11,8 @@ using Wpf.Ui.Controls;
 using Path = System.IO.Path;
 using Hurl.BrowserSelector.Pages;
 using Hurl.BrowserSelector.Helpers.Interfaces;
+using System.Windows.Controls;
+using Wpf.Ui.Extensions;
 
 namespace Hurl.BrowserSelector.Windows;
 
@@ -46,7 +48,7 @@ public partial class MainWindow : FluentWindow
         }
 
 
-        NavigateToNewPage(new SelectPage());
+        NavigateToPage(new SelectPage());
     }
 
     public void Init(CliArgs data)
@@ -194,8 +196,7 @@ public partial class MainWindow : FluentWindow
 
     private void Button_Click(object sender, RoutedEventArgs e)
     {
-        var page = new TimedDefaultPage();
-        NavigateToNewPage(page);
+        NavigateToPage(new TimedDefaultPage());
     }
 
     private void Window_SizeChanged(object sender, SizeChangedEventArgs e) => SettingsGlobal.AdjustWindowSize(e);
@@ -206,10 +207,18 @@ public partial class MainWindow : FluentWindow
         Process.Start(Constants.SETTINGS_APP);
     }
 
-    public void NavigateToNewPage<T>(T config) where T: Page, IHurlPage
+    public void NavigateToPage<T>(T config) where T : Page, IHurlPage
     {
         HeaderText.Text = config.HeaderTitle;
         MainFrame.Navigate(config);
+        MainFrame.CleanNavigation();
+
+        NavBackButton.Visibility = config.IsBackButtonVisible ? Visibility.Visible : Visibility.Collapsed;
     }
-}
+
+    private void NavBackButton_Click(object sender, RoutedEventArgs e)
+    {
+        NavigateToPage(new SelectPage());
+    }
+
 }

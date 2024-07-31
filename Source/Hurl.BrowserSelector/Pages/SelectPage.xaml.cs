@@ -1,4 +1,4 @@
-﻿using Hurl.BrowserSelector.Controls;
+using Hurl.BrowserSelector.Controls;
 using Hurl.BrowserSelector.Globals;
 using System;
 using System.Collections.Generic;
@@ -26,7 +26,7 @@ namespace Hurl.BrowserSelector.Pages
     {
         public string HeaderTitle => "Select a Browser";
 
-        public bool IsBackButtonVisible => true;
+        public bool IsBackButtonVisible => false;
 
         private bool forcePreventWindowDeactivationEvent = false;
 
