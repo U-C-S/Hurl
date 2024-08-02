@@ -8,16 +8,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
     mc:Ignorable="d">
-
     <Grid>
         <toolkit:SettingsCard>
             <toolkit:SettingsCard.Header>
                 <StackPanel Orientation="Horizontal">
-                    <ComboBox x:Name="RuleTypeControl" SelectedIndex="2">
-                        <ComboBoxItem>Regex</ComboBoxItem>
-                        <ComboBoxItem>Glob</ComboBoxItem>
-                        <ComboBoxItem>String</ComboBoxItem>
-                    </ComboBox>
+                    <ComboBox x:Name="RuleTypeControl" SelectedIndex="0" />
                     <TextBox
                         x:Name="RuleValueControl"
                         Width="250"
