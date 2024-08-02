@@ -1,4 +1,4 @@
-using Hurl.BrowserSelector.Controls;
+﻿using Hurl.BrowserSelector.Controls;
 using Hurl.BrowserSelector.Globals;
 using System;
 using System.Collections.Generic;
@@ -24,6 +24,7 @@ namespace Hurl.BrowserSelector.Pages
     /// </summary>
     public partial class SelectPage : Page, IHurlPage
     {
+        // use decorators instead of properties
         public string HeaderTitle => "Select a Browser";
 
         public bool IsBackButtonVisible => false;
