@@ -4,6 +4,8 @@ namespace Hurl.Library.Models;
 
 public class Ruleset
 {
+    public int Id { get; set; }
+
     public List<string> Rules { get; set; }
 
     public string RulesetName { get; set; }
