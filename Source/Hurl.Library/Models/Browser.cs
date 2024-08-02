@@ -20,7 +20,7 @@ public class Browser
 
     public string LaunchArgs { get; set; }
 
-    public AlternateLaunch[] AlternateLaunches { get; set; }
+    public List<AlternateLaunch> AlternateLaunches { get; set; }
 
     public string CustomIconPath { get; set; }
 
@@ -57,7 +57,7 @@ public class Browser
     {
         get
         {
-            return AlternateLaunches == null || AlternateLaunches.Length == 0 ? Visibility.Hidden : Visibility.Visible;
+            return AlternateLaunches == null || AlternateLaunches.Count == 0 ? Visibility.Hidden : Visibility.Visible;
         }
     }
 }

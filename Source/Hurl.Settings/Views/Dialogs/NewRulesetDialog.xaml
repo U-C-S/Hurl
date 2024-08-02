@@ -7,16 +7,18 @@
     xmlns:local="using:Hurl.Settings.Views.Dialogs"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
+    xmlns:viewmodels="using:Hurl.Settings.ViewModels"
     mc:Ignorable="d">
 
     <ScrollViewer>
-        <StackPanel>
+        <StackPanel Width="496">
             <toolkit:SettingsCard Header="Ruleset Title">
                 <StackPanel Orientation="Horizontal">
                     <TextBox
                         x:Name="RuleNameInput"
                         Width="180"
-                        PlaceholderText="Title" />
+                        PlaceholderText="Title"
+                        Text="{x:Bind viewModel.Name, Mode=TwoWay}" />
                 </StackPanel>
             </toolkit:SettingsCard>
             <toolkit:SettingsExpander
@@ -29,8 +31,10 @@
                             x:Name="TargetBrowser"
                             Grid.Row="1"
                             Grid.Column="1"
+                            SelectionChanged="TargetBrowser_SelectionChanged"
                             Width="150"
-                            ItemsSource="{x:Bind AllBrowsers}" />
+                            ItemsSource="{x:Bind viewModel.Browsers}"
+                            SelectedIndex="{x:Bind viewModel.SelectedBrowser, Mode=TwoWay}" />
                     </toolkit:SettingsCard>
 
                     <toolkit:SettingsCard Header="Alternate Launch">
@@ -39,7 +43,8 @@
                             Grid.Row="2"
                             Grid.Column="1"
                             Width="150"
-                            ItemsSource="{x:Bind AltLaunches}" />
+                            ItemsSource="{x:Bind viewModel.AltLaunches, Mode=TwoWay}"
+                            SelectedIndex="{x:Bind viewModel.SelectedAltLaunch, Mode=TwoWay}" />
                     </toolkit:SettingsCard>
                 </toolkit:SettingsExpander.Items>
             </toolkit:SettingsExpander>

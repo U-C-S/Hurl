@@ -14,6 +14,7 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using Hurl.Settings.ViewModels;
 using Hurl.Settings.Views.Dialogs;
+using Hurl.Library.Models;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -35,32 +36,50 @@ namespace Hurl.Settings.Views
             this.InitializeComponent();
         }
 
-
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            ContentDialog createNewRulesetDialog = new ContentDialog
+            NewRulesetDialog NewRulesetDialogContent = new();
+            ContentDialog createNewRulesetDialog = new()
             {
                 XamlRoot = this.XamlRoot,
                 Title = "Create new ruleset",
-                Content = "Enter a name for your new ruleset:",
+                Content = NewRulesetDialogContent,
                 CloseButtonText = "Cancel",
                 PrimaryButtonText = "Create",
                 DefaultButton = ContentDialogButton.Primary,
             };
-            createNewRulesetDialog.Content = new NewRulesetDialog();
 
             var result = await createNewRulesetDialog.ShowAsync();
             if (result == ContentDialogResult.Primary)
             {
-                var x = ((NewRulesetDialog)createNewRulesetDialog.Content).Generate();
+                var x = NewRulesetDialogContent.Generate();
 
                 State.Settings.AddRuleset(x);
             }
         }
 
-        private void ClickEditRuleset(object sender, RoutedEventArgs e)
+        private async void ClickEditRuleset(object sender, RoutedEventArgs e)
         {
-            //(this.DataContext as RulesetViewModel).lol();
+            var ruleset = (sender as MenuFlyoutItem)!.DataContext as Ruleset;
+            var ViewModel = new StoreRulesetViewModel(ruleset);
+            NewRulesetDialog NewRulesetDialogContent = new(ViewModel);
+            ContentDialog createNewRulesetDialog = new()
+            {
+                XamlRoot = this.XamlRoot,
+                Title = $"Edit ruleset {ruleset.RulesetName}",
+                Content = NewRulesetDialogContent,
+                CloseButtonText = "Cancel",
+                PrimaryButtonText = "Save",
+                DefaultButton = ContentDialogButton.Primary,
+            };
+
+            var result = await createNewRulesetDialog.ShowAsync();
+            if (result == ContentDialogResult.Primary)
+            {
+                var x = NewRulesetDialogContent.Generate();
+
+                State.Settings.AddRuleset(x);
+            }
         }
 
         private void ClickMoveUpRuleset(object sender, RoutedEventArgs e)
