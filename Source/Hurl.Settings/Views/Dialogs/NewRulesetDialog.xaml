@@ -10,7 +10,15 @@
     mc:Ignorable="d">
 
     <ScrollViewer>
-        <StackPanel MinWidth="497">
+        <StackPanel>
+            <toolkit:SettingsCard Header="Ruleset Title">
+                <StackPanel Orientation="Horizontal">
+                    <TextBox
+                        x:Name="RuleNameInput"
+                        Width="180"
+                        PlaceholderText="Title" />
+                </StackPanel>
+            </toolkit:SettingsCard>
             <toolkit:SettingsExpander
                 Description="Customize the browser launch options if a rule matches"
                 Header="Ruleset Options"

@@ -74,6 +74,7 @@ namespace Hurl.Settings.Views.Dialogs
 
             Ruleset obj = new()
             {
+                RulesetName = RuleNameInput.Text,
                 BrowserName = TargetBrowser.SelectedValue.ToString(),
                 AltLaunchIndex = AltLaunchIndex,
                 Rules = rules
