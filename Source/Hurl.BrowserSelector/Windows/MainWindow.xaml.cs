@@ -64,12 +64,7 @@ public partial class MainWindow : FluentWindow
         }
         else
         {
-            PositionWindowUnderTheMouse();
-            if (data.IsSecondInstance)
-            {
-                WindowState = WindowState.Normal;
-            }
-            Show();
+            ShowWindow();
         }
 
         linkpreview.Content = string.IsNullOrEmpty(UriGlobal.Value) ? "No Url Opened" : UriGlobal.Value;
