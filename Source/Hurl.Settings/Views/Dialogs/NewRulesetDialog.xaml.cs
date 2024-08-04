@@ -3,8 +3,9 @@ using Hurl.Settings.Controls;
 using Hurl.Settings.ViewModels;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using System.Collections.Generic;
+using System;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Hurl.Settings.Views.Dialogs;
 
@@ -24,6 +25,7 @@ public sealed partial class NewRulesetDialog : Page
         this.InitializeComponent();
 
         viewModel = vm;
+        vm.Rules.ForEach(rule => RulesStack.Children.Add(new NewRuleCard(rule)));
     }
 
     private void Button_Click(object sender, RoutedEventArgs e)
@@ -31,20 +33,23 @@ public sealed partial class NewRulesetDialog : Page
         RulesStack.Children.Add(new NewRuleCard());
     }
 
+    private void DeleteRule(int index)
+    {
+        RulesStack.Children.RemoveAt(index);
+    }
+
     public Ruleset Generate()
     {
         var rulesControls = RulesStack.Children.Cast<NewRuleCard>();
-        List<string> rules = new();
+        var rules = new List<Rule>();
 
         foreach (NewRuleCard ruleControl in rulesControls)
         {
-            string rule = ruleControl.ConstructRule();
-            if (!string.IsNullOrEmpty(rule))
-            {
+            var rule = ruleControl.ConstructRule();
+            if (rule != null)
                 rules.Add(rule);
-            }
         }
-
+        viewModel.Rules = rules;
         return viewModel.ToRuleSet();
     }
 

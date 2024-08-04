@@ -31,10 +31,10 @@
                             x:Name="TargetBrowser"
                             Grid.Row="1"
                             Grid.Column="1"
-                            SelectionChanged="TargetBrowser_SelectionChanged"
                             Width="150"
                             ItemsSource="{x:Bind viewModel.Browsers}"
-                            SelectedIndex="{x:Bind viewModel.SelectedBrowser, Mode=TwoWay}" />
+                            SelectedIndex="{x:Bind viewModel.SelectedBrowser, Mode=TwoWay}"
+                            SelectionChanged="TargetBrowser_SelectionChanged" />
                     </toolkit:SettingsCard>
 
                     <toolkit:SettingsCard Header="Alternate Launch">

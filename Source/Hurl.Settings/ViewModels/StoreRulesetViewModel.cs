@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Hurl.Library.Models;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Hurl.Settings.ViewModels;
@@ -10,12 +9,11 @@ public class StoreRulesetViewModel : ObservableObject
 {
     public List<string> Browsers { get; set; }
 
-    public ObservableCollection<string> AltLaunches { get; set; } = ["< None >"];
+    public List<string> AltLaunches { get; set; } = ["< None >"];
 
     public string? Name { get; set; }
 
     public List<Rule> Rules { get; set; }
-
 
     public StoreRulesetViewModel()
     {
@@ -46,7 +44,7 @@ public class StoreRulesetViewModel : ObservableObject
                 .Select(x => x.ItemName)
                 .ToList();
             altLaunchList.AddRange(x);
-            AltLaunches = new ObservableCollection<string>(altLaunchList);
+            AltLaunches = altLaunchList;
             SelectedAltLaunch = altLaunchIndex + 1;
         }
     }
@@ -84,7 +82,7 @@ public class StoreRulesetViewModel : ObservableObject
                 .Select(x => x.ItemName)
                 .ToList();
             altLaunchList.AddRange(x);
-            AltLaunches = new ObservableCollection<string>(altLaunchList);
+            AltLaunches = altLaunchList;
         }
         else
         {
