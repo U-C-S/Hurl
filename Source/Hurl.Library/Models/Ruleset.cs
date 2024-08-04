@@ -19,9 +19,9 @@ public class Ruleset
 public enum RuleMode
 {
     Domain,
-    String,
+    Glob,
     Regex,
-    Glob
+    String,
 }
 
 public class Rule
