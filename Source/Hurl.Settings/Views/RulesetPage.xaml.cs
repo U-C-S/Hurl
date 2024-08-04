@@ -36,7 +36,23 @@ namespace Hurl.Settings.Views
             this.InitializeComponent();
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private async void TestButton_Click(object sender, RoutedEventArgs e)
+        {
+            TestRules TestRulesDialogContent = new();
+            ContentDialog testRulesDialog = new()
+            {
+                XamlRoot = this.XamlRoot,
+                Title = "Test rules",
+                Content = TestRulesDialogContent,
+                CloseButtonText = "Cancel",
+                PrimaryButtonText = "Test",
+                DefaultButton = ContentDialogButton.Primary,
+            };
+
+            var result = await testRulesDialog.ShowAsync();
+        }
+
+            private async void Button_Click(object sender, RoutedEventArgs e)
         {
             NewRulesetDialog NewRulesetDialogContent = new();
             ContentDialog createNewRulesetDialog = new()

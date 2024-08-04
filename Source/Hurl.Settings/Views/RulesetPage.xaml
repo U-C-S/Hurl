@@ -22,12 +22,21 @@
                 <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="The following rulesets are checked in order when a link is clicked" />
             </StackPanel>
 
-            <Button
-                Grid.Column="1"
-                Click="Button_Click"
-                Style="{StaticResource AccentButtonStyle}">
-                Create
-            </Button>
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <Button
+                    Width="70"
+                    Click="TestButton_Click"
+                    Style="{StaticResource AccentButtonStyle}">
+                    Test
+                </Button>
+                <Button
+                    Width="70"
+                    Margin="10,0"
+                    Click="Button_Click"
+                    Style="{StaticResource AccentButtonStyle}">
+                    Create
+                </Button>
+            </StackPanel>
         </Grid>
 
         <StackPanel Margin="0,10,10,0">

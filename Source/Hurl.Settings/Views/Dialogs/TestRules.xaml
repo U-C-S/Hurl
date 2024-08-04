@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="Hurl.Settings.Views.Dialogs.TestRules"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Hurl.Settings.Views.Dialogs"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
+    mc:Ignorable="d">
+
+    <ScrollViewer>
+        <StackPanel Width="496" Height="410">
+            <toolkit:SettingsCard Padding="12" Header="Enter a URI to test">
+                <TextBox
+                    x:Name="_UriInput"
+                    Margin="0,12,0,0"
+                    HorizontalAlignment="Stretch" />
+            </toolkit:SettingsCard>
+
+            <toolkit:SettingsCard Header="Test against Existing Rules">
+                <Button x:Name="_TestExistingButton" Click="TestExistingButton_Click">
+                    Test
+                </Button>
+            </toolkit:SettingsCard>
+            <toolkit:SettingsExpander
+                Padding="12"
+                Description="Test the above URI with a custom rule"
+                Header="Custom Rule Testing"
+                IsExpanded="True">
+                <toolkit:SettingsExpander.Items>
+                    <toolkit:SettingsCard Header="Rule Type">
+                        <ComboBox
+                            x:Name="_RuleTypeInput"
+                            Width="120"
+                            MinWidth="120"
+                            Padding="12,6"
+                            HorizontalAlignment="Right">
+                            <ComboBoxItem Content="Regex" />
+                            <ComboBoxItem Content="Glob" />
+                            <ComboBoxItem Content="Domain" />
+                            <ComboBoxItem Content="String" />
+                        </ComboBox>
+                    </toolkit:SettingsCard>
+
+                    <toolkit:SettingsCard Header="Rule">
+                        <TextBox
+                            x:Name="_RuleInput"
+                            Margin="24,0,0,0"
+                            HorizontalAlignment="Stretch"
+                            AcceptsReturn="True" />
+                    </toolkit:SettingsCard>
+                </toolkit:SettingsExpander.Items>
+
+                <Button Click="TestRuleButton_Click">
+                    Test
+                </Button>
+            </toolkit:SettingsExpander>
+
+            <StackPanel x:Name="_outputCard" />
+        </StackPanel>
+    </ScrollViewer>
+</Page>
