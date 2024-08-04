@@ -9,6 +9,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Wpf.Ui.Controls;
 using Path = System.IO.Path;
+using Hurl.BrowserSelector.Pages;
+using Hurl.BrowserSelector.Helpers.Interfaces;
+using System.Windows.Controls;
+using Wpf.Ui.Extensions;
 
 namespace Hurl.BrowserSelector.Windows;
 
@@ -43,7 +47,8 @@ public partial class MainWindow : FluentWindow
             WindowBackdropType = WindowBackdropType.Mica;
         }
 
-        LoadBrowsers();
+
+        NavigateToPage(new SelectPage());
     }
 
     public void Init(CliArgs data)
@@ -67,16 +72,6 @@ public partial class MainWindow : FluentWindow
             ShowWindow();
         }
 
-        linkpreview.Content = string.IsNullOrEmpty(UriGlobal.Value) ? "No Url Opened" : UriGlobal.Value;
-    }
-
-    public void LoadBrowsers()
-    {
-        foreach (var browser in SettingsGlobal.Value.Browsers)
-        {
-            var browserBtn = new BrowserButton(browser);
-            BrowsersList.Children.Add(browserBtn);
-        }
     }
 
     async private void Window_KeyEvents(object sender, KeyEventArgs e)
@@ -92,8 +87,8 @@ public partial class MainWindow : FluentWindow
                     if (!string.IsNullOrEmpty(NewUrl))
                     {
                         UriGlobal.Value = NewUrl;
-                        linkpreview.Content = NewUrl;
-                        linkpreview.ToolTip = NewUrl;
+                        //linkpreview.Content = NewUrl;
+                        //linkpreview.ToolTip = NewUrl;
                     }
 
                     break;
@@ -121,18 +116,6 @@ public partial class MainWindow : FluentWindow
 
     }
 
-    private void LinkCopyBtnClick(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            Clipboard.SetText(UriGlobal.Value);
-        }
-        catch (Exception err)
-        {
-            System.Windows.MessageBox.Show(err.Message);
-        }
-    }
-
     private void SettingsBtnClick(object sender, RoutedEventArgs e) => Process.Start("explorer", "\"" + Constants.APP_SETTINGS_MAIN + "\"");
     private void Draggable(object sender, MouseButtonEventArgs e) => DragMove();
     private void CloseBtnClick(object sender, RoutedEventArgs e) => MinimizeWindow();
@@ -152,9 +135,7 @@ public partial class MainWindow : FluentWindow
 
     private void TrayMenuItem_OnClick(object sender, RoutedEventArgs e)
     {
-        _ = SettingsGlobal.Value;
-
-        string tag = ((MenuItem)sender).Tag as string;
+        string tag = ((Wpf.Ui.Controls.MenuItem)sender).Tag as string;
         try
         {
             switch (tag)
@@ -197,7 +178,6 @@ public partial class MainWindow : FluentWindow
     private void PositionWindowUnderTheMouse()
     {
         var settings = SettingsGlobal.Value;
-
         if (settings.AppSettings != null && settings.AppSettings.LaunchUnderMouse)
         {
             var transform = PresentationSource.FromVisual(this).CompositionTarget.TransformFromDevice;
@@ -205,37 +185,35 @@ public partial class MainWindow : FluentWindow
             Left = mouse.X;
             Top = mouse.Y;
 
-            Debug.WriteLine($"{Left}×{Top} with screen resolution: {SystemParameters.FullPrimaryScreenWidth}×{SystemParameters.FullPrimaryScreenHeight}");
+            Debug.WriteLine($"{Left}ï¿½{Top} with screen resolution: {SystemParameters.FullPrimaryScreenWidth}ï¿½{SystemParameters.FullPrimaryScreenHeight}");
         }
     }
 
     private void Button_Click(object sender, RoutedEventArgs e)
     {
-        forcePreventWindowDeactivationEvent = true;
-        new TimeSelectWindow(SettingsGlobal.Value.Browsers).ShowDialog();
-        forcePreventWindowDeactivationEvent = false;
+        NavigateToPage(new TimedDefaultPage());
     }
 
     private void Window_SizeChanged(object sender, SizeChangedEventArgs e) => SettingsGlobal.AdjustWindowSize(e);
-
-    async private void Linkpreview_Click(object sender, RoutedEventArgs e)
-    {
-        forcePreventWindowDeactivationEvent = true;
-
-        var NewUrl = await URLEditor.ShowInputAsync(this, UriGlobal.Value);
-        if (!string.IsNullOrEmpty(NewUrl))
-        {
-            UriGlobal.Value = NewUrl;
-            ((Button)sender).Content = NewUrl;
-            ((Button)sender).ToolTip = NewUrl;
-        }
-
-        forcePreventWindowDeactivationEvent = false;
-    }
 
     private void Button_Click_1(object sender, RoutedEventArgs e)
     {
         MinimizeWindow();
         Process.Start(Constants.SETTINGS_APP);
     }
+
+    public void NavigateToPage<T>(T config) where T : Page, IHurlPage
+    {
+        HeaderText.Text = config.HeaderTitle;
+        MainFrame.Navigate(config);
+        MainFrame.CleanNavigation();
+
+        NavBackButton.Visibility = config.IsBackButtonVisible ? Visibility.Visible : Visibility.Collapsed;
+    }
+
+    private void NavBackButton_Click(object sender, RoutedEventArgs e)
+    {
+        NavigateToPage(new SelectPage());
+    }
+
 }

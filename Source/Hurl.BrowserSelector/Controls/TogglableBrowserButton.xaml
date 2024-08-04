@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="Hurl.BrowserSelector.Controls.BrowserButton"
+    x:Class="Hurl.BrowserSelector.Controls.TogglableBrowserButton"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -14,7 +14,7 @@
         <ContextMenu
             x:Key="TheCM"
             x:Name="TheCM"
-            ItemsSource="{Binding Path=AlternateLaunches}">
+            ItemsSource="{Binding Browser.AlternateLaunches}">
             <ContextMenu.ItemContainerStyle>
                 <Style TargetType="MenuItem">
                     <Setter Property="Header" Value="{Binding Path=ItemName}" />
@@ -25,31 +25,31 @@
         </ContextMenu>
     </UserControl.Resources>
     <Grid>
-        <wpfui:Button
-            Width="128"
-            Height="128"
+        <ToggleButton
+            x:Name="ToggleBtn"
+            Width="120"
+            Height="120"
             Margin="4"
             Padding="5,10,5,10"
-            Appearance="Transparent"
-            AutomationProperties.Name="{Binding Path=Name}"
+            AutomationProperties.Name="{Binding Browser.Name}"
             BorderBrush="Transparent"
             Click="BrowserButton_Click"
             Cursor="Hand"
-            ToolTip="{Binding Name}">
+            ToolTip="{Binding Browser.Name}">
             <Grid x:Name="BrowserArea">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="72" />
+                    <RowDefinition Height="64" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Image Source="{Binding GetIcon}" />
+                <Image Source="{Binding Browser.GetIcon}" />
                 <wpfui:TextBlock
                     Grid.Row="1"
                     Margin="0,8,0,0"
                     FontTypography="Caption"
-                    Text="{Binding Name}"
+                    Text="{Binding Browser.Name}"
                     TextAlignment="Center"
                     TextWrapping="NoWrap" />
-                <Grid Grid.RowSpan="2" Visibility="{Binding ShowAdditionalBtn}">
+                <Grid Grid.RowSpan="2" Visibility="{Binding Browser.ShowAdditionalBtn}">
                     <wpfui:Button
                         x:Name="AdditionalBtn"
                         Margin="0,-15,-25,0"
@@ -65,8 +65,8 @@
                 <Grid.ContextMenu>
                     <ContextMenu
                         x:Name="MainContextMenu"
-                        ItemsSource="{Binding Path=AlternateLaunches}"
-                        Visibility="{Binding ShowAdditionalBtn}">
+                        ItemsSource="{Binding Browser.AlternateLaunches}"
+                        Visibility="{Binding Browser.ShowAdditionalBtn}">
                         <ContextMenu.ItemContainerStyle>
                             <Style TargetType="MenuItem">
                                 <Setter Property="Header" Value="{Binding Path=ItemName}" />
@@ -77,6 +77,6 @@
                     </ContextMenu>
                 </Grid.ContextMenu>
             </Grid>
-        </wpfui:Button>
+        </ToggleButton>
     </Grid>
 </UserControl>
