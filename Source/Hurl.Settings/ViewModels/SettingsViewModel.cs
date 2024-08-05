@@ -1,45 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hurl.Library.Models;
+﻿using Hurl.Library.Models;
 
 namespace Hurl.Settings.ViewModels
 {
     public class SettingsViewModel
     {
-        private AppSettings appSettings { get; set; }
+        private AppSettings AppSettings { get; set; }
+
         public SettingsViewModel()
         {
-            appSettings = State.Settings.GetAppSettings();
-            //Option_LaunchUnderMouse = x.LaunchUnderMouse;
-            //Option_NoWhiteBorder = x.NoWhiteBorder;
+            AppSettings = State.Settings.GetAppSettings();
         }
 
         public bool Option_LaunchUnderMouse
         {
-            get => appSettings.LaunchUnderMouse;
+            get => AppSettings.LaunchUnderMouse;
             set
             {
-                appSettings.LaunchUnderMouse = value;
+                AppSettings.LaunchUnderMouse = value;
                 State.Settings.Set_LaunchUnderMouse(value);
             }
         }
 
         public bool Option_NoWhiteBorder
         {
-            get => appSettings.NoWhiteBorder;
+            get => AppSettings.NoWhiteBorder;
             set
             {
                 State.Settings.Set_NoWhiteBorder(value);
-                appSettings.NoWhiteBorder = value;
+                AppSettings.NoWhiteBorder = value;
             }
         }
 
         public int Option_BackgroundType
         {
-            get => appSettings.BackgroundType switch
+            get => AppSettings.BackgroundType switch
             {
                 "mica" => 0,
                 "acrylic" => 1,
@@ -54,7 +48,7 @@ namespace Hurl.Settings.ViewModels
                     _ => "solid"
                 };
                 State.Settings.Set_BackgroundType(val);
-                appSettings.BackgroundType = val;
+                AppSettings.BackgroundType = val;
             }
         }
     }

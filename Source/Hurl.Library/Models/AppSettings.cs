@@ -10,3 +10,11 @@ public class AppSettings
 
     public int[] WindowSize { get; set; } = [420, 210];
 }
+
+
+public enum BackgroundMaterial
+{
+    Acrylic,
+    Mica,
+    Solid
+}

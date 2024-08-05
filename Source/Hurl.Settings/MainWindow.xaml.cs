@@ -28,7 +28,7 @@ namespace Hurl.Settings
             SetTitleBar(AppTitleBar);
             Title = "Hurl Settings Preview";
 
-            this.AppWindow.ResizeClient(new SizeInt32(1200, 750));
+            this.AppWindow.ResizeClient(new SizeInt32(1200, 800));
             this.SystemBackdrop = new MicaBackdrop();
         }
 
