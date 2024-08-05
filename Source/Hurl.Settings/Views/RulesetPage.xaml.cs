@@ -26,8 +26,6 @@ namespace Hurl.Settings.Views
     /// </summary>
     public sealed partial class RulesetPage : Page
     {
-        public RulesetViewModel ViewModel { get; set; }
-
         public RulesetPage()
         {
             ViewModel = new();
@@ -52,7 +50,7 @@ namespace Hurl.Settings.Views
             var result = await testRulesDialog.ShowAsync();
         }
 
-            private async void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
             NewRulesetDialog NewRulesetDialogContent = new();
             ContentDialog createNewRulesetDialog = new()
@@ -70,15 +68,15 @@ namespace Hurl.Settings.Views
             {
                 var x = NewRulesetDialogContent.Generate();
 
-                State.Settings.AddRuleset(x);
+                ViewModel.NewRuleset(x);
             }
         }
 
         private async void ClickEditRuleset(object sender, RoutedEventArgs e)
         {
             var ruleset = (sender as MenuFlyoutItem)!.DataContext as Ruleset;
-            var ViewModel = new StoreRulesetViewModel(ruleset);
-            NewRulesetDialog NewRulesetDialogContent = new(ViewModel);
+            var rulesetVm = new StoreRulesetViewModel(ruleset);
+            NewRulesetDialog NewRulesetDialogContent = new(rulesetVm);
             ContentDialog createNewRulesetDialog = new()
             {
                 XamlRoot = this.XamlRoot,
@@ -93,27 +91,26 @@ namespace Hurl.Settings.Views
             if (result == ContentDialogResult.Primary)
             {
                 var x = NewRulesetDialogContent.Generate();
-
-                State.Settings.AddRuleset(x);
+                ViewModel.EditRuleset(x);
             }
         }
 
         private void ClickMoveUpRuleset(object sender, RoutedEventArgs e)
         {
-            int Id = (int)(sender as MenuFlyoutItem).Tag;
+            var Id = (Guid)(sender as MenuFlyoutItem).Tag;
 
             ViewModel.MoveRulesetUp(Id);
         }
         private void ClickMoveDownRuleset(object sender, RoutedEventArgs e)
         {
-            int Id = (int)(sender as MenuFlyoutItem).Tag;
+            var Id = (Guid)(sender as MenuFlyoutItem).Tag;
 
             State.Settings.MoveRulesetDown(Id);
         }
 
         private void ClickDeleteRuleset(object sender, RoutedEventArgs e)
         {
-            int Id = (int)(sender as MenuFlyoutItem).Tag;
+            var Id = (Guid)(sender as MenuFlyoutItem).Tag;
 
             State.Settings.DeleteRuleset(Id);
         }

@@ -1,5 +1,6 @@
 ﻿using Hurl.Library;
 using Hurl.Library.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -74,6 +75,20 @@ namespace Hurl.Settings.State
         #endregion
 
         #region RulesetMethods
+
+        public static List<Ruleset> Rulesets
+        {
+            get
+            {
+                return Value.Rulesets;
+            }
+            set
+            {
+                Value.Rulesets = value;
+                Save();
+            }
+        }
+
         public static List<Ruleset> GetAutoRoutingRules()
         {
             return Value.Rulesets;
@@ -85,7 +100,16 @@ namespace Hurl.Settings.State
             Save();
         }
 
-        internal static List<Ruleset> MoveRulesetUp(int id)
+        public static void EditRuleset(Ruleset set)
+        {
+            var ruleset = Value.Rulesets.Where(x => x.Id == set.Id).First();
+            var index = Value.Rulesets.IndexOf(ruleset);
+
+            Value.Rulesets[index] = set;
+            Save();
+        }
+
+        internal static List<Ruleset> MoveRulesetUp(Guid id)
         {
             var ruleset = Value.Rulesets.Where(x => x.Id == id).First();
             var index = Value.Rulesets.IndexOf(ruleset);
@@ -100,7 +124,7 @@ namespace Hurl.Settings.State
             return Value.Rulesets;
         }
 
-        internal static void MoveRulesetDown(int id)
+        internal static void MoveRulesetDown(Guid id)
         {
             var ruleset = Value.Rulesets.Where(x => x.Id == id).First();
             var index = Value.Rulesets.IndexOf(ruleset);
@@ -114,7 +138,7 @@ namespace Hurl.Settings.State
             Save();
         }
 
-        internal static void DeleteRuleset(int id)
+        internal static void DeleteRuleset(Guid id)
         {
             var ruleset = Value.Rulesets.Where(x => x.Id == id).First();
             Value.Rulesets.Remove(ruleset);

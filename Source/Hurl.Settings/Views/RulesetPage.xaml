@@ -8,7 +8,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:model="using:Hurl.Library.Models"
     xmlns:uc="using:Hurl.Settings.Controls"
+    xmlns:vm="using:Hurl.Settings.ViewModels"
     mc:Ignorable="d">
+    <Page.DataContext>
+        <vm:RulesetPageViewModel x:Name="ViewModel" />
+    </Page.DataContext>
 
     <StackPanel>
         <Grid Padding="10,5">

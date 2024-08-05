@@ -1,10 +1,11 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace Hurl.Library.Models;
 
 public class Ruleset
 {
-    public int Id { get; set; }
+    [JsonIgnore]
+    public Guid Id { get; set; } = Guid.NewGuid();
 
     public List<string> Rules { get; set; }
 

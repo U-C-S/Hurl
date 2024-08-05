@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Hurl.Library.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,7 +8,9 @@ namespace Hurl.Settings.ViewModels;
 
 public class StoreRulesetViewModel : ObservableObject
 {
-    public List<string> Browsers { get; set; }
+    public readonly Guid Id;
+
+    public readonly List<string> Browsers;
 
     public List<string> AltLaunches { get; set; } = ["< None >"];
 
@@ -17,6 +20,7 @@ public class StoreRulesetViewModel : ObservableObject
 
     public StoreRulesetViewModel()
     {
+        Id = Guid.NewGuid();
         Browsers = State.Settings.GetBrowsers()
             .Select(x => x.Name)
             .ToList();
@@ -25,6 +29,7 @@ public class StoreRulesetViewModel : ObservableObject
 
     public StoreRulesetViewModel(Ruleset set)
     {
+        Id = set.Id;
         Browsers = State.Settings.GetBrowsers()
             .Select(x => x.Name)
             .ToList();
@@ -94,6 +99,7 @@ public class StoreRulesetViewModel : ObservableObject
     {
         return new()
         {
+            Id = Id,
             RulesetName = Name ?? "",
             BrowserName = Browsers[SelectedBrowser],
             Rules = Rules.Select(x => x.ToString()).ToList(),
