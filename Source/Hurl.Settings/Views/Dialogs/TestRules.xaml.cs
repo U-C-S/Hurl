@@ -73,9 +73,8 @@ public sealed partial class TestRules : Page
             Message = text,
             FontSize = 16,
             IsOpen = true,
-            IsClosable = false,
             Severity = severity,
-            HorizontalAlignment = HorizontalAlignment.Center
+            HorizontalAlignment = HorizontalAlignment.Stretch
         };
         _outputCard.Visibility = Visibility.Visible;
         _outputCard.Children.Clear();

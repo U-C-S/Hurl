@@ -9,52 +9,78 @@
     xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
     mc:Ignorable="d">
 
-    <ScrollViewer>
-        <StackPanel Width="496" Height="410">
+    <ScrollViewer HorizontalAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Auto">
+        <StackPanel Width="480" MinHeight="430">
             <toolkit:SettingsCard Padding="12" Header="Enter a URI to test">
                 <TextBox
                     x:Name="_UriInput"
-                    Margin="0,12,0,0"
-                    HorizontalAlignment="Stretch" />
+                    MinWidth="120"
+                    MaxWidth="300" />
             </toolkit:SettingsCard>
 
-            <toolkit:SettingsCard Header="Test against Existing Rules">
-                <Button x:Name="_TestExistingButton" Click="TestExistingButton_Click">
+            <toolkit:SettingsCard Margin="0,8,0,0" Header="Test against Existing Rules">
+                <Button
+                    x:Name="_TestExistingButton"
+                    Width="80"
+                    Click="TestExistingButton_Click"
+                    Style="{StaticResource AccentButtonStyle}">
                     Test
                 </Button>
             </toolkit:SettingsCard>
             <toolkit:SettingsExpander
                 Padding="12"
+                Background="{StaticResource CardBackgroundFillColorDefaultBrush}"
                 Description="Test the above URI with a custom rule"
                 Header="Custom Rule Testing"
                 IsExpanded="True">
                 <toolkit:SettingsExpander.Items>
-                    <toolkit:SettingsCard Header="Rule Type">
-                        <ComboBox
-                            x:Name="_RuleTypeInput"
-                            Width="120"
-                            MinWidth="120"
-                            Padding="12,6"
-                            HorizontalAlignment="Right">
-                            <ComboBoxItem Content="Regex" />
-                            <ComboBoxItem Content="Glob" />
-                            <ComboBoxItem Content="Domain" />
-                            <ComboBoxItem Content="String" />
-                        </ComboBox>
-                    </toolkit:SettingsCard>
+                    <Grid Background="{StaticResource CardBackgroundFillColorDefaultBrush}">
+                        <StackPanel Margin="16" Spacing="10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock VerticalAlignment="Center" Text="Rule Type" />
+                                <ComboBox
+                                    x:Name="_RuleTypeInput"
+                                    Grid.Column="1"
+                                    Width="120"
+                                    MinWidth="120"
+                                    Padding="12,6"
+                                    HorizontalAlignment="Right">
+                                    <ComboBoxItem Content="Regex" />
+                                    <ComboBoxItem Content="Glob" />
+                                    <ComboBoxItem Content="Domain" />
+                                    <ComboBoxItem Content="String" />
+                                </ComboBox>
+                            </Grid>
 
-                    <toolkit:SettingsCard Header="Rule">
-                        <TextBox
-                            x:Name="_RuleInput"
-                            Margin="24,0,0,0"
-                            HorizontalAlignment="Stretch"
-                            AcceptsReturn="True" />
-                    </toolkit:SettingsCard>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock VerticalAlignment="Center" Text="Rule" />
+                                <TextBox
+                                    x:Name="_RuleInput"
+                                    Grid.Column="1"
+                                    MinWidth="120"
+                                    MaxWidth="280" />
+                            </Grid>
+
+                            <Button
+                                Width="80"
+                                Padding="12,6"
+                                HorizontalAlignment="Right"
+                                Click="TestRuleButton_Click"
+                                Style="{StaticResource AccentButtonStyle}">
+                                Test
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+
                 </toolkit:SettingsExpander.Items>
-
-                <Button Click="TestRuleButton_Click">
-                    Test
-                </Button>
             </toolkit:SettingsExpander>
 
             <StackPanel x:Name="_outputCard" />
