@@ -7,6 +7,7 @@
     xmlns:local="using:Hurl.Settings.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:model="using:Hurl.Library.Models"
+    xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
     xmlns:uc="using:Hurl.Settings.Controls"
     xmlns:vm="using:Hurl.Settings.ViewModels"
     mc:Ignorable="d">
@@ -21,49 +22,52 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <StackPanel>
-                <!--<TextBlock Text="{x:Bind ViewModel.Sample, Mode=TwoWay}" />-->
                 <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Rulesets" />
-                <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="The following rulesets are checked in order when a link is clicked" />
+                <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="Rulesets are checked in order when a link is clicked" />
             </StackPanel>
+        </Grid>
 
-            <StackPanel Grid.Column="1" Orientation="Horizontal">
+        <StackPanel>
+            <toolkit:SettingsCard Description="Try and check if a rule works with given URI" Header="Test Rules">
+                <toolkit:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xEE92;" />
+                </toolkit:SettingsCard.HeaderIcon>
                 <Button
-                    Width="70"
+                    Width="80"
                     Click="TestButton_Click"
                     Style="{StaticResource AccentButtonStyle}">
                     Test
                 </Button>
+            </toolkit:SettingsCard>
+
+            <toolkit:SettingsCard
+                Margin="0,16,0,0"
+                Description="Each Ruleset is a collection of Rules"
+                Header="Create new Ruleset">
+                <toolkit:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE710;" />
+                </toolkit:SettingsCard.HeaderIcon>
                 <Button
-                    Width="70"
-                    Margin="10,0"
+                    Width="80"
                     Click="Button_Click"
                     Style="{StaticResource AccentButtonStyle}">
                     Create
                 </Button>
-            </StackPanel>
-        </Grid>
+            </toolkit:SettingsCard>
 
-        <StackPanel Margin="0,10,10,0">
-            <StackPanel.ChildrenTransitions>
-                <TransitionCollection>
-                    <EntranceThemeTransition />
-                </TransitionCollection>
-            </StackPanel.ChildrenTransitions>
-            <ListView ItemsSource="{x:Bind ViewModel.Rulesets, Mode=TwoWay}">
+            <ListView
+                x:Name="_RulesetListControl"
+                ItemsSource="{x:Bind ViewModel.Rulesets, Mode=TwoWay}"
+                SelectionMode="None">
+                <ListView.ItemContainerStyle>
+                    <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
+                        <Setter Property="Padding" Value="0" />
+                    </Style>
+                </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="model:Ruleset">
-                        <Grid Padding="0,10">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-
-                            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                <TextBlock Text="{x:Bind RulesetName}" />
-                                <TextBlock Margin="10,0" Text="{x:Bind BrowserName}" />
-                            </StackPanel>
-
-                            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                        <toolkit:SettingsCard Description="{x:Bind BrowserName}" Header="{x:Bind RulesetName}">
+                            <StackPanel Orientation="Horizontal">
                                 <Button Style="{StaticResource EllipsisButton}" ToolTipService.ToolTip="View Rules">
                                     <FontIcon Glyph="&#xE946;" />
                                 </Button>
@@ -107,7 +111,7 @@
                                     </DropDownButton.Flyout>
                                 </DropDownButton>
                             </StackPanel>
-                        </Grid>
+                        </toolkit:SettingsCard>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
