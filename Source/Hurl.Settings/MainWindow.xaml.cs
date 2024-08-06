@@ -25,7 +25,7 @@ namespace Hurl.Settings
             this.InitializeComponent();
 
             ExtendsContentIntoTitleBar = true;
-            SetTitleBar(AppTitleBar);
+            //SetTitleBar(AppTitleBar);
             Title = "Hurl Settings Preview";
 
             this.AppWindow.ResizeClient(new SizeInt32(1200, 800));
