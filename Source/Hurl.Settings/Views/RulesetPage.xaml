@@ -36,10 +36,13 @@
 
             <toolkit:SettingsExpander
                 x:Name="_RulesetListControl"
-                Description="Rulesets are checked in order when a link is clicked"
+                Description="Rules are applied from top to bottom until a match is found"
                 Header="Rulesets"
                 IsExpanded="True"
                 ItemsSource="{x:Bind ViewModel.Rulesets, Mode=TwoWay}">
+                <toolkit:SettingsExpander.HeaderIcon>
+                    <FontIcon Glyph="&#xF168;" />
+                </toolkit:SettingsExpander.HeaderIcon>
                 <toolkit:SettingsExpander.ItemTemplate>
                     <DataTemplate x:DataType="model:Ruleset">
                         <toolkit:SettingsCard Description="{x:Bind BrowserName}" Header="{x:Bind RulesetName}">
@@ -100,7 +103,7 @@
                 Margin="2,0,0,4"
                 Style="{StaticResource BodyStrongTextBlockStyle}"
                 Text="Other Options" />
-            <toolkit:SettingsCard Description="Try and check if a rule works with given URI" Header="Test Rules">
+            <toolkit:SettingsCard Description="Check if a rule or above rules match a URI" Header="Test Rules">
                 <toolkit:SettingsCard.HeaderIcon>
                     <FontIcon Glyph="&#xEE92;" />
                 </toolkit:SettingsCard.HeaderIcon>
