@@ -133,7 +133,7 @@ public partial class MainWindow : FluentWindow
         }
     }
 
-    private void SettingsBtnClick(object sender, RoutedEventArgs e) => Process.Start("explorer", "\"" + Constants.APP_SETTINGS_MAIN + "\"");
+    private void SettingsBtnClick(object sender, RoutedEventArgs e) => Process.Start(Constants.SETTINGS_APP);
     private void Draggable(object sender, MouseButtonEventArgs e) => DragMove();
     private void CloseBtnClick(object sender, RoutedEventArgs e) => MinimizeWindow();
 
@@ -163,7 +163,7 @@ public partial class MainWindow : FluentWindow
                     ShowWindow();
                     break;
                 case "settings":
-                    Process.Start("explorer", "\"" + Constants.APP_SETTINGS_MAIN + "\"");
+                    Process.Start(Constants.SETTINGS_APP);
                     break;
                 case "exit":
                     Application.Current.Shutdown();
@@ -198,15 +198,22 @@ public partial class MainWindow : FluentWindow
     {
         var settings = SettingsGlobal.Value;
 
-        if (settings.AppSettings != null && settings.AppSettings.LaunchUnderMouse)
+        try
         {
-            var transform = PresentationSource.FromVisual(this).CompositionTarget.TransformFromDevice;
-            var mouse = transform.Transform(CursorPosition.LimitCursorWithin((int)Width, (int)Height));
-            Left = mouse.X;
-            Top = mouse.Y;
+            if (settings.AppSettings != null && settings.AppSettings.LaunchUnderMouse)
+            {
+                var transform = PresentationSource.FromVisual(this)?.CompositionTarget?.TransformFromDevice;
+                if (transform is Matrix t)
+                {
+                    var mouse = t.Transform(CursorPosition.LimitCursorWithin((int)Width, (int)Height));
+                    Left = mouse.X;
+                    Top = mouse.Y;
 
-            Debug.WriteLine($"{Left}×{Top} with screen resolution: {SystemParameters.FullPrimaryScreenWidth}×{SystemParameters.FullPrimaryScreenHeight}");
+                    Debug.WriteLine($"{Left}×{Top} with screen resolution: {SystemParameters.FullPrimaryScreenWidth}×{SystemParameters.FullPrimaryScreenHeight}");
+                }
+            }
         }
+        catch (Exception _) { }
     }
 
     private void Button_Click(object sender, RoutedEventArgs e)
