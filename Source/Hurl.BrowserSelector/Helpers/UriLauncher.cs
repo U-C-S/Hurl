@@ -10,7 +10,7 @@ class UriLauncher
     {
         if (altLaunchIndex is not null)
         {
-            if (browser.AlternateLaunches.Length - 1 < altLaunchIndex) // 
+            if (browser.AlternateLaunches?.Count - 1 < altLaunchIndex) // 
                 throw new Exception("Alternate Launch profile does not exist");
             else
                 Alternative(uri, browser, (int)altLaunchIndex);
