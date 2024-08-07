@@ -15,35 +15,14 @@
         <vm:RulesetPageViewModel x:Name="ViewModel" />
     </Page.DataContext>
 
-    <StackPanel>
-        <Grid Padding="10,5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <StackPanel>
-                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Rulesets" />
-                <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="Rulesets are checked in order when a link is clicked" />
-            </StackPanel>
-        </Grid>
-
+    <StackPanel Spacing="8">
         <StackPanel>
-            <toolkit:SettingsCard Description="Try and check if a rule works with given URI" Header="Test Rules">
-                <toolkit:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xEE92;" />
-                </toolkit:SettingsCard.HeaderIcon>
-                <Button
-                    Width="80"
-                    Click="TestButton_Click"
-                    Style="{StaticResource AccentButtonStyle}">
-                    Test
-                </Button>
-            </toolkit:SettingsCard>
+            <TextBlock
+                Margin="2,0,0,4"
+                Style="{StaticResource BodyStrongTextBlockStyle}"
+                Text="Rulesets" />
 
-            <toolkit:SettingsCard
-                Margin="0,16,0,0"
-                Description="Each Ruleset is a collection of Rules"
-                Header="Create new Ruleset">
+            <toolkit:SettingsCard Description="Each Ruleset is a collection of Rules" Header="Create new Ruleset">
                 <toolkit:SettingsCard.HeaderIcon>
                     <FontIcon Glyph="&#xE710;" />
                 </toolkit:SettingsCard.HeaderIcon>
@@ -55,23 +34,19 @@
                 </Button>
             </toolkit:SettingsCard>
 
-            <ListView
+            <toolkit:SettingsExpander
                 x:Name="_RulesetListControl"
-                ItemsSource="{x:Bind ViewModel.Rulesets, Mode=TwoWay}"
-                SelectionMode="None">
-                <ListView.ItemContainerStyle>
-                    <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
-                        <Setter Property="Padding" Value="0" />
-                    </Style>
-                </ListView.ItemContainerStyle>
-                <ListView.ItemTemplate>
+                Description="Rulesets are checked in order when a link is clicked"
+                Header="Rulesets"
+                IsExpanded="True"
+                ItemsSource="{x:Bind ViewModel.Rulesets, Mode=TwoWay}">
+                <toolkit:SettingsExpander.ItemTemplate>
                     <DataTemplate x:DataType="model:Ruleset">
                         <toolkit:SettingsCard Description="{x:Bind BrowserName}" Header="{x:Bind RulesetName}">
                             <StackPanel Orientation="Horizontal">
                                 <Button Style="{StaticResource EllipsisButton}" ToolTipService.ToolTip="View Rules">
                                     <FontIcon Glyph="&#xE946;" />
                                 </Button>
-
                                 <DropDownButton Style="{StaticResource TextBlockButtonStyle}" ToolTipService.ToolTip="More Options">
                                     <DropDownButton.Content>
                                         <FontIcon Glyph="&#xE712;" />
@@ -116,8 +91,26 @@
                             </StackPanel>
                         </toolkit:SettingsCard>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                </toolkit:SettingsExpander.ItemTemplate>
+            </toolkit:SettingsExpander>
+        </StackPanel>
+
+        <StackPanel>
+            <TextBlock
+                Margin="2,0,0,4"
+                Style="{StaticResource BodyStrongTextBlockStyle}"
+                Text="Other Options" />
+            <toolkit:SettingsCard Description="Try and check if a rule works with given URI" Header="Test Rules">
+                <toolkit:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xEE92;" />
+                </toolkit:SettingsCard.HeaderIcon>
+                <Button
+                    Width="80"
+                    Click="TestButton_Click"
+                    Style="{StaticResource AccentButtonStyle}">
+                    Test
+                </Button>
+            </toolkit:SettingsCard>
         </StackPanel>
     </StackPanel>
 </Page>

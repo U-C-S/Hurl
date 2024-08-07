@@ -59,11 +59,11 @@
 
         <ScrollViewer
             Grid.Column="1"
-            Padding="4,28,4,4"
+            Padding="0,16,0,0"
             Background="{StaticResource LayerFillColorDefaultBrush}"
             BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
             BorderThickness="1,0,0,0">
-            <Frame x:Name="NavigationFrame" />
+            <Frame x:Name="NavigationFrame" Padding="8" />
         </ScrollViewer>
     </Grid>
 
