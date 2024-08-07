@@ -101,7 +101,8 @@ public class StoreRulesetViewModel : ObservableObject
         {
             Id = Id,
             RulesetName = Name ?? "",
-            BrowserName = Browsers[SelectedBrowser],
+            // TODO: dont do this, do proper validation
+            BrowserName = Browsers.ElementAtOrDefault(SelectedBrowser),
             Rules = Rules.Select(x => x.ToString()).ToList(),
             AltLaunchIndex = SelectedAltLaunch > 0 ? SelectedAltLaunch - 1 : null
         };
