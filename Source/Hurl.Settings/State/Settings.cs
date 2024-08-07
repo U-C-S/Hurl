@@ -109,7 +109,7 @@ namespace Hurl.Settings.State
             Save();
         }
 
-        internal static List<Ruleset> MoveRulesetUp(Guid id)
+        internal static void MoveRulesetUp(Guid id)
         {
             var ruleset = Value.Rulesets.Where(x => x.Id == id).First();
             var index = Value.Rulesets.IndexOf(ruleset);
@@ -121,7 +121,6 @@ namespace Hurl.Settings.State
             }
 
             Save();
-            return Value.Rulesets;
         }
 
         internal static void MoveRulesetDown(Guid id)
