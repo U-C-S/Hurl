@@ -4,7 +4,7 @@ using Hurl.Settings.Views.Dialogs;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
-using System.Diagnostics;
+using System.Linq;
 
 namespace Hurl.Settings.Views;
 
@@ -56,7 +56,8 @@ public sealed partial class RulesetPage : Page
 
     private async void ClickEditRuleset(object sender, RoutedEventArgs e)
     {
-        var ruleset = (sender as MenuFlyoutItem)!.DataContext as Ruleset;
+        var id = (Guid)(sender as MenuFlyoutItem)!.Tag;
+        var ruleset = State.Settings.Rulesets.Where(x => x.Id == id).First();
         var rulesetVm = new StoreRulesetViewModel(ruleset);
         NewRulesetDialog NewRulesetDialogContent = new(rulesetVm);
         ContentDialog createNewRulesetDialog = new()
@@ -87,14 +88,14 @@ public sealed partial class RulesetPage : Page
     {
         var Id = (Guid)(sender as MenuFlyoutItem).Tag;
 
-        State.Settings.MoveRulesetDown(Id);
+        ViewModel.MoveRulesetDown(Id);
     }
 
     private void ClickDeleteRuleset(object sender, RoutedEventArgs e)
     {
         var Id = (Guid)(sender as MenuFlyoutItem).Tag;
 
-        State.Settings.DeleteRuleset(Id);
+        ViewModel.DeleteRuleset(Id);
     }
 }
 

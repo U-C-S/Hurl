@@ -78,7 +78,10 @@
                                     </DropDownButton.Content>
                                     <DropDownButton.Flyout>
                                         <MenuFlyout Placement="Bottom">
-                                            <MenuFlyoutItem Click="ClickEditRuleset" Text="Edit">
+                                            <MenuFlyoutItem
+                                                Click="ClickEditRuleset"
+                                                Tag="{x:Bind Id}"
+                                                Text="Edit">
                                                 <MenuFlyoutItem.Icon>
                                                     <FontIcon Glyph="&#xE70F;" />
                                                 </MenuFlyoutItem.Icon>

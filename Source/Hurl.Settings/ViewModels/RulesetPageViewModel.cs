@@ -14,43 +14,43 @@ namespace Hurl.Settings.ViewModels
 
         public RulesetPageViewModel()
         {
-            //Rulesets = new(State.Settings.GetAutoRoutingRules().ToLookup(x => x.Id, x => x));
             Rulesets = new(State.Settings.Rulesets);
-            Rulesets.CollectionChanged += Rulesets_CollectionChanged;
-        }
-
-        private void Rulesets_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            //State.Settings.Rulesets = Rulesets.ToList();
         }
 
         public void NewRuleset(Ruleset ruleset)
         {
             State.Settings.AddRuleset(ruleset);
-
-            Rulesets.Clear();
-            State.Settings.Rulesets.ForEach(i => Rulesets.Add(i));
+            Refresh();
         }
 
         public void EditRuleset(Ruleset ruleset)
         {
             State.Settings.EditRuleset(ruleset);
-
-            Rulesets.Clear();
-            State.Settings.Rulesets.ForEach(i => Rulesets.Add(i));
+            Refresh();
         }
 
         public void MoveRulesetUp(Guid Id)
         {
-            //var newRulesets = State.Settings.MoveRulesetUp(Id);
-
-            //this.Rulesets = newRulesets;
-
-            // OnPropertyChanged(nameof(Rulesets));
-
-
-            //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(rulesets)));
+            var newRulesets = State.Settings.MoveRulesetUp(Id);
+            Refresh();
         }
 
+        public void MoveRulesetDown(Guid Id)
+        {
+            var newRulesets = State.Settings.MoveRulesetDown(Id);
+            Refresh();
+        }
+
+        public void DeleteRuleset(Guid Id)
+        {
+            State.Settings.DeleteRuleset(Id);
+            Refresh();
+        }
+
+        private void Refresh()
+        {
+            Rulesets.Clear();
+            State.Settings.Rulesets.ForEach(i => Rulesets.Add(i));
+        }
     }
 }
