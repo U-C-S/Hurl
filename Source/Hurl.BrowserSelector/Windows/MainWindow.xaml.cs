@@ -138,7 +138,7 @@ public partial class MainWindow : FluentWindow
         }
     }
 
-    private void SettingsBtnClick(object sender, RoutedEventArgs e) => Process.Start("explorer", "\"" + Constants.APP_SETTINGS_MAIN + "\"");
+    private void SettingsBtnClick(object sender, RoutedEventArgs e) => Process.Start(Constants.SETTINGS_APP);
     private void Draggable(object sender, MouseButtonEventArgs e) => DragMove();
     private void CloseBtnClick(object sender, RoutedEventArgs e) => MinimizeWindow();
 
@@ -168,7 +168,7 @@ public partial class MainWindow : FluentWindow
                     ShowWindow();
                     break;
                 case "settings":
-                    Process.Start("explorer", "\"" + Constants.APP_SETTINGS_MAIN + "\"");
+                    Process.Start(Constants.SETTINGS_APP);
                     break;
                 case "exit":
                     Application.Current.Shutdown();

@@ -29,6 +29,7 @@
         <Button
             Margin="0,15"
             HorizontalAlignment="Center"
+            Click="Button_Click"
             Style="{StaticResource AccentButtonStyle}">
             Edit the JSON file
         </Button>
