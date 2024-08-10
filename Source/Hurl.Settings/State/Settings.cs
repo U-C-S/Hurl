@@ -51,6 +51,20 @@ namespace Hurl.Settings.State
         #endregion
 
         #region BrowserMethods
+
+        public static List<Browser> Browsers
+        {
+            get
+            {
+                return Value.Browsers;
+            }
+            set
+            {
+                Value.Browsers = value;
+                Save();
+            }
+        }
+
         public static List<Browser> GetBrowsers()
         {
             return Library.GetBrowsers.FromSettingsFile(Value, false);

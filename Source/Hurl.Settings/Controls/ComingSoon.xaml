@@ -22,7 +22,7 @@
             VerticalAlignment="Center"
             FontSize="16"
             Foreground="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
-            Text="This feature is coming soon. In the meantime, you can edit the JSON file directly."
+            Text="Editing the values here is coming soon. In the meantime, you can edit the JSON file directly."
             TextAlignment="Center"
             TextWrapping="Wrap" />
 
