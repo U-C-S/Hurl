@@ -11,9 +11,9 @@ public class Settings
 
     public string LastUpdated { get; set; } = DateTime.Now.ToString();
 
-    public List<Browser> Browsers { get; set; }
+    public List<Browser> Browsers { get; set; } = [];
         
-    public AppSettings AppSettings { get; set; }
+    public AppSettings AppSettings { get; set; } = new AppSettings();
 
-    public List<Ruleset> Rulesets { get; set; }
+    public List<Ruleset> Rulesets { get; set; } = [];
 }
