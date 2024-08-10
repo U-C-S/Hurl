@@ -13,6 +13,9 @@ public sealed partial class RulesetPage : Page
     public RulesetPage()
     {
         InitializeComponent();
+
+        if (ViewModel.Rulesets.Count == 0)
+            _RulesetListControl.IsExpanded = false;
     }
 
     private async void TestButton_Click(object sender, RoutedEventArgs e)
