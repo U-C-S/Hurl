@@ -39,8 +39,8 @@ namespace Hurl.Settings
 
                 switch (tag)
                 {
-                    case "home":
-                        NavigationFrame.Navigate(typeof(Views.HomePage));
+                    case "about":
+                        NavigationFrame.Navigate(typeof(Views.AboutPage));
                         break;
                     case "browsers":
                         NavigationFrame.Navigate(typeof(Views.BrowsersPage));
@@ -50,11 +50,11 @@ namespace Hurl.Settings
                         NavigationFrame.Navigate(typeof(Views.RulesetPage));
                         break;
                     case "settings":
-                        NavigationFrame.Navigate(typeof(Views.Settings)); ;
+                        NavigationFrame.Navigate(typeof(Views.Settings));
                         break;
                 }
 
-                if (tag == "settings")
+                if (tag == "about")
                 {
                     NavMenuFooterList.SelectedIndex = 0;
                     NavMenuHeaderList.SelectedIndex = -1;

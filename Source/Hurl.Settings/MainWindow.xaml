@@ -25,12 +25,6 @@
                 IsItemClickEnabled="True"
                 ItemClick="OnNavItemClicked">
                 <ListView.Items>
-                    <ListViewItem Tag="home">
-                        <StackPanel Orientation="Horizontal">
-                            <FontIcon Glyph="&#xE80F;" />
-                            <TextBlock Margin="12,0,0,0" Text="Home" />
-                        </StackPanel>
-                    </ListViewItem>
                     <ListViewItem Tag="browsers">
                         <StackPanel Orientation="Horizontal">
                             <FontIcon Glyph="&#xE774;" />
@@ -43,6 +37,12 @@
                             <TextBlock Margin="12,0,0,0" Text="Rulesets" />
                         </StackPanel>
                     </ListViewItem>
+                    <ListViewItem MinWidth="0" Tag="settings">
+                        <StackPanel Orientation="Horizontal">
+                            <FontIcon Glyph="&#xE713;" />
+                            <TextBlock Margin="12,0,0,0" Text="Settings" />
+                        </StackPanel>
+                    </ListViewItem>
                 </ListView.Items>
             </ListView>
 
@@ -52,10 +52,10 @@
                 IsItemClickEnabled="True"
                 ItemClick="OnNavItemClicked">
                 <ListView.Items>
-                    <ListViewItem MinWidth="0" Tag="settings">
+                    <ListViewItem MinWidth="0" Tag="about">
                         <StackPanel Orientation="Horizontal">
-                            <FontIcon Glyph="&#xE713;" />
-                            <TextBlock Margin="12,0,0,0" Text="Settings" />
+                            <FontIcon Glyph="&#xE946;" />
+                            <TextBlock Margin="12,0,0,0" Text="About" />
                         </StackPanel>
                     </ListViewItem>
                 </ListView.Items>
