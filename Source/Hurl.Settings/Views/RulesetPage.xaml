@@ -15,7 +15,7 @@
         <vm:RulesetPageViewModel x:Name="ViewModel" />
     </Page.DataContext>
 
-    <StackPanel Spacing="8">
+    <StackPanel MaxWidth="800" Spacing="16">
         <StackPanel>
             <TextBlock
                 Margin="2,0,0,4"
