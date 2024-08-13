@@ -9,12 +9,9 @@
     xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
     mc:Ignorable="d">
 
-    <StackPanel MaxWidth="800" Spacing="16">
+    <StackPanel MaxWidth="800" Spacing="4">
+        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="About" />
         <StackPanel>
-            <TextBlock
-                Margin="2,0,0,4"
-                Style="{StaticResource BodyStrongTextBlockStyle}"
-                Text="About" />
             <toolkit:SettingsCard Description="" Header="Hurl">
                 <toolkit:SettingsCard.HeaderIcon>
                     <FontIcon Glyph="&#xE774;" />

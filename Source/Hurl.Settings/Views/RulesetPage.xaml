@@ -16,104 +16,101 @@
     </Page.DataContext>
 
     <StackPanel MaxWidth="800" Spacing="16">
-        <StackPanel>
-            <TextBlock
-                Margin="2,0,0,4"
-                Style="{StaticResource BodyStrongTextBlockStyle}"
-                Text="Rulesets" />
+        <StackPanel Spacing="4">
+            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Rulesets" />
+            <StackPanel>
+                <toolkit:SettingsCard Description="Each Ruleset is a collection of Rules" Header="Create new Ruleset">
+                    <toolkit:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE710;" />
+                    </toolkit:SettingsCard.HeaderIcon>
+                    <Button
+                        Width="80"
+                        Click="Button_Click"
+                        Style="{StaticResource AccentButtonStyle}">
+                        Create
+                    </Button>
+                </toolkit:SettingsCard>
 
-            <toolkit:SettingsCard Description="Each Ruleset is a collection of Rules" Header="Create new Ruleset">
-                <toolkit:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE710;" />
-                </toolkit:SettingsCard.HeaderIcon>
-                <Button
-                    Width="80"
-                    Click="Button_Click"
-                    Style="{StaticResource AccentButtonStyle}">
-                    Create
-                </Button>
-            </toolkit:SettingsCard>
-
-            <toolkit:SettingsExpander
-                x:Name="_RulesetListControl"
-                Description="Rules are applied from top to bottom until a match is found"
-                Header="Rulesets"
-                IsExpanded="True"
-                ItemsSource="{x:Bind ViewModel.Rulesets, Mode=TwoWay}">
-                <toolkit:SettingsExpander.HeaderIcon>
-                    <FontIcon Glyph="&#xF168;" />
-                </toolkit:SettingsExpander.HeaderIcon>
-                <toolkit:SettingsExpander.ItemTemplate>
-                    <DataTemplate x:DataType="model:Ruleset">
-                        <toolkit:SettingsCard Description="{x:Bind BrowserName}" Header="{x:Bind RulesetName}">
-                            <StackPanel Orientation="Horizontal">
-                                <Button Style="{StaticResource EllipsisButton}" ToolTipService.ToolTip="View Rules">
-                                    <FontIcon Glyph="&#xE946;" />
-                                </Button>
-                                <DropDownButton Style="{StaticResource TextBlockButtonStyle}" ToolTipService.ToolTip="More Options">
-                                    <DropDownButton.Content>
-                                        <FontIcon Glyph="&#xE712;" />
-                                    </DropDownButton.Content>
-                                    <DropDownButton.Flyout>
-                                        <MenuFlyout Placement="Bottom">
-                                            <MenuFlyoutItem
-                                                Click="ClickEditRuleset"
-                                                Tag="{x:Bind Id}"
-                                                Text="Edit">
-                                                <MenuFlyoutItem.Icon>
-                                                    <FontIcon Glyph="&#xE70F;" />
-                                                </MenuFlyoutItem.Icon>
-                                            </MenuFlyoutItem>
-                                            <MenuFlyoutItem
-                                                Click="ClickMoveUpRuleset"
-                                                Tag="{x:Bind Id}"
-                                                Text="Move Up">
-                                                <MenuFlyoutItem.Icon>
-                                                    <FontIcon Glyph="&#xE74A;" />
-                                                </MenuFlyoutItem.Icon>
-                                            </MenuFlyoutItem>
-                                            <MenuFlyoutItem
-                                                Click="ClickMoveDownRuleset"
-                                                Tag="{x:Bind Id}"
-                                                Text="Move Down">
-                                                <MenuFlyoutItem.Icon>
-                                                    <FontIcon Glyph="&#xE74B;" />
-                                                </MenuFlyoutItem.Icon>
-                                            </MenuFlyoutItem>
-                                            <MenuFlyoutItem
-                                                Click="ClickDeleteRuleset"
-                                                Tag="{x:Bind Id}"
-                                                Text="Delete">
-                                                <MenuFlyoutItem.Icon>
-                                                    <FontIcon Glyph="&#xE74D;" />
-                                                </MenuFlyoutItem.Icon>
-                                            </MenuFlyoutItem>
-                                        </MenuFlyout>
-                                    </DropDownButton.Flyout>
-                                </DropDownButton>
-                            </StackPanel>
-                        </toolkit:SettingsCard>
-                    </DataTemplate>
-                </toolkit:SettingsExpander.ItemTemplate>
-            </toolkit:SettingsExpander>
+                <toolkit:SettingsExpander
+                    x:Name="_RulesetListControl"
+                    Description="Rules are applied from top to bottom until a match is found"
+                    Header="Rulesets"
+                    IsExpanded="True"
+                    ItemsSource="{x:Bind ViewModel.Rulesets, Mode=TwoWay}">
+                    <toolkit:SettingsExpander.HeaderIcon>
+                        <FontIcon Glyph="&#xF168;" />
+                    </toolkit:SettingsExpander.HeaderIcon>
+                    <toolkit:SettingsExpander.ItemTemplate>
+                        <DataTemplate x:DataType="model:Ruleset">
+                            <toolkit:SettingsCard Description="{x:Bind BrowserName}" Header="{x:Bind RulesetName}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Style="{StaticResource EllipsisButton}" ToolTipService.ToolTip="View Rules">
+                                        <FontIcon Glyph="&#xE946;" />
+                                    </Button>
+                                    <DropDownButton Style="{StaticResource TextBlockButtonStyle}" ToolTipService.ToolTip="More Options">
+                                        <DropDownButton.Content>
+                                            <FontIcon Glyph="&#xE712;" />
+                                        </DropDownButton.Content>
+                                        <DropDownButton.Flyout>
+                                            <MenuFlyout Placement="Bottom">
+                                                <MenuFlyoutItem
+                                                    Click="ClickEditRuleset"
+                                                    Tag="{x:Bind Id}"
+                                                    Text="Edit">
+                                                    <MenuFlyoutItem.Icon>
+                                                        <FontIcon Glyph="&#xE70F;" />
+                                                    </MenuFlyoutItem.Icon>
+                                                </MenuFlyoutItem>
+                                                <MenuFlyoutItem
+                                                    Click="ClickMoveUpRuleset"
+                                                    Tag="{x:Bind Id}"
+                                                    Text="Move Up">
+                                                    <MenuFlyoutItem.Icon>
+                                                        <FontIcon Glyph="&#xE74A;" />
+                                                    </MenuFlyoutItem.Icon>
+                                                </MenuFlyoutItem>
+                                                <MenuFlyoutItem
+                                                    Click="ClickMoveDownRuleset"
+                                                    Tag="{x:Bind Id}"
+                                                    Text="Move Down">
+                                                    <MenuFlyoutItem.Icon>
+                                                        <FontIcon Glyph="&#xE74B;" />
+                                                    </MenuFlyoutItem.Icon>
+                                                </MenuFlyoutItem>
+                                                <MenuFlyoutItem
+                                                    Click="ClickDeleteRuleset"
+                                                    Tag="{x:Bind Id}"
+                                                    Text="Delete">
+                                                    <MenuFlyoutItem.Icon>
+                                                        <FontIcon Glyph="&#xE74D;" />
+                                                    </MenuFlyoutItem.Icon>
+                                                </MenuFlyoutItem>
+                                            </MenuFlyout>
+                                        </DropDownButton.Flyout>
+                                    </DropDownButton>
+                                </StackPanel>
+                            </toolkit:SettingsCard>
+                        </DataTemplate>
+                    </toolkit:SettingsExpander.ItemTemplate>
+                </toolkit:SettingsExpander>
+            </StackPanel>
         </StackPanel>
 
-        <StackPanel>
-            <TextBlock
-                Margin="2,0,0,4"
-                Style="{StaticResource BodyStrongTextBlockStyle}"
-                Text="Other Options" />
-            <toolkit:SettingsCard Description="Check if a rule or above rules match a URI" Header="Test Rules">
-                <toolkit:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xEE92;" />
-                </toolkit:SettingsCard.HeaderIcon>
-                <Button
-                    Width="80"
-                    Click="TestButton_Click"
-                    Style="{StaticResource AccentButtonStyle}">
-                    Test
-                </Button>
-            </toolkit:SettingsCard>
+        <StackPanel Spacing="4">
+            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Other Options" />
+            <StackPanel>
+                <toolkit:SettingsCard Description="Check if a rule or above rules match a URI" Header="Test Rules">
+                    <toolkit:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xEE92;" />
+                    </toolkit:SettingsCard.HeaderIcon>
+                    <Button
+                        Width="80"
+                        Click="TestButton_Click"
+                        Style="{StaticResource AccentButtonStyle}">
+                        Test
+                    </Button>
+                </toolkit:SettingsCard>
+            </StackPanel>
         </StackPanel>
     </StackPanel>
 </Page>

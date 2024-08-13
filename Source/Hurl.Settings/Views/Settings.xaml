@@ -9,43 +9,37 @@
     xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
     mc:Ignorable="d">
 
-    <StackPanel MaxWidth="800">
-        <StackPanel.ChildrenTransitions>
-            <EntranceThemeTransition FromVerticalOffset="50" IsStaggeringEnabled="True" />
-            <RepositionThemeTransition IsStaggeringEnabled="False" />
-        </StackPanel.ChildrenTransitions>
+    <StackPanel MaxWidth="800" Spacing="4">
+        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="General Settings" />
 
-        <TextBlock
-            Margin="1,0,0,5"
-            Style="{StaticResource BodyStrongTextBlockStyle}"
-            Text="General Settings" />
+        <StackPanel>
+            <toolkit:SettingsCard Header="Launch Under Mouse">
+                <toolkit:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE8B0;" />
+                </toolkit:SettingsCard.HeaderIcon>
 
-        <toolkit:SettingsCard Header="Launch Under Mouse">
-            <toolkit:SettingsCard.HeaderIcon>
-                <FontIcon Glyph="&#xE8B0;" />
-            </toolkit:SettingsCard.HeaderIcon>
+                <ToggleSwitch IsOn="{x:Bind ViewModel.Option_LaunchUnderMouse, Mode=TwoWay}" />
+            </toolkit:SettingsCard>
 
-            <ToggleSwitch IsOn="{x:Bind ViewModel.Option_LaunchUnderMouse, Mode=TwoWay}" />
-        </toolkit:SettingsCard>
+            <toolkit:SettingsCard Header="No White Border">
+                <toolkit:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE739;" />
+                </toolkit:SettingsCard.HeaderIcon>
 
-        <toolkit:SettingsCard Header="No White Border">
-            <toolkit:SettingsCard.HeaderIcon>
-                <FontIcon Glyph="&#xE739;" />
-            </toolkit:SettingsCard.HeaderIcon>
+                <ToggleSwitch IsOn="{x:Bind ViewModel.Option_NoWhiteBorder, Mode=TwoWay}" />
+            </toolkit:SettingsCard>
 
-            <ToggleSwitch IsOn="{x:Bind ViewModel.Option_NoWhiteBorder, Mode=TwoWay}" />
-        </toolkit:SettingsCard>
+            <toolkit:SettingsCard Header="Background Type">
+                <toolkit:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE790;" />
+                </toolkit:SettingsCard.HeaderIcon>
 
-        <toolkit:SettingsCard Header="Background Type">
-            <toolkit:SettingsCard.HeaderIcon>
-                <FontIcon Glyph="&#xE790;" />
-            </toolkit:SettingsCard.HeaderIcon>
-
-            <ComboBox SelectedIndex="{x:Bind ViewModel.Option_BackgroundType, Mode=TwoWay}">
-                <ComboBoxItem Content="Mica" />
-                <ComboBoxItem Content="Acrylic" />
-                <ComboBoxItem Content="Solid" />
-            </ComboBox>
-        </toolkit:SettingsCard>
+                <ComboBox SelectedIndex="{x:Bind ViewModel.Option_BackgroundType, Mode=TwoWay}">
+                    <ComboBoxItem Content="Mica" />
+                    <ComboBoxItem Content="Acrylic" />
+                    <ComboBoxItem Content="Solid" />
+                </ComboBox>
+            </toolkit:SettingsCard>
+        </StackPanel>
     </StackPanel>
 </Page>

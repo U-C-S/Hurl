@@ -71,7 +71,6 @@ public sealed partial class TestRules : Page
         var textBlock = new InfoBar
         {
             Message = text,
-            FontSize = 16,
             IsOpen = true,
             Severity = severity,
             HorizontalAlignment = HorizontalAlignment.Stretch

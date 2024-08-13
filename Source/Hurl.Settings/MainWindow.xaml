@@ -26,21 +26,21 @@
                 ItemClick="OnNavItemClicked">
                 <ListView.Items>
                     <ListViewItem Tag="browsers">
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" Spacing="12">
                             <FontIcon Glyph="&#xE774;" />
-                            <TextBlock Margin="12,0,0,0" Text="Browsers" />
+                            <TextBlock Text="Browsers" />
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Tag="rulesets">
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" Spacing="12">
                             <FontIcon Glyph="&#xE724;" />
-                            <TextBlock Margin="12,0,0,0" Text="Rulesets" />
+                            <TextBlock Text="Rulesets" />
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem MinWidth="0" Tag="settings">
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" Spacing="12">
                             <FontIcon Glyph="&#xE713;" />
-                            <TextBlock Margin="12,0,0,0" Text="Settings" />
+                            <TextBlock Text="Settings" />
                         </StackPanel>
                     </ListViewItem>
                 </ListView.Items>
@@ -53,9 +53,9 @@
                 ItemClick="OnNavItemClicked">
                 <ListView.Items>
                     <ListViewItem MinWidth="0" Tag="about">
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" Spacing="12">
                             <FontIcon Glyph="&#xE946;" />
-                            <TextBlock Margin="12,0,0,0" Text="About" />
+                            <TextBlock Text="About" />
                         </StackPanel>
                     </ListViewItem>
                 </ListView.Items>

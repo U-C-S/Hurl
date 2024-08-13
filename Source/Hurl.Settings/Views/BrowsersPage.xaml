@@ -15,11 +15,8 @@
     </Page.DataContext>
 
     <StackPanel MaxWidth="800" Spacing="16">
-        <StackPanel>
-            <TextBlock
-                Margin="2,0,0,4"
-                Style="{StaticResource BodyStrongTextBlockStyle}"
-                Text="Browsers" />
+        <StackPanel Spacing="4">
+            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Browsers" />
 
             <ItemsControl ItemsSource="{x:Bind ViewModel.Browsers}">
                 <ItemsControl.ItemTemplate>
@@ -69,11 +66,8 @@
             </ItemsControl>
         </StackPanel>
 
-        <StackPanel>
-            <TextBlock
-                Margin="2,0,0,4"
-                Style="{StaticResource BodyStrongTextBlockStyle}"
-                Text="Other Options" />
+        <StackPanel Spacing="4">
+            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Other Options" />
             <uc:ComingSoon />
         </StackPanel>
     </StackPanel>

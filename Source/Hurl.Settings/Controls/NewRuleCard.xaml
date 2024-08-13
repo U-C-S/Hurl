@@ -11,12 +11,11 @@
     <Grid>
         <toolkit:SettingsCard>
             <toolkit:SettingsCard.Header>
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal" Spacing="8">
                     <ComboBox x:Name="RuleTypeControl" SelectedIndex="0" />
                     <TextBox
                         x:Name="RuleValueControl"
-                        Width="250"
-                        Margin="10,0,0,0"
+                        Width="240"
                         PlaceholderText="Rule" />
                 </StackPanel>
             </toolkit:SettingsCard.Header>

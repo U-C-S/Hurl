@@ -9,11 +9,10 @@
     xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
     mc:Ignorable="d">
 
-    <ScrollViewer
-        Padding="8,0"
-        HorizontalAlignment="Center"
-        ScrollViewer.VerticalScrollBarVisibility="Auto">
-        <StackPanel Width="480" MinHeight="430">
+    <ScrollViewer HorizontalAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Auto">
+        <StackPanel
+            MinHeight="430"
+            Margin="8,0">
             <toolkit:SettingsCard Header="Enter a URI to test">
                 <TextBox
                     x:Name="_UriInput"
@@ -24,7 +23,7 @@
             <toolkit:SettingsCard Margin="0,8,0,0" Header="Test against Existing Rules">
                 <Button
                     x:Name="_TestExistingButton"
-                    Width="80"
+                    MinWidth="120"
                     Click="TestExistingButton_Click"
                     Style="{StaticResource AccentButtonStyle}">
                     Test
@@ -53,7 +52,7 @@
                     </toolkit:SettingsCard>
                     <toolkit:SettingsCard>
                         <Button
-                            Width="80"
+                            MinWidth="120"
                             Click="TestRuleButton_Click"
                             Style="{StaticResource AccentButtonStyle}">
                             Test
