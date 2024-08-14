@@ -19,33 +19,37 @@
                 <TextBlock Text="{x:Bind Version}" />
             </toolkit:SettingsCard>
 
-            <toolkit:SettingsExpander Header="Third Party Libraries">
-                <toolkit:SettingsExpander.HeaderIcon>
-                    <FontIcon Glyph="&#xE90F;" />
-                </toolkit:SettingsExpander.HeaderIcon>
-                <toolkit:SettingsExpander.Items>
-                    <ItemsRepeater Margin="12" ItemsSource="{x:Bind OpenSourceLibraries, Mode=OneWay}">
-                        <ItemsRepeater.ItemTemplate>
-                            <DataTemplate x:DataType="local:OSSLibrary">
-                                <TextBlock Margin="4,0" VerticalAlignment="Center">
-                                    <Hyperlink NavigateUri="{x:Bind Url}" UnderlineStyle="None">
-                                        <Run Text="{x:Bind Name}" />
-                                    </Hyperlink>
-                                </TextBlock>
-                            </DataTemplate>
-                        </ItemsRepeater.ItemTemplate>
-                        <ItemsRepeater.Layout>
-                            <UniformGridLayout
-                                ItemsStretch="Fill"
-                                MaximumRowsOrColumns="6"
-                                MinColumnSpacing="8"
-                                MinItemWidth="200"
-                                MinRowSpacing="8"
-                                Orientation="Horizontal" />
-                        </ItemsRepeater.Layout>
-                    </ItemsRepeater>
-                </toolkit:SettingsExpander.Items>
-            </toolkit:SettingsExpander>
+            <Expander HorizontalAlignment="Stretch" IsExpanded="True">
+                <Expander.Header>
+                    <StackPanel
+                        Padding="0,24"
+                        Orientation="Horizontal"
+                        Spacing="20">
+                        <FontIcon Glyph="&#xE90F;" />
+                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Open Source Libraries" />
+                    </StackPanel>
+                </Expander.Header>
+                <ItemsRepeater Margin="12" ItemsSource="{x:Bind OpenSourceLibraries, Mode=OneWay}">
+                    <ItemsRepeater.ItemTemplate>
+                        <DataTemplate x:DataType="local:OSSLibrary">
+                            <TextBlock Margin="4,0" VerticalAlignment="Center">
+                                <Hyperlink NavigateUri="{x:Bind Url}" UnderlineStyle="None">
+                                    <Run Text="{x:Bind Name}" />
+                                </Hyperlink>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ItemsRepeater.ItemTemplate>
+                    <ItemsRepeater.Layout>
+                        <UniformGridLayout
+                            ItemsStretch="Fill"
+                            MaximumRowsOrColumns="6"
+                            MinColumnSpacing="8"
+                            MinItemWidth="200"
+                            MinRowSpacing="8"
+                            Orientation="Horizontal" />
+                    </ItemsRepeater.Layout>
+                </ItemsRepeater>
+            </Expander>
 
             <toolkit:SettingsCard Description="GitHub Repository" Header="Source Code">
                 <toolkit:SettingsCard.HeaderIcon>
