@@ -19,7 +19,7 @@
         <StackPanel Spacing="4">
             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Rulesets" />
             <StackPanel>
-                <toolkit:SettingsCard Description="Each Ruleset is a collection of Rules" Header="Create new Ruleset">
+                <toolkit:SettingsCard Description="Each ruleset is a collection of rules mapped to a specific browser" Header="Create new Ruleset">
                     <toolkit:SettingsCard.HeaderIcon>
                         <FontIcon Glyph="&#xE710;" />
                     </toolkit:SettingsCard.HeaderIcon>
@@ -39,9 +39,9 @@
 
                 <toolkit:SettingsExpander
                     x:Name="_RulesetListControl"
-                    Description="Rules are applied from top to bottom until a match is found"
+                    Description="Rulesets are checked from top down until a matching rule is found"
                     Header="Rulesets"
-                    IsExpanded="True"
+                    IsExpanded="{x:Bind RuleMatchToggle.IsOn, Mode=OneWay}"
                     ItemsSource="{x:Bind ViewModel.Rulesets, Mode=TwoWay}">
                     <toolkit:SettingsExpander.HeaderIcon>
                         <FontIcon Glyph="&#xF168;" />
