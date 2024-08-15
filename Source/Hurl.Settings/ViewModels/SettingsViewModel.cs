@@ -8,7 +8,7 @@ namespace Hurl.Settings.ViewModels
 
         public SettingsViewModel()
         {
-            AppSettings = State.Settings.GetAppSettings();
+            AppSettings = State.Settings.AppSettings;
         }
 
         public bool Option_LaunchUnderMouse

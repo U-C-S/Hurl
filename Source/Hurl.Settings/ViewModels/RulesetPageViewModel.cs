@@ -14,6 +14,15 @@ public partial class RulesetPageViewModel : ObservableObject
         Rulesets = new(State.Settings.Rulesets);
     }
 
+    public bool Option_RuleMatching
+    {
+        get => State.Settings.AppSettings.RuleMatching;
+        set
+        {
+            State.Settings.Set_RuleMatching(value);
+        }
+    }
+
     public void NewRuleset(Ruleset ruleset)
     {
         State.Settings.AddRuleset(ruleset);

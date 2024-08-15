@@ -19,6 +19,16 @@
         <StackPanel Spacing="4">
             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Rulesets" />
             <StackPanel>
+                <toolkit:SettingsCard Description="Auto-open mapped browser when a clicked link matches a rule" Header="Rule Matching">
+                    <toolkit:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE816;" />
+                    </toolkit:SettingsCard.HeaderIcon>
+                    <ToggleSwitch
+                        x:Name="RuleMatchToggle"
+                        IsOn="{x:Bind ViewModel.Option_RuleMatching, Mode=TwoWay}"
+                        OffContent="Disabled"
+                        OnContent="Enabled" />
+                </toolkit:SettingsCard>
                 <toolkit:SettingsCard Description="Each ruleset is a collection of rules mapped to a specific browser" Header="Create new Ruleset">
                     <toolkit:SettingsCard.HeaderIcon>
                         <FontIcon Glyph="&#xE710;" />

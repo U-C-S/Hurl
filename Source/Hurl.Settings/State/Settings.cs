@@ -26,10 +26,7 @@ namespace Hurl.Settings.State
 
         #region AppSettingsMethods
 
-        public static AppSettings GetAppSettings()
-        {
-            return Value.AppSettings;
-        }
+        public static AppSettings AppSettings => Value.AppSettings;
 
         public static void Set_LaunchUnderMouse(bool value)
         {
@@ -48,6 +45,13 @@ namespace Hurl.Settings.State
             Value.AppSettings.BackgroundType = value;
             Save();
         }
+
+        public static void Set_RuleMatching(bool value)
+        {
+            Value.AppSettings.RuleMatching = value;
+            Save();
+        }
+
         #endregion
 
         #region BrowserMethods
