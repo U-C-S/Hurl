@@ -73,7 +73,7 @@ public sealed partial class RulesetPage : Page
         ContentDialog createNewRulesetDialog = new()
         {
             XamlRoot = this.XamlRoot,
-            Title = $"Edit ruleset {ruleset.RulesetName}",
+            Title = $"Edit Ruleset - {ruleset.RulesetName}",
             Content = NewRulesetDialogContent,
             CloseButtonText = "Cancel",
             PrimaryButtonText = "Save",

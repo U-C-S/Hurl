@@ -25,7 +25,7 @@
                     </toolkit:SettingsCard.HeaderIcon>
                     <Button
                         Width="80"
-                        Click="Button_Click"
+                        Click="CreateButton_Click"
                         Style="{StaticResource AccentButtonStyle}">
                         Create
                     </Button>

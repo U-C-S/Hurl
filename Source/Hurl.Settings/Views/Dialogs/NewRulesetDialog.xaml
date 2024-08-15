@@ -10,7 +10,7 @@
     xmlns:viewmodels="using:Hurl.Settings.ViewModels"
     mc:Ignorable="d">
 
-    <ScrollViewer>
+    <ScrollViewer MinWidth="500">
         <StackPanel Margin="8,0">
             <toolkit:SettingsCard Header="Ruleset Title">
                 <StackPanel Orientation="Horizontal">

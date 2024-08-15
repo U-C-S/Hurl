@@ -11,6 +11,7 @@
 
     <ScrollViewer HorizontalAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Auto">
         <StackPanel
+            MinWidth="480"
             MinHeight="430"
             Margin="8,0">
             <toolkit:SettingsCard Header="Enter a URI to test">
