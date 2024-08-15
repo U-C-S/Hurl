@@ -1,55 +1,54 @@
 ﻿using Hurl.Library.Models;
 
-namespace Hurl.Settings.ViewModels
+namespace Hurl.Settings.ViewModels;
+
+public class SettingsViewModel
 {
-    public class SettingsViewModel
+    private AppSettings AppSettings { get; set; }
+
+    public SettingsViewModel()
     {
-        private AppSettings AppSettings { get; set; }
+        AppSettings = State.Settings.AppSettings;
+    }
 
-        public SettingsViewModel()
+    public bool Option_LaunchUnderMouse
+    {
+        get => AppSettings.LaunchUnderMouse;
+        set
         {
-            AppSettings = State.Settings.AppSettings;
+            AppSettings.LaunchUnderMouse = value;
+            State.Settings.Set_LaunchUnderMouse(value);
         }
+    }
 
-        public bool Option_LaunchUnderMouse
+    public bool Option_NoWhiteBorder
+    {
+        get => AppSettings.NoWhiteBorder;
+        set
         {
-            get => AppSettings.LaunchUnderMouse;
-            set
-            {
-                AppSettings.LaunchUnderMouse = value;
-                State.Settings.Set_LaunchUnderMouse(value);
-            }
+            State.Settings.Set_NoWhiteBorder(value);
+            AppSettings.NoWhiteBorder = value;
         }
+    }
 
-        public bool Option_NoWhiteBorder
+    public int Option_BackgroundType
+    {
+        get => AppSettings.BackgroundType switch
         {
-            get => AppSettings.NoWhiteBorder;
-            set
-            {
-                State.Settings.Set_NoWhiteBorder(value);
-                AppSettings.NoWhiteBorder = value;
-            }
-        }
-
-        public int Option_BackgroundType
+            "mica" => 0,
+            "acrylic" => 1,
+            _ => 2
+        };
+        set
         {
-            get => AppSettings.BackgroundType switch
+            string val = value switch
             {
-                "mica" => 0,
-                "acrylic" => 1,
-                _ => 2
+                0 => "mica",
+                1 => "acrylic",
+                _ => "solid"
             };
-            set
-            {
-                string val = value switch
-                {
-                    0 => "mica",
-                    1 => "acrylic",
-                    _ => "solid"
-                };
-                State.Settings.Set_BackgroundType(val);
-                AppSettings.BackgroundType = val;
-            }
+            State.Settings.Set_BackgroundType(val);
+            AppSettings.BackgroundType = val;
         }
     }
 }

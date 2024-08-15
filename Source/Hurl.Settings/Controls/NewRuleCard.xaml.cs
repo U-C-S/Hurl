@@ -2,7 +2,6 @@ using Hurl.Library.Models;
 using Microsoft.UI.Xaml.Controls;
 using System;
 
-
 namespace Hurl.Settings.Controls;
 
 public sealed partial class NewRuleCard : UserControl
