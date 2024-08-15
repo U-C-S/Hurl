@@ -60,7 +60,11 @@
                         <DataTemplate x:DataType="model:Ruleset">
                             <toolkit:SettingsCard Description="{x:Bind BrowserName}" Header="{x:Bind RulesetName}">
                                 <StackPanel Orientation="Horizontal">
-                                    <Button Style="{StaticResource EllipsisButton}" ToolTipService.ToolTip="View Rules">
+                                    <Button
+                                        Click="ViewRuleset"
+                                        Style="{StaticResource EllipsisButton}"
+                                        Tag="{x:Bind Id}"
+                                        ToolTipService.ToolTip="View Rules">
                                         <FontIcon Glyph="&#xE946;" />
                                     </Button>
                                     <DropDownButton Style="{StaticResource TextBlockButtonStyle}" ToolTipService.ToolTip="More Options">

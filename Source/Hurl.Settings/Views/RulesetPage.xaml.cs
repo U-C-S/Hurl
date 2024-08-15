@@ -114,6 +114,23 @@ public sealed partial class RulesetPage : Page
         else return null;
     }
 
+    private async void ViewRuleset(object sender, RoutedEventArgs e)
+    {
+        var id = (Guid)(sender as Button)!.Tag;
+        var ruleset = State.Settings.Rulesets.Where(x => x.Id == id).First();
+        ViewRulesDialog ViewRulesDialogContent = new(ruleset);
+        ContentDialog viewRulesDialog = new()
+        {
+            XamlRoot = this.XamlRoot,
+            Title = $"Viewing Ruleset - {ruleset.RulesetName}",
+            Content = ViewRulesDialogContent,
+            CloseButtonText = "Close",
+            DefaultButton = ContentDialogButton.Close,
+        };
+
+        _ = await viewRulesDialog.ShowAsync();
+    }
+
     private void ClickMoveUpRuleset(object sender, RoutedEventArgs e)
     {
         var Id = (Guid)(sender as MenuFlyoutItem).Tag;
