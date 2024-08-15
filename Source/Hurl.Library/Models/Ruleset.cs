@@ -1,9 +1,12 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace Hurl.Library.Models;
 
 public class Ruleset
 {
+    [JsonIgnore]
+    public Guid Id { get; set; } = Guid.NewGuid();
+
     public List<string> Rules { get; set; }
 
     public string RulesetName { get; set; }
@@ -17,9 +20,9 @@ public class Ruleset
 public enum RuleMode
 {
     Domain,
-    String,
+    Glob,
     Regex,
-    Glob
+    String,
 }
 
 public class Rule

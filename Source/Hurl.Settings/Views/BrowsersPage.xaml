@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="Hurl.Settings.Views.BrowsersPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ctlabs="using:CommunityToolkit.WinUI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Hurl.Settings.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="using:Hurl.Settings.Controls"
+    xmlns:vm="using:Hurl.Settings.ViewModels"
+    mc:Ignorable="d">
+    <Page.DataContext>
+        <vm:BrowsersPageViewModel x:Name="ViewModel" />
+    </Page.DataContext>
+
+    <StackPanel MaxWidth="800" Spacing="16">
+        <StackPanel Spacing="4">
+            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Browsers" />
+
+            <ItemsControl ItemsSource="{x:Bind ViewModel.Browsers}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <ctlabs:SettingsExpander Header="{Binding Name}">
+                            <ctlabs:SettingsExpander.HeaderIcon>
+                                <FontIcon Glyph="&#xE8B0;" />
+                            </ctlabs:SettingsExpander.HeaderIcon>
+
+                            <ctlabs:SettingsExpander.Items>
+                                <ctlabs:SettingsCard Header="Name">
+                                    <TextBox
+                                        MinWidth="160"
+                                        IsEnabled="False"
+                                        PlaceholderText="Name of the Browser"
+                                        Text="{Binding Name}" />
+                                </ctlabs:SettingsCard>
+
+                                <ctlabs:SettingsCard Header="Executable Path">
+                                    <StackPanel Orientation="Horizontal" Spacing="5">
+                                        <!--<Button Width="35" Height="30">
+                                            <FontIcon Glyph="&#xE8E5;" />
+                                        </Button>-->
+                                        <TextBox
+                                            MinWidth="160"
+                                            MaxWidth="300"
+                                            IsEnabled="False"
+                                            Text="{Binding ExePath}" />
+                                    </StackPanel>
+                                </ctlabs:SettingsCard>
+
+                                <ctlabs:SettingsCard Header="Launch Arguments">
+                                    <TextBox
+                                        MinWidth="160"
+                                        IsEnabled="False"
+                                        PlaceholderText="Name of the Browser"
+                                        Text="{Binding LaunchArgs}" />
+                                </ctlabs:SettingsCard>
+
+                                <ctlabs:SettingsCard Header="Hidden">
+                                    <CheckBox IsChecked="{Binding Hidden}" IsEnabled="False" />
+                                </ctlabs:SettingsCard>
+                            </ctlabs:SettingsExpander.Items>
+                        </ctlabs:SettingsExpander>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+
+        <StackPanel Spacing="4">
+            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Other Options" />
+            <uc:ComingSoon />
+        </StackPanel>
+    </StackPanel>
+</Page>

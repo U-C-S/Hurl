@@ -8,5 +8,15 @@ public class AppSettings
 
     public string BackgroundType { get; set; } = "mica";
 
+    public bool RuleMatching { get; set; } = false;
+
     public int[] WindowSize { get; set; } = [420, 210];
+}
+
+
+public enum BackgroundMaterial
+{
+    Acrylic,
+    Mica,
+    Solid
 }

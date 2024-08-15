@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="Hurl.Settings.Views.Dialogs.TestRules"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Hurl.Settings.Views.Dialogs"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
+    mc:Ignorable="d">
+
+    <ScrollViewer HorizontalAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Auto">
+        <StackPanel
+            MinWidth="480"
+            MinHeight="430"
+            Margin="8,0">
+            <toolkit:SettingsCard Header="Enter a URI to test">
+                <TextBox
+                    x:Name="_UriInput"
+                    MinWidth="120"
+                    MaxWidth="300" />
+            </toolkit:SettingsCard>
+
+            <toolkit:SettingsCard Margin="0,8,0,0" Header="Test against Existing Rules">
+                <Button
+                    x:Name="_TestExistingButton"
+                    MinWidth="120"
+                    Click="TestExistingButton_Click"
+                    Style="{StaticResource AccentButtonStyle}">
+                    Test
+                </Button>
+            </toolkit:SettingsCard>
+            <toolkit:SettingsExpander Header="Test against Custom Rule" IsExpanded="True">
+                <toolkit:SettingsExpander.Items>
+                    <toolkit:SettingsCard Header="Rule Type">
+                        <ComboBox
+                            x:Name="_RuleTypeInput"
+                            Grid.Column="1"
+                            Width="120"
+                            MinWidth="120"
+                            HorizontalAlignment="Right">
+                            <ComboBoxItem Content="Regex" />
+                            <ComboBoxItem Content="Glob" />
+                            <ComboBoxItem Content="Domain" />
+                            <ComboBoxItem Content="String" />
+                        </ComboBox>
+                    </toolkit:SettingsCard>
+                    <toolkit:SettingsCard Header="Rule">
+                        <TextBox
+                            x:Name="_RuleInput"
+                            MinWidth="120"
+                            MaxWidth="280" />
+                    </toolkit:SettingsCard>
+                    <toolkit:SettingsCard>
+                        <Button
+                            MinWidth="120"
+                            Click="TestRuleButton_Click"
+                            Style="{StaticResource AccentButtonStyle}">
+                            Test
+                        </Button>
+                    </toolkit:SettingsCard>
+                </toolkit:SettingsExpander.Items>
+            </toolkit:SettingsExpander>
+
+            <StackPanel x:Name="_outputCard" />
+        </StackPanel>
+    </ScrollViewer>
+</Page>
