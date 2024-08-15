@@ -31,6 +31,12 @@
                     </Button>
                 </toolkit:SettingsCard>
 
+                <TeachingTip x:Name="RulesetWarnFlyout" Title="Warning">
+                    <TeachingTip.IconSource>
+                        <SymbolIconSource Symbol="Redo" />
+                    </TeachingTip.IconSource>
+                </TeachingTip>
+
                 <toolkit:SettingsExpander
                     x:Name="_RulesetListControl"
                     Description="Rules are applied from top to bottom until a match is found"

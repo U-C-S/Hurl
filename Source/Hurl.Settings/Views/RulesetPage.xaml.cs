@@ -32,10 +32,9 @@ public sealed partial class RulesetPage : Page
         };
 
         _ = await testRulesDialog.ShowAsync();
-
     }
 
-    private async void Button_Click(object sender, RoutedEventArgs e)
+    private async void CreateButton_Click(object sender, RoutedEventArgs e)
     {
         NewRulesetDialog NewRulesetDialogContent = new();
         ContentDialog createNewRulesetDialog = new()
@@ -52,6 +51,14 @@ public sealed partial class RulesetPage : Page
         if (result == ContentDialogResult.Primary)
         {
             var x = NewRulesetDialogContent.Generate();
+            var warn = Validate(x);
+
+            if (!string.IsNullOrEmpty(warn))
+            {
+                RulesetWarnFlyout.Subtitle = warn;
+                RulesetWarnFlyout.Target = sender as Button;
+                RulesetWarnFlyout.IsOpen = true;
+            }
 
             ViewModel.NewRuleset(x);
         }
@@ -77,8 +84,34 @@ public sealed partial class RulesetPage : Page
         if (result == ContentDialogResult.Primary)
         {
             var x = NewRulesetDialogContent.Generate();
+
+            var warn = Validate(x);
+
+            if (!string.IsNullOrEmpty(warn))
+            {
+                RulesetWarnFlyout.Subtitle = warn;
+                RulesetWarnFlyout.IsOpen = true;
+            }
+
             ViewModel.EditRuleset(x);
         }
+    }
+
+    private string? Validate(Ruleset rs)
+    {
+        if (string.IsNullOrWhiteSpace(rs.BrowserName))
+        {
+            return "Missing Browser. This prevents configured rules from triggering";
+        }
+        else if (rs.Rules?.Count == 0)
+        {
+            return "No rules configured";
+        }
+        else if (string.IsNullOrWhiteSpace(rs.RulesetName))
+        {
+            return "Missing Ruleset Name";
+        }
+        else return null;
     }
 
     private void ClickMoveUpRuleset(object sender, RoutedEventArgs e)
