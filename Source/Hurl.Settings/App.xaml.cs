@@ -2,49 +2,46 @@
 using System;
 using System.Diagnostics;
 
-namespace Hurl.Settings
+namespace Hurl.Settings;
+
+public partial class App : Application
 {
-    public partial class App : Application
+    public App()
     {
-        public App()
+        this.InitializeComponent();
+    }
+
+    private MainWindow m_window;
+
+    protected override void OnLaunched(LaunchActivatedEventArgs args)
+    {
+        var cmdArgs = Environment.GetCommandLineArgs();
+
+        m_window = new MainWindow();
+
+        if (cmdArgs.Length > 1)
         {
-            this.InitializeComponent();
+            ProcessArgs(cmdArgs);
         }
-
-        protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
+        else
         {
-            var cmdArgs = Environment.GetCommandLineArgs();
+            m_window.Activate();
+        }
+    }
 
-            m_window = new MainWindow();
 
-            if (cmdArgs.Length > 1)
+    void ProcessArgs(string[] args)
+    {
+        Debug.WriteLine(args[0]);
+        var primaryArg = args[1];
+
+        if (primaryArg.Equals("--page"))
+        {
+            if (args.Length > 2)
             {
-                ProcessArgs(cmdArgs);
+                m_window.NavigateToPage(args[2]);
                 m_window.Activate();
             }
-            else
-            {
-                m_window.Activate();
-            }
-
-        }
-
-        private Window m_window;
-
-        void ProcessArgs(string[] args)
-        {
-            Debug.WriteLine(args[0]);
-            var primaryArg = args[1];
-
-            if (primaryArg.StartsWith("--newrule"))
-            {
-                if (args.Length >= 2)
-                {
-                    var ruleURL = args[2];
-                    Debug.WriteLine($"------------------------> Creating new rule for {ruleURL}");
-                }
-            }
-
         }
     }
 }

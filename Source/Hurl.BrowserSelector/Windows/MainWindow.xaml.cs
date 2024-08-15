@@ -115,7 +115,7 @@ public partial class MainWindow : FluentWindow
                 break;
             case Key.R:
                 MinimizeWindow();
-                Process.Start(Constants.SETTINGS_APP);
+                Process.Start(Constants.SETTINGS_APP, "--page rulesets");
                 break;
             case Key.T:
                 new TimeSelectWindow(SettingsGlobal.Value.Browsers).ShowDialog();
@@ -138,7 +138,7 @@ public partial class MainWindow : FluentWindow
         }
     }
 
-    private void SettingsBtnClick(object sender, RoutedEventArgs e) => Process.Start(Constants.SETTINGS_APP);
+    private void SettingsBtnClick(object sender, RoutedEventArgs e) => Process.Start(Constants.SETTINGS_APP, "--page settings");
     private void Draggable(object sender, MouseButtonEventArgs e) => DragMove();
     private void CloseBtnClick(object sender, RoutedEventArgs e) => MinimizeWindow();
 
@@ -168,7 +168,7 @@ public partial class MainWindow : FluentWindow
                     ShowWindow();
                     break;
                 case "settings":
-                    Process.Start(Constants.SETTINGS_APP);
+                    Process.Start(Constants.SETTINGS_APP, "--page settings");
                     break;
                 case "exit":
                     Application.Current.Shutdown();
@@ -248,6 +248,6 @@ public partial class MainWindow : FluentWindow
     private void Button_Click_1(object sender, RoutedEventArgs e)
     {
         MinimizeWindow();
-        Process.Start(Constants.SETTINGS_APP);
+        Process.Start(Constants.SETTINGS_APP, "--page rulesets");
     }
 }
