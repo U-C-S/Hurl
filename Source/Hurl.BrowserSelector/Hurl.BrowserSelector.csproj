@@ -22,9 +22,9 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
-    <PackageReference Include="System.Drawing.Common" Version="8.0.6" />
-    <PackageReference Include="WPF-UI" Version="3.0.4" />
-    <PackageReference Include="WPF-UI.Tray" Version="3.0.4" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.8" />
+    <PackageReference Include="WPF-UI" Version="3.0.5" />
+    <PackageReference Include="WPF-UI.Tray" Version="3.0.5" />
 	</ItemGroup>
 	<ItemGroup>
 	  <None Remove="Assets\internet.ico" />
