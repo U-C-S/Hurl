@@ -1,7 +1,12 @@
 [package]
 name = "Launcher"
-version = "0.2.0"
+description = "Choose the browser on the click of a link"
+version = "0.9.0"
 edition = "2021"
+build = "build.rs"
+
+[build-dependencies]
+winresource = "0.1"
 
 [dependencies]
 byteorder = "1"
@@ -13,3 +18,8 @@ tokio = { version = "1", features = ["macros", "rt-multi-thread", "net"] }
 strip = "debuginfo"
 opt-level = "z"
 lto = true
+
+[package.metadata.winresource]
+ProductName = "Hurl"
+LegalCopyright = "Copyright © 2024 Chanakya"
+OriginalFilename = "Launcher.exe"
