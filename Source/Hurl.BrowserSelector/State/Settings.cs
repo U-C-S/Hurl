@@ -3,15 +3,15 @@ using Hurl.Library.Models;
 using System.Collections.Generic;
 using System.Windows;
 
-namespace Hurl.BrowserSelector.Globals
+namespace Hurl.BrowserSelector.State
 {
-    public class SettingsGlobal
+    public class Settings
     {
-        private static readonly SettingsGlobal _instance = new();
+        private static readonly Settings _instance = new();
 
-        private Settings _settings = SettingsFile.GetSettings();
+        private Library.Models.Settings _settings = Library.Models.Settings.GetSettings();
 
-        public static Settings Value
+        private static Library.Models.Settings Value
         {
             get
             {
@@ -23,15 +23,28 @@ namespace Hurl.BrowserSelector.Globals
             }
         }
 
-        public static void AddBrowserRule(List<string> rules, string name)
+        public static AppSettings AppSettings
         {
-            if (Value?.Rulesets == null)
+            get
             {
-                Value.Rulesets = [];
+                return Value.AppSettings;
             }
-            Value.Rulesets.Add(new Ruleset() { Rules = rules, BrowserName = name });
+        }
 
-            Save();
+        public static List<Browser> Browsers
+        {
+            get
+            {
+                return Value.Browsers;
+            }
+        }
+
+        public static List<Ruleset> Rulesets
+        {
+            get
+            {
+                return Value.Rulesets;
+            }
         }
 
         public static void AdjustWindowSize(SizeChangedEventArgs e)
@@ -52,19 +65,9 @@ namespace Hurl.BrowserSelector.Globals
 
         }
 
-        public static List<Browser> GetBrowsers()
-        {
-            return Library.GetBrowsers.FromSettingsFile(Value, false);
-        }
-
-        public static List<string> GetBrowserNameList()
-        {
-            return Value.Browsers.ConvertAll(x => x.Name);
-        }
-
         private static void Save()
         {
-            JsonOperations.FromModelToJson(_instance._settings, Constants.APP_SETTINGS_MAIN);
+            JsonOperations.FromModelToJson(Value, Constants.APP_SETTINGS_MAIN);
         }
     }
 }

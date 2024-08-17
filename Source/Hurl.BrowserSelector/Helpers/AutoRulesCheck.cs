@@ -1,4 +1,4 @@
-﻿using Hurl.BrowserSelector.Globals;
+﻿using Hurl.BrowserSelector.State;
 using Hurl.Library;
 using System.Diagnostics;
 
@@ -8,14 +8,13 @@ namespace Hurl.BrowserSelector.Helpers
     {
         public static bool Start(string link)
         {
-            var settings = SettingsGlobal.Value;
-            if (settings?.Rulesets == null) return false;
+            var rulesets = Settings.Rulesets;
 
 #if DEBUG
             Stopwatch sw = new();
             sw.Start();
 #endif
-            foreach (var rules in settings.Rulesets)
+            foreach (var rules in rulesets)
             {
                 var isHurl = rules.BrowserName == "_Hurl";
                 if (isHurl && RuleMatch.CheckMultiple(link, rules.Rules))
@@ -24,7 +23,7 @@ namespace Hurl.BrowserSelector.Helpers
                 }
                 else
                 {
-                    var x = settings.Browsers.Find(x => x.Name == rules.BrowserName);
+                    var x = Settings.Browsers.Find(x => x.Name == rules.BrowserName);
                     if (x != null)
                     {
                         if (RuleMatch.CheckMultiple(link, rules.Rules))

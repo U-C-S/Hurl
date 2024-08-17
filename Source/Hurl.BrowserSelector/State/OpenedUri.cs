@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Hurl.BrowserSelector.Globals
+namespace Hurl.BrowserSelector.State
 {
-    public sealed class UriGlobal : INotifyPropertyChanged
+    public sealed class OpenedUri : INotifyPropertyChanged
     {
-        private UriGlobal(string Url) => this.Url = Url;
+        private OpenedUri(string Url) => this.Url = Url;
         private string _url;
 
         private string Url
@@ -21,18 +21,18 @@ namespace Hurl.BrowserSelector.Globals
             }
         }
 
-        private static UriGlobal? _instance;
+        private static OpenedUri? _instance;
 
         public static string Value
         {
             get
             {
-                _instance ??= new UriGlobal(string.Empty);
+                _instance ??= new OpenedUri(string.Empty);
                 return _instance.Url;
             }
             set
             {
-                _instance ??= new UriGlobal(value);
+                _instance ??= new OpenedUri(value);
                 _instance.Url = value;
             }
         }

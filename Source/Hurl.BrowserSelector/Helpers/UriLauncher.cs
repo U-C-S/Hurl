@@ -36,7 +36,7 @@ class UriLauncher
 
     public static void Alternative(string uri, Browser browser, int altLaunchIndex)
     {
-        var alt = browser.AlternateLaunches[altLaunchIndex];
+        var alt = (browser?.AlternateLaunches?[altLaunchIndex]) ?? throw new Exception("Alternate Launch profile does not exist");
         if (alt.LaunchArgs.Contains("%URL%"))
         {
             var args = alt.LaunchArgs.Replace("%URL%", uri);

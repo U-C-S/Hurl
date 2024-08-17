@@ -1,4 +1,4 @@
-﻿using Hurl.BrowserSelector.Globals;
+﻿using Hurl.BrowserSelector.State;
 using Hurl.BrowserSelector.Helpers;
 using Hurl.BrowserSelector.Windows;
 using System;
@@ -8,7 +8,6 @@ using System.IO.Pipes;
 using System.Text.Json;
 using System.Threading;
 using System.Windows;
-
 
 namespace Hurl.BrowserSelector
 {
@@ -31,7 +30,7 @@ namespace Hurl.BrowserSelector
 
         public App()
         {
-            Dispatcher.UnhandledException += Dispatcher_UnhandledException;
+            Current.Dispatcher.UnhandledException += Dispatcher_UnhandledException;
         }
 
         private void Dispatcher_UnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
@@ -91,7 +90,7 @@ namespace Hurl.BrowserSelector
             _pipeServerListenThread.Start();
 
             var cliArgs = CliArgs.GatherInfo(e.Args, false);
-            UriGlobal.Value = cliArgs.Url;
+            OpenedUri.Value = cliArgs.Url;
 
             _mainWindow = new();
             _mainWindow.Init(cliArgs);
@@ -118,7 +117,7 @@ namespace Hurl.BrowserSelector
 
                 if (!IsTimedSet)
                 {
-                    UriGlobal.Value = cliArgs.Url;
+                    OpenedUri.Value = cliArgs.Url;
                     _mainWindow?.Init(cliArgs);
                 }
             });

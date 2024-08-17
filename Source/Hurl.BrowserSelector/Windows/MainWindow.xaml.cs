@@ -1,5 +1,5 @@
 using Hurl.BrowserSelector.Controls;
-using Hurl.BrowserSelector.Globals;
+using Hurl.BrowserSelector.State;
 using Hurl.BrowserSelector.Helpers;
 using Hurl.Library;
 using System;
@@ -18,14 +18,14 @@ public partial class MainWindow : FluentWindow
 
     public MainWindow()
     {
-        var settings = SettingsGlobal.Value;
+        var appSettings = Settings.AppSettings;
 
         InitializeComponent();
 
         var osbuild = Environment.OSVersion.Version.Build;
-        var backtype = settings.AppSettings?.BackgroundType;
+        var backtype = appSettings?.BackgroundType;
 
-        if (settings.AppSettings?.NoWhiteBorder == true) WindowBorder.BorderThickness = new Thickness(0);
+        if (appSettings?.NoWhiteBorder == true) WindowBorder.BorderThickness = new Thickness(0);
         if (osbuild < 22000) WindowBorder.CornerRadius = new CornerRadius(0);
 
         if (backtype == "acrylic" && osbuild >= 22523)
@@ -48,13 +48,13 @@ public partial class MainWindow : FluentWindow
 
     public void Init(CliArgs data)
     {
-        var settings = SettingsGlobal.Value;
+        var appSettings = Settings.AppSettings;
         var isRuleCheckSuccess = AutoRulesCheck.Start(data.Url);
 
         if (!data.IsSecondInstance)
         {
-            Width = settings?.AppSettings?.WindowSize[0] ?? 420;
-            Height = settings?.AppSettings?.WindowSize[1] ?? 210;
+            Width = appSettings?.WindowSize[0] ?? 420;
+            Height = appSettings?.WindowSize[1] ?? 210;
         }
 
         if (data.IsRunAsMin || isRuleCheckSuccess)
@@ -67,12 +67,12 @@ public partial class MainWindow : FluentWindow
             ShowWindow();
         }
 
-        linkpreview.Content = string.IsNullOrEmpty(UriGlobal.Value) ? "No Url Opened" : UriGlobal.Value;
+        linkpreview.Content = string.IsNullOrEmpty(OpenedUri.Value) ? "No Url Opened" : OpenedUri.Value;
     }
 
     public void LoadBrowsers()
     {
-        foreach (var browser in SettingsGlobal.Value.Browsers)
+        foreach (var browser in Settings.Browsers)
         {
             var browserBtn = new BrowserButton(browser);
             BrowsersList.Children.Add(browserBtn);
@@ -88,10 +88,10 @@ public partial class MainWindow : FluentWindow
                 break;
             case Key.E:
                 {
-                    var NewUrl = await URLEditor.ShowInputAsync(this, UriGlobal.Value);
+                    var NewUrl = await URLEditor.ShowInputAsync(this, OpenedUri.Value);
                     if (!string.IsNullOrEmpty(NewUrl))
                     {
-                        UriGlobal.Value = NewUrl;
+                        OpenedUri.Value = NewUrl;
                         linkpreview.Content = NewUrl;
                         linkpreview.ToolTip = NewUrl;
                     }
@@ -101,7 +101,7 @@ public partial class MainWindow : FluentWindow
             case Key.C:
                 try
                 {
-                    Clipboard.SetText(UriGlobal.Value);
+                    Clipboard.SetText(OpenedUri.Value);
                 }
                 catch (Exception err)
                 {
@@ -113,7 +113,7 @@ public partial class MainWindow : FluentWindow
                 Process.Start(Constants.SETTINGS_APP, "--page rulesets");
                 break;
             case Key.T:
-                new TimeSelectWindow(SettingsGlobal.Value.Browsers).ShowDialog();
+                new TimeSelectWindow(Settings.Browsers).ShowDialog();
                 break;
             default:
                 break;
@@ -125,7 +125,7 @@ public partial class MainWindow : FluentWindow
     {
         try
         {
-            Clipboard.SetText(UriGlobal.Value);
+            Clipboard.SetText(OpenedUri.Value);
         }
         catch (Exception err)
         {
@@ -152,9 +152,7 @@ public partial class MainWindow : FluentWindow
 
     private void TrayMenuItem_OnClick(object sender, RoutedEventArgs e)
     {
-        _ = SettingsGlobal.Value;
-
-        string tag = ((MenuItem)sender).Tag as string;
+        string? tag = ((MenuItem)sender).Tag as string;
         try
         {
             switch (tag)
@@ -196,11 +194,11 @@ public partial class MainWindow : FluentWindow
 
     private void PositionWindowUnderTheMouse()
     {
-        var settings = SettingsGlobal.Value;
+        var appSettings = Settings.AppSettings;
 
         try
         {
-            if (settings.AppSettings != null && settings.AppSettings.LaunchUnderMouse)
+            if (appSettings?.LaunchUnderMouse == true)
             {
                 var transform = PresentationSource.FromVisual(this)?.CompositionTarget?.TransformFromDevice;
                 if (transform is Matrix t)
@@ -209,7 +207,7 @@ public partial class MainWindow : FluentWindow
                     Left = mouse.X;
                     Top = mouse.Y;
 
-                    Debug.WriteLine($"{Left}×{Top} with screen resolution: {SystemParameters.FullPrimaryScreenWidth}×{SystemParameters.FullPrimaryScreenHeight}");
+                    Debug.WriteLine($"{Left}ï¿½{Top} with screen resolution: {SystemParameters.FullPrimaryScreenWidth}ï¿½{SystemParameters.FullPrimaryScreenHeight}");
                 }
             }
         }
@@ -219,20 +217,20 @@ public partial class MainWindow : FluentWindow
     private void Button_Click(object sender, RoutedEventArgs e)
     {
         forcePreventWindowDeactivationEvent = true;
-        new TimeSelectWindow(SettingsGlobal.Value.Browsers).ShowDialog();
+        new TimeSelectWindow(Settings.Browsers).ShowDialog();
         forcePreventWindowDeactivationEvent = false;
     }
 
-    private void Window_SizeChanged(object sender, SizeChangedEventArgs e) => SettingsGlobal.AdjustWindowSize(e);
+    private void Window_SizeChanged(object sender, SizeChangedEventArgs e) => Settings.AdjustWindowSize(e);
 
     async private void Linkpreview_Click(object sender, RoutedEventArgs e)
     {
         forcePreventWindowDeactivationEvent = true;
 
-        var NewUrl = await URLEditor.ShowInputAsync(this, UriGlobal.Value);
+        var NewUrl = await URLEditor.ShowInputAsync(this, OpenedUri.Value);
         if (!string.IsNullOrEmpty(NewUrl))
         {
-            UriGlobal.Value = NewUrl;
+            OpenedUri.Value = NewUrl;
             ((Button)sender).Content = NewUrl;
             ((Button)sender).ToolTip = NewUrl;
         }
