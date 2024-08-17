@@ -10,7 +10,7 @@ namespace Hurl.BrowserSelector.Helpers
         public bool IsRunAsMin = false;
         public bool IsProtocolActivated = false;
         public string Url { get; set; } = string.Empty;
-        public string[] otherArgs;
+        public string[]? otherArgs;
 
         private CliArgs(string[] Args, bool IsSecondInstance)
         {

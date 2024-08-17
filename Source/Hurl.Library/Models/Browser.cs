@@ -18,17 +18,17 @@ public class Browser
 
     public string ExePath { get; set; }
 
-    public string LaunchArgs { get; set; }
+    public string? LaunchArgs { get; set; }
 
-    public List<AlternateLaunch> AlternateLaunches { get; set; }
+    public List<AlternateLaunch>? AlternateLaunches { get; set; }
 
-    public string CustomIconPath { get; set; }
+    public string? CustomIconPath { get; set; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public bool Hidden { get; set; } = false;
 
     [JsonIgnore]
-    public ImageSource GetIcon
+    public ImageSource? GetIcon
     {
         get
         {
@@ -62,17 +62,9 @@ public class Browser
     }
 }
 
-public class AlternateLaunch
+public class AlternateLaunch(string ItemName, string LaunchArgs)
 {
-    public AlternateLaunch() { }
+    public string ItemName { get; set; } = ItemName;
 
-    public AlternateLaunch(string ItemName, string LaunchArgs)
-    {
-        this.ItemName = ItemName;
-        this.LaunchArgs = LaunchArgs;
-    }
-
-    public string ItemName { get; set; }
-
-    public string LaunchArgs { get; set; }
+    public string LaunchArgs { get; set; } = LaunchArgs;
 }
