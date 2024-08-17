@@ -93,7 +93,6 @@ public partial class MainWindow : FluentWindow
                     {
                         OpenedUri.Value = NewUrl;
                         linkpreview.Content = NewUrl;
-                        linkpreview.ToolTip = NewUrl;
                     }
 
                     break;
@@ -232,7 +231,6 @@ public partial class MainWindow : FluentWindow
         {
             OpenedUri.Value = NewUrl;
             ((Button)sender).Content = NewUrl;
-            ((Button)sender).ToolTip = NewUrl;
         }
 
         forcePreventWindowDeactivationEvent = false;
@@ -242,5 +240,11 @@ public partial class MainWindow : FluentWindow
     {
         MinimizeWindow();
         Process.Start(Constants.SETTINGS_APP, "--page rulesets");
+    }
+
+    private void ClearUriBtnClick(object sender, RoutedEventArgs e)
+    {
+        OpenedUri.Clear();
+        linkpreview.Content = "No URL Opened";
     }
 }

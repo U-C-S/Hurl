@@ -112,7 +112,7 @@
                 VerticalAlignment="Center"
                 Background="#40000000"
                 CornerRadius="5">
-                <StackPanel Margin="5" Orientation="Horizontal">
+                <StackPanel Margin="4" Orientation="Horizontal">
                     <wpfui:Button
                         Padding="4"
                         Background="{x:Null}"
@@ -129,13 +129,26 @@
                     <wpfui:Button
                         x:Name="linkpreview"
                         MaxWidth="330"
-                        Padding="7,3"
+                        Padding="8,4"
                         Background="{x:Null}"
                         BorderBrush="{x:Null}"
                         Click="Linkpreview_Click"
                         Cursor="Hand"
                         Foreground="AliceBlue"
                         ToolTip="Edit URL (E)" />
+                    <wpfui:Button
+                        Padding="4"
+                        Background="{x:Null}"
+                        BorderBrush="{x:Null}"
+                        Click="ClearUriBtnClick"
+                        Cursor="Hand"
+                        FontSize="16"
+                        Foreground="#BBFFFFFF"
+                        ToolTip="Clear Current URL">
+                        <wpfui:Button.Icon>
+                            <wpfui:SymbolIcon Symbol="Eraser24" />
+                        </wpfui:Button.Icon>
+                    </wpfui:Button>
                 </StackPanel>
             </Border>
 

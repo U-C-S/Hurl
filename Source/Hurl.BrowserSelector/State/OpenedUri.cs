@@ -37,6 +37,10 @@ namespace Hurl.BrowserSelector.State
             }
         }
 
+        public static void Set(string url) => Value = url;
+
+        public static void Clear() => Value = string.Empty;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChanged([CallerMemberName] string? name = null)
