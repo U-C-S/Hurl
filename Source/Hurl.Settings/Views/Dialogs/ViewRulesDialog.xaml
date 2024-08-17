@@ -10,7 +10,10 @@
     mc:Ignorable="d">
 
     <Grid>
-        <ListView ItemsSource="{x:Bind Rules}" SelectionMode="None">
+        <ListView
+            MinWidth="400"
+            ItemsSource="{x:Bind Rules}"
+            SelectionMode="None">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="model:Rule">
                     <StackPanel
@@ -19,7 +22,7 @@
                         BorderBrush="{StaticResource ButtonBorderThemeBrush}"
                         CornerRadius="4"
                         Orientation="Horizontal">
-                        <TextBlock Width="64" Text="{x:Bind Mode}" />
+                        <TextBlock Width="72" Text="{x:Bind Mode}" />
                         <TextBlock Text="{x:Bind RuleContent}" />
                     </StackPanel>
                 </DataTemplate>
