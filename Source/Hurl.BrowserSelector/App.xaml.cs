@@ -17,7 +17,7 @@ namespace Hurl.BrowserSelector
     /// </summary>
     public partial class App : Application
     {
-        private MainWindow _mainWindow;
+        private MainWindow? _mainWindow;
 
         private const string MUTEX_NAME = "Hurl_Mutex_3721";
         private const string EVENT_NAME = "Hurl_Event_3721";
@@ -25,7 +25,9 @@ namespace Hurl.BrowserSelector
         private Mutex? _singleInstanceMutex;
         private EventWaitHandle? _singleInstanceWaitHandle;
 
-        private Thread _pipeServerListenThread;
+        private readonly CancellationTokenSource _cancelTokenSource = new();
+        private Thread? _pipeServerListenThread;
+        private NamedPipeServerStream? _pipeserver;
 
         public App()
         {
@@ -40,11 +42,11 @@ namespace Hurl.BrowserSelector
             {
                 case JsonException:
                     ErrorMsgBuffer = "The UserSettings.json file is in invalid JSON format. \n";
-                    ErrorWndTitle = "Invalid JSON";
+                    ErrorWndTitle = "Hurl - Invalid JSON";
                     break;
                 default:
                     ErrorMsgBuffer = "An unknown error has occurred. \n";
-                    ErrorWndTitle = "Unknown Error";
+                    ErrorWndTitle = "Hurl - Unknown Error";
                     break;
 
             }
@@ -68,11 +70,11 @@ namespace Hurl.BrowserSelector
             {
                 while (_singleInstanceWaitHandle.WaitOne())
                 {
-                    Current.Dispatcher.BeginInvoke(async () =>
+                    Current.Dispatcher.BeginInvoke(() =>
                     {
                         if (Current.MainWindow is { } window)
                         {
-                            _mainWindow.ShowWindow();
+                            _mainWindow?.ShowWindow();
                         }
                         else
                         {
@@ -97,11 +99,14 @@ namespace Hurl.BrowserSelector
 
         protected override void OnExit(ExitEventArgs e)
         {
-            _singleInstanceMutex?.Close();
+            _cancelTokenSource.Cancel();
+            _pipeServerListenThread?.Join();
 
-            // Also kill the pipe server thread
-            // A temporary solution, ideally the pipe server should be stopped gracefully
-            Process.GetCurrentProcess().Kill();
+            _singleInstanceMutex?.Close();
+            _singleInstanceWaitHandle?.Close();
+            _pipeserver?.Dispose();
+
+            base.OnExit(e);
         }
 
         public void OnInstanceInvoked(string[] args)
@@ -114,32 +119,38 @@ namespace Hurl.BrowserSelector
                 if (!IsTimedSet)
                 {
                     UriGlobal.Value = cliArgs.Url;
-                    _mainWindow.Init(cliArgs);
+                    _mainWindow?.Init(cliArgs);
                 }
             });
         }
 
         public void PipeServer()
         {
-            while (true)
+            while (!_cancelTokenSource.Token.IsCancellationRequested)
             {
-                using NamedPipeServerStream pipeserver = new("HurlNamedPipe", PipeDirection.InOut);
-
-                pipeserver.WaitForConnection();
+                _pipeserver = new("HurlNamedPipe", PipeDirection.InOut, 1, PipeTransmissionMode.Byte, PipeOptions.Asynchronous);
 
                 try
                 {
-                    using StreamReader sr = new(pipeserver);
+                    _pipeserver.WaitForConnectionAsync(_cancelTokenSource.Token).Wait();
+
+                    using StreamReader sr = new(_pipeserver);
                     string args = sr.ReadToEnd();
                     string[] argsArray = JsonSerializer.Deserialize<string[]>(args) ?? [];
                     OnInstanceInvoked(argsArray);
                 }
+                catch (OperationCanceledException)
+                {
+                    break;
+                }
                 catch (Exception e)
                 {
-                    Debug.WriteLine(e.Message);
+                    Debug.WriteLine($"Error in PipeServer: {e.Message}");
                 }
-
-                pipeserver.Close();
+                finally
+                {
+                    _pipeserver.Dispose();
+                }
             }
         }
     }
