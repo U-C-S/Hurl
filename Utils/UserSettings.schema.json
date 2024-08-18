@@ -63,6 +63,10 @@
           "type": "boolean",
           "description": "If true, the white border around the browser window will be removed."
         },
+        "RuleMatching": {
+          "type": "boolean",
+          "description": "If true, Enables Rule Matching feature with the rules defined in the 'Rulesets' Property."
+        },
         "BackgroundType": {
           "type": "string",
           "description": "The type of background to use for the browser window. mica or acrylic.",
@@ -92,13 +96,21 @@
             "type": "array",
             "items": {
               "type": "string",
-              "description": "The URL pattern prefixed with s$, g$, or r$, followed by the pattern to match. s$ = simple string, g$ = glob, r$ = regex.",
-              "pattern": "^(s\\$|g\\$|r\\$).*"
+              "description": "The URL pattern prefixed with s$, g$, r$ or d$, followed by the pattern to match. s$ = simple string, g$ = glob, r$ = regex, d$ = domain.",
+              "pattern": "^(s\\$|g\\$|r\\$|d\\$).*"
             }
           },
           "BrowserName": {
             "type": "string",
             "description": "The name of the browser to launch for this Ruleset. should match the Name property of a browser in the Browsers array."
+          },
+          "RulesetName": {
+            "type": "string",
+            "description": "The name of the Ruleset. This should ideally be unique."
+          },
+          "AltLaunchIndex": {
+            "type": "integer",
+            "description": "The index of the Alternate Launch to used. Index starts from 0,1,2..."
           }
         },
         "required": ["Rules", "BrowserName"]
