@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
 using Wpf.Ui.Controls;
 using MessageBox = Wpf.Ui.Controls.MessageBox;
 using TextBox = Wpf.Ui.Controls.TextBox;
@@ -12,20 +11,13 @@ namespace Hurl.BrowserSelector.Windows;
  */
 public static class URLEditor
 {
-    async public static Task<string> ShowInputAsync(
-        Window window,
-        string text
-    )
+    async public static Task<string> ShowInputAsync(Window window, string text)
     {
-        var tcs = new TaskCompletionSource<string>();
-
         var textBox = new TextBox
         {
             MaxLines = 1,
             PlaceholderText = "Enter the URL you want to open",
             Text = text,
-            SelectionStart = text?.Length ?? 0,
-            SelectionLength = 0
         };
 
         var messageBox = new MessageBox
@@ -40,29 +32,13 @@ public static class URLEditor
             SizeToContent = SizeToContent.Height
         };
 
-        textBox.TextChanged += (s, e) =>
-        {
-            var isEmpty = string.IsNullOrWhiteSpace(textBox.Text);
-            messageBox.IsPrimaryButtonEnabled = !isEmpty;
-        };
-
-        messageBox.Closing += (s, e) =>
-        {
-            tcs.TrySetResult(null);
-        };
-
+        textBox.Focus();
         var result = await messageBox.ShowDialogAsync();
-
-        FocusManager.SetFocusedElement(window, textBox);
 
         if (result == Wpf.Ui.Controls.MessageBoxResult.Primary)
         {
             var content = textBox.Text?.Trim();
-            var newText = string.IsNullOrWhiteSpace(content) ? null : content;
-            if (newText is null)
-                return text;
-            else return newText;
-            //messageBox.Close();
+            return content ?? string.Empty;
         }
         else return text;
     }

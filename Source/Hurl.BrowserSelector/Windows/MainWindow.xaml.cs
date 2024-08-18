@@ -1,6 +1,6 @@
 using Hurl.BrowserSelector.Controls;
-using Hurl.BrowserSelector.State;
 using Hurl.BrowserSelector.Helpers;
+using Hurl.BrowserSelector.State;
 using Hurl.Library;
 using System;
 using System.Diagnostics;
@@ -87,16 +87,8 @@ public partial class MainWindow : FluentWindow
                 MinimizeWindow();
                 break;
             case Key.E:
-                {
-                    var NewUrl = await URLEditor.ShowInputAsync(this, OpenedUri.Value);
-                    if (!string.IsNullOrEmpty(NewUrl))
-                    {
-                        OpenedUri.Value = NewUrl;
-                        linkpreview.Content = NewUrl;
-                    }
-
-                    break;
-                }
+                UrlEdit();
+                break;
             case Key.C:
                 try
                 {
@@ -210,7 +202,7 @@ public partial class MainWindow : FluentWindow
                 }
             }
         }
-        catch (Exception _) { }
+        catch (Exception) { }
     }
 
     private void Button_Click(object sender, RoutedEventArgs e)
@@ -222,7 +214,9 @@ public partial class MainWindow : FluentWindow
 
     private void Window_SizeChanged(object sender, SizeChangedEventArgs e) => Settings.AdjustWindowSize(e);
 
-    async private void Linkpreview_Click(object sender, RoutedEventArgs e)
+    private void Linkpreview_Click(object sender, RoutedEventArgs e) => UrlEdit();
+
+    async private void UrlEdit()
     {
         forcePreventWindowDeactivationEvent = true;
 
@@ -230,7 +224,7 @@ public partial class MainWindow : FluentWindow
         if (!string.IsNullOrEmpty(NewUrl))
         {
             OpenedUri.Value = NewUrl;
-            ((Button)sender).Content = NewUrl;
+            linkpreview.Content = NewUrl;
         }
 
         forcePreventWindowDeactivationEvent = false;
