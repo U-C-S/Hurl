@@ -11,10 +11,10 @@ namespace Hurl.Library;
 
 public static class IconExtractor
 {
-    [DllImport("User32.dll", CharSet = CharSet.Auto)]
+    [DllImport("User32.dll", CharSet = CharSet.Unicode)]
     internal static extern UInt32 PrivateExtractIcons(String lpszFile, int nIconIndex, int cxIcon, int cyIcon, IntPtr[] phicon, IntPtr[] piconid, UInt32 nIcons, UInt32 flags);
 
-    public static Icon FromFile(string filename)
+    public static Icon? FromFile(string filename)
     {
         try
         {
@@ -40,7 +40,7 @@ internal static class IconUtilites
     [DllImport("gdi32.dll", SetLastError = true)]
     private static extern bool DeleteObject(IntPtr hObject);
 
-    public static ImageSource ToImageSource(this Icon icon)
+    public static ImageSource? ToImageSource(this Icon icon)
     {
         try
         {

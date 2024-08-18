@@ -1,5 +1,5 @@
-﻿using Hurl.BrowserSelector.State;
-using Hurl.BrowserSelector.Helpers;
+﻿using Hurl.BrowserSelector.Helpers;
+using Hurl.BrowserSelector.State;
 using Hurl.Library.Models;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,17 +25,21 @@ namespace Hurl.BrowserSelector.Controls
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var alt = ((MenuItem)sender).Tag as AlternateLaunch;
-            UriLauncher.Alternative(OpenedUri.Value, (Browser)DataContext, alt);
-            MinimizeWindow();
+            if (((MenuItem)sender).Tag is AlternateLaunch alt)
+            {
+                UriLauncher.Alternative(OpenedUri.Value, (Browser)DataContext, alt);
+                MinimizeWindow();
+            }
         }
 
         private void AdditionalBtn_Click(object sender, RoutedEventArgs e)
         {
             var btn = sender as Button;
-            var x = Resources["TheCM"] as ContextMenu;
-            x.PlacementTarget = btn;
-            x.IsOpen = true;
+            if (Resources["TheCM"] is ContextMenu x)
+            {
+                x.PlacementTarget = btn;
+                x.IsOpen = true;
+            }
             e.Handled = true;
         }
 

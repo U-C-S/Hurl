@@ -43,7 +43,7 @@ public class Browser
             }
             else if (!string.IsNullOrEmpty(ExePath))
             {
-                Icon RawIcon = IconExtractor.FromFile(ExePath.Trim('"'));
+                Icon? RawIcon = IconExtractor.FromFile(ExePath.Trim('"'));
 
                 return IconUtilites.ToImageSource(RawIcon);
             }

@@ -79,7 +79,7 @@ public partial class MainWindow : FluentWindow
         }
     }
 
-    async private void Window_KeyEvents(object sender, KeyEventArgs e)
+    private void Window_KeyEvents(object sender, KeyEventArgs e)
     {
         switch (e.Key)
         {
@@ -219,15 +219,20 @@ public partial class MainWindow : FluentWindow
     async private void UrlEdit()
     {
         forcePreventWindowDeactivationEvent = true;
-
         var NewUrl = await URLEditor.ShowInputAsync(this, OpenedUri.Value);
+        forcePreventWindowDeactivationEvent = false;
+
         if (!string.IsNullOrEmpty(NewUrl))
         {
             OpenedUri.Value = NewUrl;
             linkpreview.Content = NewUrl;
         }
+        else
+        {
+            OpenedUri.Clear();
+            linkpreview.Content = "No URL Opened";
+        }
 
-        forcePreventWindowDeactivationEvent = false;
     }
 
     private void Button_Click_1(object sender, RoutedEventArgs e)

@@ -14,7 +14,7 @@ namespace Hurl.BrowserSelector.Helpers
             if (File.Exists(Path_TempDef))
             {
                 var obj = JsonOperations.FromJsonToModel<TemporaryDefaultBrowser>(Path_TempDef);
-                if (obj.ValidTill >= DateTime.Now)
+                if (obj?.ValidTill >= DateTime.Now)
                 {
                     Process.Start(obj.TargetBrowser.ExePath, url);
                     Debug.WriteLine(obj.TargetBrowser.ExePath);
@@ -46,7 +46,7 @@ namespace Hurl.BrowserSelector.Helpers
             if (File.Exists(Path_TempDef))
             {
                 var obj = JsonOperations.FromJsonToModel<TemporaryDefaultBrowser>(Path_TempDef);
-                if (obj.ValidTill >= DateTime.Now)
+                if (obj?.ValidTill >= DateTime.Now)
                 {
                     return obj;
                 }

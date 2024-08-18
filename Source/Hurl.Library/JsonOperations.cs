@@ -6,7 +6,7 @@ namespace Hurl.Library;
 
 public class JsonOperations
 {
-    public static Model FromJsonToModel<Model>(string pathToJSON)
+    public static Model? FromJsonToModel<Model>(string pathToJSON)
     {
         string jsondata = File.ReadAllText(pathToJSON);
         var SettingsObject = JsonSerializer.Deserialize<Model>(jsondata);

@@ -13,8 +13,12 @@ public class RuleMatch
         return value != null;
     }
 
-    public static bool CheckRule(string link, string rule)
+    public static bool CheckRule(string link, string? rule)
     {
+        if (rule == null)
+        {
+            return false;
+        }
         var ruleObj = new Rule(rule);
         return CheckRule(link, ruleObj);
     }

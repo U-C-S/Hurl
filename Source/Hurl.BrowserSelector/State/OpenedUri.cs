@@ -1,11 +1,8 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-
-namespace Hurl.BrowserSelector.State
+﻿namespace Hurl.BrowserSelector.State
 {
-    public sealed class OpenedUri : INotifyPropertyChanged
+    public sealed class OpenedUri
     {
-        private OpenedUri(string Url) => this.Url = Url;
+        private OpenedUri(string Url) => this._url = Url;
         private string _url;
 
         private string Url
@@ -16,7 +13,6 @@ namespace Hurl.BrowserSelector.State
                 if (value != _url)
                 {
                     _url = value;
-                    OnPropertyChanged();
                 }
             }
         }
@@ -40,12 +36,5 @@ namespace Hurl.BrowserSelector.State
         public static void Set(string url) => Value = url;
 
         public static void Clear() => Value = string.Empty;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged([CallerMemberName] string? name = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
     }
 }
