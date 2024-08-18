@@ -49,7 +49,7 @@ public partial class MainWindow : FluentWindow
     public void Init(CliArgs data)
     {
         var appSettings = Settings.AppSettings;
-        var isRuleCheckSuccess = AutoRulesCheck.Start(data.Url);
+        var isRuleCheckSuccess = appSettings.RuleMatching && AutoRulesCheck.Start(data.Url);
 
         if (!data.IsSecondInstance)
         {
