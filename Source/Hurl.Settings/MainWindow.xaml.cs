@@ -13,14 +13,13 @@ public sealed partial class MainWindow : Window
         this.InitializeComponent();
 
         ExtendsContentIntoTitleBar = true;
-        //SetTitleBar(AppTitleBar);
         Title = "Hurl Settings Preview";
 
         this.AppWindow.ResizeClient(new SizeInt32(1200, 840));
         this.AppWindow.SetIcon("internet.ico");
         this.SystemBackdrop = new MicaBackdrop();
 
-        //NavigateToPage("browsers");
+        NavigateToPage("browsers");
     }
 
     private void OnNavItemClicked(object sender, ItemClickEventArgs e)
