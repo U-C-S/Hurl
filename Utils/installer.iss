@@ -7,7 +7,7 @@
 #define MyAppURL "https://github.com/U-C-S/Hurl"
 #define ExeLauncher "Launcher.exe"
 #define ExeSelector "Hurl.exe"
-#define ExeSettings "Hurl.Settings.exe"
+#define ExeSettings "Hurl Settings.exe"
 #define AppDescription "Choose the browser on the click of a link"
 
 

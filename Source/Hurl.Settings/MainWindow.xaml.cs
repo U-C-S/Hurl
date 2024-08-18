@@ -17,6 +17,7 @@ public sealed partial class MainWindow : Window
         Title = "Hurl Settings Preview";
 
         this.AppWindow.ResizeClient(new SizeInt32(1200, 840));
+        this.AppWindow.SetIcon("internet.ico");
         this.SystemBackdrop = new MicaBackdrop();
 
         //NavigateToPage("browsers");

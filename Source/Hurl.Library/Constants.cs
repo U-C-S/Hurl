@@ -16,9 +16,9 @@ public class Constants
     public static string APP_SETTINGS_DIR = Path.Combine(ROAMING, "Hurl");
     public static string APP_SETTINGS_MAIN = Path.Combine(APP_SETTINGS_DIR, "UserSettings.json");
 #if DEBUG
-    public static string SETTINGS_APP = Path.GetFullPath(Path.Combine(APP_PARENT_DIR, "../../../../Hurl.Settings/bin/x64/Debug/net8.0-windows10.0.22621.0/Hurl.Settings.exe"));
+    public static string SETTINGS_APP = Path.GetFullPath(Path.Combine(APP_PARENT_DIR, "../../../../Hurl.Settings/bin/x64/Debug/net8.0-windows10.0.22621.0/Hurl Settings.exe"));
 #else
-    public static string SETTINGS_APP = Path.Combine(APP_PARENT_DIR, "Hurl.Settings.exe");
+    public static string SETTINGS_APP = Path.Combine(APP_PARENT_DIR, "Hurl Settings.exe");
 #endif
 
     public const string NEW_LINE = "1&#x0a;";
