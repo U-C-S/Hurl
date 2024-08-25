@@ -7,7 +7,7 @@ public class Ruleset
     [JsonIgnore]
     public Guid Id { get; set; } = Guid.NewGuid();
 
-    public List<string> Rules { get; set; }
+    public List<string> Rules { get; set; } = [];
 
     public string RulesetName { get; set; }
 

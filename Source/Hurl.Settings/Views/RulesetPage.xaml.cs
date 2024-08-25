@@ -133,20 +133,20 @@ public sealed partial class RulesetPage : Page
 
     private void ClickMoveUpRuleset(object sender, RoutedEventArgs e)
     {
-        var Id = (Guid)(sender as MenuFlyoutItem).Tag;
+        var Id = (Guid)(sender as MenuFlyoutItem)!.Tag;
 
         ViewModel.MoveRulesetUp(Id);
     }
     private void ClickMoveDownRuleset(object sender, RoutedEventArgs e)
     {
-        var Id = (Guid)(sender as MenuFlyoutItem).Tag;
+        var Id = (Guid)(sender as MenuFlyoutItem)!.Tag;
 
         ViewModel.MoveRulesetDown(Id);
     }
 
     private void ClickDeleteRuleset(object sender, RoutedEventArgs e)
     {
-        var Id = (Guid)(sender as MenuFlyoutItem).Tag;
+        var Id = (Guid)(sender as MenuFlyoutItem)!.Tag;
 
         ViewModel.DeleteRuleset(Id);
     }

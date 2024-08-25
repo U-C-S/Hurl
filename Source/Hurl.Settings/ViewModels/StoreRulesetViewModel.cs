@@ -21,7 +21,7 @@ public class StoreRulesetViewModel : ObservableObject
     public StoreRulesetViewModel()
     {
         Id = Guid.NewGuid();
-        Browsers = State.Settings.GetBrowsers()
+        Browsers = State.Settings.Browsers
             .Select(x => x.Name)
             .ToList();
         Rules = [];
@@ -30,7 +30,7 @@ public class StoreRulesetViewModel : ObservableObject
     public StoreRulesetViewModel(Ruleset set)
     {
         Id = set.Id;
-        Browsers = State.Settings.GetBrowsers()
+        Browsers = State.Settings.Browsers
             .Select(x => x.Name)
             .ToList();
         Name = set?.RulesetName;
@@ -44,9 +44,9 @@ public class StoreRulesetViewModel : ObservableObject
         if (set?.AltLaunchIndex is int altLaunchIndex)
         {
             List<string> altLaunchList = ["< None >"];
-            var x = State.Settings.GetBrowsers()[SelectedBrowser]
-                .AlternateLaunches
-                .Select(x => x.ItemName)
+            var x = State.Settings.Browsers[SelectedBrowser]
+                ?.AlternateLaunches
+                ?.Select(x => x.ItemName)
                 .ToList();
             altLaunchList.AddRange(x);
             AltLaunches = altLaunchList;
@@ -101,8 +101,7 @@ public class StoreRulesetViewModel : ObservableObject
         {
             Id = Id,
             RulesetName = Name ?? "",
-            // TODO: dont do this, do proper validation
-            BrowserName = Browsers.ElementAtOrDefault(SelectedBrowser),
+            BrowserName = Browsers[SelectedBrowser],
             Rules = Rules.Select(x => x.ToString()).ToList(),
             AltLaunchIndex = SelectedAltLaunch > 0 ? SelectedAltLaunch - 1 : null
         };
