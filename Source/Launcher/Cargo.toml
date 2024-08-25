@@ -1,6 +1,6 @@
 [package]
 name = "Launcher"
-description = "Choose the browser on the click of a link"
+description = "Hurl"
 version = "0.9.0"
 edition = "2021"
 build = "build.rs"
@@ -23,3 +23,4 @@ lto = true
 ProductName = "Hurl"
 LegalCopyright = "Copyright © 2024 Chanakya"
 OriginalFilename = "Launcher.exe"
+FileVersion = "0.9.0.23"
