@@ -48,15 +48,14 @@
             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Other Settings" />
 
             <StackPanel>
-                <toolkit:SettingsCard Description="Set Hurl as the default browser app" Header="Windows default app settings">
+                <toolkit:SettingsCard
+                    Click="DefaultAppButton_Click"
+                    Description="Set Hurl as the default browser app"
+                    Header="Windows default app settings"
+                    IsClickEnabled="True">
                     <toolkit:SettingsCard.HeaderIcon>
                         <FontIcon Glyph="&#xECAA;" />
                     </toolkit:SettingsCard.HeaderIcon>
-
-                    <Button
-                        Width="120"
-                        Click="DefaultAppButton_Click"
-                        Content="Edit" />
                 </toolkit:SettingsCard>
             </StackPanel>
         </StackPanel>
