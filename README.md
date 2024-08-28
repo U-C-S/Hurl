@@ -28,7 +28,7 @@ Sometimes you might want to open a link in a browser of your choice, instead of 
 - Modern Windows UI with Multiple Customization Options
 - Supports adding own browser config with Launch Arguments
 - Rules to automatically open a browser without prompting
-- Settings application to manage all the features (coming soon!)
+- Settings application to manage all the features (beta)
 - Web Extension to open browser tabs in Hurl (experimental)
 
 <p align="center">
@@ -45,29 +45,29 @@ Sometimes you might want to open a link in a browser of your choice, instead of 
 
 ## Installation & Usage
 
-Download Install the latest [.NET 8 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/8.0) and Get the Hurl_Installer from [Releases](https://github.com/U-C-S/Hurl/releases/latest). Your PC's Anti-Virus might warn that it's not secure to download or install it, You can ignore it as the executables are Un-signed. Lastly, After installing, You might need to set Hurl as the default `http/https` protocol handler in the Windows Settings, just like how you change the default browser.
+Download and Install the latest versions of
+- [.NET 8 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/8.0)
+- Windows App Runtime v1.5 [Direct Download Link](https://aka.ms/windowsappsdk/1.5/latest/windowsappruntimeinstall-x64.exe)
 
-Check out [Extensions/README.md](./Extensions/README.md) for installing the Browser Extension.
+Get the Hurl_Installer from [Releases](https://github.com/U-C-S/Hurl/releases/latest) and Install it.
 
-### Check out wiki for configuring - [Editing UserSettings.json](https://github.com/U-C-S/Hurl/wiki/Editing-UserSettings.json)
+Lastly, After installing, Make sure to set Hurl as the default `http/https` protocol handler in the Windows Settings ( For Windows 11, `Settings > Apps > Defualt apps > Hurl`), just like how you change the default browser.
 
-## Dependencies and Tools used
+> Check out [Hurl Wiki](https://github.com/U-C-S/Hurl/wiki/) for more details on usage and configuration. And [Extensions/README.md](./Extensions/README.md) for installing the Browser Extension.
 
-- [Visual Studio](https://visualstudio.microsoft.com)
-- [Inno Setup](https://jrsoftware.org/isinfo.php)
-- [.NET 8.0](https://dot.net) , [C#](https://dotnet.microsoft.com/languages/csharp) and WPF
-- [WPF UI](https://github.com/lepoco/wpfui)
+## Building from Source / Local Development
 
-## Building from Source
+- Install Visual Studio 2022 with following workloads
+  - .NET desktop development
+  - Windows application development
+  - Desktop development with C++ (required for building Launcher)
+- After Cloning the Repo, Open the solution file `./Hurl.sln` in Visual Studio. You can change the projects between Hurl.BrowserSelector and Hurl.Settings
+- Install [Rustup / Setup Rust complier](https://www.rust-lang.org/tools/install) locally to debug Launcher app
+- Install Inno Setup, to create the Hurl Installer
 
-- Install Inno Setup and Visual Studio 2022 in your Windows with .NET Desktop Development workload
-- After Cloning the Repo, Open the solution file `./Hurl.sln` in Visual Studio
-- In Debug / Release mode, Run the `Hurl.BrowserSelector` Project (Publish the executables to `./_Publish/*` for the installer script usage)
-- Install Inno Setup, Open the `Utils/installer.iss` script in it and Compile it to create the Installer (output in the same directory)
+Use the Build Script from `Utils/build.ps1` to build the Application in release mode and successively build the installer. Make sure you have all the tools installed mentioned in the above description.
 
-or Simply use the Build Script from `Utils/build.ps1` to build the Application in release mode and successively build the installer.
-
-For checking out older versions source code, Check the [Tags](https://github.com/U-C-S/Hurl/tags).
+To check out older versions source code, Use the [Github Tags](https://github.com/U-C-S/Hurl/tags).
 
 ## Contributing
 
