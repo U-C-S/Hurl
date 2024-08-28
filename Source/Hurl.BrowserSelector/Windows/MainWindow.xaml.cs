@@ -179,7 +179,8 @@ public partial class MainWindow : FluentWindow
 #if DEBUG
         // No minimize on debug when not in focus
 #else
-            if (!forcePreventWindowDeactivationEvent) MinimizeWindow();
+        var appSettings = Settings.AppSettings;
+        if (!forcePreventWindowDeactivationEvent && appSettings.MinimizeOnFocusLoss) MinimizeWindow();
 #endif
     }
 

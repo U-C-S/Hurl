@@ -21,6 +21,16 @@ public class SettingsViewModel
         }
     }
 
+    public bool Option_MinimizeOnFocusLoss
+    {
+        get => AppSettings.MinimizeOnFocusLoss;
+        set
+        {
+            AppSettings.MinimizeOnFocusLoss = value;
+            State.Settings.Set_MinimizeOnFocusLoss(value);
+        }
+    }
+
     public bool Option_NoWhiteBorder
     {
         get => AppSettings.NoWhiteBorder;

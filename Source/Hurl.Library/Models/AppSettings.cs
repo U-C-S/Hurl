@@ -4,6 +4,8 @@ public class AppSettings
 {
     public bool LaunchUnderMouse { get; set; } = false;
 
+    public bool MinimizeOnFocusLoss { get; set; } = true;
+
     public bool NoWhiteBorder { get; set; } = false;
 
     public string BackgroundType { get; set; } = "mica";

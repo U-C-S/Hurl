@@ -1,4 +1,4 @@
-using Hurl.Library;
+﻿using Hurl.Library;
 using Hurl.Library.Models;
 using System;
 using System.Collections.Generic;
@@ -31,6 +31,12 @@ public partial class Settings
     public static void Set_LaunchUnderMouse(bool value)
     {
         Value.AppSettings.LaunchUnderMouse = value;
+        Save();
+    }
+
+    public static void Set_MinimizeOnFocusLoss(bool value)
+    {
+        Value.AppSettings.MinimizeOnFocusLoss = value;
         Save();
     }
 
@@ -167,6 +173,6 @@ public partial class Settings
 
     private static void Save()
     {
-        JsonOperations.FromModelToJson(_instance._data, Constants.APP_SETTINGS_MAIN);
+        JsonOperations.FromModelToJson(Value, Constants.APP_SETTINGS_MAIN);
     }
 }
