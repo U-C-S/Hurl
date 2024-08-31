@@ -1,8 +1,8 @@
-# About rules
+# Using rules to speeds things up
 
 ## What are rules?
 
-They are text strings, which when configured can automatically open a browser for you, instead of prompting for selecting a browser. Thus saving an extra step. Each time you open a link in Hurl, it goes through all the configured rules to see if any matches with the URL and if it matches, it automatically opens the associated browser.
+They are text strings, which when configured can automatically open a browser for you, instead of prompting to select a browser. Thus saving a step. Each time you open a link via Hurl, it searches through all the configured rules to see if any matches with the URL and if it matches, it automatically opens the associated browser.
 
 ### Types of rules
 
@@ -16,7 +16,7 @@ They are text strings, which when configured can automatically open a browser fo
 
 ## What about rulesets?
 
-Each ruleset is a collection of rules. You can have as many rules as you want inside a ruleset. Each ruleset is associated to a browser and you can have multiple rulesets for same browser. Additionally, rulesets are prioritized as per the ordering. If the same rule exists in two different rulesets, the ruleset that's higher in the list is triggered first.
+Each ruleset is a collection of rules. You can have as many rules as you want inside a ruleset. Each ruleset is associated to a browser and you can have multiple rulesets for the same browser. Additionally, rulesets are prioritized as per the ordering. If the same rule exists in two different rulesets, the ruleset that's higher in the list is triggered first.
 
 ## From UI
 
@@ -36,7 +36,7 @@ Adding a new rule can be done from UI by selecting **Rules** in the Hurl main wi
 
 You can add new rules into `AutoRoutingRules` property, which itself is a list of Rules Objects. Each rule object should contain 2 properties:
 
-- `Rules`: It can be a single rule or multiple rules. Rules are prioritized: the first rule that matches will trigger the opening of browser.
+- `Rules`: It can be a single rule or multiple rules. Rules are prioritized: the first rule that matches will trigger the opening of a browser.
 - `BrowserName`: The value should be a Browser name that matches one of the `Browsers` names. It will be opened once a rule from the `Rules` property matches. Use `_Hurl` to open Hurl.
 - `Name`: To name the ruleset. Only for visual purposes.
 - `AltLaunchIndex` to select the Alt Launch for a browser. It's an index number.

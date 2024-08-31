@@ -54,7 +54,7 @@ The following snippet shows the default options:
 - `BackgroundType` supports **mica**, **acrylic**, **none**
   - Windows 11 22H2 or above supports all options
   - Windows 11 build 22000 supports only mica
-  - Windows 10 is default is **none** irrespective of option
+  - Windows 10 default is **none** irrespective of option
 - `RuleMatching` default is **false**. On enabling, it supports the features from [Rulesets](https://github.com/U-C-S/Hurl/wiki/Rulesets)
 - `WindowSize` is to store the size of Hurl BrowserSelect window. You dont need to set this, it will be saved automatically when the window is resized.
 
@@ -95,7 +95,7 @@ Adding the `AlternateLaunches` field to the browser entity allows you to simply 
 ]
 ```
 
-Right-clicking on the browser that has `AlternateLauches` brings up the context menu with options specified as in the settings file. On selecting the the URL will also automatically included while launching the browser.
+Right-clicking on the browser that has `AlternateLauches` brings up the context menu with options specified as in the settings file. On selecting the the URL will be automatically included while launching the browser.
 
 ![MainWindow with profile options on BrowserButtton](./Images/BrowserProfiles.png)
 

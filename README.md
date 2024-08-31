@@ -37,7 +37,7 @@ Hurl can be powered up with a _browser extension_ to let you open a browser tab 
 
 > As a Web-Developer, Web-Surfer and someone who uses 3 browsers, Hurl is a bliss
 
-~ Me probably
+~ Me, probably
 
 ## Installation and usage
 
@@ -60,7 +60,7 @@ Go to [Hurl Wiki](https://github.com/U-C-S/Hurl/wiki/) for more details on usage
   - .NET desktop development
   - Windows application development
   - Desktop development with C++ (required for building Launcher)
-- After cloning the repository, open the solution file `./Hurl.sln` in Visual Studio. You can change the projects between _Hurl.BrowserSelector_ and _Hurl.Settings_
+- After forking and cloning the repository, open the solution file `./Hurl.sln` in Visual Studio. You can change the projects between _Hurl.BrowserSelector_ and _Hurl.Settings_
 - Install [Rustup / Setup Rust complier](https://www.rust-lang.org/tools/install) locally to debug Launcher app
 - Install [Inno Setup](https://jrsoftware.org/isdl.php) to create the Hurl Installer
 
