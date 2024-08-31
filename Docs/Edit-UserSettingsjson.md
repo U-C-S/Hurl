@@ -1,4 +1,6 @@
-When Hurl is lauched for the first time, it automatically detects the installed browsers in the computer and Creates a UserSettings.json file at `C:\Users\{USER}\AppData\Roaming\Hurl` filling it with browsers it detected. A typical UserSettings.json file looks like this.
+# User settings
+
+When Hurl is lauched for the first time, it automatically detects the installed browsers and creates a _UserSettings.json_ file at `C:\Users\{USER}\AppData\Roaming\Hurl` filling it with browsers it detected. A typical UserSettings.json file looks like this:
 
 ```json
 {
@@ -29,46 +31,52 @@ When Hurl is lauched for the first time, it automatically detects the installed 
 }
 ```
 
-## App Settings
+## App settings
 
-The following snippet does this shows the default options
+The following snippet shows the default options:
+
 ```json
 "AppSettings": {
-  "LaunchUnderMouse": false,
-  "RuleMatching": false,
-  "NoWhiteBorder": false,
-  "BackgroundType": "mica",
-  "WindowSize": [420,210]
+    "LaunchUnderMouse": false,
+    "MinimizeOnFocusLoss": true,
+    "NoWhiteBorder": false,
+    "BackgroundType": "mica",
+    "RuleMatching": false,
+    "WindowSize": [460,210]
 }
 ```
 
-### Available Options
-- `LaunchUnderMouse` defaulted to false, can be used to launch the hurl window under the mouse when enabled
-- `NoWhiteBorder` set true or false to enable or disable the white border around the window.
-- `BackgroundType` supports `mica`, `acrylic`, `none`
-  - win11 22H2 or above supports all options
-  - win11 build 22000 only mica
-  - win10 is defaulted to `none` irrespective of option
-- `WindowSize` is to set the size of Hurl BrowserSelect window. You dont need to set this, Just resize the window accordingly, It get filled automatically.
-- `RuleMatching` defaulted to false, on enabling, it supports the features from [Rulesets](https://github.com/U-C-S/Hurl/wiki/Rulesets)
+### Available options
 
-## Browsers Field
+- `LaunchUnderMouse` default is **false**, can be used to launch the Hurl window under the mouse when enabled
+- `MinimizeOnFocusLoss` default is **true**
+- `NoWhiteBorder` set **true** or **false** to enable or disable the white border around the window
+- `BackgroundType` supports **mica**, **acrylic**, **none**
+  - Windows 11 22H2 or above supports all options
+  - Windows 11 build 22000 supports only mica
+  - Windows 10 is default is **none** irrespective of option
+- `RuleMatching` default is **false**. On enabling, it supports the features from [Rulesets](https://github.com/U-C-S/Hurl/wiki/Rulesets)
+- `WindowSize` is to store the size of Hurl BrowserSelect window. You dont need to set this, it will be saved automatically when the window is resized.
 
-- `Name` - you know (Req.)
-- `ExePath` - The path of browser main exe file (Req.)
-- `CustomIconPath` - Use absolute path of the image. Also, Supports URLs (OPTIONAL)
-- `LaunchArgs` - Add the default exe launch arguments here. use param `%URL%` injecting the Url at runtime here (OPTIONAL)
-- `Hidden` - set it to `true` to hide the current icon in the selection screen (OPTIONAL)
-- `AlternateLaunches` - This is an array .... see below (OPTIONAL)
+## Browsers
+
+- `Name` - Displayed name for browser. Required.
+- `ExePath` - The path of browser main exe file. Required.
+- `CustomIconPath` - The absolute path of the image. Supports URLs. Optional.
+- `LaunchArgs` - Add the default exe launch arguments here. Use param `%URL%` injecting the URL at runtime here. Optional.
+- `Hidden` - set it to **true** to hide the current icon in the selection screen. Optional.
+- `AlternateLaunches` - This is an array; See below. Optional.
 
 ### AlternateLaunches
-This is a way to launch the browser when you have multiple launch methods or launch targets... like incognito, browser profiles...
 
-Suppose you have multiple chrome profiles like this
+This is a way to launch the browser when you have multiple launch methods or launch targets, like incognito, browser profiles...
 
-![image](https://user-images.githubusercontent.com/50218121/158058450-21eda36a-9794-4f34-97c7-ae5c5f105412.png)
+Suppose you have multiple chrome profiles like this:
 
-Then you might wanna use this feature, instead of totally adding a new browser entity for each profile in settings file. The following snippet demonstrates this feature. Adding the `AlternateLaunches` field to browser entity will you simply right-click on the browser icon in the selection window and choose the req. option.
+![Example of Chrome profile in .lnk shortcut](./Images/ChromeProfiles.png)
+
+Then you might want to use this feature, instead of totally adding a new browser entity for each profile in the settings file. The following snippet demonstrates this feature.
+Adding the `AlternateLaunches` field to the browser entity allows you to simply right-click on the browser icon in the selection window and choose the required option.
 
 ```json
 "AlternateLaunches": [
@@ -87,9 +95,9 @@ Then you might wanna use this feature, instead of totally adding a new browser e
 ]
 ```
 
-Right-Clicking on the browser that has `AlternateLauches` brings up the context menu with options specified as in the settings file. On selecting the the URL will also automatically included while launching the browser.
+Right-clicking on the browser that has `AlternateLauches` brings up the context menu with options specified as in the settings file. On selecting the the URL will also automatically included while launching the browser.
 
-![image](https://user-images.githubusercontent.com/50218121/172186598-9414b860-ecaf-4bb4-bc69-a49c6cfedfdb.png)
+![MainWindow with profile options on BrowserButtton](./Images/BrowserProfiles.png)
 
 - `ItemName` - The name that shows up in the context menu for this launch
 - `LaunchArgs` - Launch args. You can keep launch the browser in incognito, other browser profiles...
