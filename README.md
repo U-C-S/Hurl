@@ -2,7 +2,9 @@
 
 A Windows utility that lets you choose a browser on the click of a link.
 
-![Hurl Icon](Source/Hurl.BrowserSelector/Assets/internet.ico)
+<div align="center">
+    ![Hurl Icon](Source/Hurl.BrowserSelector/Assets/internet.ico)
+</div>
 
 <p align="center">
   <a style="text-decoration:none" href="https://github.com/U-C-S/Hurl/releases">
