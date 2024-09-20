@@ -74,8 +74,11 @@ public partial class MainWindow : FluentWindow
     {
         foreach (var browser in Settings.Browsers)
         {
-            var browserBtn = new BrowserButton(browser);
-            BrowsersList.Children.Add(browserBtn);
+            if (!browser.Hidden)
+            {
+                var browserBtn = new BrowserButton(browser);
+                BrowsersList.Children.Add(browserBtn);
+            }
         }
     }
 
