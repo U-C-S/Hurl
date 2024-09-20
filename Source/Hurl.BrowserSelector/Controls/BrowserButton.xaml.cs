@@ -13,11 +13,8 @@ namespace Hurl.BrowserSelector.Controls
     {
         public BrowserButton(Browser browser)
         {
-            if (browser.Hidden == false)
-            {
-                InitializeComponent();
-                DataContext = browser;
-            }
+            InitializeComponent();
+            DataContext = browser;
         }
 
         private void BrowserButton_Click(object sender, RoutedEventArgs e)
