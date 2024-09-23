@@ -27,14 +27,13 @@
 ## Why and what?
 
 Sometimes you might want to open a link in a browser of your choice, instead of the default one. Hurl lets you choose the browser each time you click a link (links outside of browsers). So naturally, it acts as default browser to do that.
-Hurl can also be powered up with a _browser extension_ to let you open a browser tab in a different browser.
 
 - Modern Windows UI with multiple customization options
 - Supports adding custom browser configuration with Launch Arguments
 - Rules to automatically open a browser without prompting
 - Settings application to manage all the features (beta)
-- Web Extension to open browser tabs in Hurl (experimental)
-- ...more to come
+- A Web Extension to open browser tabs in Hurl (experimental)
+- ... and more to come
 
 <p align="center">
   <img width="720" src="/Docs/Images/HurlMainWindow.png" />
@@ -52,11 +51,12 @@ Download and install the latest versions of:
 > [!TIP]
 > It is recommended to uninstall your current version before installing a new version.
 
-After installing, make sure to set Hurl as the default `http/https` protocol handler in the Windows Settings. In Windows 11: **Settings** > **Apps** > **Default apps** > **Hurl** > **Set as standard browser**.
+After installing, make sure to set Hurl as the default `http/https` protocol handler aka as the default browser in the Windows Settings. In Windows 11: **Settings** > **Apps** > **Default apps** > **Hurl** > **Set as default browser**.
 
 Go to [Hurl Wiki](https://github.com/U-C-S/Hurl/wiki/) for more details on usage and configuration. See [Extensions readme](./Extensions/README.md) for installing the Browser Extension.
 
 ## Building from source / local development
+
 
 - Install [Visual Studio 2022](https://visualstudio.microsoft.com/downloads/) with following workloads:
   - .NET desktop development
@@ -72,9 +72,8 @@ To check out older versions source code, go to [Github Tags](https://github.com/
 
 ## Contributing
 
-The project is open to Pull-Requests and Feedback. MIT License.
+This project is open to Pull-Requests and Feedback. MIT License.
 
 ## Credits
 
 - Icon used is from [FlatIcons](https://www.flaticon.com/free-icon/internet_4861937)
-- Inspiration from Repository [zumoshi/BrowserSelect](https://github.com/zumoshi/BrowserSelect) and other [similar projects](https://github.com/U-C-S/Hurl/issues/5)
