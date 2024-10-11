@@ -1,6 +1,7 @@
 ﻿using Hurl.Library.Models;
 using System;
 using System.Diagnostics;
+using Windows.System;
 
 namespace Hurl.BrowserSelector.Helpers;
 
@@ -8,7 +9,11 @@ class UriLauncher
 {
     public static void ResolveAutomatically(string uri, Browser browser, int? altLaunchIndex)
     {
-        if (altLaunchIndex is not null)
+        if (browser.IsUwp)
+        {
+            Uwp(uri, browser);
+        }
+        else if (altLaunchIndex is not null)
         {
             if (browser.AlternateLaunches?.Count - 1 < altLaunchIndex) // 
                 throw new Exception("Alternate Launch profile does not exist");
@@ -61,6 +66,18 @@ class UriLauncher
             var args = uri + " " + alt.LaunchArgs;
             Process.Start(browser.ExePath, args);
         }
+    }
+
+    public static async void Uwp(string uri, Browser browser)
+    {
+        var uri_object = new Uri(uri);
+        var options = new LauncherOptions
+        {
+            //options.TargetApplicationPackageFamilyName = "TheBrowserCompany.Arc_ttt1ap7aakyb4";
+            //TargetApplicationPackageFamilyName = "Mozilla.Firefox_n80bbvh6b1yt2"
+            TargetApplicationPackageFamilyName = browser.ExePath
+        };
+        await Launcher.LaunchUriAsync(uri_object, options);
     }
 }
 

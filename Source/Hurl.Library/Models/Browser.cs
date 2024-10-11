@@ -18,6 +18,8 @@ public class Browser
 
     public string ExePath { get; set; }
 
+    public bool IsUwp { get; set; } = false;
+
     public string? LaunchArgs { get; set; }
 
     public List<AlternateLaunch>? AlternateLaunches { get; set; }

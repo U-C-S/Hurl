@@ -42,6 +42,10 @@ internal static class IconUtilites
 
     public static ImageSource? ToImageSource(this Icon icon)
     {
+        if (icon is null)
+        {
+            return null;
+        }
         try
         {
             Bitmap bitmap = icon.ToBitmap();

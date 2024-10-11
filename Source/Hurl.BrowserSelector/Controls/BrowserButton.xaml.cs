@@ -19,7 +19,7 @@ namespace Hurl.BrowserSelector.Controls
 
         private void BrowserButton_Click(object sender, RoutedEventArgs e)
         {
-            UriLauncher.Default(OpenedUri.Value, (Browser)DataContext);
+            UriLauncher.ResolveAutomatically(OpenedUri.Value, (Browser)DataContext, null);
             MinimizeWindow();
         }
 
