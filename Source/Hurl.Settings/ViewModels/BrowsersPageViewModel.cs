@@ -11,4 +11,16 @@ internal class BrowsersPageViewModel
     {
         Browsers = new(State.Settings.Browsers);
     }
+
+    public void RefreshBrowserList()
+    {
+        State.Settings.RefreshBrowsers();
+        Refresh();
+    }
+
+    public void Refresh()
+    {
+        Browsers.Clear();
+        State.Settings.Browsers.ForEach(browser => Browsers.Add(browser));
+    }
 }

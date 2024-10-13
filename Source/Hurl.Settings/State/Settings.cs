@@ -96,6 +96,25 @@ public partial class Settings
         return altLaunchesStrings.ToList();
     }
 
+    public static void RefreshBrowsers()
+    {
+        var refreshedBrowsers = Library.GetBrowsers.FromRegistry();
+        var newList = Browsers;
+
+        // Go over the new browser list and add any of those browsers that are not already present
+        // in the existing browser list
+        foreach (var newBrowser in refreshedBrowsers)
+        {
+            var isExists = Browsers.Any(b => b.ExePath == newBrowser.ExePath);
+            if (!isExists)
+            {
+                newList.Add(newBrowser);
+            }
+        }
+
+        Browsers = newList;
+    }
+
     #endregion
 
     #region RulesetMethods

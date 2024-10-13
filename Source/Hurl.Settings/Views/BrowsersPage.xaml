@@ -68,7 +68,30 @@
 
         <StackPanel Spacing="4">
             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Other Options" />
-            <uc:ComingSoon />
+            <StackPanel>
+                <ctlabs:SettingsCard Description="Finds and Appends newly installed browsers" Header="Refresh browsers">
+                    <ctlabs:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE72C;" />
+                    </ctlabs:SettingsCard.HeaderIcon>
+                    <Button
+                        Width="80"
+                        Click="RefreshButton_Click"
+                        Style="{StaticResource AccentButtonStyle}">
+                        Refresh
+                    </Button>
+                </ctlabs:SettingsCard>
+                <ctlabs:SettingsCard Description="Editing the browsers here is currently unavailable. Instead, edit the settings file" Header="Want to edit the browsers?">
+                    <ctlabs:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE943;" />
+                    </ctlabs:SettingsCard.HeaderIcon>
+                    <Button
+                        Width="80"
+                        Click="EditJsonButton_Click"
+                        Style="{StaticResource AccentButtonStyle}">
+                        Edit
+                    </Button>
+                </ctlabs:SettingsCard>
+            </StackPanel>
         </StackPanel>
     </StackPanel>
 </Page>
