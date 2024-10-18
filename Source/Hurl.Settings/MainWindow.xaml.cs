@@ -33,8 +33,8 @@ public sealed partial class MainWindow : Window
     {
         switch (page)
         {
-            case "about":
-                NavigationFrame.Navigate(typeof(Views.AboutPage));
+            case "general":
+                NavigationFrame.Navigate(typeof(Views.GeneralPage));
                 break;
             case "browsers":
                 NavigationFrame.Navigate(typeof(Views.BrowsersPage));
@@ -43,19 +43,9 @@ public sealed partial class MainWindow : Window
             case "rulesets":
                 NavigationFrame.Navigate(typeof(Views.RulesetsPage));
                 break;
-            case "settings":
-                NavigationFrame.Navigate(typeof(Views.Settings));
+            case "about":
+                NavigationFrame.Navigate(typeof(Views.AboutPage));
                 break;
-        }
-
-        if (page == "about")
-        {
-            NavMenuFooterList.SelectedIndex = 0;
-            NavMenuHeaderList.SelectedIndex = -1;
-        }
-        else
-        {
-            NavMenuFooterList.SelectedIndex = -1;
         }
     }
 }
