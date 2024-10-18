@@ -8,9 +8,9 @@ using System.Linq;
 
 namespace Hurl.Settings.Views;
 
-public sealed partial class RulesetPage : Page
+public sealed partial class RulesetsPage : Page
 {
-    public RulesetPage()
+    public RulesetsPage()
     {
         InitializeComponent();
 
@@ -23,7 +23,7 @@ public sealed partial class RulesetPage : Page
         TestRules TestRulesDialogContent = new();
         ContentDialog testRulesDialog = new()
         {
-            XamlRoot = this.XamlRoot,
+            XamlRoot = XamlRoot,
             Title = "Test rules",
             Content = TestRulesDialogContent,
             CloseButtonText = "Close",
@@ -39,7 +39,7 @@ public sealed partial class RulesetPage : Page
         NewRulesetDialog NewRulesetDialogContent = new();
         ContentDialog createNewRulesetDialog = new()
         {
-            XamlRoot = this.XamlRoot,
+            XamlRoot = XamlRoot,
             Title = "Create new ruleset",
             Content = NewRulesetDialogContent,
             CloseButtonText = "Cancel",
@@ -72,7 +72,7 @@ public sealed partial class RulesetPage : Page
         NewRulesetDialog NewRulesetDialogContent = new(rulesetVm);
         ContentDialog createNewRulesetDialog = new()
         {
-            XamlRoot = this.XamlRoot,
+            XamlRoot = XamlRoot,
             Title = $"Edit Ruleset - {ruleset.RulesetName}",
             Content = NewRulesetDialogContent,
             CloseButtonText = "Cancel",
@@ -121,7 +121,7 @@ public sealed partial class RulesetPage : Page
         ViewRulesDialog ViewRulesDialogContent = new(ruleset);
         ContentDialog viewRulesDialog = new()
         {
-            XamlRoot = this.XamlRoot,
+            XamlRoot = XamlRoot,
             Title = $"Viewing Ruleset - {ruleset.RulesetName}",
             Content = ViewRulesDialogContent,
             CloseButtonText = "Close",
@@ -151,4 +151,3 @@ public sealed partial class RulesetPage : Page
         ViewModel.DeleteRuleset(Id);
     }
 }
-

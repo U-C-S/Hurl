@@ -8,7 +8,7 @@ public sealed partial class BrowsersPage : Page
 {
     public BrowsersPage()
     {
-        this.InitializeComponent();
+        InitializeComponent();
     }
 
     private void RefreshButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
