@@ -9,8 +9,8 @@ public partial class App : Application
 {
     public App()
     {
-        this.InitializeComponent();
-        this.UnhandledException += Dispatcher_UnhandledException;
+        InitializeComponent();
+        UnhandledException += Dispatcher_UnhandledException;
     }
 
     private void Dispatcher_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
@@ -69,7 +69,6 @@ public partial class App : Application
         {
             if (args.Length > 2)
             {
-                m_window.NavigateToPage(args[2]);
                 m_window.Activate();
             }
         }

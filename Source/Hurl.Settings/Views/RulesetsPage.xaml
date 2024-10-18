@@ -16,6 +16,7 @@
     </Page.DataContext>
 
     <StackPanel MaxWidth="800" Spacing="16">
+        <!-- RULESETS -->
         <StackPanel Spacing="4">
             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Rulesets" />
             <StackPanel>
@@ -116,6 +117,7 @@
             </StackPanel>
         </StackPanel>
 
+        <!-- OTHER -->
         <StackPanel Spacing="4">
             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Other Options" />
             <StackPanel>

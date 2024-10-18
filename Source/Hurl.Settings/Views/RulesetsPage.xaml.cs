@@ -23,7 +23,7 @@ public sealed partial class RulesetsPage : Page
         TestRules TestRulesDialogContent = new();
         ContentDialog testRulesDialog = new()
         {
-            XamlRoot = this.XamlRoot,
+            XamlRoot = XamlRoot,
             Title = "Test rules",
             Content = TestRulesDialogContent,
             CloseButtonText = "Close",
@@ -39,7 +39,7 @@ public sealed partial class RulesetsPage : Page
         NewRulesetDialog NewRulesetDialogContent = new();
         ContentDialog createNewRulesetDialog = new()
         {
-            XamlRoot = this.XamlRoot,
+            XamlRoot = XamlRoot,
             Title = "Create new ruleset",
             Content = NewRulesetDialogContent,
             CloseButtonText = "Cancel",
@@ -72,7 +72,7 @@ public sealed partial class RulesetsPage : Page
         NewRulesetDialog NewRulesetDialogContent = new(rulesetVm);
         ContentDialog createNewRulesetDialog = new()
         {
-            XamlRoot = this.XamlRoot,
+            XamlRoot = XamlRoot,
             Title = $"Edit Ruleset - {ruleset.RulesetName}",
             Content = NewRulesetDialogContent,
             CloseButtonText = "Cancel",
@@ -121,7 +121,7 @@ public sealed partial class RulesetsPage : Page
         ViewRulesDialog ViewRulesDialogContent = new(ruleset);
         ContentDialog viewRulesDialog = new()
         {
-            XamlRoot = this.XamlRoot,
+            XamlRoot = XamlRoot,
             Title = $"Viewing Ruleset - {ruleset.RulesetName}",
             Content = ViewRulesDialogContent,
             CloseButtonText = "Close",
@@ -151,4 +151,3 @@ public sealed partial class RulesetsPage : Page
         ViewModel.DeleteRuleset(Id);
     }
 }
-

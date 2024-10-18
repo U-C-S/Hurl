@@ -10,9 +10,9 @@
     mc:Ignorable="d">
 
     <StackPanel MaxWidth="800" Spacing="16">
-        <!-- GENERAL -->
+        <!-- GENERAL / APP -->
         <StackPanel Spacing="4">
-            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="General Settings" />
+            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="App settings" />
 
             <StackPanel>
                 <toolkit:SettingsCard Header="Launch Under Mouse">
@@ -55,7 +55,7 @@
 
         <!-- OTHER -->
         <StackPanel Spacing="4">
-            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Other Settings" />
+            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Other settings" />
 
             <StackPanel>
                 <toolkit:SettingsCard
