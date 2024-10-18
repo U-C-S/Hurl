@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Page
-    x:Class="Hurl.Settings.Views.Settings"
+    x:Class="Hurl.Settings.Views.GeneralPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -10,6 +10,7 @@
     mc:Ignorable="d">
 
     <StackPanel MaxWidth="800" Spacing="16">
+        <!-- GENERAL -->
         <StackPanel Spacing="4">
             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="General Settings" />
 
@@ -52,6 +53,7 @@
             </StackPanel>
         </StackPanel>
 
+        <!-- OTHER -->
         <StackPanel Spacing="4">
             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Other Settings" />
 

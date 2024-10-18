@@ -5,9 +5,9 @@ using System;
 
 namespace Hurl.Settings.Views;
 
-public sealed partial class Settings : Page
+public sealed partial class GeneralPage : Page
 {
-    public Settings()
+    public GeneralPage()
     {
         this.InitializeComponent();
         NavigationCacheMode = NavigationCacheMode.Required;

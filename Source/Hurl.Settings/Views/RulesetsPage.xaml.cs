@@ -8,9 +8,9 @@ using System.Linq;
 
 namespace Hurl.Settings.Views;
 
-public sealed partial class RulesetPage : Page
+public sealed partial class RulesetsPage : Page
 {
-    public RulesetPage()
+    public RulesetsPage()
     {
         InitializeComponent();
 
