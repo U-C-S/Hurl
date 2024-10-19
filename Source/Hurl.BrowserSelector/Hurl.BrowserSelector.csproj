@@ -22,7 +22,7 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
-		<PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.1.5" />
+		<PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.1.6" />
 		<PackageReference Include="System.Drawing.Common" Version="8.0.10" />
 		<PackageReference Include="WPF-UI" Version="3.0.5" />
 		<PackageReference Include="WPF-UI.Tray" Version="3.0.5" />

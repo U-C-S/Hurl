@@ -15,25 +15,28 @@
             IsBackButtonVisible="Collapsed"
             IsPaneToggleButtonVisible="False"
             IsSettingsVisible="False"
-            IsTitleBarAutoPaddingEnabled="False"
             Loaded="NavView_Loaded"
             PaneDisplayMode="LeftCompact"
-            SelectionChanged="NavView_ItemSelected">
+            SelectionChanged="NavView_SelectionChanged">
             <NavigationView.MenuItems>
                 <NavigationViewItem
                     Content="General"
                     Icon="Setting"
-                    Tag="GeneralPage" />
+                    Tag="General" />
                 <NavigationViewItem
                     Content="Browsers"
                     Icon="Globe"
-                    Tag="BrowsersPage" />
-                <NavigationViewItem Content="Rulesets" Tag="RulesetsPage">
+                    Tag="Browsers" />
+                <NavigationViewItem
+                    Content="Rulesets"
+                    Tag="Rulesets">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE816;" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem Content="About" Tag="AboutPage">
+                <NavigationViewItem
+                    Content="About"
+                    Tag="About">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE946;" />
                     </NavigationViewItem.Icon>

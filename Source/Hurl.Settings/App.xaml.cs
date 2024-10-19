@@ -59,7 +59,6 @@ public partial class App : Application
         }
     }
 
-
     void ProcessArgs(string[] args)
     {
         Debug.WriteLine(args[0]);
