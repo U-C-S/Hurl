@@ -2,16 +2,13 @@
 
 ## Supported Versions
 
-This section tells about which versions of this project are
-currently being supported with security updates.
+Only the latest minor versions of this project are supported.
+Earlier versions doesn't receive any security patches and
+are instead encouraged to upgrade to the latest.
 
-| Version  | Supported          |
-| -------- | ------------------ |
-| >= 0.8.0 | :white_check_mark: |
-| < 0.8.0  | :x:                |
 
 ## Reporting a Vulnerability
 
-If its a serious security Vulnerability, please send the report directly to the email: uchanakyasrinivas@gmail.com,
-
-Else consider opening a Issue within this repository.
+Please report possible security vulnerabilities via GitHub's
+[Security Advisories](https://github.com/U-C-S/Hurl/security/advisories) 
+page, or by email to uchanakyasrinivas@gmail.com
