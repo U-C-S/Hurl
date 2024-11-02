@@ -21,7 +21,6 @@
     <UseWinUI>true</UseWinUI>
     <Nullable>enable</Nullable>
     <EnableMsixTooling>true</EnableMsixTooling>
-    <WindowsPackageType>None</WindowsPackageType>
 	  <WindowsSdkPackageVersion>10.0.26100.53</WindowsSdkPackageVersion>
     <SupportedOSPlatformVersion>10.0.22621.0</SupportedOSPlatformVersion>
     <!-- <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract> -->
@@ -34,7 +33,7 @@
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
     <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.1.240916" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240802000" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240802000" GeneratePathProperty="true"/>
     <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.1.6" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742" />
     <Manifest Include="$(ApplicationManifest)" />
@@ -49,8 +48,13 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="$(PkgMicrosoft_WindowsAppSDK)\include\WindowsAppSDK-VersionInfo.cs" />
     <ProjectReference Include="..\Hurl.Library\Hurl.Library.csproj" />
   </ItemGroup>
+
+  <PropertyGroup>
+    <DefineConstants>DISABLE_XAML_GENERATED_MAIN</DefineConstants>
+  </PropertyGroup>
 
   <!-- 
     Defining the "HasPackageAndPublishMenuAddedByProject" property here allows the Solution 
