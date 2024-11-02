@@ -1,3 +1,4 @@
+using Hurl.Settings.Views.Dialogs;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -26,6 +27,22 @@ namespace Hurl.Settings.Views
         public RulesetsPage()
         {
             this.InitializeComponent();
+        }
+
+        private async void TestButton_Click(object sender, RoutedEventArgs e)
+        {
+            TestRules TestRulesDialogContent = new();
+            ContentDialog testRulesDialog = new()
+            {
+                XamlRoot = this.XamlRoot,
+                Title = "Test rules",
+                Content = TestRulesDialogContent,
+                CloseButtonText = "Close",
+                IsPrimaryButtonEnabled = false,
+                DefaultButton = ContentDialogButton.Primary,
+            };
+
+            _ = await testRulesDialog.ShowAsync();
         }
     }
 }
