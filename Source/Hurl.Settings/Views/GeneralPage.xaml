@@ -1,15 +1,75 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Page
     x:Class="Hurl.Settings.Views.GeneralPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Hurl.Settings.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Hurl.Settings.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
+    mc:Ignorable="d">
 
     <Grid>
-        <TextBlock>This is General</TextBlock>
+        <StackPanel MaxWidth="800" Spacing="16">
+            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="General settings" />
+            <toolkit:SettingsCard Header="Open under mouse position">
+                <ToggleSwitch IsOn="True" />
+            </toolkit:SettingsCard>
+            <toolkit:SettingsCard Description="Minimize to tray" Header="Minimize of loss of focus">
+                <ToggleSwitch IsOn="True" />
+            </toolkit:SettingsCard>
+            <toolkit:SettingsCard Header="Open under mouse position">
+                <ToggleSwitch IsOn="True" />
+            </toolkit:SettingsCard>
+
+            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Other settings" />
+            <toolkit:SettingsCard Header="Set Hurl as default app">
+                <HyperlinkButton
+                    x:Name="WinAppButton"
+                    Click="WinAppButton_Click"
+                    NavigateUri="ms-settings:defaultapps">
+                    Open Windows app settings
+                </HyperlinkButton>
+            </toolkit:SettingsCard>
+
+            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="About" />
+
+            <Grid RowSpacing="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <!--  version  -->
+                <TextBlock Text="Version" />
+                <TextBlock
+                    Grid.Column="1"
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    IsTextSelectionEnabled="True"
+                    Text="0.9" />
+                <!--  repository  -->
+                <TextBlock Grid.Row="1" Text="GitHub repository" />
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    IsTextSelectionEnabled="True"
+                    Text="https://github.com/U-C-S/Hurl" />
+                <HyperlinkButton
+                    x:Name="RepoButton"
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    NavigateUri="https://github.com/U-C-S/Hurl">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="Go to repository" />
+                        <FontIcon FontSize="16" Glyph="&#xE8A7;" />
+                    </StackPanel>
+                </HyperlinkButton>
+            </Grid>
+        </StackPanel>
     </Grid>
 </Page>

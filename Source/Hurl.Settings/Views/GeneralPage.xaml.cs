@@ -1,3 +1,4 @@
+using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -26,6 +27,12 @@ namespace Hurl.Settings.Views
         public GeneralPage()
         {
             this.InitializeComponent();
+            //NavView.Header = "General settings";
+        }
+
+        private async void WinAppButton_Click(object sender, RoutedEventArgs e)
+        {
+            await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-settings:defaultapps"));
         }
     }
 }
