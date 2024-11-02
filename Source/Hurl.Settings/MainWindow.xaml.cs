@@ -5,6 +5,7 @@ using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
@@ -33,8 +34,11 @@ namespace Hurl.Settings
             ExtendsContentIntoTitleBar = true;
         }
 
+        private double NavViewCompactModeThresholdWidth => NavView.CompactModeThresholdWidth;
+
         private void NavView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {
+            //not used!
         }
 
         private void NavView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
@@ -48,6 +52,17 @@ namespace Hurl.Settings
             };
 
             NavFrame.Navigate(selectedPage);
+        }
+
+        private void NavView_Loaded(object sender, RoutedEventArgs e)
+        {
+            NavFrame.Loaded += NavView_Loaded;
+            NavView.SelectedItem = NavView.MenuItems[0];
+        }
+
+        private void NavFrame_NavigationFailed(object sender, NavigationFailedEventArgs e)
+        {
+            throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
         }
     }
 }

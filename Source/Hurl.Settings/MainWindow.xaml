@@ -17,6 +17,7 @@
             IsBackButtonVisible="Collapsed"
             IsSettingsVisible="False"
             ItemInvoked="NavView_ItemInvoked"
+            Loaded="NavView_Loaded"
             PaneDisplayMode="LeftCompact"
             SelectionChanged="NavView_SelectionChanged">
             <NavigationView.MenuItems>
@@ -34,8 +35,21 @@
                     Tag="Rulesets" />
             </NavigationView.MenuItems>
             <ScrollViewer>
-                <Frame x:Name="NavFrame" Margin="24" />
+                <Frame x:Name="NavFrame" Padding="24" NavigationFailed="NavFrame_NavigationFailed" />
             </ScrollViewer>
         </NavigationView>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{x:Bind NavViewCompactModeThresholdWidth}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <!--  Leave the next line for left-only navigation.  -->
+                        <Setter Target="NavFrame.Padding" Value="24,0,24,24" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
 </Window>
