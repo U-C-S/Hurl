@@ -1,3 +1,4 @@
+using Hurl.Settings.Views;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -26,6 +27,27 @@ namespace Hurl.Settings
         public MainWindow()
         {
             this.InitializeComponent();
+            SystemBackdrop = new MicaBackdrop();
+            AppWindow.SetIcon("internet.ico");
+            AppWindow.ResizeClient(new Windows.Graphics.SizeInt32(720,540));
+            ExtendsContentIntoTitleBar = true;
+        }
+
+        private void NavView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
+        {
+        }
+
+        private void NavView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+        {
+            Type selectedPage = ((NavigationViewItem)args.SelectedItem).Tag switch
+            {
+                "General" => typeof(GeneralPage),
+                "Browsers" => typeof(BrowsersPage),
+                "Rulesets" => typeof(RulesetsPage),
+                _ => typeof(GeneralPage),
+            };
+
+            NavFrame.Navigate(selectedPage);
         }
     }
 }
