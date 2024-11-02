@@ -35,11 +35,11 @@ namespace Hurl.Settings.Views
             ContentDialog testRulesDialog = new()
             {
                 XamlRoot = this.XamlRoot,
+                Padding = new Thickness(0,8,0,0),
                 Title = "Test rules",
                 Content = TestRulesDialogContent,
                 CloseButtonText = "Close",
                 IsPrimaryButtonEnabled = false,
-                DefaultButton = ContentDialogButton.Primary,
             };
 
             _ = await testRulesDialog.ShowAsync();
