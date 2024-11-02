@@ -21,7 +21,7 @@ public sealed partial class TestRules : Page
 
         if (string.IsNullOrWhiteSpace(uri) || string.IsNullOrWhiteSpace(ruleContent))
         {
-            PresentOutput("Please fill in all fields - URI, Rule Type, Rule", InfoBarSeverity.Error);
+            PresentOutput("Please fill in all fields - URI, Rule type, Rule", InfoBarSeverity.Error);
             return;
         }
         else if (ruleMode == null)
@@ -58,26 +58,20 @@ public sealed partial class TestRules : Page
 
         if (matchingRuleset != null)
         {
-            PresentOutput($"Ruleset match: {matchingRuleset.BrowserName}\nRuleset name: {matchingRuleset?.RulesetName}", InfoBarSeverity.Success);
+            PresentOutput($"Ruleset name: {matchingRuleset?.RulesetName}\nBrowser: {matchingRuleset.BrowserName}", InfoBarSeverity.Success);
         }
         else
         {
-            PresentOutput("No Ruleset match", InfoBarSeverity.Informational);
+            PresentOutput("No ruleset match", InfoBarSeverity.Informational);
         }
     }
 
     private void PresentOutput(string text, InfoBarSeverity severity)
     {
-        var textBlock = new InfoBar
-        {
-            Message = text,
-            IsOpen = true,
-            Severity = severity,
-            HorizontalAlignment = HorizontalAlignment.Stretch
-        };
-        _outputCard.Visibility = Visibility.Visible;
-        _outputCard.Children.Clear();
-        _outputCard.Children.Add(textBlock);
+        _outputCard.IsOpen = true;
+        _outputCard.Severity = severity;
+        _outputCard.Message = text;
+        _outputCard.StartBringIntoView();
     }
 
     private void CopyRuleButton_Click(object sender, RoutedEventArgs e)

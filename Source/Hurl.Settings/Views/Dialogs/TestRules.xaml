@@ -9,60 +9,81 @@
     xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
     mc:Ignorable="d">
 
-    <ScrollViewer HorizontalAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Auto">
-        <StackPanel
-            MinWidth="480"
-            MinHeight="430"
-            Margin="8,0">
-            <toolkit:SettingsCard Header="Enter a URI to test">
-                <TextBox
-                    x:Name="_UriInput"
-                    MinWidth="120"
-                    MaxWidth="300" />
+    <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="16,0" Spacing="16">
+            <toolkit:SettingsCard Header="Enter a URI to test against existing rules">
+                <Grid
+                    Margin="8"
+                    HorizontalAlignment="Stretch"
+                    ColumnSpacing="8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="_UriInput" HorizontalAlignment="Stretch" />
+                    <Button
+                        x:Name="_TestExistingButton"
+                        Grid.Column="1"
+                        MinWidth="120"
+                        Click="TestExistingButton_Click"
+                        Style="{ThemeResource AccentButtonStyle}">
+                        Test
+                    </Button>
+                </Grid>
             </toolkit:SettingsCard>
 
-            <toolkit:SettingsCard Margin="0,8,0,0" Header="Test against Existing Rules">
-                <Button
-                    x:Name="_TestExistingButton"
-                    MinWidth="120"
-                    Click="TestExistingButton_Click"
-                    Style="{StaticResource AccentButtonStyle}">
-                    Test
-                </Button>
-            </toolkit:SettingsCard>
             <toolkit:SettingsExpander Header="Test against Custom Rule" IsExpanded="True">
                 <toolkit:SettingsExpander.Items>
-                    <toolkit:SettingsCard Header="Rule Type">
+                    <Grid
+                        Margin="8"
+                        HorizontalAlignment="Stretch"
+                        ColumnSpacing="8"
+                        RowSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Rule type" />
                         <ComboBox
                             x:Name="_RuleTypeInput"
                             Grid.Column="1"
-                            Width="120"
-                            MinWidth="120"
-                            HorizontalAlignment="Right">
+                            MinWidth="120">
                             <ComboBoxItem Content="Regex" />
                             <ComboBoxItem Content="Glob" />
                             <ComboBoxItem Content="Domain" />
                             <ComboBoxItem Content="String" />
                         </ComboBox>
-                    </toolkit:SettingsCard>
-                    <toolkit:SettingsCard Header="Rule">
+
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Text="Rule" />
                         <TextBox
                             x:Name="_RuleInput"
+                            Grid.Row="1"
+                            Grid.Column="1"
                             MinWidth="120"
                             MaxWidth="280" />
-                    </toolkit:SettingsCard>
-                    <toolkit:SettingsCard>
+
                         <Button
+                            Grid.Row="2"
+                            Grid.Column="1"
                             MinWidth="120"
                             Click="TestRuleButton_Click"
-                            Style="{StaticResource AccentButtonStyle}">
+                            Style="{ThemeResource AccentButtonStyle}">
                             Test
                         </Button>
-                    </toolkit:SettingsCard>
+                    </Grid>
                 </toolkit:SettingsExpander.Items>
             </toolkit:SettingsExpander>
 
-            <StackPanel x:Name="_outputCard" />
+            <InfoBar x:Name="_outputCard" IsOpen="False" />
         </StackPanel>
     </ScrollViewer>
 </Page>
