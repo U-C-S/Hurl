@@ -1,3 +1,4 @@
+using Hurl.Library;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -7,6 +8,7 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -27,6 +29,11 @@ namespace Hurl.Settings.Views
         {
             this.InitializeComponent();
             //NavView.Header = "Browsers";
+        }
+
+        private void EditJsonButton_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("explorer", "\"" + Constants.APP_SETTINGS_MAIN + "\"");
         }
     }
 }

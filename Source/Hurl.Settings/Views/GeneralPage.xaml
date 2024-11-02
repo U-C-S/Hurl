@@ -15,7 +15,7 @@
             <toolkit:SettingsCard Header="Open under mouse position">
                 <ToggleSwitch IsOn="True" />
             </toolkit:SettingsCard>
-            <toolkit:SettingsCard Description="Minimize to tray" Header="Minimize of loss of focus">
+            <toolkit:SettingsCard Description="Minimize to tray" Header="Minimize on loss of focus">
                 <ToggleSwitch IsOn="True" />
             </toolkit:SettingsCard>
             <toolkit:SettingsCard Header="Open under mouse position">
