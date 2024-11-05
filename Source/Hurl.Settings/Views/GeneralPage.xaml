@@ -18,8 +18,12 @@
             <toolkit:SettingsCard Description="Minimize to tray" Header="Minimize on loss of focus">
                 <ToggleSwitch IsOn="True" />
             </toolkit:SettingsCard>
-            <toolkit:SettingsCard Header="Open under mouse position">
-                <ToggleSwitch IsOn="True" />
+            <toolkit:SettingsCard Header="Background type">
+                <ComboBox SelectedIndex="0">
+                    <ComboBoxItem Content="Acrylic"/>
+                    <ComboBoxItem Content="Mica"/>
+                    <ComboBoxItem Content="Solid"/>
+                </ComboBox>
             </toolkit:SettingsCard>
 
             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Other settings" />
@@ -36,7 +40,7 @@
 
             <Grid RowSpacing="4">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="200" />
+                    <ColumnDefinition MaxWidth="200" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -52,24 +56,42 @@
                     IsTextSelectionEnabled="True"
                     Text="0.9" />
                 <!--  repository  -->
-                <TextBlock Grid.Row="1" Text="GitHub repository" />
+                <TextBlock
+                    Grid.Row="1"
+                    Text="GitHub repository"
+                    TextWrapping="Wrap" />
                 <TextBlock
                     Grid.Row="1"
                     Grid.Column="1"
                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                     IsTextSelectionEnabled="True"
-                    Text="https://github.com/U-C-S/Hurl" />
+                    Text="https://github.com/U-C-S/Hurl"
+                    TextWrapping="Wrap" />
                 <HyperlinkButton
                     x:Name="RepoButton"
                     Grid.Row="2"
                     Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Padding="0"
                     NavigateUri="https://github.com/U-C-S/Hurl">
                     <StackPanel Orientation="Horizontal" Spacing="8">
-                        <TextBlock Text="Go to repository" />
+                        <TextBlock Text="Go to repository" TextWrapping="Wrap" />
                         <FontIcon FontSize="16" Glyph="&#xE8A7;" />
                     </StackPanel>
                 </HyperlinkButton>
             </Grid>
+
+            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Open Source" />
+
+            <ItemsRepeater>
+                <ItemsRepeater.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock TextWrapping="WrapWholeWords"><Hyperlink NavigateUri="URI">
+                                <Run Text="Link" />
+                            </Hyperlink></TextBlock>
+                    </DataTemplate>
+                </ItemsRepeater.ItemTemplate>
+            </ItemsRepeater>
         </StackPanel>
     </Grid>
 </Page>

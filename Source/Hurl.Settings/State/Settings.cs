@@ -31,31 +31,31 @@ public partial class Settings
     public static void Set_LaunchUnderMouse(bool value)
     {
         Value.AppSettings.LaunchUnderMouse = value;
-        Save();
+        SaveToJson();
     }
 
     public static void Set_MinimizeOnFocusLoss(bool value)
     {
         Value.AppSettings.MinimizeOnFocusLoss = value;
-        Save();
+        SaveToJson();
     }
 
     public static void Set_NoWhiteBorder(bool value)
     {
         Value.AppSettings.NoWhiteBorder = value;
-        Save();
+        SaveToJson();
     }
 
     public static void Set_BackgroundType(string value)
     {
         Value.AppSettings.BackgroundType = value;
-        Save();
+        SaveToJson();
     }
 
     public static void Set_RuleMatching(bool value)
     {
         Value.AppSettings.RuleMatching = value;
-        Save();
+        SaveToJson();
     }
 
     #endregion
@@ -71,7 +71,7 @@ public partial class Settings
         set
         {
             Value.Browsers = value;
-            Save();
+            SaveToJson();
         }
     }
 
@@ -128,7 +128,7 @@ public partial class Settings
         set
         {
             Value.Rulesets = value;
-            Save();
+            SaveToJson();
         }
     }
 
@@ -140,7 +140,7 @@ public partial class Settings
     public static void AddRuleset(Ruleset set)
     {
         Value.Rulesets.Add(set);
-        Save();
+        SaveToJson();
     }
 
     public static void EditRuleset(Ruleset set)
@@ -149,7 +149,7 @@ public partial class Settings
         var index = Value.Rulesets.IndexOf(ruleset);
 
         Value.Rulesets[index] = set;
-        Save();
+        SaveToJson();
     }
 
     internal static void MoveRulesetUp(Guid id)
@@ -163,7 +163,7 @@ public partial class Settings
             Value.Rulesets.Insert(index - 1, ruleset);
         }
 
-        Save();
+        SaveToJson();
     }
 
     internal static void MoveRulesetDown(Guid id)
@@ -177,7 +177,7 @@ public partial class Settings
             Value.Rulesets.Insert(index + 1, ruleset);
         }
 
-        Save();
+        SaveToJson();
     }
 
     internal static void DeleteRuleset(Guid id)
@@ -185,12 +185,12 @@ public partial class Settings
         var ruleset = Value.Rulesets.Where(x => x.Id == id).First();
         Value.Rulesets.Remove(ruleset);
 
-        Save();
+        SaveToJson();
     }
 
     #endregion
 
-    private static void Save()
+    private static void SaveToJson()
     {
         JsonOperations.FromModelToJson(Value, Constants.APP_SETTINGS_MAIN);
     }

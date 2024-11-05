@@ -28,7 +28,8 @@ namespace Hurl.Settings
         public MainWindow()
         {
             this.InitializeComponent();
-            SystemBackdrop = new MicaBackdrop();
+            // TO-DO: winui3gallery://item/SystemBackdrops
+            SystemBackdrop = new DesktopAcrylicBackdrop();
             AppWindow.SetIcon("internet.ico");
             AppWindow.ResizeClient(new Windows.Graphics.SizeInt32(720,540));
             ExtendsContentIntoTitleBar = true;
@@ -52,6 +53,7 @@ namespace Hurl.Settings
             };
 
             NavFrame.Navigate(selectedPage);
+            NavView.Header = sender.Content as string;
         }
 
         private void NavView_Loaded(object sender, RoutedEventArgs e)
