@@ -35,7 +35,6 @@ namespace Hurl.Settings.Views
             ContentDialog testRulesDialog = new()
             {
                 XamlRoot = this.XamlRoot,
-                Padding = new Thickness(0,8,0,0),
                 Title = "Test rules",
                 Content = TestRulesDialogContent,
                 CloseButtonText = "Close",
@@ -43,6 +42,12 @@ namespace Hurl.Settings.Views
             };
 
             _ = await testRulesDialog.ShowAsync();
+        }
+
+        private async void CreateSetButton_Click(object sender, RoutedEventArgs e)
+        {
+            // set data
+            //await;
         }
     }
 }

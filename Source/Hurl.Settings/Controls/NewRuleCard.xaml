@@ -20,7 +20,7 @@
                 </StackPanel>
             </toolkit:SettingsCard.Header>
 
-            <Button Click="DeleteButton_Click" Style="{StaticResource EllipsisButton}">
+            <Button Click="DeleteButton_Click">
                 <SymbolIcon Symbol="Delete" />
             </Button>
         </toolkit:SettingsCard>

@@ -13,6 +13,7 @@
     <Grid>
         <StackPanel Style="{StaticResource SettingsPrimaryStackPanelStyle}">
             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Browsers" />
+            
             <ItemsControl>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate />
@@ -20,9 +21,11 @@
             </ItemsControl>
 
             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Other Options" />
+            
             <toolkit:SettingsCard Header="Refresh" HeaderIcon="{ui:FontIcon FontSize=16, Glyph=&#xE72C;}">
                 <Button MinWidth="120">Refresh</Button>
             </toolkit:SettingsCard>
+            
             <toolkit:SettingsCard Description="Editing the browsers in here is not possible. You can edit the JSON file."
                 Header="Want to edit the browsers?" HeaderIcon="{ui:FontIcon FontSize=16, Glyph=&#xE70F;}">
                 <Button MinWidth="120" x:Name="EditJsonButton" Click="EditJsonButton_Click">Open JSON file</Button>

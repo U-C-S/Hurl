@@ -17,12 +17,14 @@
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="model:Rule">
                     <StackPanel
-                        Padding="8"
-                        Background="{StaticResource CardBackgroundFillColorDefault}"
-                        BorderBrush="{StaticResource ButtonBorderThemeBrush}"
-                        CornerRadius="4"
+                        Background="{StaticResource ControlFillColorDefaultBrush}"
+                        BorderBrush="{StaticResource ControlStrokeColorDefaultBrush}"
+                        CornerRadius="{StaticResource ControlCornerRadius}"
                         Orientation="Horizontal">
-                        <TextBlock Width="72" Text="{x:Bind Mode}" />
+                        <TextBlock
+                            Width="80"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            Text="{x:Bind Mode}" />
                         <TextBlock Text="{x:Bind RuleContent}" />
                     </StackPanel>
                 </DataTemplate>
