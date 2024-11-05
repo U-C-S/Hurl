@@ -10,7 +10,7 @@
     mc:Ignorable="d">
 
     <Grid>
-        <StackPanel MaxWidth="800" Spacing="16">
+        <StackPanel Style="{StaticResource SettingsPrimaryStackPanelStyle}">
             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="General settings" />
             <toolkit:SettingsCard Header="Open under mouse position">
                 <ToggleSwitch IsOn="True" />

@@ -11,7 +11,7 @@
     mc:Ignorable="d">
 
     <Grid>
-        <StackPanel MaxWidth="800" Spacing="16">
+        <StackPanel Style="{StaticResource SettingsPrimaryStackPanelStyle}">
             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Rulesets" />
 
             <toolkit:SettingsCard Header="Automatic matching">
