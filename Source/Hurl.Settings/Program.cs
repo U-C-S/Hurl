@@ -1,4 +1,7 @@
-﻿namespace Hurl.Settings;
+﻿using Microsoft.Windows.ApplicationModel.DynamicDependency;
+using System;
+
+namespace Hurl.Settings;
 
 public class Program
 {
@@ -33,7 +36,25 @@ public class Program
                 return true;
         }
 
-        System.Environment.Exit(-1);
+        // Failure in trying to initialize supported versions.
+        // Try one last time in the WINDOWSAPPSDK_BOOTSTRAP_AUTO_INITIALIZE way
+        // that <WindowsPackageType>None</WindowsPackageType> property does.
+        try
+        {
+            string versionTag = global::Microsoft.WindowsAppSDK.Release.VersionTag;
+            var minVersion = new PackageVersion(global::Microsoft.WindowsAppSDK.Runtime.Version.UInt64);
+            var options = global::Microsoft.Windows.ApplicationModel.DynamicDependency.Bootstrap.InitializeOptions.OnNoMatch_ShowUI;
+            int hr = 0;
+            if (!global::Microsoft.Windows.ApplicationModel.DynamicDependency.Bootstrap.TryInitialize(minSupportedMinorVersion, versionTag, minVersion, options, out hr))
+            {
+                Environment.Exit(hr);
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Error in initializing the default version of Windows App Runtime", ex);
+        }
+
         return false;
     }
 }
