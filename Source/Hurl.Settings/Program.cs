@@ -1,7 +1,6 @@
 ﻿using Windows.ApplicationModel;
 using Windows.Management.Deployment;
-using System.Reflection;
-using System.Runtime.InteropServices;
+using System.Diagnostics;
 
 namespace Hurl.Settings;
 
@@ -16,12 +15,7 @@ public class Program
     [global::System.STAThreadAttribute]
     static void Main(string[] args)
     {
-        uint majorMinorVersion = global::Microsoft.WindowsAppSDK.Release.MajorMinor;
-        int hr = 0;
-        if (!global::Microsoft.Windows.ApplicationModel.DynamicDependency.Bootstrap.TryInitialize(majorMinorVersion, out hr))
-        {
-            global::System.Environment.Exit(hr);
-        }
+        InitializeWASDK();
         XamlCheckProcessRequirements();
 
         global::WinRT.ComWrappersSupport.InitializeComWrappers();
@@ -33,40 +27,24 @@ public class Program
         });
     }
 
-    public static bool IsPackageRegisteredForCurrentUser(string packageFamilyName, PackageVersion minVersion, Windows.System.ProcessorArchitecture architecture, PackageTypes packageType)
+    public static bool InitializeWASDK()
     {
-        ulong minPackageVersion = ToVersion(minVersion);
-        var pkgMgr = new PackageManager();
-        var x = pkgMgr.FindPackagesForUserWithPackageTypes(string.Empty, packageFamilyName, packageType);
-
-        foreach (var p in x)
+        uint minSupportedMinorVersion = global::Microsoft.WindowsAppSDK.Release.MajorMinor; // 0x00010005
+        uint maxSupportedMinorVersion = 0x00010006;
+        bool isSuccessful = false;
+        for (uint i = minSupportedMinorVersion;
+             i <= maxSupportedMinorVersion && !isSuccessful;
+             i++)
         {
-            // Is the package architecture compatible?
-            if (p.Id.Architecture != architecture)
-            {
-                continue;
-            }
-
-            // Is the package version sufficient for our needs?
-            ulong packageVersion = ToVersion(p.Id.Version);
-            if (packageVersion < minPackageVersion)
-            {
-                continue;
-            }
-
-            // Success!
-            return true;
+            isSuccessful = global::Microsoft.Windows.ApplicationModel.DynamicDependency.Bootstrap.TryInitialize(i, out _);
+            //Debug.WriteLine(isSuccessful, i.ToString());
         }
 
-        // No qualifying package found
-        return false;
-    }
-
-    private static ulong ToVersion(PackageVersion packageVersion)
-    {
-        return ((ulong)packageVersion.Major << 48) |
-               ((ulong)packageVersion.Minor << 32) |
-               ((ulong)packageVersion.Build << 16) |
-               ((ulong)packageVersion.Revision);
+        if (!isSuccessful)
+        {
+            System.Environment.Exit(-1);
+        }
+        
+        return isSuccessful;
     }
 }
