@@ -1,8 +1,4 @@
-﻿using Windows.ApplicationModel;
-using Windows.Management.Deployment;
-using System.Diagnostics;
-
-namespace Hurl.Settings;
+﻿namespace Hurl.Settings;
 
 public class Program
 {
@@ -30,21 +26,14 @@ public class Program
     public static bool InitializeWASDK()
     {
         uint minSupportedMinorVersion = global::Microsoft.WindowsAppSDK.Release.MajorMinor; // 0x00010005
-        uint maxSupportedMinorVersion = 0x00010006;
-        bool isSuccessful = false;
-        for (uint i = minSupportedMinorVersion;
-             i <= maxSupportedMinorVersion && !isSuccessful;
-             i++)
+        uint maxSupportedMinorVersion = 0x00010007;
+        for (uint version = minSupportedMinorVersion; version <= maxSupportedMinorVersion; version++)
         {
-            isSuccessful = global::Microsoft.Windows.ApplicationModel.DynamicDependency.Bootstrap.TryInitialize(i, out _);
-            //Debug.WriteLine(isSuccessful, i.ToString());
+            if (global::Microsoft.Windows.ApplicationModel.DynamicDependency.Bootstrap.TryInitialize(version, out _))
+                return true;
         }
 
-        if (!isSuccessful)
-        {
-            System.Environment.Exit(-1);
-        }
-        
-        return isSuccessful;
+        System.Environment.Exit(-1);
+        return false;
     }
 }
