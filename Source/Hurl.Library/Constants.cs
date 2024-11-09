@@ -7,7 +7,7 @@ public class Constants
     public const string NAME = "Hurl";
     public const string DESCRIPTION = "Hurl - A tool to select the browsers dynamically";
     public const string URLAssociations = "HandleURL3721";
-    public const string VERSION = "0.9.0";
+    public const string VERSION = "0.9.1";
     public const string SOURCE_CODE_LINK= "https://github.com/U-C-S/Hurl";
 
     public static string APP_PARENT_DIR = AppContext.BaseDirectory;

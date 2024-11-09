@@ -1,7 +1,7 @@
 [package]
 name = "Launcher"
 description = "Hurl"
-version = "0.9.0"
+version = "0.9.1"
 edition = "2021"
 build = "build.rs"
 
@@ -23,4 +23,4 @@ lto = true
 ProductName = "Hurl"
 LegalCopyright = "Copyright © 2024 Chanakya"
 OriginalFilename = "Launcher.exe"
-FileVersion = "0.9.0.23"
+FileVersion = "0.9.1.24"
