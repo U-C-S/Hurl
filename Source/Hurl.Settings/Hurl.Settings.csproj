@@ -21,7 +21,7 @@
     <UseWinUI>true</UseWinUI>
     <Nullable>enable</Nullable>
     <EnableMsixTooling>true</EnableMsixTooling>
-    <WindowsSdkPackageVersion>10.0.26100.53</WindowsSdkPackageVersion>
+    <WindowsSdkPackageVersion>10.0.26100.56</WindowsSdkPackageVersion>
     <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
     <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
   </PropertyGroup>
@@ -33,8 +33,8 @@
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
     <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.1.240916" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.241001000" GeneratePathProperty="true" />
-    <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.1.6" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.241107002" GeneratePathProperty="true" />
+    <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.2.0" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
