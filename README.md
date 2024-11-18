@@ -43,7 +43,7 @@ Sometimes you might want to open a link in a browser of your choice, instead of 
 Download and install the latest versions of:
 
 - [.NET 8 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/8.0)
-- Windows App Runtime [v1.5](https://aka.ms/windowsappsdk/1.5/latest/windowsappruntimeinstall-x64.exe) or [v1.6](https://learn.microsoft.com/en-us/windows/apps/windows-app-sdk/downloads#windows-app-sdk-16)
+- [Windows App Runtime](https://learn.microsoft.com/en-us/windows/apps/windows-app-sdk/downloads)
 - [Hurl_Installer](https://github.com/U-C-S/Hurl/releases/latest)
 
 > [!TIP]
