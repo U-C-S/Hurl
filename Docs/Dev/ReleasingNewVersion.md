@@ -43,8 +43,5 @@ git tag 'v0.9.1'
 git push --tags
 ```
 
-Should trigger the CI action.
-
-### Incase of a unexpected build job failure
-
--- TODO --
+Should trigger the CI action and create a draft release in the github
+releases.
