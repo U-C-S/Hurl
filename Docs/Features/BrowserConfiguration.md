@@ -14,7 +14,7 @@ This is a way to launch the browser when you have multiple launch methods or lau
 
 Suppose you have multiple chrome profiles like this:
 
-![Example of Chrome profile in .lnk shortcut](./Images/ChromeProfiles.png)
+![Example of Chrome profile in .lnk shortcut](../Images/ChromeProfiles.png)
 
 Then you might want to use this feature, instead of totally adding a new browser entity for each profile in the settings file. The following snippet demonstrates this feature.
 Adding the `AlternateLaunches` field to the browser entity allows you to simply right-click on the browser icon in the selection window and choose the required option.
@@ -38,7 +38,7 @@ Adding the `AlternateLaunches` field to the browser entity allows you to simply 
 
 Right-clicking on the browser that has `AlternateLauches` brings up the context menu with options specified as in the settings file. On selecting the the URL will be automatically included while launching the browser.
 
-![MainWindow with profile options on BrowserButtton](./Images/BrowserProfiles.png)
+![MainWindow with profile options on BrowserButtton](../Images/BrowserProfiles.png)
 
 - `ItemName` - The name that shows up in the context menu for this launch
 - `LaunchArgs` - Launch args. You can keep launch the browser in incognito, other browser profiles...
