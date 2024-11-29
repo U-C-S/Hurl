@@ -16,17 +16,14 @@ public sealed partial class TestRules : Page
     private void TestRuleButton_Click(object sender, RoutedEventArgs e)
     {
         var uri = _UriInput.Text;
-        var ruleMode = _RuleTypeInput.Text;
+        var ruleMode = _RuleTypeInput.SelectedValue;
         var ruleContent = _RuleInput.Text;
 
-        if (string.IsNullOrWhiteSpace(uri) || string.IsNullOrWhiteSpace(ruleContent))
+        if (string.IsNullOrWhiteSpace(uri)
+            || string.IsNullOrWhiteSpace(ruleContent)
+            || ruleMode is null)
         {
             PresentOutput("Please fill in all fields - URI, Rule Type, Rule", InfoBarSeverity.Error);
-            return;
-        }
-        else if (ruleMode == null)
-        {
-            PresentOutput("Select a rule type", InfoBarSeverity.Error);
             return;
         }
 
