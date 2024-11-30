@@ -31,7 +31,7 @@ $NMH_MANIFEST = @"
 # }
 # "@
 
-$NMH_MANIFEST | Out-File -FilePath $PATH_TO_NMHOST
+$NMH_MANIFEST | Out-File -FilePath $PATH_TO_NMHOST -Encoding utf8
 
 $REG_PATH = "HKCU\Software\Google\Chrome\NativeMessagingHosts"
 # $FIREFOX_REG_PATH = "HKCU\Software\Mozilla\NativeMessagingHosts"
