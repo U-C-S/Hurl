@@ -56,7 +56,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "protocol"; Description: "{cm:CreateProtocol}"; GroupDescription: "{cm:OtherOptions}"
 
 [Files]
-Source: "..\Source\Launcher\target\release\Launcher.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\target\release\Launcher.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\_Publish\*.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\_Publish\*.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\LICENSE"; DestDir: "{app}"; Flags: ignoreversion
