@@ -2,7 +2,7 @@
   "profiles": {
     "Hurl.BrowserSelector": {
       "commandName": "Project",
-      "commandLineArgs": "\"keep.google.com\""
+      "commandLineArgs": "\"https://github.com/search?q=meow&type=repositories\""
     }
   }
 }
