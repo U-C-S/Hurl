@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hurl.Selector.Pages;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Pipes;
@@ -51,8 +52,9 @@ public partial class App : Microsoft.UI.Xaml.Application
         //OpenedUri.Value = cliArgs.Url;
 
         _mainWindow = new();
+        _mainWindow.GetWindow.Content = new SelectorPage();
         //_mainWindow.Init(cliArgs);
-        _mainWindow.Activate();
+        _mainWindow.GetWindow.Activate();
 
         //m_window = new MainWindow();
         //m_window.Activate();
