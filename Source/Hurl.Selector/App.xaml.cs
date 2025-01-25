@@ -1,50 +1,116 @@
-﻿using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
-using Microsoft.UI.Xaml.Shapes;
-using System;
-using System.Collections.Generic;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.ApplicationModel;
-using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using System.IO.Pipes;
+using System.Text.Json;
+using System.Threading;
+using System.Windows;
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
+namespace Hurl.Selector;
 
-namespace Hurl.Selector
+public partial class App : Microsoft.UI.Xaml.Application
 {
-    /// <summary>
-    /// Provides application-specific behavior to supplement the default Application class.
-    /// </summary>
-    public partial class App : Application
+    public App()
     {
-        /// <summary>
-        /// Initializes the singleton application object.  This is the first line of authored code
-        /// executed, and as such is the logical equivalent of main() or WinMain().
-        /// </summary>
-        public App()
-        {
-            this.InitializeComponent();
-        }
-
-        /// <summary>
-        /// Invoked when the application is launched.
-        /// </summary>
-        /// <param name="args">Details about the launch request and process.</param>
-        protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
-        {
-            m_window = new MainWindow();
-            m_window.Activate();
-        }
-
-        private Window m_window;
+        this.InitializeComponent();
+        Current.UnhandledException += Dispatcher_UnhandledException;
     }
+
+    private MainWindow? _mainWindow;
+
+    private readonly CancellationTokenSource _cancelTokenSource = new();
+    private Thread? _pipeServerListenThread;
+    private NamedPipeServerStream? _pipeserver;
+
+    private void Dispatcher_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
+    {
+        string ErrorMsgBuffer;
+        string ErrorWndTitle;
+        switch (e.Exception?.InnerException)
+        {
+            case JsonException:
+                ErrorMsgBuffer = "The UserSettings.json file is in invalid JSON format. \n";
+                ErrorWndTitle = "Hurl - Invalid JSON";
+                break;
+            default:
+                ErrorMsgBuffer = "An unknown error has occurred. \n";
+                ErrorWndTitle = "Hurl - Unknown Error";
+                break;
+
+        }
+        string errorMessage = string.Format("{0}\n{1}\n\n{2}", ErrorMsgBuffer, e.Exception?.InnerException?.Message, e.Exception?.Message);
+        MessageBox.Show(errorMessage, ErrorWndTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+
+    protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
+    {
+        //_pipeServerListenThread = new Thread(PipeServer);
+        //_pipeServerListenThread.Start();
+
+        //var cliArgs = CliArgs.GatherInfo(args.Arguments, false);
+        //OpenedUri.Value = cliArgs.Url;
+
+        _mainWindow = new();
+        //_mainWindow.Init(cliArgs);
+        _mainWindow.Activate();
+
+        //m_window = new MainWindow();
+        //m_window.Activate();
+    }
+
+    //protected override void Exit()
+    //{
+    //    _cancelTokenSource.Cancel();
+    //    _pipeServerListenThread?.Join();
+
+    //    _singleInstanceMutex?.Close();
+    //    _singleInstanceWaitHandle?.Close();
+    //    _pipeserver?.Dispose();
+
+    //    base.OnExit(e);
+    //}
+
+    //public void OnInstanceInvoked(string[] args)
+    //{
+    //    var cliArgs = CliArgs.GatherInfo(args, true);
+    //    var IsTimedSet = TimedBrowserSelect.CheckAndLaunch(cliArgs.Url);
+
+    //    if (!IsTimedSet)
+    //    {
+    //        OpenedUri.Value = cliArgs.Url;
+    //        _mainWindow?.Init(cliArgs);
+    //    }
+    //}
+
+    //public void PipeServer()
+    //{
+    //    while (!_cancelTokenSource.Token.IsCancellationRequested)
+    //    {
+    //        _pipeserver = new("HurlNamedPipe", PipeDirection.InOut, 1, PipeTransmissionMode.Byte, PipeOptions.Asynchronous);
+
+    //        try
+    //        {
+    //            _pipeserver.WaitForConnectionAsync(_cancelTokenSource.Token).Wait();
+
+    //            using StreamReader sr = new(_pipeserver);
+    //            string args = sr.ReadToEnd();
+    //            string[] argsArray = JsonSerializer.Deserialize<string[]>(args) ?? [];
+    //            OnInstanceInvoked(argsArray);
+    //        }
+    //        catch (OperationCanceledException)
+    //        {
+    //            break;
+    //        }
+    //        catch (Exception e)
+    //        {
+    //            Debug.WriteLine($"Error in PipeServer: {e.Message}");
+    //        }
+    //        finally
+    //        {
+    //            _pipeserver.Dispose();
+    //        }
+    //    }
+    //}
 }
+
+
