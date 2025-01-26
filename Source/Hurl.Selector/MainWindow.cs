@@ -9,11 +9,16 @@ internal class MainWindow
     {
         window = new Window()
         {
-            SystemBackdrop = new MicaBackdrop(),
+            SystemBackdrop = new DesktopAcrylicBackdrop(),
             ExtendsContentIntoTitleBar = true,
-            Title = "Hurl Selector Preview"
+            Title = "Hurl Selector Preview",
         };
+        //window.AppWindow.IsShownInSwitchers = false;
         window.AppWindow.ResizeClient(new Windows.Graphics.SizeInt32(500, 250));
+
+        var wndMng = WinUIEx.WindowManager.Get(window);
+        wndMng.IsMaximizable = false;
+        wndMng.IsMinimizable = false;
     }
 
     public Window GetWindow => window;
