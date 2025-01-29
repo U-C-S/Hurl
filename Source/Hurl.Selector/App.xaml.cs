@@ -1,4 +1,7 @@
 ﻿using Hurl.Selector.Pages;
+using Hurl.Selector.Services;
+using Hurl.Selector.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -11,10 +14,24 @@ namespace Hurl.Selector;
 
 public partial class App : Microsoft.UI.Xaml.Application
 {
+    public static IServiceProvider Services { get; private set; }
+
     public App()
     {
+        Services = ConfigureServices();
         this.InitializeComponent();
         Current.UnhandledException += Dispatcher_UnhandledException;
+    }
+
+    private static ServiceProvider ConfigureServices()
+    {
+        var services = new ServiceCollection();
+
+        services.AddSingleton<ISettingsService, JsonFileService>();
+        services.AddTransient<SettingsViewModel>();
+        services.AddTransient<SelectorPageViewModel>();
+
+        return services.BuildServiceProvider();
     }
 
     private MainWindow? _mainWindow;
@@ -45,8 +62,8 @@ public partial class App : Microsoft.UI.Xaml.Application
 
     protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
     {
-        //_pipeServerListenThread = new Thread(PipeServer);
-        //_pipeServerListenThread.Start();
+        _pipeServerListenThread = new Thread(PipeServer);
+        _pipeServerListenThread.Start();
 
         //var cliArgs = CliArgs.GatherInfo(args.Arguments, false);
         //OpenedUri.Value = cliArgs.Url;
@@ -84,35 +101,35 @@ public partial class App : Microsoft.UI.Xaml.Application
     //    }
     //}
 
-    //public void PipeServer()
-    //{
-    //    while (!_cancelTokenSource.Token.IsCancellationRequested)
-    //    {
-    //        _pipeserver = new("HurlNamedPipe", PipeDirection.InOut, 1, PipeTransmissionMode.Byte, PipeOptions.Asynchronous);
+    public void PipeServer()
+    {
+        while (!_cancelTokenSource.Token.IsCancellationRequested)
+        {
+            _pipeserver = new("HurlSelectorNamedPipe", PipeDirection.InOut, 1, PipeTransmissionMode.Byte, PipeOptions.Asynchronous);
 
-    //        try
-    //        {
-    //            _pipeserver.WaitForConnectionAsync(_cancelTokenSource.Token).Wait();
+            try
+            {
+                _pipeserver.WaitForConnectionAsync(_cancelTokenSource.Token).Wait();
 
-    //            using StreamReader sr = new(_pipeserver);
-    //            string args = sr.ReadToEnd();
-    //            string[] argsArray = JsonSerializer.Deserialize<string[]>(args) ?? [];
-    //            OnInstanceInvoked(argsArray);
-    //        }
-    //        catch (OperationCanceledException)
-    //        {
-    //            break;
-    //        }
-    //        catch (Exception e)
-    //        {
-    //            Debug.WriteLine($"Error in PipeServer: {e.Message}");
-    //        }
-    //        finally
-    //        {
-    //            _pipeserver.Dispose();
-    //        }
-    //    }
-    //}
+                using StreamReader sr = new(_pipeserver);
+                string args = sr.ReadToEnd();
+                string[] argsArray = JsonSerializer.Deserialize<string[]>(args) ?? [];
+                //OnInstanceInvoked(argsArray);
+            }
+            catch (OperationCanceledException)
+            {
+                break;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"Error in PipeServer: {e.Message}");
+            }
+            finally
+            {
+                _pipeserver.Dispose();
+            }
+        }
+    }
 }
 
 

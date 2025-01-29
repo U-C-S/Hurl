@@ -1,4 +1,6 @@
 ﻿using Hurl.Library;
+using Hurl.Selector.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -26,8 +28,11 @@ namespace Hurl.Selector.Pages
     /// </summary>
     public sealed partial class SelectorPage : Page
     {
+        public SelectorPageViewModel ViewModel { get; }
+
         public SelectorPage()
         {
+            ViewModel = App.Services.GetRequiredService<SelectorPageViewModel>();
             this.InitializeComponent();
         }
 
@@ -106,7 +111,7 @@ namespace Hurl.Selector.Pages
 
         private void PositionWindowUnderTheMouse()
         {
-            //var appSettings = Settings.AppSettings;
+            //var appSettings = Settings.appSettings;
 
             //try
             //{
@@ -129,7 +134,7 @@ namespace Hurl.Selector.Pages
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //forcePreventWindowDeactivationEvent = true;
-            //new TimeSelectWindow(Settings.Browsers).ShowDialog();
+            //new TimeSelectWindow(Settings.browsers).ShowDialog();
             //forcePreventWindowDeactivationEvent = false;
         }
 
