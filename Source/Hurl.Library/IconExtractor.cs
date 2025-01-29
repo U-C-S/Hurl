@@ -34,7 +34,7 @@ public static class IconExtractor
 }
 
 // Thanks to https://stackoverflow.com/a/1127795
-internal static class IconUtilites
+public static class IconUtilites
 {
     // Avoids memory leak
     [DllImport("gdi32.dll", SetLastError = true)]
