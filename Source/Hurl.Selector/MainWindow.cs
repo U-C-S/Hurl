@@ -14,11 +14,12 @@ internal class MainWindow
             Title = "Hurl Selector Preview",
         };
         //window.AppWindow.IsShownInSwitchers = false;
-        window.AppWindow.ResizeClient(new Windows.Graphics.SizeInt32(500, 250));
+        window.AppWindow.ResizeClient(new Windows.Graphics.SizeInt32(600, 320));
 
         var wndMng = WinUIEx.WindowManager.Get(window);
         wndMng.IsMaximizable = false;
         wndMng.IsMinimizable = false;
+        wndMng.MinWidth = 500;
     }
 
     public Window GetWindow => window;
