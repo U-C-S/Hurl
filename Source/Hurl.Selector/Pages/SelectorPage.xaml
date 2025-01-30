@@ -24,12 +24,15 @@
                 Text="Select a browser" />
         </Grid>
 
-        <ItemsRepeater Grid.Row="1" ItemsSource="{x:Bind ViewModel.Browsers, Mode=OneWay}">
+        <ItemsRepeater
+            Grid.Row="1"
+            VerticalAlignment="Center"
+            ItemsSource="{x:Bind ViewModel.Browsers, Mode=OneWay}">
             <ItemsRepeater.Layout>
                 <UniformGridLayout
                     ItemsJustification="Center"
                     MaximumRowsOrColumns="4"
-                    MinColumnSpacing="8"
+                    MinColumnSpacing="12"
                     MinItemHeight="100"
                     MinItemWidth="100"
                     MinRowSpacing="8" />
@@ -47,7 +50,7 @@
                                 <RowDefinition Height="72" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
-                            <!--<Image Source="{Binding Path=GetIcon}" />-->
+                            <Image Source="{x:Bind Icon, Mode=OneWay}" />
                             <TextBlock
                                 Grid.Row="1"
                                 FontSize="10"

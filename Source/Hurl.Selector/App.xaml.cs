@@ -28,6 +28,7 @@ public partial class App : Microsoft.UI.Xaml.Application
         var services = new ServiceCollection();
 
         services.AddSingleton<ISettingsService, JsonFileService>();
+        services.AddSingleton<IIconLoader, IconLoaderService>();
         services.AddTransient<SettingsViewModel>();
         services.AddTransient<SelectorPageViewModel>();
 
