@@ -16,10 +16,12 @@ namespace Hurl.Selector.ViewModels;
 public partial class SelectorPageViewModel: ObservableObject
 {
     private readonly ISettingsService _settingsService;
+    private readonly IIconLoader _iconLoader;
 
-    public SelectorPageViewModel(ISettingsService settingsService)
+    public SelectorPageViewModel(ISettingsService settingsService, IIconLoader iconLoader)
     {
         _settingsService = settingsService;
+        _iconLoader = iconLoader;
         LoadBrowsers();
     }
 
@@ -36,7 +38,7 @@ public partial class SelectorPageViewModel: ObservableObject
 
         foreach (var browser in settings.Browsers.Where(b => !b.Hidden))
         {
-            //var icon = await _iconLoader.LoadIconAsync(browser.ExePath);
+            browser.Icon = await _iconLoader.LoadIconFromExe(browser.ExePath);
             Browsers.Add(browser);
         }
     }
@@ -44,9 +46,10 @@ public partial class SelectorPageViewModel: ObservableObject
     [RelayCommand]
     private void LaunchBrowser(Browser browser)
     {
+        Debug.WriteLine($"Launching {browser.Name} with URL: {Url}");
         try
         {
-            UriLauncher.Default(url, browser);
+            UriLauncher.Default(Url, browser);
         }
         catch (Exception ex)
         {

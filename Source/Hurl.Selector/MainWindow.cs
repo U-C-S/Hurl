@@ -9,7 +9,7 @@ internal class MainWindow
     {
         window = new Window()
         {
-            SystemBackdrop = new DesktopAcrylicBackdrop(),
+            SystemBackdrop = new MicaBackdrop(),
             ExtendsContentIntoTitleBar = true,
             Title = "Hurl Selector Preview",
         };

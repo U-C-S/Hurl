@@ -1,13 +1,8 @@
 using CommunityToolkit.Mvvm.ComponentModel;
-using Hurl.Library;
-using System;
-using System.Collections.Generic;
+using Microsoft.UI.Xaml.Media.Imaging;
 using System.Collections.ObjectModel;
-using System.Drawing;
 using System.Text.Json.Serialization;
 using System.Windows;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace Hurl.Selector.Models;
 
@@ -42,30 +37,9 @@ public partial class Browser : ObservableObject
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public bool hidden = false;
 
+    [ObservableProperty]
     [JsonIgnore]
-    public ImageSource? GetIcon
-    {
-        get
-        {
-            if (!string.IsNullOrEmpty(customIconPath) && customIconPath.EndsWith(".ico"))
-            {
-                Icon RawIcon = new(customIconPath, -1, -1);
-                return IconUtilites.ToImageSource(RawIcon);
-            }
-            else if (!string.IsNullOrEmpty(customIconPath))
-            {
-                return new BitmapImage(new Uri(customIconPath));
-            }
-            else if (!string.IsNullOrEmpty(exePath))
-            {
-                Icon? RawIcon = IconExtractor.FromFile(exePath.Trim('"'));
-
-                return IconUtilites.ToImageSource(RawIcon);
-            }
-            else
-                return null;
-        }
-    }
+    public BitmapImage? icon;
 
     [JsonIgnore]
     public Visibility ShowAdditionalBtn
@@ -77,7 +51,7 @@ public partial class Browser : ObservableObject
     }
 }
 
-public partial class AlternateLaunch(string ItemName, string LaunchArgs): ObservableObject
+public partial class AlternateLaunch(string ItemName, string LaunchArgs) : ObservableObject
 {
     [ObservableProperty]
     public string itemName = ItemName;
