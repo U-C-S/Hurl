@@ -20,6 +20,7 @@ internal class MainWindow
         wndMng.IsMaximizable = false;
         wndMng.IsMinimizable = false;
         wndMng.MinWidth = 500;
+        wndMng.MinHeight = 200;
     }
 
     public Window GetWindow => window;

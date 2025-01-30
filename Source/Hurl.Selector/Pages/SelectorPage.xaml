@@ -10,50 +10,84 @@
     xmlns:models="using:Hurl.Selector.Models"
     mc:Ignorable="d">
 
-    <Grid>
+    <Grid Padding="8" RowSpacing="8">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40" />
-            <RowDefinition Height="1*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <Grid>
             <TextBlock
-                Padding="12,8"
-                FontSize="16"
+                Padding="4,0"
+                Style="{StaticResource BodyTextBlockStyle}"
                 Text="Select a browser" />
         </Grid>
 
         <ItemsRepeater Grid.Row="1" ItemsSource="{x:Bind ViewModel.Browsers, Mode=OneWay}">
             <ItemsRepeater.Layout>
                 <UniformGridLayout
-                    ItemsStretch="Uniform"
+                    ItemsJustification="Center"
+                    MaximumRowsOrColumns="4"
+                    MinColumnSpacing="8"
                     MinItemHeight="100"
-                    MinItemWidth="100" />
+                    MinItemWidth="100"
+                    MinRowSpacing="8" />
             </ItemsRepeater.Layout>
 
             <ItemsRepeater.ItemTemplate>
                 <DataTemplate x:DataType="models:Browser">
-                    <AppBarButton
+                    <Button
+                        Padding="4"
+                        HorizontalAlignment="Stretch"
                         Command="{Binding ViewModel.LaunchBrowserCommand}"
-                        CommandParameter="{x:Bind}"
-                        Icon="World"
-                        Label="{x:Bind Name, Mode=OneWay}" />
+                        CommandParameter="{x:Bind}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="72" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <!--<Image Source="{Binding Path=GetIcon}" />-->
+                            <TextBlock
+                                Grid.Row="1"
+                                FontSize="10"
+                                Text="{x:Bind Name, Mode=OneWay}"
+                                TextAlignment="Center"
+                                TextWrapping="NoWrap" />
+                            <!--<Grid Grid.RowSpan="2" Visibility="{Binding ShowAdditionalBtn}">
+                                    <Button
+                                        x:Name="AdditionalBtn"
+                                        Margin="0,-15,-25,0"
+                                        Padding="5"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Top"
+                                        BorderBrush="Transparent"
+                                        Click="AdditionalBtn_Click">
+                                        <FontIcon Glyph="&#xE712;" />
+                                    </Button>
+                                </Grid>-->
+
+                        </Grid>
+                    </Button>
                 </DataTemplate>
             </ItemsRepeater.ItemTemplate>
         </ItemsRepeater>
 
         <Border
             Grid.Row="2"
-            Margin="4,8"
             Padding="4"
             HorizontalAlignment="Center"
-            VerticalAlignment="Center"
             Background="{StaticResource AccentAcrylicBackgroundFillColorBaseBrush}"
             BorderBrush="{StaticResource ControlElevationBorderBrush}"
             BorderThickness="1.5"
             CornerRadius="6">
-            <StackPanel Orientation="Horizontal" Spacing="4">
+            <Grid ColumnSpacing="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition MinWidth="240" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
                 <Button
                     Padding="6"
                     Background="{x:Null}"
@@ -64,17 +98,18 @@
                     </Button.Content>
                 </Button>
                 <TextBox
-                    MinWidth="180"
+                    Grid.Column="1"
                     MaxHeight="32"
                     Padding="6"
+                    HorizontalAlignment="Stretch"
                     BorderBrush="{StaticResource ControlElevationBorderBrush}"
                     FontSize="12"
                     IsSpellCheckEnabled="False"
                     IsTextPredictionEnabled="False"
                     PlaceholderText="URL"
                     Text="{x:Bind ViewModel.Url, Mode=TwoWay}" />
-                <AppBarSeparator />
-                <DropDownButton Height="32">
+                <AppBarSeparator Grid.Column="2" />
+                <DropDownButton Grid.Column="3" Height="32">
                     <DropDownButton.Content>
                         <FontIcon FontSize="16" Glyph="&#xE700;" />
                     </DropDownButton.Content>
@@ -108,7 +143,7 @@
                         </MenuFlyout>
                     </DropDownButton.Flyout>
                 </DropDownButton>
-            </StackPanel>
+            </Grid>
         </Border>
 
     </Grid>
