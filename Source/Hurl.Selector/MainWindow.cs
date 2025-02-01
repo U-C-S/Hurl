@@ -3,6 +3,7 @@ using Microsoft.UI.Xaml.Media;
 using WinUIEx;
 
 namespace Hurl.Selector;
+
 internal class MainWindow
 {
     readonly Window window;

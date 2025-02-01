@@ -1,7 +1,7 @@
 ﻿using Hurl.Selector.Models;
 using System.Threading.Tasks;
 
-namespace Hurl.Selector.Services;
+namespace Hurl.Selector.Services.Interfaces;
 
 public interface ISettingsService
 {

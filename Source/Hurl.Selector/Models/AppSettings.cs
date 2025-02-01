@@ -2,7 +2,7 @@
 
 namespace Hurl.Selector.Models;
 
-public partial class AppSettings: ObservableObject
+public partial class AppSettings : ObservableObject
 {
     [ObservableProperty]
     public bool launchUnderMouse = false;
