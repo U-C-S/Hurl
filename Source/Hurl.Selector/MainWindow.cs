@@ -1,10 +1,12 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media;
+using WinUIEx;
 
 namespace Hurl.Selector;
 internal class MainWindow
 {
     readonly Window window;
+    readonly WindowManager windowManager;
     public MainWindow()
     {
         window = new Window()
@@ -16,12 +18,14 @@ internal class MainWindow
         //window.AppWindow.IsShownInSwitchers = false;
         window.AppWindow.ResizeClient(new Windows.Graphics.SizeInt32(600, 320));
 
-        var wndMng = WinUIEx.WindowManager.Get(window);
-        wndMng.IsMaximizable = false;
-        wndMng.IsMinimizable = false;
-        wndMng.MinWidth = 500;
-        wndMng.MinHeight = 200;
+        windowManager = WinUIEx.WindowManager.Get(window);
+        windowManager.IsMaximizable = false;
+        windowManager.IsMinimizable = false;
+        windowManager.MinWidth = 500;
+        windowManager.MinHeight = 200;
     }
 
-    public Window GetWindow => window;
+    public void Show() => window.Activate();
+
+    public void SetContent(UIElement content) => window.Content = content;
 }
