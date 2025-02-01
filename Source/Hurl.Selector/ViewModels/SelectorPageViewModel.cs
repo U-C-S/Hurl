@@ -2,18 +2,15 @@
 using CommunityToolkit.Mvvm.Input;
 using Hurl.BrowserSelector.Helpers;
 using Hurl.Selector.Models;
-using Hurl.Selector.Services;
+using Hurl.Selector.Services.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace Hurl.Selector.ViewModels;
-public partial class SelectorPageViewModel: ObservableObject
+
+public partial class SelectorPageViewModel : ObservableObject
 {
     private readonly ISettingsService _settingsService;
     private readonly IIconLoader _iconLoader;

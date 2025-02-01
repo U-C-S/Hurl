@@ -1,13 +1,11 @@
-﻿using Microsoft.UI.Xaml.Media.Imaging;
-using Microsoft.Windows.Storage;
+﻿using Hurl.Selector.Services.Interfaces;
+using Microsoft.UI.Xaml.Media.Imaging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 
 namespace Hurl.Selector.Services;
+
 public class IconLoaderService : IIconLoader
 {
     public async Task<BitmapImage?> LoadIconFromExe(string exePath)
@@ -48,13 +46,3 @@ public class IconLoaderService : IIconLoader
         throw new NotImplementedException();
     }
 }
-
-public interface IIconLoader
-{
-    Task<BitmapImage?> LoadIconFromExe(string exePath);
-    Task<BitmapImage> LoadIconFromExe(string exePath, int iconIndex);
-    Task<BitmapImage> LoadIconFromIco(string icoPath);
-    Task<BitmapImage> LoadIconFromImage(string imagePath);
-    Task<BitmapImage> LoadIconFromURL(string url);
-}
-
