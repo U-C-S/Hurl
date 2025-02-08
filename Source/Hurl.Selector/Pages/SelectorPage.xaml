@@ -33,45 +33,57 @@
                     ItemsJustification="Center"
                     MaximumRowsOrColumns="4"
                     MinColumnSpacing="12"
-                    MinItemHeight="100"
-                    MinItemWidth="100"
+                    MinItemHeight="120"
+                    MinItemWidth="120"
                     MinRowSpacing="8" />
             </ItemsRepeater.Layout>
 
             <ItemsRepeater.ItemTemplate>
                 <DataTemplate x:DataType="models:Browser">
-                    <Button
-                        Padding="4"
-                        HorizontalAlignment="Stretch"
-                        Command="{Binding ViewModel.LaunchBrowserCommand}"
-                        CommandParameter="{x:Bind}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="72" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Image Source="{x:Bind Icon, Mode=OneWay}" />
-                            <TextBlock
-                                Grid.Row="1"
-                                FontSize="10"
-                                Text="{x:Bind Name, Mode=OneWay}"
-                                TextAlignment="Center"
-                                TextWrapping="NoWrap" />
-                            <!--<Grid Grid.RowSpan="2" Visibility="{Binding ShowAdditionalBtn}">
-                                    <Button
-                                        x:Name="AdditionalBtn"
-                                        Margin="0,-15,-25,0"
-                                        Padding="5"
-                                        HorizontalAlignment="Right"
-                                        VerticalAlignment="Top"
-                                        BorderBrush="Transparent"
-                                        Click="AdditionalBtn_Click">
-                                        <FontIcon Glyph="&#xE712;" />
-                                    </Button>
-                                </Grid>-->
-
-                        </Grid>
-                    </Button>
+                    <Grid>
+                        <Button
+                            Padding="8"
+                            HorizontalAlignment="Stretch"
+                            Command="{Binding ViewModel.LaunchBrowserCommand}"
+                            CommandParameter="{x:Bind}">
+                            <Grid RowSpacing="8">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="78" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Image Source="{x:Bind Icon, Mode=OneWay}" />
+                                <TextBlock
+                                    Grid.Row="1"
+                                    FontSize="10"
+                                    Text="{x:Bind Name, Mode=OneWay}"
+                                    TextAlignment="Center"
+                                    TextWrapping="NoWrap" />
+                            </Grid>
+                            <Button.ContextFlyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Text="Reset" />
+                                </MenuFlyout>
+                            </Button.ContextFlyout>
+                        </Button>
+                        <Button
+                            x:Name="AdditionalBtn"
+                            Margin="2,3"
+                            Padding="2"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Background="{x:Null}"
+                            BorderBrush="{x:Null}"
+                            Visibility="{Binding ShowAdditionalBtn}">
+                            <Button.Content>
+                                <FontIcon Glyph="&#xE712;" />
+                            </Button.Content>
+                            <Button.Flyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Text="Reset" />
+                                </MenuFlyout>
+                            </Button.Flyout>
+                        </Button>
+                    </Grid>
                 </DataTemplate>
             </ItemsRepeater.ItemTemplate>
         </ItemsRepeater>

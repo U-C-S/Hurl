@@ -1,11 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Hurl.Library;
 using Hurl.Selector.Models;
-using Hurl.Selector.Services;
+using Hurl.Selector.Services.Interfaces;
 using System;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,7 +19,9 @@ partial class SettingsViewModel : ObservableObject
 
     public SettingsViewModel()
     {
+        _settingsPath = Constants.APP_SETTINGS_MAIN;
         LoadSettingsAsync();
+        SetupFileWatcher();
     }
 
     private async void LoadSettingsAsync()
@@ -29,7 +30,7 @@ partial class SettingsViewModel : ObservableObject
         {
             Settings = await _settingsService.LoadSettingsAsync();
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             // Handle error - maybe set default settings
             Settings = new Settings();
@@ -51,6 +52,7 @@ partial class SettingsViewModel : ObservableObject
         _watcher.Changed += async (s, e) =>
         {
             // Debounce rapid changes
+            Debug.WriteLine(e.FullPath);
             await Task.Delay(500);
             LoadSettingsAsync();
         };
