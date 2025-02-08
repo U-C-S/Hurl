@@ -31,7 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.1.240916" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.241107002" GeneratePathProperty="true" />
     <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.2.0" />

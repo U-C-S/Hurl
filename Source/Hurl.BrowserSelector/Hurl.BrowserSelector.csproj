@@ -23,9 +23,9 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
 		<PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.2.0" />
-		<PackageReference Include="System.Drawing.Common" Version="9.0.0" />
-		<PackageReference Include="WPF-UI" Version="3.0.5" />
-		<PackageReference Include="WPF-UI.Tray" Version="3.0.5" />
+		<PackageReference Include="System.Drawing.Common" Version="9.0.1" />
+		<PackageReference Include="WPF-UI" Version="4.0.0" />
+		<PackageReference Include="WPF-UI.Tray" Version="4.0.0" />
 	</ItemGroup>
 	<ItemGroup>
 	  <None Remove="Assets\internet.ico" />
