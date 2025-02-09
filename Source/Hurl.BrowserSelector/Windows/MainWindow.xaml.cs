@@ -78,6 +78,11 @@ public partial class MainWindow : FluentWindow
             {
                 var browserBtn = new BrowserButton(browser);
                 BrowsersList.Children.Add(browserBtn);
+                this.InputBindings.Add(new KeyBinding()
+                {
+                    Command = browserBtn.Command,
+                    Key = (Key)36
+                });
             }
         }
     }
