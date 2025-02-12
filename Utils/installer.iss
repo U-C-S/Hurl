@@ -2,7 +2,7 @@
 
 #define MyAppName "Hurl"
 #define NameSmall "hurl"
-#define MyAppVersion "0.9.0.23"
+#define MyAppVersion "0.9.1.24"
 #define MyAppPublisher "U-C-S"
 #define MyAppURL "https://github.com/U-C-S/Hurl"
 #define ExeLauncher "Launcher.exe"
@@ -56,7 +56,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "protocol"; Description: "{cm:CreateProtocol}"; GroupDescription: "{cm:OtherOptions}"
 
 [Files]
-Source: "..\Source\Launcher\target\release\Launcher.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\target\release\Launcher.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\_Publish\*.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\_Publish\*.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\LICENSE"; DestDir: "{app}"; Flags: ignoreversion

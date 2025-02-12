@@ -33,19 +33,17 @@ Sometimes you might want to open a link in a browser of your choice, instead of 
 - Rules to automatically open a browser without prompting
 - Settings application to manage all the features (beta)
 - A Web Extension to open browser tabs in Hurl (experimental)
-- ... and more to come
 
 <p align="center">
   <img width="720" src="/Docs/Images/HurlMainWindow.png" />
 </p>
-
 
 ## Installation and usage
 
 Download and install the latest versions of:
 
 - [.NET 8 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/8.0)
-- Windows App Runtime v1.5 [Direct Download Link](https://aka.ms/windowsappsdk/1.5/latest/windowsappruntimeinstall-x64.exe)
+- [Windows App Runtime](https://learn.microsoft.com/en-us/windows/apps/windows-app-sdk/downloads)
 - [Hurl_Installer](https://github.com/U-C-S/Hurl/releases/latest)
 
 > [!TIP]
@@ -53,10 +51,10 @@ Download and install the latest versions of:
 
 After installing, make sure to set Hurl as the default `http/https` protocol handler aka as the default browser in the Windows Settings. In Windows 11: **Settings** > **Apps** > **Default apps** > **Hurl** > **Set as default browser**.
 
-Go to [Hurl Wiki](https://github.com/U-C-S/Hurl/wiki/) for more details on usage and configuration. See [Extensions readme](./Extensions/README.md) for installing the Browser Extension.
+Vist to [Docs](./Docs/README.md) for more details on usage and configuration.
+See [Extensions readme](./Extensions/README.md) for installing the Browser Extension.
 
 ## Building from source / local development
-
 
 - Install [Visual Studio 2022](https://visualstudio.microsoft.com/downloads/) with following workloads:
   - .NET desktop development
