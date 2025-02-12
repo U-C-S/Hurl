@@ -69,7 +69,7 @@ public partial class App : Application
         {
             if (args.Length > 2)
             {
-                m_window.NavigateToPage(args[2]);
+                //m_window.NavigateToPage(args[2]);
                 m_window.Activate();
             }
         }

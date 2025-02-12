@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="Hurl.Settings.Views.RulesetsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Hurl.Settings.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
+    xmlns:ui="using:CommunityToolkit.WinUI"
+    mc:Ignorable="d">
+
+    <Grid>
+        <StackPanel Style="{StaticResource SettingsPrimaryStackPanelStyle}">
+            <toolkit:SettingsCard Header="Automatic matching">
+                <ToggleSwitch IsOn="True" />
+            </toolkit:SettingsCard>
+
+            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Rulesets" />
+
+            <toolkit:SettingsCard Header="Rulesets">
+                <Button
+                    x:Name="CreateSetButton"
+                    MinWidth="120"
+                    Click="CreateSetButton_Click"
+                    Style="{ThemeResource AccentButtonStyle}">
+                    Create new set
+                </Button>
+            </toolkit:SettingsCard>
+
+            <!--  TO-DO: don't use Expander, but look at W.11 Settings > Languages  -->
+
+            <ItemsView />
+
+            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Other options" />
+
+            <toolkit:SettingsCard Header="Test rules">
+                <Button
+                    x:Name="TestButton"
+                    MinWidth="120"
+                    Click="TestButton_Click">
+                    Test
+                </Button>
+            </toolkit:SettingsCard>
+        </StackPanel>
+    </Grid>
+</Page>
+
+<!--<DataTemplate x:Key="Test">
+    <toolkit:SettingsCard Description="x:bind Browser name" Header="x:bind Name">
+        <StackPanel Orientation="Horizontal">
+            <Button>View</Button>
+            <DropDownButton Content="{ui:FontIcon FontSize=16, Glyph=&#xE712;}" ToolTipService.ToolTip="More options">
+                <DropDownButton.Flyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Icon="{ui:SymbolIcon FontSize=16, Symbol=Edit}" Text="Edit" />
+                        <MenuFlyoutItem Icon="{ui:SymbolIcon FontSize=16, Symbol=Up}" Text="Move up" />
+                        <MenuFlyoutItem Icon="{ui:FontIcon FontSize=16, Glyph=&#xE74B;}" Text="Move down" />
+                        <MenuFlyoutItem Icon="{ui:SymbolIcon FontSize=16, Symbol=Delete}" Text="Delete" />
+                    </MenuFlyout>
+                </DropDownButton.Flyout>
+            </DropDownButton>
+        </StackPanel>
+    </toolkit:SettingsCard>
+</DataTemplate>-->

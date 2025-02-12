@@ -10,7 +10,10 @@
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
             </ResourceDictionary.MergedDictionaries>
 
-            <SolidColorBrush x:Key="WindowCaptionBackground">Transparent</SolidColorBrush>
+            <Style x:Key="SettingsPrimaryStackPanelStyle" TargetType="StackPanel">
+                <Setter Property="MaxWidth" Value="800"/>
+                <Setter Property="Spacing" Value="8"/>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
