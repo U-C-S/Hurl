@@ -2,7 +2,7 @@
 name = "Launcher"
 description = "Hurl"
 version = "0.9.1"
-edition = "2021"
+edition = "2024"
 build = "build.rs"
 
 [build-dependencies]

@@ -5,6 +5,7 @@ _dump
 _publish
 _bin
 *.exe
+temp
 
 # Logs
 logs
