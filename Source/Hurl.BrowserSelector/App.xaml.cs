@@ -26,7 +26,6 @@ namespace Hurl.BrowserSelector
 
         private readonly CancellationTokenSource _cancelTokenSource = new();
         private Thread? _pipeServerListenThread;
-        private NamedPipeServerStream? _pipeserver;
 
         public App()
         {
@@ -103,14 +102,13 @@ namespace Hurl.BrowserSelector
 
             _singleInstanceMutex?.Close();
             _singleInstanceWaitHandle?.Close();
-            _pipeserver?.Dispose();
 
             base.OnExit(e);
         }
 
         public void OnInstanceInvoked(string[] args)
         {
-            Current.Dispatcher.Invoke(() =>
+            Current.Dispatcher.InvokeAsync(() =>
             {
                 var cliArgs = CliArgs.GatherInfo(args, true);
                 var IsTimedSet = TimedBrowserSelect.CheckAndLaunch(cliArgs.Url);
@@ -125,13 +123,24 @@ namespace Hurl.BrowserSelector
 
         public void PipeServer()
         {
+            var isFirstTimeLaunching = true;
             while (!_cancelTokenSource.Token.IsCancellationRequested)
             {
-                _pipeserver = new("HurlNamedPipe", PipeDirection.InOut, 1, PipeTransmissionMode.Byte, PipeOptions.Asynchronous);
+                using NamedPipeServerStream? _pipeserver = new("HurlNamedPipe", PipeDirection.InOut, 1, PipeTransmissionMode.Byte, PipeOptions.Asynchronous);
 
                 try
                 {
-                    _pipeserver.WaitForConnectionAsync(_cancelTokenSource.Token).Wait();
+                    // the true cases is a workaround where sometimes the first connection is not received
+                    // properly and args are lost (recieves empty string)
+                    // This might not fix the issue in all cases, like after a long time of inactivity
+                    if (isFirstTimeLaunching)
+                    {
+                        _pipeserver.WaitForConnectionAsync(_cancelTokenSource.Token).Wait(50);
+                        isFirstTimeLaunching = false;
+                        continue;
+                    }
+                    else
+                        _pipeserver.WaitForConnectionAsync(_cancelTokenSource.Token).Wait();
 
                     using StreamReader sr = new(_pipeserver);
                     string args = sr.ReadToEnd();
@@ -145,10 +154,6 @@ namespace Hurl.BrowserSelector
                 catch (Exception e)
                 {
                     Debug.WriteLine($"Error in PipeServer: {e.Message}");
-                }
-                finally
-                {
-                    _pipeserver.Dispose();
                 }
             }
         }
