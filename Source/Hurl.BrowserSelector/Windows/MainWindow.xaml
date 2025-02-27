@@ -11,8 +11,6 @@
     Title="Hurl - Select a Browser"
     MinWidth="460"
     MinHeight="230"
-    MaxWidth="640"
-    MaxHeight="450"
     Deactivated="Window_Deactivated"
     ExtendsContentIntoTitleBar="True"
     PreviewKeyUp="Window_KeyEvents"
@@ -49,8 +47,8 @@
                         Margin="0,0,4,0"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
-                        BorderBrush="{x:Null}"
                         Background="#20000000"
+                        BorderBrush="{x:Null}"
                         FontSize="16"
                         Icon="{wpfui:SymbolIcon Navigation24}">
                         <wpfui:DropDownButton.Flyout>
