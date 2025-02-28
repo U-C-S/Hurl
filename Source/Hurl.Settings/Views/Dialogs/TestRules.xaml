@@ -39,10 +39,10 @@
                             Width="120"
                             MinWidth="120"
                             HorizontalAlignment="Right">
-                            <ComboBoxItem Content="Regex" />
-                            <ComboBoxItem Content="Glob" />
-                            <ComboBoxItem Content="Domain" />
-                            <ComboBoxItem Content="String" />
+                            <x:String>Regex</x:String>
+                            <x:String>Glob</x:String>
+                            <x:String>Domain</x:String>
+                            <x:String>String</x:String>
                         </ComboBox>
                     </toolkit:SettingsCard>
                     <toolkit:SettingsCard Header="Rule">

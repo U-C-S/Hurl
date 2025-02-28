@@ -58,46 +58,7 @@ The following snippet shows the default options:
 - `RuleMatching` default is **false**. On enabling, it supports the features from [Rulesets](https://github.com/U-C-S/Hurl/wiki/Rulesets)
 - `WindowSize` is to store the size of Hurl BrowserSelect window. You dont need to set this, it will be saved automatically when the window is resized.
 
-## Browsers
+## Feature Documentation
 
-- `Name` - Displayed name for browser. Required.
-- `ExePath` - The path of browser main exe file. Required.
-- `CustomIconPath` - The absolute path of the image. Supports URLs. Optional.
-- `LaunchArgs` - Add the default exe launch arguments here. Use param `%URL%` injecting the URL at runtime here. Optional.
-- `Hidden` - set it to **true** to hide the current icon in the selection screen. Optional.
-- `AlternateLaunches` - This is an array; See below. Optional.
-
-### AlternateLaunches
-
-This is a way to launch the browser when you have multiple launch methods or launch targets, like incognito, browser profiles...
-
-Suppose you have multiple chrome profiles like this:
-
-![Example of Chrome profile in .lnk shortcut](./Images/ChromeProfiles.png)
-
-Then you might want to use this feature, instead of totally adding a new browser entity for each profile in the settings file. The following snippet demonstrates this feature.
-Adding the `AlternateLaunches` field to the browser entity allows you to simply right-click on the browser icon in the selection window and choose the required option.
-
-```json
-"AlternateLaunches": [
-  {
-    "ItemName": "Main Profile",
-    "LaunchArgs": "--profile-directory=\"Default\""
-  },
-  {
-    "ItemName": "Profile 2",
-    "LaunchArgs": "--profile-directory=\"Profile 1\""
-  },
-  {
-    "ItemName": "Incognito",
-    "LaunchArgs": "-incognito"
-  }
-]
-```
-
-Right-clicking on the browser that has `AlternateLauches` brings up the context menu with options specified as in the settings file. On selecting the the URL will be automatically included while launching the browser.
-
-![MainWindow with profile options on BrowserButtton](./Images/BrowserProfiles.png)
-
-- `ItemName` - The name that shows up in the context menu for this launch
-- `LaunchArgs` - Launch args. You can keep launch the browser in incognito, other browser profiles...
+- [Browser Configuration](./Features/BrowserConfiguration.md)
+- [Rule Matching](./Features/RuleMatching.md)

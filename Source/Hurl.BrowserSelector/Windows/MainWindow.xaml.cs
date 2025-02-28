@@ -49,7 +49,8 @@ public partial class MainWindow : FluentWindow
     public void Init(CliArgs data)
     {
         var appSettings = Settings.AppSettings;
-        var isRuleCheckSuccess = appSettings.RuleMatching && AutoRulesCheck.Start(data.Url);
+        var ruleCheck = new AutoRulesCheck(data.Url);
+        var isRuleCheckSuccess = appSettings.RuleMatching && ruleCheck.Start();
 
         if (!data.IsSecondInstance)
         {
@@ -59,8 +60,9 @@ public partial class MainWindow : FluentWindow
 
         if (data.IsRunAsMin || isRuleCheckSuccess)
         {
-            MinimizeWindow();
             Show();
+            MinimizeWindow();
+            ruleCheck.LaunchIfMatch();
         }
         else
         {

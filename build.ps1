@@ -2,9 +2,7 @@ $OUTPUT_PATH = "./_Publish"
 $INNO_SETUP_COMPILER = "C:/Program Files (x86)/Inno Setup 6/ISCC.exe"
 
 Write-Output "Building Launcher...."
-cd ./Source/Launcher
-cargo build --release
-cd ../..
+cargo build --release --workspace
 
 Write-Output "Building Hurl...."
 dotnet restore

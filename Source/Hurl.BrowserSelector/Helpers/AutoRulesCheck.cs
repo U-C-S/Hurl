@@ -1,14 +1,18 @@
-﻿using Hurl.BrowserSelector.State;
-using Hurl.Library;
+﻿using Hurl.Library;
+using Hurl.Library.Models;
 using System.Diagnostics;
 
 namespace Hurl.BrowserSelector.Helpers
 {
-    internal class AutoRulesCheck
+    internal class AutoRulesCheck(string url)
     {
-        public static bool Start(string link)
+        private readonly string _url = url;
+        private Browser? _browser;
+        private Ruleset? _rule;
+
+        public bool Start()
         {
-            var rulesets = Settings.Rulesets;
+            var rulesets = State.Settings.Rulesets;
 
 #if DEBUG
             Stopwatch sw = new();
@@ -17,18 +21,19 @@ namespace Hurl.BrowserSelector.Helpers
             foreach (var rules in rulesets)
             {
                 var isHurl = rules.BrowserName == "_Hurl";
-                if (isHurl && RuleMatch.CheckMultiple(link, rules.Rules))
+                if (isHurl && RuleMatch.CheckMultiple(_url, rules.Rules))
                 {
                     return false;
                 }
                 else
                 {
-                    var x = Settings.Browsers.Find(x => x.Name == rules.BrowserName);
+                    var x = State.Settings.Browsers.Find(x => x.Name == rules.BrowserName);
                     if (x != null)
                     {
-                        if (RuleMatch.CheckMultiple(link, rules.Rules))
+                        if (RuleMatch.CheckMultiple(_url, rules.Rules))
                         {
-                            UriLauncher.ResolveAutomatically(link, x, rules.AltLaunchIndex);
+                            _browser = x;
+                            _rule = rules;
 
                             return true;
                         }
@@ -40,6 +45,14 @@ namespace Hurl.BrowserSelector.Helpers
             Debug.WriteLine(sw.Elapsed.TotalSeconds);
 #endif
             return false;
+        }
+
+        public void LaunchIfMatch()
+        {
+            if (_browser != null && _rule != null)
+            {
+                UriLauncher.ResolveAutomatically(_url, _browser, _rule.AltLaunchIndex);
+            }
         }
     }
 }
