@@ -28,8 +28,8 @@ internal class MainWindow
 #if DEBUG == false
             windowManager.AppWindow.IsShownInSwitchers = false;
 #endif
-            windowManager.MinWidth = 500;
-            windowManager.MinHeight = 200;
+            windowManager.MinWidth = 460;
+            windowManager.MinHeight = 240;
         }
     }
 
