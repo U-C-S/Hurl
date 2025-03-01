@@ -1,18 +1,26 @@
-﻿namespace Hurl.Library.Models;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-public class AppSettings
+namespace Hurl.Library.Models;
+
+public partial class AppSettings : ObservableObject
 {
-    public bool LaunchUnderMouse { get; set; } = false;
+    [ObservableProperty]
+    public bool launchUnderMouse = false;
 
-    public bool MinimizeOnFocusLoss { get; set; } = true;
+    [ObservableProperty]
+    public bool minimizeOnFocusLoss = true;
 
-    public bool NoWhiteBorder { get; set; } = false;
+    [ObservableProperty]
+    public bool noWhiteBorder = false;
 
-    public string BackgroundType { get; set; } = "mica";
+    [ObservableProperty]
+    public string backgroundType = "mica";
 
-    public bool RuleMatching { get; set; } = false;
+    [ObservableProperty]
+    public bool ruleMatching = false;
 
-    public int[] WindowSize { get; set; } = [420, 210];
+    [ObservableProperty]
+    public int[] windowSize = [420, 210];
 }
 
 
