@@ -1,4 +1,4 @@
-using Hurl.Library;
+using Hurl.Settings.Views.Dialogs;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -8,7 +8,6 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -23,17 +22,32 @@ namespace Hurl.Settings.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class BrowsersPage : Page
+    public sealed partial class RulesetsPage : Page
     {
-        public BrowsersPage()
+        public RulesetsPage()
         {
             this.InitializeComponent();
-            //NavView.Header = "Browsers";
         }
 
-        private void EditJsonButton_Click(object sender, RoutedEventArgs e)
+        private async void TestButton_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start("explorer", "\"" + Constants.APP_SETTINGS_MAIN + "\"");
+            TestRules TestRulesDialogContent = new();
+            ContentDialog testRulesDialog = new()
+            {
+                XamlRoot = this.XamlRoot,
+                Title = "Test rules",
+                Content = TestRulesDialogContent,
+                CloseButtonText = "Close",
+                IsPrimaryButtonEnabled = false,
+            };
+
+            _ = await testRulesDialog.ShowAsync();
+        }
+
+        private async void CreateSetButton_Click(object sender, RoutedEventArgs e)
+        {
+            // set data
+            //await;
         }
     }
 }

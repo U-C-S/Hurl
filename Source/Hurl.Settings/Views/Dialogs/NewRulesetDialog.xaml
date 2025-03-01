@@ -10,54 +10,51 @@
     xmlns:viewmodels="using:Hurl.Settings.ViewModels"
     mc:Ignorable="d">
 
-    <ScrollViewer MinWidth="500">
-        <StackPanel Margin="8,0">
-            <toolkit:SettingsCard Header="Ruleset Title">
+    <ScrollViewer>
+        <StackPanel Style="{StaticResource SettingsPrimaryStackPanelStyle}">
+            <toolkit:SettingsCard Header="Title">
                 <StackPanel Orientation="Horizontal">
                     <TextBox
                         x:Name="RuleNameInput"
-                        Width="180"
-                        PlaceholderText="Title"
+                        Width="240"
                         Text="{x:Bind viewModel.Name, Mode=TwoWay}" />
                 </StackPanel>
             </toolkit:SettingsCard>
-            <toolkit:SettingsExpander
-                Description="Customize the browser launch options if a rule matches"
-                Header="Ruleset Options"
-                IsExpanded="True">
-                <toolkit:SettingsExpander.Items>
-                    <toolkit:SettingsCard Header="Target Browser">
-                        <ComboBox
-                            x:Name="TargetBrowser"
-                            Grid.Row="1"
-                            Grid.Column="1"
-                            Width="150"
-                            ItemsSource="{x:Bind viewModel.Browsers}"
-                            SelectedIndex="{x:Bind viewModel.SelectedBrowser, Mode=TwoWay}"
-                            SelectionChanged="TargetBrowser_SelectionChanged" />
-                    </toolkit:SettingsCard>
 
-                    <toolkit:SettingsCard Header="Alternate Launch">
-                        <ComboBox
-                            x:Name="TargetAltLaunch"
-                            Grid.Row="2"
-                            Grid.Column="1"
-                            Width="150"
-                            ItemsSource="{x:Bind viewModel.AltLaunches, Mode=TwoWay}"
-                            SelectedIndex="{x:Bind viewModel.SelectedAltLaunch, Mode=TwoWay}" />
-                    </toolkit:SettingsCard>
-                </toolkit:SettingsExpander.Items>
-            </toolkit:SettingsExpander>
-
-            <AppBarSeparator />
-
-            <toolkit:SettingsCard Description="Add new rules into this ruleset" Header="Add Rules">
-                <Button Click="Button_Click" Style="{StaticResource AccentButtonStyle}">
-                    Add
-                </Button>
+            <toolkit:SettingsCard Header="Target Browser">
+                <ComboBox
+                    x:Name="TargetBrowser"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    MinWidth="120"
+                    ItemsSource="{x:Bind viewModel.Browsers}"
+                    SelectedIndex="{x:Bind viewModel.SelectedBrowser, Mode=TwoWay}"
+                    SelectionChanged="TargetBrowser_SelectionChanged" />
             </toolkit:SettingsCard>
 
+            <toolkit:SettingsCard Header="Alternate Launch">
+                <ComboBox
+                    x:Name="TargetAltLaunch"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    MinWidth="120"
+                    ItemsSource="{x:Bind viewModel.AltLaunches, Mode=TwoWay}"
+                    SelectedIndex="{x:Bind viewModel.SelectedAltLaunch, Mode=TwoWay}" />
+            </toolkit:SettingsCard>
+
+            <AppBarSeparator />
+            
+            <!-- TO-DO:
+            TextBlock
+            List of stored rulesets
+            input, Button (add)
+            -->
+
+            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Add rules to this ruleset" />
+
             <StackPanel x:Name="RulesStack" />
+
+            <Button MinWidth="120" Click="Button_Click" Style="{StaticResource AccentButtonStyle}">Add</Button>
         </StackPanel>
     </ScrollViewer>
 </Page>

@@ -25,6 +25,14 @@
     <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
     <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="MainWindow.xaml" />
+    <None Remove="ViewModels\GeneralPage.xaml" />
+    <None Remove="ViewModels\MainWindow.xaml" />
+    <None Remove="Views\BrowsersPage.xaml" />
+    <None Remove="Views\GeneralPage.xaml" />
+    <None Remove="Views\RulesetsPage.xaml" />
+  </ItemGroup>
 
   <ItemGroup>
     <Content Include="internet.ico" />
@@ -50,6 +58,36 @@
   <ItemGroup>
     <Compile Include="$(PkgMicrosoft_WindowsAppSDK)\include\WindowsAppSDK-VersionInfo.cs" />
     <ProjectReference Include="..\Hurl.Library\Hurl.Library.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\RulesetsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\BrowsersPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\GeneralPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="ViewModels\GeneralPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="ViewModels\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <PropertyGroup>

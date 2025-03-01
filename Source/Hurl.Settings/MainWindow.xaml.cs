@@ -1,62 +1,70 @@
-using CommunityToolkit.WinUI;
+using Hurl.Settings.Views;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
+using Microsoft.UI.Xaml.Data;
+using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
-using Windows.Graphics;
+using Microsoft.UI.Xaml.Media.Animation;
+using Microsoft.UI.Xaml.Navigation;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
 
-namespace Hurl.Settings;
+// To learn more about WinUI, the WinUI project structure,
+// and more about our project templates, see: http://aka.ms/winui-project-info.
 
-public sealed partial class MainWindow : Window
+namespace Hurl.Settings
 {
-    public MainWindow()
+    /// <summary>
+    /// An empty window that can be used on its own or navigated to within a Frame.
+    /// </summary>
+    public sealed partial class MainWindow : Window
     {
-        this.InitializeComponent();
-
-        ExtendsContentIntoTitleBar = true;
-        Title = "Hurl Settings Preview";
-
-        this.AppWindow.ResizeClient(new SizeInt32(1200, 840));
-        this.AppWindow.SetIcon("internet.ico");
-        this.SystemBackdrop = new MicaBackdrop();
-
-        NavigateToPage("browsers");
-    }
-
-    private void OnNavItemClicked(object sender, ItemClickEventArgs e)
-    {
-        if (e.ClickedItem is FrameworkElement f && f.FindParent<ListViewItem>() is { Tag: string tag })
+        public MainWindow()
         {
-            NavigateToPage(tag);
-        }
-    }
-
-    public void NavigateToPage(string page)
-    {
-        switch (page)
-        {
-            case "about":
-                NavigationFrame.Navigate(typeof(Views.AboutPage));
-                break;
-            case "browsers":
-                NavigationFrame.Navigate(typeof(Views.BrowsersPage));
-                //ViewModel.Navigate(ContentPageType.Apps);
-                break;
-            case "rulesets":
-                NavigationFrame.Navigate(typeof(Views.RulesetPage));
-                break;
-            case "settings":
-                NavigationFrame.Navigate(typeof(Views.Settings));
-                break;
+            this.InitializeComponent();
+            // TO-DO: winui3gallery://item/SystemBackdrops
+            SystemBackdrop = new DesktopAcrylicBackdrop();
+            AppWindow.SetIcon("internet.ico");
+            AppWindow.ResizeClient(new Windows.Graphics.SizeInt32(720,540));
+            ExtendsContentIntoTitleBar = true;
         }
 
-        if (page == "about")
+        private double NavViewCompactModeThresholdWidth => NavView.CompactModeThresholdWidth;
+
+        private void NavView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {
-            NavMenuFooterList.SelectedIndex = 0;
-            NavMenuHeaderList.SelectedIndex = -1;
+            //not used!
         }
-        else
+
+        private void NavView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
-            NavMenuFooterList.SelectedIndex = -1;
+            Type selectedPage = ((NavigationViewItem)args.SelectedItem).Tag switch
+            {
+                "General" => typeof(GeneralPage),
+                "Browsers" => typeof(BrowsersPage),
+                "Rulesets" => typeof(RulesetsPage),
+                _ => typeof(GeneralPage),
+            };
+
+            NavFrame.Navigate(selectedPage);
+            NavView.Header = sender.Content as string;
+        }
+
+        private void NavView_Loaded(object sender, RoutedEventArgs e)
+        {
+            NavFrame.Loaded += NavView_Loaded;
+            NavView.SelectedItem = NavView.MenuItems[0];
+        }
+
+        private void NavFrame_NavigationFailed(object sender, NavigationFailedEventArgs e)
+        {
+            throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
         }
     }
 }
