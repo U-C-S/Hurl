@@ -1,4 +1,5 @@
 ﻿using Hurl.Library.Models;
+using Microsoft.Extensions.Options;
 using System.Collections.ObjectModel;
 
 namespace Hurl.Settings.ViewModels;
@@ -7,9 +8,9 @@ internal class BrowsersPageViewModel
 {
     public ObservableCollection<Browser> Browsers { get; set; }
 
-    public BrowsersPageViewModel()
+    public BrowsersPageViewModel(IOptions<Library.Models.Settings> settings)
     {
-        Browsers = new(State.Settings.Browsers);
+        Browsers = new(settings.Value.Browsers);
     }
 
     public void RefreshBrowserList()

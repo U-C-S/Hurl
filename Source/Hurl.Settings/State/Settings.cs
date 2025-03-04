@@ -10,7 +10,7 @@ public partial class Settings
 {
     private static Settings _instance = new();
 
-    private Library.Models.Settings _data = Library.Models.Settings.GetSettings();
+    private Library.Models.Settings _data = new Library.Models.Settings();
 
     private static Library.Models.Settings Value
     {
@@ -66,11 +66,11 @@ public partial class Settings
     {
         get
         {
-            return Value.Browsers;
+            return Value.Browsers.ToList();
         }
         set
         {
-            Value.Browsers = value;
+            Value.Browsers = new(value);
             Save();
         }
     }
