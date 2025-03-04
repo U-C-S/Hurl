@@ -5,33 +5,36 @@ using System.Windows.Media.Imaging;
 
 namespace Hurl.Library.Models;
 
-public partial class Browser(string Name, string ExePath) : ObservableObject
+public partial class Browser : ObservableObject
 {
     [ObservableProperty]
-    public string name = Name;
+    public string name = string.Empty;
 
     [ObservableProperty]
-    public string exePath = ExePath;
+    public string exePath = string.Empty;
 
     [ObservableProperty]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public bool isUwp = false;
 
     [ObservableProperty]
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public string? launchArgs;
 
     [ObservableProperty]
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public ObservableCollection<AlternateLaunch>? alternateLaunches;
 
     [ObservableProperty]
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public string? customIconPath;
 
     [ObservableProperty]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public bool hidden = false;
 
     [ObservableProperty]
-    [JsonIgnore]
+    [property: JsonIgnore]
     public BitmapImage? icon;
 }
 

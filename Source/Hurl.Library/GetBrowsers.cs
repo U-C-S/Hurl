@@ -31,7 +31,7 @@ public static class GetBrowsers
 
                 if (Name is string _Name && ExePath is string _ExePath)
                 {
-                    Browser b = new(_Name, _ExePath);
+                    Browser b = new() { Name = Name, ExePath = ExePath };
                     browsers.Add(b);
                 }
             }
