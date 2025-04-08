@@ -197,15 +197,12 @@ public partial class MainWindow : FluentWindow
         {
             if (appSettings?.LaunchUnderMouse == true)
             {
-                var transform = PresentationSource.FromVisual(this)?.CompositionTarget?.TransformFromDevice;
-                if (transform is Matrix t)
-                {
-                    var mouse = t.Transform(CursorPosition.LimitCursorWithin((int)Width, (int)Height));
-                    Left = mouse.X;
-                    Top = mouse.Y;
-
-                    Debug.WriteLine($"{Left}�{Top} with screen resolution: {SystemParameters.FullPrimaryScreenWidth}�{SystemParameters.FullPrimaryScreenHeight}");
-                }
+                var dpiScale = VisualTreeHelper.GetDpi(this);
+                var width = (appSettings?.WindowSize[0] ?? 420) * dpiScale.DpiScaleX;
+                var height = (appSettings?.WindowSize[1] ?? 210) * dpiScale.DpiScaleY;
+                var position = CursorPosition.LimitCursorWithin((int)width, (int)height);
+                Left = position.X / dpiScale.DpiScaleX;
+                Top = position.Y / dpiScale.DpiScaleY;
             }
         }
         catch (Exception) { }
