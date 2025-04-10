@@ -1,6 +1,7 @@
 using Hurl.Library.Models;
 using Hurl.Settings.ViewModels;
 using Hurl.Settings.Views.Dialogs;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
@@ -10,10 +11,12 @@ namespace Hurl.Settings.Views;
 
 public sealed partial class RulesetPage : Page
 {
+    public RulesetPageViewModel ViewModel { get; }
+
     public RulesetPage()
     {
         InitializeComponent();
-
+        ViewModel = App.AppHost.Services.GetRequiredService<RulesetPageViewModel>();
         if (ViewModel.Rulesets.Count == 0)
             _RulesetListControl.IsExpanded = false;
     }

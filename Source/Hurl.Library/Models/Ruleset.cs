@@ -1,20 +1,25 @@
+using CommunityToolkit.Mvvm.ComponentModel;
 using System.Text.Json.Serialization;
 
 namespace Hurl.Library.Models;
 
-public class Ruleset
+public partial class Ruleset: ObservableObject
 {
     [JsonIgnore]
-    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid Id = Guid.NewGuid();
 
-    public List<string> Rules { get; set; } = [];
+    [ObservableProperty]
+    public List<string> rules = [];
 
-    public string RulesetName { get; set; }
+    [ObservableProperty]
+    public string rulesetName = string.Empty;
 
-    public string BrowserName { get; set; }
+    [ObservableProperty]
+    public string browserName = string.Empty;
 
+    [ObservableProperty]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-    public int? AltLaunchIndex { get; set; }
+    public int? altLaunchIndex;
 }
 
 public enum RuleMode

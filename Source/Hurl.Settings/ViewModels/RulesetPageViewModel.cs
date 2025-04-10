@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Hurl.Library.Models;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.ObjectModel;
 
@@ -9,9 +10,9 @@ public partial class RulesetPageViewModel : ObservableObject
 {
     public ObservableCollection<Ruleset> Rulesets { get; set; }
 
-    public RulesetPageViewModel()
+    public RulesetPageViewModel(IOptions<Library.Models.Settings> settings)
     {
-        Rulesets = new(State.Settings.Rulesets);
+        Rulesets = new(settings.Value.Rulesets);
     }
 
     public bool Option_RuleMatching
