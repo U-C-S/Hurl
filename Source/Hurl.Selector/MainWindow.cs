@@ -19,8 +19,6 @@ internal class MainWindow
                 ExtendsContentIntoTitleBar = true,
                 Title = "Hurl Selector Preview",
             };
-            //window.AppWindow.IsShownInSwitchers = false;
-            window.AppWindow.ResizeClient(new Windows.Graphics.SizeInt32(600, 320));
 
             windowManager = WindowManager.Get(window);
             windowManager.IsMaximizable = false;
@@ -28,8 +26,11 @@ internal class MainWindow
 #if DEBUG == false
             windowManager.AppWindow.IsShownInSwitchers = false;
 #endif
-            windowManager.MinWidth = 460;
-            windowManager.MinHeight = 240;
+            windowManager.MinWidth = 500;
+            windowManager.MinHeight = 250;
+
+            //window.AppWindow.IsShownInSwitchers = false;
+            window.AppWindow.ResizeClient(new Windows.Graphics.SizeInt32(600, 320));
         }
     }
 
