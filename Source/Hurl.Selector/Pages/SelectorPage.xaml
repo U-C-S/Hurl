@@ -33,8 +33,8 @@
                     ItemsJustification="Center"
                     MaximumRowsOrColumns="4"
                     MinColumnSpacing="12"
-                    MinItemHeight="120"
-                    MinItemWidth="120"
+                    MinItemHeight="144"
+                    MinItemWidth="144"
                     MinRowSpacing="8" />
             </ItemsRepeater.Layout>
 
@@ -46,15 +46,15 @@
                             HorizontalAlignment="Stretch"
                             Command="{Binding ViewModel.LaunchBrowserCommand}"
                             CommandParameter="{x:Bind}">
-                            <Grid RowSpacing="8">
+                            <Grid Padding="4" RowSpacing="4">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="78" />
+                                    <RowDefinition Height="80" />
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
                                 <Image Source="{x:Bind Icon, Mode=OneWay}" />
                                 <TextBlock
                                     Grid.Row="1"
-                                    FontSize="10"
+                                    Style="{StaticResource CaptionTextBlockStyle}"
                                     Text="{x:Bind Name, Mode=OneWay}"
                                     TextAlignment="Center"
                                     TextWrapping="NoWrap" />
@@ -67,7 +67,7 @@
                         </Button>
                         <Button
                             x:Name="AdditionalBtn"
-                            Margin="2,3"
+                            Margin="4,9"
                             Padding="2"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Top"
@@ -92,7 +92,7 @@
             Grid.Row="2"
             Padding="4"
             HorizontalAlignment="Center"
-            Background="{StaticResource AccentAcrylicBackgroundFillColorBaseBrush}"
+            Background="{ThemeResource AccentAcrylicBackgroundFillColorBaseBrush}"
             BorderBrush="{StaticResource ControlElevationBorderBrush}"
             BorderThickness="1.5"
             CornerRadius="6">
@@ -109,7 +109,7 @@
                     BorderBrush="{x:Null}"
                     Click="LinkCopyBtnClick">
                     <Button.Content>
-                        <FontIcon FontSize="18" Glyph="&#xE8C8;" />
+                        <FontIcon FontSize="16" Glyph="&#xE8C8;" />
                     </Button.Content>
                 </Button>
                 <TextBox
