@@ -14,7 +14,7 @@ public partial class App : Microsoft.UI.Xaml.Application
 {
     public static IServiceProvider? Services { get; private set; }
 
-    private static MainWindow? _mainWindow;
+    private static Microsoft.UI.Xaml.Window? _mainWindow;
 
     public App()
     {
@@ -41,11 +41,9 @@ public partial class App : Microsoft.UI.Xaml.Application
         //var cliArgs = CliArgs.GatherInfo(args.Arguments, false);
         //OpenedUri.Value = cliArgs.Url;
 
-        _mainWindow = new();
-        _mainWindow.CreateWindow();
-        _mainWindow.SetContent(new SelectorPage());
+        _mainWindow = new SelectorWindow();
         //_mainWindow.Init(cliArgs);
-        _mainWindow.Show();
+        _mainWindow.Activate();
     }
 
     private void Dispatcher_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
