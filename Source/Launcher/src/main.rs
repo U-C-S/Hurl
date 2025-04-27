@@ -2,8 +2,8 @@
 
 use std::{
     env,
-    fs::write,
-    io::{self, Read},
+    fs::OpenOptions,
+    io::{self, Read, prelude::*},
     process::Command,
 };
 
@@ -22,7 +22,10 @@ async fn main() {
         Ok(val) => {
             let json_val: Result<NativeMessage, _> = serde_json::from_slice(&val);
             match json_val {
-                Ok(val) => Some(val.url),
+                Ok(val) => {
+                    write_log_to_file(&format!("Received URL via Native Msg: {}", val.url));
+                    Some(val.url)
+                }
                 Err(_) => None,
             }
         }
@@ -38,6 +41,7 @@ async fn main() {
     };
 
     let args = env::args().collect::<Vec<String>>();
+    write_log_to_file(&format!("Received args: {:?}", args));
     let trimed_args = &args[1..];
 
     let pipe_conn = named_pipe::ClientOptions::new().open(PIPE_NAME);
@@ -51,7 +55,11 @@ async fn main() {
             };
             let _ = client.try_write(args_str.as_bytes());
         }
-        Err(_) => {
+        Err(e) => {
+            // append the error log to file
+            write_log_to_file(&format!("Failed to connect to pipe: {}", e));
+
+            // If the pipe connection fails, we can still run Hurl.exe with the arguments
             let args = match native_msg_url {
                 Some(url) => vec![url],
                 None => trimed_args.to_vec(),
@@ -72,8 +80,21 @@ pub fn read_input<R: Read>(mut input: R) -> io::Result<Vec<u8>> {
     }
 }
 
-// static USER_SETTINGS: &str = "C:\\Users\\uchan\\AppData\\Roaming\\Hurl\\UserSettings.json";
-
-// let file = std::fs::read_to_string(USER_SETTINGS).unwrap();
-// let user_settings: models::Settings = serde_json::from_str(&file).unwrap();
-// let user_settings_json = serde_json::to_string(&user_settings).unwrap();
+fn write_log_to_file(message: &str) {
+    let log_file = OpenOptions::new()
+        .create(true)
+        .append(true)
+        .open(r"C:\Users\uchan\AppData\Roaming\Hurl\log.txt");
+    match log_file {
+        Ok(mut file) => {
+            let now = chrono::Local::now();
+            let formatted_time = now.format("%Y-%m-%d %H:%M:%S").to_string();
+            if let Err(e) = writeln!(file, "{}: {}", formatted_time, message) {
+                eprintln!("Failed to write error log: {}", e);
+            }
+        }
+        Err(e) => {
+            eprintln!("Failed to open log file: {}", e);
+        }
+    }
+}

@@ -1,10 +1,10 @@
-﻿using Hurl.BrowserSelector.State;
-using Hurl.BrowserSelector.Helpers;
+﻿using Hurl.BrowserSelector.Helpers;
+using Hurl.BrowserSelector.State;
 using Hurl.BrowserSelector.Windows;
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.IO.Pipes;
+using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Windows;
@@ -54,6 +54,13 @@ namespace Hurl.BrowserSelector
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            var x = new StringBuilder();
+            foreach (var arg in e.Args)
+            {
+                x.Append(arg);
+                x.Append(" ");
+            }
+            writeLogToFile($"Received startup args: {x.ToString()}");
             _singleInstanceMutex = new Mutex(true, MUTEX_NAME, out var isOwned);
             _singleInstanceWaitHandle = new EventWaitHandle(false, EventResetMode.AutoReset, EVENT_NAME);
 
@@ -121,6 +128,16 @@ namespace Hurl.BrowserSelector
             });
         }
 
+
+        private void writeLogToFile(string message)
+        {
+            var timeOfLog = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+            string logFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Hurl", "log.txt");
+            Directory.CreateDirectory(Path.GetDirectoryName(logFilePath) ?? string.Empty);
+            File.AppendAllText(logFilePath, $"{timeOfLog}: {message}\n");
+        }
+
+
         public void PipeServer()
         {
             var isFirstTimeLaunching = true;
@@ -144,6 +161,7 @@ namespace Hurl.BrowserSelector
 
                     using StreamReader sr = new(_pipeserver);
                     string args = sr.ReadToEnd();
+                    writeLogToFile($"Received args: {args}");
                     string[] argsArray = JsonSerializer.Deserialize<string[]>(args) ?? [];
                     OnInstanceInvoked(argsArray);
                 }
@@ -153,7 +171,7 @@ namespace Hurl.BrowserSelector
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine($"Error in PipeServer: {e.Message}");
+                    writeLogToFile($"Error in PipeServer: {e.Message}");
                 }
             }
         }
