@@ -3,6 +3,8 @@ using Hurl.BrowserSelector.State;
 using Hurl.Library.Models;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using Wpf.Ui.Input;
 
 namespace Hurl.BrowserSelector.Controls
 {
@@ -17,11 +19,13 @@ namespace Hurl.BrowserSelector.Controls
             DataContext = browser;
         }
 
-        private void BrowserButton_Click(object sender, RoutedEventArgs e)
+        public void BrowserButton_Click(object sender, RoutedEventArgs e)
         {
             UriLauncher.ResolveAutomatically(OpenedUri.Value, (Browser)DataContext, null);
             MinimizeWindow();
         }
+
+        public ICommand Command => new RelayCommand<string>((x) => BrowserButton_Click(null,null));
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
