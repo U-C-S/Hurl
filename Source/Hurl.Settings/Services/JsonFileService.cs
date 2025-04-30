@@ -40,5 +40,12 @@ public class JsonFileService(IOptions<Library.Models.Settings> settings) : ISett
         settings.Browsers = browsers;
         SaveSettingsAsync(settings);
     }
+
+    public void UpdateRulesets(ObservableCollection<Ruleset> rulesets)
+    {
+        var settings = this.settings.Value;
+        settings.Rulesets = [.. rulesets];
+        SaveSettingsAsync(settings);
+    }
 }
 

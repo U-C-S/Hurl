@@ -10,6 +10,7 @@
     xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
     xmlns:uc="using:Hurl.Settings.Controls"
     xmlns:vm="using:Hurl.Settings.ViewModels"
+    d:DataContext="{d:DesignInstance Type=vm:RulesetPageViewModel}"
     mc:Ignorable="d">
 
     <StackPanel MaxWidth="800" Spacing="16">

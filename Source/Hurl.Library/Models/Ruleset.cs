@@ -5,8 +5,8 @@ namespace Hurl.Library.Models;
 
 public partial class Ruleset: ObservableObject
 {
-    [JsonIgnore]
-    public Guid Id = Guid.NewGuid();
+    [ObservableProperty]
+    public Guid id = Guid.NewGuid();
 
     [ObservableProperty]
     public List<string> rules = [];

@@ -13,4 +13,6 @@ public interface ISettingsService
     void UpdateAppSettings(AppSettings appSettings);
 
     void UpdateBrowsers(ObservableCollection<Browser> browsers);
+
+    void UpdateRulesets(ObservableCollection<Ruleset> rulesets);
 }

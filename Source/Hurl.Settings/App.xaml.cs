@@ -30,6 +30,7 @@ public partial class App : Application
                 services.AddTransient<SettingsViewModel>();
                 services.AddTransient<BrowsersPageViewModel>();
                 services.AddTransient<RulesetPageViewModel>();
+                services.AddTransient<StoreRulesetViewModel>();
             })
             .Build();
 

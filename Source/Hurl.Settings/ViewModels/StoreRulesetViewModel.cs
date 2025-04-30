@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Hurl.Library.Models;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,33 +19,34 @@ public class StoreRulesetViewModel : ObservableObject
 
     public List<Rule> Rules { get; set; }
 
-    public StoreRulesetViewModel()
+    public StoreRulesetViewModel(IOptionsMonitor<Library.Models.Settings> settings)
     {
         Id = Guid.NewGuid();
-        Browsers = State.Settings.Browsers
+        Browsers = settings.CurrentValue.Browsers
             .Select(x => x.Name)
             .ToList();
         Rules = [];
     }
 
-    public StoreRulesetViewModel(Ruleset set)
+    public StoreRulesetViewModel(IOptionsMonitor<Library.Models.Settings> settings, Guid id)
     {
-        Id = set.Id;
-        Browsers = State.Settings.Browsers
+        Id = id;
+        var currentRuleset = settings.CurrentValue.Rulesets.First(x => Guid.Equals(x.Id, id));
+        Browsers = settings.CurrentValue.Browsers
             .Select(x => x.Name)
             .ToList();
-        Name = set?.RulesetName;
-        Rules = set?.Rules?
+        Name = currentRuleset?.RulesetName;
+        Rules = currentRuleset?.Rules?
                     .Select(x => new Rule(x))
                     .ToList() ?? [];
 
-        if (set?.BrowserName is string browser)
+        if (currentRuleset?.BrowserName is string browser)
             SelectedBrowser = Browsers.IndexOf(browser);
 
-        if (set?.AltLaunchIndex is int altLaunchIndex)
+        if (currentRuleset?.AltLaunchIndex is int altLaunchIndex)
         {
             List<string> altLaunchList = ["< None >"];
-            var x = State.Settings.Browsers[SelectedBrowser]
+            var x = settings.CurrentValue.Browsers[SelectedBrowser]
                 ?.AlternateLaunches
                 ?.Select(x => x.ItemName)
                 .ToList();
@@ -78,21 +80,21 @@ public class StoreRulesetViewModel : ObservableObject
 
     private void SelectedBrowserChanged(int value)
     {
-        var selected = State.Settings.GetBrowsers()[value];
-        if (selected.AlternateLaunches?.Count > 0)
-        {
-            List<string> altLaunchList = ["< None >"];
-            var x = selected
-                .AlternateLaunches
-                .Select(x => x.ItemName)
-                .ToList();
-            altLaunchList.AddRange(x);
-            AltLaunches = altLaunchList;
-        }
-        else
-        {
-            AltLaunches = ["< None >"];
-        }
+        //var selected = State.Settings.GetBrowsers()[value];
+        //if (selected.AlternateLaunches?.Count > 0)
+        //{
+        //    List<string> altLaunchList = ["< None >"];
+        //    var x = selected
+        //        .AlternateLaunches
+        //        .Select(x => x.ItemName)
+        //        .ToList();
+        //    altLaunchList.AddRange(x);
+        //    AltLaunches = altLaunchList;
+        //}
+        //else
+        //{
+        //    AltLaunches = ["< None >"];
+        //}
     }
 
     public Ruleset ToRuleSet()
