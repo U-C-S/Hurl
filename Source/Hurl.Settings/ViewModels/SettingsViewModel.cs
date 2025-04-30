@@ -1,23 +1,35 @@
-﻿using Hurl.Library.Models;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Hurl.Library.Models;
+using Hurl.Settings.Services.Interfaces;
+using Microsoft.Extensions.Options;
 
 namespace Hurl.Settings.ViewModels;
 
-public class SettingsViewModel
+public partial class SettingsViewModel : ObservableObject
 {
-    private AppSettings AppSettings { get; set; }
+    [ObservableProperty]
+    private AppSettings appSettings;
 
-    public SettingsViewModel()
+    private readonly ISettingsService _settingsService;
+
+    public SettingsViewModel(IOptionsMonitor<Library.Models.Settings> settings, ISettingsService settingsService)
     {
-        AppSettings = State.Settings.AppSettings;
+        appSettings = settings.CurrentValue.AppSettings;
+        _settingsService = settingsService;
     }
+
 
     public bool Option_LaunchUnderMouse
     {
         get => AppSettings.LaunchUnderMouse;
         set
         {
-            AppSettings.LaunchUnderMouse = value;
-            State.Settings.Set_LaunchUnderMouse(value);
+            if (AppSettings.LaunchUnderMouse != value)
+            {
+                AppSettings.LaunchUnderMouse = value;
+                _settingsService.UpdateAppSettings(AppSettings);
+                OnPropertyChanged();
+            }
         }
     }
 
@@ -26,8 +38,13 @@ public class SettingsViewModel
         get => AppSettings.MinimizeOnFocusLoss;
         set
         {
-            AppSettings.MinimizeOnFocusLoss = value;
-            State.Settings.Set_MinimizeOnFocusLoss(value);
+            if (AppSettings.MinimizeOnFocusLoss != value)
+            {
+                AppSettings.MinimizeOnFocusLoss = value;
+                _settingsService.UpdateAppSettings(AppSettings);
+
+                OnPropertyChanged();
+            }
         }
     }
 
@@ -36,8 +53,13 @@ public class SettingsViewModel
         get => AppSettings.NoWhiteBorder;
         set
         {
-            State.Settings.Set_NoWhiteBorder(value);
-            AppSettings.NoWhiteBorder = value;
+            if (AppSettings.NoWhiteBorder != value)
+            {
+                AppSettings.NoWhiteBorder = value;
+                _settingsService.UpdateAppSettings(AppSettings);
+
+                OnPropertyChanged();
+            }
         }
     }
 
@@ -51,14 +73,14 @@ public class SettingsViewModel
         };
         set
         {
-            string val = value switch
+            AppSettings.BackgroundType = value switch
             {
                 0 => "mica",
                 1 => "acrylic",
                 _ => "solid"
             };
-            State.Settings.Set_BackgroundType(val);
-            AppSettings.BackgroundType = val;
+            _settingsService.UpdateAppSettings(AppSettings);
+            OnPropertyChanged();
         }
     }
 }

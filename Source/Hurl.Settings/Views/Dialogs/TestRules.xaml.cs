@@ -1,5 +1,7 @@
 using Hurl.Library;
 using Hurl.Library.Models;
+using Hurl.Settings.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System.Linq;
@@ -8,9 +10,12 @@ namespace Hurl.Settings.Views.Dialogs;
 
 public sealed partial class TestRules : Page
 {
+    public RulesetPageViewModel ViewModel { get; }
+
     public TestRules()
     {
         this.InitializeComponent();
+        ViewModel = App.AppHost.Services.GetRequiredService<RulesetPageViewModel>();
     }
 
     private void TestRuleButton_Click(object sender, RoutedEventArgs e)
@@ -42,7 +47,7 @@ public sealed partial class TestRules : Page
     private void TestExistingButton_Click(object sender, RoutedEventArgs e)
     {
         var uri = _UriInput.Text;
-        var rulesets = State.Settings.GetAutoRoutingRules();
+        var rulesets = ViewModel.Rulesets;
 
         if (string.IsNullOrWhiteSpace(uri))
         {

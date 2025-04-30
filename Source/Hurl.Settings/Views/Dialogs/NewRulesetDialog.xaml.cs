@@ -1,6 +1,7 @@
 using Hurl.Library.Models;
 using Hurl.Settings.Controls;
 using Hurl.Settings.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System.Collections.Generic;
@@ -10,13 +11,12 @@ namespace Hurl.Settings.Views.Dialogs;
 
 public sealed partial class NewRulesetDialog : Page
 {
-    public StoreRulesetViewModel viewModel { get; set; }
+    public StoreRulesetViewModel viewModel { get; }
 
     public NewRulesetDialog()
     {
         this.InitializeComponent();
-
-        viewModel = new();
+        viewModel = App.AppHost.Services.GetRequiredService<StoreRulesetViewModel>();
     }
 
     public NewRulesetDialog(StoreRulesetViewModel vm)
