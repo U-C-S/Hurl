@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Window
+    x:Class="Hurl.Selector.Pages.SelectorWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Hurl.Selector.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:Hurl.Selector.Models"
+    Title="Hurl - Select"
+    mc:Ignorable="d">
+    <Window.SystemBackdrop>
+        <MicaBackdrop />
+    </Window.SystemBackdrop>
+
+    <Grid Padding="8" RowSpacing="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <TextBlock
+                Padding="4,0"
+                Style="{StaticResource BodyTextBlockStyle}"
+                Text="Select a browser" />
+        </Grid>
+
+        <ItemsRepeater
+            Grid.Row="1"
+            VerticalAlignment="Center"
+            ItemsSource="{x:Bind ViewModel.Browsers, Mode=OneWay}">
+            <ItemsRepeater.Layout>
+                <UniformGridLayout
+                    ItemsJustification="Center"
+                    MaximumRowsOrColumns="4"
+                    MinColumnSpacing="12"
+                    MinItemHeight="144"
+                    MinItemWidth="144"
+                    MinRowSpacing="8" />
+            </ItemsRepeater.Layout>
+
+            <ItemsRepeater.ItemTemplate>
+                <DataTemplate x:DataType="models:Browser">
+                    <Grid>
+                        <Button
+                            Padding="8"
+                            HorizontalAlignment="Stretch"
+                            Command="{Binding ViewModel.LaunchBrowserCommand}"
+                            CommandParameter="{x:Bind}">
+                            <Grid Padding="4" RowSpacing="4">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="80" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Image Source="{x:Bind Icon, Mode=OneWay}" />
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                    Text="{x:Bind Name, Mode=OneWay}"
+                                    TextAlignment="Center"
+                                    TextWrapping="NoWrap" />
+                            </Grid>
+                            <Button.ContextFlyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Text="Reset" />
+                                </MenuFlyout>
+                            </Button.ContextFlyout>
+                        </Button>
+                        <Button
+                            x:Name="AdditionalBtn"
+                            Margin="4,9"
+                            Padding="2"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Background="{x:Null}"
+                            BorderBrush="{x:Null}"
+                            Visibility="{Binding ShowAdditionalBtn}">
+                            <Button.Content>
+                                <FontIcon Glyph="&#xE712;" />
+                            </Button.Content>
+                            <Button.Flyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Text="Reset" />
+                                </MenuFlyout>
+                            </Button.Flyout>
+                        </Button>
+                    </Grid>
+                </DataTemplate>
+            </ItemsRepeater.ItemTemplate>
+        </ItemsRepeater>
+
+        <Border
+            Grid.Row="2"
+            Padding="4"
+            HorizontalAlignment="Center"
+            Background="{ThemeResource AccentAcrylicBackgroundFillColorBaseBrush}"
+            BorderBrush="{StaticResource ControlElevationBorderBrush}"
+            BorderThickness="1.5"
+            CornerRadius="6">
+            <Grid ColumnSpacing="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition MinWidth="240" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Button
+                    Padding="6"
+                    Background="{x:Null}"
+                    BorderBrush="{x:Null}"
+                    Click="LinkCopyBtnClick">
+                    <Button.Content>
+                        <FontIcon FontSize="16" Glyph="&#xE8C8;" />
+                    </Button.Content>
+                </Button>
+                <TextBox
+                    Grid.Column="1"
+                    MaxHeight="32"
+                    Padding="6"
+                    HorizontalAlignment="Stretch"
+                    BorderBrush="{StaticResource ControlElevationBorderBrush}"
+                    FontSize="12"
+                    IsSpellCheckEnabled="False"
+                    IsTextPredictionEnabled="False"
+                    PlaceholderText="URL"
+                    Text="{x:Bind ViewModel.Url, Mode=TwoWay}" />
+                <AppBarSeparator Grid.Column="2" />
+                <DropDownButton Grid.Column="3" Height="32">
+                    <DropDownButton.Content>
+                        <FontIcon FontSize="16" Glyph="&#xE700;" />
+                    </DropDownButton.Content>
+                    <DropDownButton.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem
+                                Click="Button_Click_1"
+                                Tag="settings"
+                                Text="Rules">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xE710;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                            <MenuFlyoutItem
+                                Click="SettingsBtnClick"
+                                Tag="exit"
+                                Text="Settings">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xE713;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                            <MenuFlyoutSeparator />
+                            <MenuFlyoutItem
+                                Click="Button_Click"
+                                Tag="reload"
+                                Text="Timed">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xE916;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                        </MenuFlyout>
+                    </DropDownButton.Flyout>
+                </DropDownButton>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
