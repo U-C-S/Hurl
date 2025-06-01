@@ -31,7 +31,7 @@ namespace Hurl.BrowserSelector
 
         private readonly CancellationTokenSource _cancelTokenSource = new();
         private Thread? _pipeServerListenThread;
-        public static IHost AppHost { get; private set; }
+        public static IHost? AppHost { get; private set; }
 
         public App()
         {
@@ -110,7 +110,7 @@ namespace Hurl.BrowserSelector
 
             var cliArgs = CliArgs.GatherInfo(e.Args, false);
             //OpenedUri.Value = cliArgs.Url;
-            AppHost.Services.GetRequiredService<CurrentUrlService>().Url = cliArgs.Url;
+            AppHost?.Services.GetRequiredService<CurrentUrlService>().Set(cliArgs.Url);
 
             _mainWindow = new();
             _mainWindow.Init(cliArgs);
@@ -136,7 +136,8 @@ namespace Hurl.BrowserSelector
 
                 if (!IsTimedSet)
                 {
-                    AppHost.Services.GetRequiredService<CurrentUrlService>().Url = cliArgs.Url;
+                    Debug.WriteLine($"Hurl Browser Selector: Instance Invoked with URL: {cliArgs.Url}");
+                    AppHost.Services.GetRequiredService<CurrentUrlService>().Set(cliArgs.Url);
                     _mainWindow?.Init(cliArgs);
                 }
             });

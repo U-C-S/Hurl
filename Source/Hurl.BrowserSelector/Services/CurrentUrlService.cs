@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace Hurl.BrowserSelector.Services
+namespace Hurl.BrowserSelector.Services;
+
+internal partial class CurrentUrlService: ObservableObject
 {
-    internal class CurrentUrlService
-    {
-        public string Url { get; set; }
+    [ObservableProperty]
+    public string url = string.Empty;
 
-        //public static void Set(string url) => Value = url;
+    public string Get() => Url;
 
-        //public static void Clear() => Value = string.Empty;
-    }
+    public void Set(string url) => Url = url;
+
+    public void Clear() => Url = string.Empty;
 }
+

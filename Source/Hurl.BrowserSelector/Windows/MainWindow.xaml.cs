@@ -22,7 +22,7 @@ public partial class MainWindow : FluentWindow
 
     public MainWindow()
     {
-        viewModel = App.AppHost.Services.GetRequiredService<SelectorWindowViewModel>();
+        DataContext = viewModel = App.AppHost.Services.GetRequiredService<SelectorWindowViewModel>();
         var appSettings = viewModel.OtherSettings;
 
         InitializeComponent();
@@ -73,8 +73,6 @@ public partial class MainWindow : FluentWindow
         {
             ShowWindow();
         }
-
-        linkpreview.Content = string.IsNullOrEmpty(viewModel.Url) ? "No Url Opened" : viewModel.Url;
     }
 
     public void LoadBrowsers()

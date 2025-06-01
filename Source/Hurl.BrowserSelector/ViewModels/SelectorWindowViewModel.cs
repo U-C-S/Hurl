@@ -9,8 +9,13 @@ namespace Hurl.BrowserSelector.ViewModels;
 
 internal partial class SelectorWindowViewModel : ObservableObject
 {
+    private readonly CurrentUrlService _urlService;
+
     [ObservableProperty]
     private string url;
+
+    [ObservableProperty]
+    private string urlUiString;
 
     [ObservableProperty]
     public ObservableCollection<Browser> browsers;
@@ -23,7 +28,18 @@ internal partial class SelectorWindowViewModel : ObservableObject
 
     public SelectorWindowViewModel(IOptionsMonitor<Settings> settings, CurrentUrlService urlService)
     {
-        Url = urlService.Url;
+        _urlService = urlService;
+        _urlService.PropertyChanged += (sender, e) =>
+        {
+            if (e.PropertyName == nameof(CurrentUrlService.Url))
+            {
+                Url = _urlService.Url;
+                UrlUiString = string.IsNullOrEmpty(Url) ? "No Url Opened" : Url;
+            }
+        };
+
+        Url = _urlService.Url;
+        UrlUiString = string.IsNullOrEmpty(Url) ? "No Url Opened" : Url;
 
         this.Browsers = settings.CurrentValue.Browsers;
         this.Rulesets = settings.CurrentValue.Rulesets;
