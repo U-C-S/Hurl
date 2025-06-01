@@ -1,5 +1,4 @@
 ﻿using Hurl.BrowserSelector.Helpers;
-using Hurl.BrowserSelector.State;
 using Hurl.Library.Models;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,7 +18,7 @@ namespace Hurl.BrowserSelector.Controls
 
         private void BrowserButton_Click(object sender, RoutedEventArgs e)
         {
-            UriLauncher.ResolveAutomatically(OpenedUri.Value, (Browser)DataContext, null);
+            //UriLauncher.ResolveAutomatically(OpenedUri.Value, (Browser)DataContext, null);
             MinimizeWindow();
         }
 
@@ -27,7 +26,7 @@ namespace Hurl.BrowserSelector.Controls
         {
             if (((MenuItem)sender).Tag is AlternateLaunch alt)
             {
-                UriLauncher.Alternative(OpenedUri.Value, (Browser)DataContext, alt);
+                //UriLauncher.Alternative(OpenedUri.Value, (Browser)DataContext, alt);
                 MinimizeWindow();
             }
         }
