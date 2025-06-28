@@ -48,6 +48,9 @@ public partial class MainWindow : FluentWindow
             WindowBackdropType = WindowBackdropType.Mica;
         }
 
+        Width = appSettings?.WindowSize[0] ?? 420;
+        Height = appSettings?.WindowSize[1] ?? 210;
+
         LoadBrowsers();
     }
 
@@ -56,12 +59,6 @@ public partial class MainWindow : FluentWindow
         var appSettings = viewModel.OtherSettings;
         var ruleCheck = new AutoRulesCheck(viewModel.Url, viewModel.Rulesets, viewModel.Browsers);
         var isRuleCheckSuccess = appSettings.RuleMatching && ruleCheck.Start();
-
-        if (!data.IsSecondInstance)
-        {
-            Width = appSettings?.WindowSize[0] ?? 420;
-            Height = appSettings?.WindowSize[1] ?? 210;
-        }
 
         if (data.IsRunAsMin || isRuleCheckSuccess)
         {
