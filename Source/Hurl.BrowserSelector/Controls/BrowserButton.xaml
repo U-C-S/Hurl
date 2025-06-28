@@ -42,7 +42,7 @@
                     <RowDefinition Height="72" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Image Source="{Binding Source.GetIcon, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                <Image Source="{Binding Source.Icon, RelativeSource={RelativeSource AncestorType=UserControl}}" />
                 <wpfui:TextBlock
                     Grid.Row="1"
                     Margin="0,8,0,0"
