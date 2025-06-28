@@ -1,9 +1,10 @@
-using Hurl.BrowserSelector.Controls;
 using Hurl.BrowserSelector.Helpers;
-using Hurl.BrowserSelector.State;
+using Hurl.BrowserSelector.ViewModels;
 using Hurl.Library;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -16,9 +17,12 @@ public partial class MainWindow : FluentWindow
 {
     private bool forcePreventWindowDeactivationEvent = false;
 
+    private readonly SelectorWindowViewModel viewModel;
+
     public MainWindow()
     {
-        var appSettings = Settings.AppSettings;
+        DataContext = viewModel = App.AppHost.Services.GetRequiredService<SelectorWindowViewModel>();
+        var appSettings = viewModel.OtherSettings;
 
         InitializeComponent();
 
@@ -43,20 +47,15 @@ public partial class MainWindow : FluentWindow
             WindowBackdropType = WindowBackdropType.Mica;
         }
 
-        LoadBrowsers();
+        Width = appSettings?.WindowSize[0] ?? 420;
+        Height = appSettings?.WindowSize[1] ?? 210;
     }
 
     public void Init(CliArgs data)
     {
-        var appSettings = Settings.AppSettings;
-        var ruleCheck = new AutoRulesCheck(data.Url);
+        var appSettings = viewModel.OtherSettings;
+        var ruleCheck = new AutoRulesCheck(viewModel.Url, viewModel.Rulesets, viewModel.Browsers);
         var isRuleCheckSuccess = appSettings.RuleMatching && ruleCheck.Start();
-
-        if (!data.IsSecondInstance)
-        {
-            Width = appSettings?.WindowSize[0] ?? 420;
-            Height = appSettings?.WindowSize[1] ?? 210;
-        }
 
         if (data.IsRunAsMin || isRuleCheckSuccess)
         {
@@ -67,20 +66,6 @@ public partial class MainWindow : FluentWindow
         else
         {
             ShowWindow();
-        }
-
-        linkpreview.Content = string.IsNullOrEmpty(OpenedUri.Value) ? "No Url Opened" : OpenedUri.Value;
-    }
-
-    public void LoadBrowsers()
-    {
-        foreach (var browser in Settings.Browsers)
-        {
-            if (!browser.Hidden)
-            {
-                var browserBtn = new BrowserButton(browser);
-                BrowsersList.Children.Add(browserBtn);
-            }
         }
     }
 
@@ -97,7 +82,7 @@ public partial class MainWindow : FluentWindow
             case Key.C:
                 try
                 {
-                    Clipboard.SetText(OpenedUri.Value);
+                    Clipboard.SetText(viewModel.Url);
                 }
                 catch (Exception err)
                 {
@@ -109,7 +94,7 @@ public partial class MainWindow : FluentWindow
                 Process.Start(Constants.SETTINGS_APP, "--page rulesets");
                 break;
             case Key.T:
-                new TimeSelectWindow(Settings.Browsers).ShowDialog();
+                new TimeSelectWindow(viewModel.Browsers.ToList()).ShowDialog();
                 break;
             default:
                 break;
@@ -121,7 +106,7 @@ public partial class MainWindow : FluentWindow
     {
         try
         {
-            Clipboard.SetText(OpenedUri.Value);
+            Clipboard.SetText(viewModel.Url);
         }
         catch (Exception err)
         {
@@ -191,7 +176,7 @@ public partial class MainWindow : FluentWindow
 
     private void PositionWindowUnderTheMouse()
     {
-        var appSettings = Settings.AppSettings;
+        var appSettings = viewModel.OtherSettings;
 
         try
         {
@@ -211,31 +196,25 @@ public partial class MainWindow : FluentWindow
     private void Button_Click(object sender, RoutedEventArgs e)
     {
         forcePreventWindowDeactivationEvent = true;
-        new TimeSelectWindow(Settings.Browsers).ShowDialog();
+        new TimeSelectWindow(viewModel.Browsers.ToList()).ShowDialog();
         forcePreventWindowDeactivationEvent = false;
     }
 
-    private void Window_SizeChanged(object sender, SizeChangedEventArgs e) => Settings.AdjustWindowSize(e);
+    private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+    {
+
+    }
 
     private void Linkpreview_Click(object sender, RoutedEventArgs e) => UrlEdit();
 
     async private void UrlEdit()
     {
         forcePreventWindowDeactivationEvent = true;
-        var NewUrl = await URLEditor.ShowInputAsync(this, OpenedUri.Value);
+        var NewUrl = await URLEditor.ShowInputAsync(this, viewModel.Url);
         forcePreventWindowDeactivationEvent = false;
 
-        if (!string.IsNullOrEmpty(NewUrl))
-        {
-            OpenedUri.Value = NewUrl;
-            linkpreview.Content = NewUrl;
-        }
-        else
-        {
-            OpenedUri.Clear();
-            linkpreview.Content = "No URL Opened";
-        }
-
+        viewModel.Url = NewUrl;
+        linkpreview.Content = string.IsNullOrEmpty(NewUrl) ? "No URL Opened" : NewUrl;
     }
 
     private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -246,7 +225,7 @@ public partial class MainWindow : FluentWindow
 
     private void ClearUriBtnClick(object sender, RoutedEventArgs e)
     {
-        OpenedUri.Clear();
+        viewModel.Url = string.Empty;
         linkpreview.Content = "No URL Opened";
     }
 }

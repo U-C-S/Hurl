@@ -1,61 +1,96 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Hurl.Library.Models;
+using Hurl.Settings.Services.Interfaces;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Hurl.Settings.ViewModels;
 
 public partial class RulesetPageViewModel : ObservableObject
 {
-    public ObservableCollection<Ruleset> Rulesets { get; set; }
+    private readonly ISettingsService _settingsService;
 
-    public RulesetPageViewModel()
+    [ObservableProperty]
+    private ObservableCollection<Ruleset> rulesets;
+
+    [ObservableProperty]
+    private AppSettings appSettings;
+
+    public RulesetPageViewModel(IOptions<Library.Models.Settings> settings, ISettingsService settingsService)
     {
-        Rulesets = new(State.Settings.Rulesets);
+        this._settingsService = settingsService;
+        rulesets = new(settings.Value.Rulesets);
+        appSettings = settings.Value.AppSettings;
     }
 
     public bool Option_RuleMatching
     {
-        get => State.Settings.AppSettings.RuleMatching;
+        get => AppSettings.RuleMatching;
         set
         {
-            State.Settings.Set_RuleMatching(value);
+            if (AppSettings.RuleMatching != value)
+            {
+                AppSettings.RuleMatching = value;
+                _settingsService.UpdateAppSettings(AppSettings);
+                OnPropertyChanged();
+            }
         }
     }
 
     public void NewRuleset(Ruleset ruleset)
     {
-        State.Settings.AddRuleset(ruleset);
-        Refresh();
+        rulesets.Add(ruleset);
+        _settingsService.UpdateRulesets(rulesets);
     }
 
     public void EditRuleset(Ruleset ruleset)
     {
-        State.Settings.EditRuleset(ruleset);
-        Refresh();
+        var existingRuleset = rulesets.First(x => x.Id == ruleset.Id);
+        var index = rulesets.IndexOf(existingRuleset);
+        if (index != -1)
+        {
+            rulesets[index] = ruleset;
+            _settingsService.UpdateRulesets(rulesets);
+        }
     }
 
     public void MoveRulesetUp(Guid Id)
     {
-        State.Settings.MoveRulesetUp(Id);
-        Refresh();
+        var existingRuleset = rulesets.First(x => x.Id == Id);
+        var index = rulesets.IndexOf(existingRuleset);
+        if (index > 0)
+        {
+            rulesets.Move(index, index - 1);
+            _settingsService.UpdateRulesets(rulesets);
+        }
     }
 
     public void MoveRulesetDown(Guid Id)
     {
-        State.Settings.MoveRulesetDown(Id);
-        Refresh();
+        var existingRuleset = rulesets.First(x => x.Id == Id);
+        var index = rulesets.IndexOf(existingRuleset);
+        if (index != -1 && index < rulesets.Count - 1)
+        {
+            rulesets.Move(index, index + 1);
+            _settingsService.UpdateRulesets(rulesets);
+        }
     }
 
     public void DeleteRuleset(Guid Id)
     {
-        State.Settings.DeleteRuleset(Id);
-        Refresh();
+        var existingRuleset = rulesets.First(x => x.Id == Id);
+        if (existingRuleset != null)
+        {
+            rulesets.Remove(existingRuleset);
+            _settingsService.UpdateRulesets(rulesets);
+        }
     }
 
-    private void Refresh()
-    {
-        Rulesets.Clear();
-        State.Settings.Rulesets.ForEach(i => Rulesets.Add(i));
-    }
+    //private void Refresh()
+    //{
+    //    Rulesets.Clear();
+    //    State.Settings.Rulesets.ForEach(i => Rulesets.Add(i));
+    //}
 }

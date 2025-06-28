@@ -1,6 +1,7 @@
 using Hurl.Library.Models;
 using Hurl.Settings.ViewModels;
 using Hurl.Settings.Views.Dialogs;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
@@ -10,10 +11,12 @@ namespace Hurl.Settings.Views;
 
 public sealed partial class RulesetPage : Page
 {
+    public RulesetPageViewModel ViewModel { get; }
+
     public RulesetPage()
     {
         InitializeComponent();
-
+        ViewModel = App.AppHost.Services.GetRequiredService<RulesetPageViewModel>();
         if (ViewModel.Rulesets.Count == 0)
             _RulesetListControl.IsExpanded = false;
     }
@@ -67,13 +70,12 @@ public sealed partial class RulesetPage : Page
     private async void ClickEditRuleset(object sender, RoutedEventArgs e)
     {
         var id = (Guid)(sender as MenuFlyoutItem)!.Tag;
-        var ruleset = State.Settings.Rulesets.Where(x => x.Id == id).First();
-        var rulesetVm = new StoreRulesetViewModel(ruleset);
+        var rulesetVm = ActivatorUtilities.CreateInstance<StoreRulesetViewModel>(App.AppHost.Services, id);
         NewRulesetDialog NewRulesetDialogContent = new(rulesetVm);
         ContentDialog createNewRulesetDialog = new()
         {
             XamlRoot = this.XamlRoot,
-            Title = $"Edit Ruleset - {ruleset.RulesetName}",
+            Title = $"Edit Ruleset",
             Content = NewRulesetDialogContent,
             CloseButtonText = "Cancel",
             PrimaryButtonText = "Save",
@@ -117,7 +119,7 @@ public sealed partial class RulesetPage : Page
     private async void ViewRuleset(object sender, RoutedEventArgs e)
     {
         var id = (Guid)(sender as Button)!.Tag;
-        var ruleset = State.Settings.Rulesets.Where(x => x.Id == id).First();
+        var ruleset = ViewModel.Rulesets.Where(x => x.Id == id).First();
         ViewRulesDialog ViewRulesDialogContent = new(ruleset);
         ContentDialog viewRulesDialog = new()
         {

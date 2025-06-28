@@ -1,6 +1,11 @@
-﻿using Hurl.BrowserSelector.Helpers;
-using Hurl.BrowserSelector.State;
+using Hurl.BrowserSelector.Helpers;
+using Hurl.BrowserSelector.Services;
+using Hurl.BrowserSelector.ViewModels;
 using Hurl.BrowserSelector.Windows;
+using Hurl.Library;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -28,10 +33,25 @@ namespace Hurl.BrowserSelector
 
         private readonly CancellationTokenSource _cancelTokenSource = new();
         private Thread? _pipeServerListenThread;
+        public static IHost? AppHost { get; private set; }
 
         public App()
         {
             Current.Dispatcher.UnhandledException += Dispatcher_UnhandledException;
+
+            AppHost = Host.CreateDefaultBuilder()
+                .ConfigureAppConfiguration((context, config) =>
+                {
+                    config.AddJsonFile(Constants.APP_SETTINGS_MAIN, false, true);
+                })
+                .ConfigureServices((context, services) =>
+                {
+                    services.Configure<Library.Models.Settings>(context.Configuration);
+                    services.AddSingleton<SettingsService>();
+                    services.AddSingleton<CurrentUrlService>();
+                    services.AddTransient<SelectorWindowViewModel>();
+                })
+                .Build();
         }
 
         private void Dispatcher_UnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
@@ -91,7 +111,8 @@ namespace Hurl.BrowserSelector
             _pipeServerListenThread.Start();
 
             var cliArgs = CliArgs.GatherInfo(e.Args, false);
-            OpenedUri.Value = cliArgs.Url;
+            //OpenedUri.Value = cliArgs.Url;
+            AppHost?.Services.GetRequiredService<CurrentUrlService>().Set(cliArgs.Url);
 
             _mainWindow = new();
             _mainWindow.Init(cliArgs);
@@ -117,7 +138,8 @@ namespace Hurl.BrowserSelector
 
                 if (!IsTimedSet)
                 {
-                    OpenedUri.Value = cliArgs.Url;
+                    Debug.WriteLine($"Hurl Browser Selector: Instance Invoked with URL: {cliArgs.Url}");
+                    AppHost.Services.GetRequiredService<CurrentUrlService>().Set(cliArgs.Url);
                     _mainWindow?.Init(cliArgs);
                 }
             });

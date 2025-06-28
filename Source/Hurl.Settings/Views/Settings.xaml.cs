@@ -1,4 +1,5 @@
 using Hurl.Settings.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using System;
@@ -11,8 +12,9 @@ public sealed partial class Settings : Page
     {
         this.InitializeComponent();
         NavigationCacheMode = NavigationCacheMode.Required;
+        ViewModel = App.AppHost.Services.GetRequiredService<SettingsViewModel>();
     }
-    public SettingsViewModel ViewModel => new();
+    public SettingsViewModel ViewModel { get; }
 
     private async void DefaultAppButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {

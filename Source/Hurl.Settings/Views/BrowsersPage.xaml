@@ -10,9 +10,6 @@
     xmlns:uc="using:Hurl.Settings.Controls"
     xmlns:vm="using:Hurl.Settings.ViewModels"
     mc:Ignorable="d">
-    <Page.DataContext>
-        <vm:BrowsersPageViewModel x:Name="ViewModel" />
-    </Page.DataContext>
 
     <StackPanel MaxWidth="800" Spacing="16">
         <StackPanel Spacing="4">

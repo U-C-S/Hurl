@@ -1,6 +1,8 @@
 ﻿using Hurl.BrowserSelector.Helpers;
-using Hurl.BrowserSelector.State;
+using Hurl.BrowserSelector.Services;
 using Hurl.Library.Models;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -11,15 +13,37 @@ namespace Hurl.BrowserSelector.Controls
     /// </summary>
     public partial class BrowserButton : UserControl
     {
-        public BrowserButton(Browser browser)
+        public BrowserButton()
         {
             InitializeComponent();
-            DataContext = browser;
+
+            if (App.AppHost is IHost AppHost)
+            {
+                _urlService = AppHost.Services.GetRequiredService<CurrentUrlService>();
+            }
+            else
+            {
+                throw new System.Exception("URL Service is not correctly initiated.");
+            }
+        }
+
+        private readonly CurrentUrlService _urlService;
+
+        public static readonly DependencyProperty BrowserProperty =
+            DependencyProperty.Register(
+                nameof(Source),
+                typeof(Browser),
+                typeof(BrowserButton));
+
+        public Browser Source
+        {
+            get => (Browser)GetValue(BrowserProperty);
+            set => SetValue(BrowserProperty, value);
         }
 
         private void BrowserButton_Click(object sender, RoutedEventArgs e)
         {
-            UriLauncher.ResolveAutomatically(OpenedUri.Value, (Browser)DataContext, null);
+            UriLauncher.ResolveAutomatically(_urlService.Get(), Source, null);
             MinimizeWindow();
         }
 
@@ -27,7 +51,7 @@ namespace Hurl.BrowserSelector.Controls
         {
             if (((MenuItem)sender).Tag is AlternateLaunch alt)
             {
-                UriLauncher.Alternative(OpenedUri.Value, (Browser)DataContext, alt);
+                UriLauncher.Alternative(_urlService.Get(), Source, alt);
                 MinimizeWindow();
             }
         }
