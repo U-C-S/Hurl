@@ -1,4 +1,3 @@
-using Hurl.BrowserSelector.Controls;
 using Hurl.BrowserSelector.Helpers;
 using Hurl.BrowserSelector.ViewModels;
 using Hurl.Library;
@@ -50,8 +49,6 @@ public partial class MainWindow : FluentWindow
 
         Width = appSettings?.WindowSize[0] ?? 420;
         Height = appSettings?.WindowSize[1] ?? 210;
-
-        LoadBrowsers();
     }
 
     public void Init(CliArgs data)
@@ -69,18 +66,6 @@ public partial class MainWindow : FluentWindow
         else
         {
             ShowWindow();
-        }
-    }
-
-    public void LoadBrowsers()
-    {
-        foreach (var browser in viewModel.Browsers)
-        {
-            if (!browser.Hidden)
-            {
-                var browserBtn = new BrowserButton(browser);
-                BrowsersList.Children.Add(browserBtn);
-            }
         }
     }
 
@@ -231,17 +216,8 @@ public partial class MainWindow : FluentWindow
         var NewUrl = await URLEditor.ShowInputAsync(this, viewModel.Url);
         forcePreventWindowDeactivationEvent = false;
 
-        if (!string.IsNullOrEmpty(NewUrl))
-        {
-            viewModel.Url = NewUrl;
-            linkpreview.Content = NewUrl;
-        }
-        else
-        {
-            //OpenedUri.Clear();
-            linkpreview.Content = "No URL Opened";
-        }
-
+        viewModel.Url = NewUrl;
+        linkpreview.Content = string.IsNullOrEmpty(NewUrl) ? "No URL Opened" : NewUrl;
     }
 
     private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -252,7 +228,7 @@ public partial class MainWindow : FluentWindow
 
     private void ClearUriBtnClick(object sender, RoutedEventArgs e)
     {
-        //OpenedUri.Clear();
+        viewModel.Url = string.Empty;
         linkpreview.Content = "No URL Opened";
     }
 }

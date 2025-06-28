@@ -9,7 +9,13 @@ internal partial class CurrentUrlService: ObservableObject
 
     public string Get() => Url;
 
-    public void Set(string url) => Url = url;
+    public void Set(string url)
+    {
+        if (Url == url)
+            return;
+        else 
+            Url = url.Trim();
+    }
 
     public void Clear() => Url = string.Empty;
 }

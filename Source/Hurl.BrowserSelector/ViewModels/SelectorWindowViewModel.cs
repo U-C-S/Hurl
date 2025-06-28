@@ -26,6 +26,14 @@ internal partial class SelectorWindowViewModel : ObservableObject
     [ObservableProperty]
     public AppSettings otherSettings;
 
+    // Used by URL Editor
+    partial void OnUrlChanged(string value)
+    {
+        _urlService.Set(value);
+        UrlUiString = string.IsNullOrEmpty(Url) ? "No Url Opened" : Url;
+    }
+
+
     public SelectorWindowViewModel(IOptionsMonitor<Settings> settings, CurrentUrlService urlService)
     {
         _urlService = urlService;
@@ -33,13 +41,17 @@ internal partial class SelectorWindowViewModel : ObservableObject
         {
             if (e.PropertyName == nameof(CurrentUrlService.Url))
             {
-                Url = _urlService.Url;
-                UrlUiString = string.IsNullOrEmpty(Url) ? "No Url Opened" : Url;
+                var newUrl = _urlService.Get();
+                if (Url == newUrl)
+                    return;
+                else
+                {
+                    Url = newUrl;
+                }
             }
         };
 
         Url = _urlService.Url;
-        UrlUiString = string.IsNullOrEmpty(Url) ? "No Url Opened" : Url;
 
         this.Browsers = settings.CurrentValue.Browsers;
         this.Rulesets = settings.CurrentValue.Rulesets;

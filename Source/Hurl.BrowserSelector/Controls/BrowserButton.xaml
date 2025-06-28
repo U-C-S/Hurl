@@ -5,7 +5,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Hurl.BrowserSelector.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:Hurl.Library.Models;assembly=Hurl.Library"
     xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
+    d:DataContext="{d:DesignInstance Type=models:Browser}"
     d:DesignHeight="300"
     d:DesignWidth="300"
     mc:Ignorable="d">
@@ -13,7 +15,7 @@
         <ContextMenu
             x:Key="TheCM"
             x:Name="TheCM"
-            ItemsSource="{Binding Path=AlternateLaunches}">
+            ItemsSource="{Binding Source.AlternateLaunches, RelativeSource={RelativeSource AncestorType=UserControl}}">
             <ContextMenu.ItemContainerStyle>
                 <Style TargetType="MenuItem">
                     <Setter Property="Header" Value="{Binding Path=ItemName}" />
@@ -30,25 +32,25 @@
             Margin="4"
             Padding="5,10,5,10"
             Appearance="Transparent"
-            AutomationProperties.Name="{Binding Path=Name}"
+            AutomationProperties.Name="{Binding Source.Name, RelativeSource={RelativeSource AncestorType=UserControl}}"
             BorderBrush="Transparent"
             Click="BrowserButton_Click"
             Cursor="Hand"
-            ToolTip="{Binding Path=Name}">
+            ToolTip="{Binding Source.Name, RelativeSource={RelativeSource AncestorType=UserControl}}">
             <Grid x:Name="BrowserArea">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="72" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Image Source="{Binding Path=GetIcon}" />
+                <Image Source="{Binding Source.GetIcon, RelativeSource={RelativeSource AncestorType=UserControl}}" />
                 <wpfui:TextBlock
                     Grid.Row="1"
                     Margin="0,8,0,0"
                     FontTypography="Caption"
-                    Text="{Binding Path=Name}"
+                    Text="{Binding Source.Name, RelativeSource={RelativeSource AncestorType=UserControl}}"
                     TextAlignment="Center"
                     TextWrapping="NoWrap" />
-                <Grid Grid.RowSpan="2" Visibility="{Binding ShowAdditionalBtn}">
+                <Grid Grid.RowSpan="2" Visibility="{Binding Source.ShowAdditionalBtn, RelativeSource={RelativeSource AncestorType=UserControl}}">
                     <wpfui:Button
                         x:Name="AdditionalBtn"
                         Margin="0,-15,-25,0"
@@ -64,8 +66,8 @@
                 <Grid.ContextMenu>
                     <ContextMenu
                         x:Name="MainContextMenu"
-                        ItemsSource="{Binding Path=AlternateLaunches}"
-                        Visibility="{Binding ShowAdditionalBtn}">
+                        ItemsSource="{Binding Source.AlternateLaunches, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                        Visibility="{Binding Source.ShowAdditionalBtn, RelativeSource={RelativeSource AncestorType=UserControl}}">
                         <ContextMenu.ItemContainerStyle>
                             <Style TargetType="MenuItem">
                                 <Setter Property="Header" Value="{Binding Path=ItemName}" />

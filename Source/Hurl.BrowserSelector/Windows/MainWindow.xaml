@@ -98,13 +98,23 @@
                 </StackPanel>
             </Grid>
 
-            <WrapPanel
-                x:Name="BrowsersList"
+            <ItemsControl
                 Grid.Row="1"
                 Margin="5"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Orientation="Horizontal" />
+                ItemsSource="{Binding Browsers}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel x:Name="BrowsersList" Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <vs:BrowserButton Source="{Binding}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
 
             <Border
                 Grid.Row="2"
