@@ -2,8 +2,8 @@
   <PropertyGroup>
     <Title>Hurl Settings</Title>
     <AssemblyName>Hurl Settings</AssemblyName>
-    <Version>0.9.2</Version>
-    <FileVersion>0.9.2.25</FileVersion>
+    <Version>0.10.0</Version>
+    <FileVersion>0.10.0.27</FileVersion>
     <ApplicationIcon>internet.ico</ApplicationIcon>
     <Copyright>Copyright (c) 2025 Chanakya</Copyright>
     <Product>Hurl</Product>
@@ -54,6 +54,9 @@
     <Compile Include="$(PkgMicrosoft_WindowsAppSDK)\include\WindowsAppSDK-VersionInfo.cs" />
     <ProjectReference Include="..\Hurl.Library\Hurl.Library.csproj" />
   </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <WebView2EnableCsWinRTProjection>False</WebView2EnableCsWinRTProjection>
+  </PropertyGroup>
 
   <PropertyGroup>
     <DefineConstants>DISABLE_XAML_GENERATED_MAIN</DefineConstants>
