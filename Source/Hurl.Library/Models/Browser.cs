@@ -1,3 +1,5 @@
+using CommunityToolkit.Mvvm.ComponentModel;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Text.Json.Serialization;
 using System.Windows;
@@ -6,32 +8,36 @@ using System.Windows.Media.Imaging;
 
 namespace Hurl.Library.Models;
 
-public class Browser
+public partial class Browser : ObservableObject
 {
-    public Browser(string Name, string ExePath)
-    {
-        this.Name = Name;
-        this.ExePath = ExePath;
-    }
+    [ObservableProperty]
+    public string name = string.Empty;
 
-    public string Name { get; set; }
+    [ObservableProperty]
+    public string exePath = string.Empty;
 
-    public string ExePath { get; set; }
+    [ObservableProperty]
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public bool isUwp = false;
 
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-    public bool IsUwp { get; set; } = false;
+    [ObservableProperty]
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public string? launchArgs;
 
-    public string? LaunchArgs { get; set; }
+    [ObservableProperty]
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public ObservableCollection<AlternateLaunch>? alternateLaunches;
 
-    public List<AlternateLaunch>? AlternateLaunches { get; set; }
+    [ObservableProperty]
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public string? customIconPath;
 
-    public string? CustomIconPath { get; set; }
-
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-    public bool Hidden { get; set; } = false;
+    [ObservableProperty]
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public bool hidden = false;
 
     [JsonIgnore]
-    public ImageSource? GetIcon
+    public ImageSource? Icon
     {
         get
         {
@@ -65,9 +71,11 @@ public class Browser
     }
 }
 
-public class AlternateLaunch(string ItemName, string LaunchArgs)
+public partial class AlternateLaunch(string ItemName, string LaunchArgs) : ObservableObject
 {
-    public string ItemName { get; set; } = ItemName;
+    [ObservableProperty]
+    public string itemName = ItemName;
 
-    public string LaunchArgs { get; set; } = LaunchArgs;
+    [ObservableProperty]
+    public string launchArgs = LaunchArgs;
 }

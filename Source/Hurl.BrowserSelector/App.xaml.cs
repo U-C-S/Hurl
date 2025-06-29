@@ -1,10 +1,17 @@
-﻿using Hurl.BrowserSelector.State;
 using Hurl.BrowserSelector.Helpers;
+using Hurl.BrowserSelector.Services;
+using Hurl.BrowserSelector.ViewModels;
 using Hurl.BrowserSelector.Windows;
+using Hurl.Library;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Pipes;
+using System.Security.AccessControl;
+using System.Security.Principal;
 using System.Text.Json;
 using System.Threading;
 using System.Windows;
@@ -26,10 +33,25 @@ namespace Hurl.BrowserSelector
 
         private readonly CancellationTokenSource _cancelTokenSource = new();
         private Thread? _pipeServerListenThread;
+        public static IHost? AppHost { get; private set; }
 
         public App()
         {
             Current.Dispatcher.UnhandledException += Dispatcher_UnhandledException;
+
+            AppHost = Host.CreateDefaultBuilder()
+                .ConfigureAppConfiguration((context, config) =>
+                {
+                    config.AddJsonFile(Constants.APP_SETTINGS_MAIN, false, true);
+                })
+                .ConfigureServices((context, services) =>
+                {
+                    services.Configure<Library.Models.Settings>(context.Configuration);
+                    services.AddSingleton<SettingsService>();
+                    services.AddSingleton<CurrentUrlService>();
+                    services.AddTransient<SelectorWindowViewModel>();
+                })
+                .Build();
         }
 
         private void Dispatcher_UnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
@@ -89,7 +111,8 @@ namespace Hurl.BrowserSelector
             _pipeServerListenThread.Start();
 
             var cliArgs = CliArgs.GatherInfo(e.Args, false);
-            OpenedUri.Value = cliArgs.Url;
+            //OpenedUri.Value = cliArgs.Url;
+            AppHost?.Services.GetRequiredService<CurrentUrlService>().Set(cliArgs.Url);
 
             _mainWindow = new();
             _mainWindow.Init(cliArgs);
@@ -115,7 +138,8 @@ namespace Hurl.BrowserSelector
 
                 if (!IsTimedSet)
                 {
-                    OpenedUri.Value = cliArgs.Url;
+                    Debug.WriteLine($"Hurl Browser Selector: Instance Invoked with URL: {cliArgs.Url}");
+                    AppHost.Services.GetRequiredService<CurrentUrlService>().Set(cliArgs.Url);
                     _mainWindow?.Init(cliArgs);
                 }
             });
@@ -123,24 +147,24 @@ namespace Hurl.BrowserSelector
 
         public void PipeServer()
         {
-            var isFirstTimeLaunching = true;
+            PipeSecurity pipeSecurity = new();
+            pipeSecurity.AddAccessRule(new PipeAccessRule(
+                new SecurityIdentifier(WellKnownSidType.WorldSid, null),
+                PipeAccessRights.ReadWrite,
+                AccessControlType.Allow));
+
             while (!_cancelTokenSource.Token.IsCancellationRequested)
             {
-                using NamedPipeServerStream? _pipeserver = new("HurlNamedPipe", PipeDirection.InOut, 1, PipeTransmissionMode.Byte, PipeOptions.Asynchronous);
-
                 try
                 {
-                    // the true cases is a workaround where sometimes the first connection is not received
-                    // properly and args are lost (recieves empty string)
-                    // This might not fix the issue in all cases, like after a long time of inactivity
-                    if (isFirstTimeLaunching)
-                    {
-                        _pipeserver.WaitForConnectionAsync(_cancelTokenSource.Token).Wait(50);
-                        isFirstTimeLaunching = false;
-                        continue;
-                    }
-                    else
-                        _pipeserver.WaitForConnectionAsync(_cancelTokenSource.Token).Wait();
+                    using var _pipeserver = NamedPipeServerStreamAcl.Create(
+                        "HurlNamedPipe",
+                        PipeDirection.InOut, 1,
+                        PipeTransmissionMode.Byte,
+                        PipeOptions.Asynchronous,
+                        0, 0,
+                        pipeSecurity);
+                    _pipeserver.WaitForConnectionAsync(_cancelTokenSource.Token).Wait();
 
                     using StreamReader sr = new(_pipeserver);
                     string args = sr.ReadToEnd();

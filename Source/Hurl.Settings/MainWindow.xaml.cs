@@ -22,6 +22,8 @@ public sealed partial class MainWindow : Window
         NavigateToPage("browsers");
     }
 
+    private string _currentPage = string.Empty;
+
     private void OnNavItemClicked(object sender, ItemClickEventArgs e)
     {
         if (e.ClickedItem is FrameworkElement f && f.FindParent<ListViewItem>() is { Tag: string tag })
@@ -32,6 +34,10 @@ public sealed partial class MainWindow : Window
 
     public void NavigateToPage(string page)
     {
+        if (_currentPage == page)
+            return;
+        else _currentPage = page;
+
         switch (page)
         {
             case "about":
@@ -39,6 +45,7 @@ public sealed partial class MainWindow : Window
                 break;
             case "browsers":
                 NavigationFrame.Navigate(typeof(Views.BrowsersPage));
+                NavMenuHeaderList.SelectedIndex = 0;
                 //ViewModel.Navigate(ContentPageType.Apps);
                 break;
             case "rulesets":

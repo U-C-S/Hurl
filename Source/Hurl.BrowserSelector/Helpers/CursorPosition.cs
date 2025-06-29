@@ -1,43 +1,35 @@
-﻿using System.Runtime.InteropServices;
-using System.Windows;
+﻿using System.Drawing;
+using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace Hurl.BrowserSelector.Helpers
 {
-    public static partial class CursorPosition
+    public static class CursorPosition
     {
-        [LibraryImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        internal static partial bool GetCursorPos(ref Win32Point pt);
-
-        [StructLayout(LayoutKind.Sequential)]
-        internal struct Win32Point
-        {
-            public int X;
-            public int Y;
-        };
-        public static Point Get()
-        {
-            var w32Mouse = new Win32Point();
-            GetCursorPos(ref w32Mouse);
-
-            return new Point(w32Mouse.X, w32Mouse.Y);
-        }
-
         public static Point LimitCursorWithin(int width, int height)
         {
-            var Cursor = Get();
-            var finalPoint = new Point(Cursor.X, Cursor.Y);
-            double screenHeight = SystemParameters.FullPrimaryScreenHeight;
-            double screenWidth = SystemParameters.FullPrimaryScreenWidth;
+            var cursor = Cursor.Position;
+            var screen = Screen.GetWorkingArea(cursor);
+            var finalPoint = new Point(cursor.X - width / 2, cursor.Y - height / 2);
 
-            if (Cursor.X + width > screenWidth)
+            if (cursor.X + width / 2 > screen.Right)
             {
-                finalPoint.X = screenWidth - width;
+                finalPoint.X = screen.Right - width;
             }
-            if (Cursor.Y + height > screenHeight)
+            if (cursor.X - width / 2 < screen.Left)
             {
-                finalPoint.Y = screenHeight - height;
+                finalPoint.X = screen.Left;
             }
+            if (cursor.Y + height / 2 > screen.Bottom)
+            {
+                finalPoint.Y = screen.Bottom - height;
+            }
+            if (cursor.Y - height / 2 < screen.Top)
+            {
+                finalPoint.Y = screen.Top;
+            }
+
+            Debug.WriteLine($"{finalPoint.X}�{finalPoint.Y} with screen resolution: {screen.Width}�{screen.Height}");
 
             return finalPoint;
         }
