@@ -12,6 +12,7 @@ using System.IO;
 using System.IO.Pipes;
 using System.Security.AccessControl;
 using System.Security.Principal;
+using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Windows;
@@ -33,13 +34,17 @@ namespace Hurl.BrowserSelector
 
         private readonly CancellationTokenSource _cancelTokenSource = new();
         private Thread? _pipeServerListenThread;
-        public static IHost? AppHost { get; private set; }
+        public static IHost AppHost { get; } = InitAppHost();
 
         public App()
         {
             Current.Dispatcher.UnhandledException += Dispatcher_UnhandledException;
+        }
 
-            AppHost = Host.CreateDefaultBuilder()
+        private static IHost InitAppHost()
+        {
+            return Host
+                .CreateDefaultBuilder()
                 .ConfigureAppConfiguration((context, config) =>
                 {
                     config.AddJsonFile(Constants.APP_SETTINGS_MAIN, false, true);
@@ -112,7 +117,7 @@ namespace Hurl.BrowserSelector
 
             var cliArgs = CliArgs.GatherInfo(e.Args, false);
             //OpenedUri.Value = cliArgs.Url;
-            AppHost?.Services.GetRequiredService<CurrentUrlService>().Set(cliArgs.Url);
+            AppHost.Services.GetRequiredService<CurrentUrlService>().Set(cliArgs.Url);
 
             _mainWindow = new();
             _mainWindow.Init(cliArgs);
@@ -138,7 +143,7 @@ namespace Hurl.BrowserSelector
 
                 if (!IsTimedSet)
                 {
-                    Debug.WriteLine($"Hurl Browser Selector: Instance Invoked with URL: {cliArgs.Url}");
+                    //Debug.WriteLine($"Hurl Browser Selector: Instance Invoked with URL: {cliArgs.Url}");
                     AppHost.Services.GetRequiredService<CurrentUrlService>().Set(cliArgs.Url);
                     _mainWindow?.Init(cliArgs);
                 }
@@ -166,10 +171,7 @@ namespace Hurl.BrowserSelector
                         pipeSecurity);
                     _pipeserver.WaitForConnectionAsync(_cancelTokenSource.Token).Wait();
 
-                    using StreamReader sr = new(_pipeserver);
-                    string args = sr.ReadToEnd();
-                    string[] argsArray = JsonSerializer.Deserialize<string[]>(args) ?? [];
-                    OnInstanceInvoked(argsArray);
+                    ProcessMessage(_pipeserver);
                 }
                 catch (OperationCanceledException)
                 {
@@ -179,6 +181,40 @@ namespace Hurl.BrowserSelector
                 {
                     Debug.WriteLine($"Error in PipeServer: {e.Message}");
                 }
+            }
+        }
+
+        public void ProcessMessage(NamedPipeServerStream pipeserver)
+        {
+            try
+            {
+                var buffer = new byte[4096];
+                int bytesRead = pipeserver.Read(buffer, 0, buffer.Length);
+                string message = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+
+                if (message == "ping")
+                {
+                    using StreamWriter sw = new(pipeserver)
+                    {
+                        AutoFlush = true,
+                    };
+                    sw.Write("pong");
+
+                    buffer = new byte[4096];
+                    bytesRead = pipeserver.Read(buffer, 0, buffer.Length);
+                    message = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                }
+                else if (string.IsNullOrEmpty(message))
+                {
+                    return;
+                }
+
+                string[] argsArray = JsonSerializer.Deserialize<string[]>(message) ?? [];
+                OnInstanceInvoked(argsArray);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error in ProcessMessage: {ex.Message}");
             }
         }
     }
