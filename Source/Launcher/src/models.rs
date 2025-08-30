@@ -29,3 +29,20 @@ pub struct Settings {
 pub struct NativeMessage {
     pub url: String,
 }
+
+// public class TemporaryDefaultBrowser
+// {
+//     public Browser TargetBrowser { get; set; }
+
+//     public DateTime SelectedAt { get; set; }
+
+//     public DateTime ValidTill { get; set; }
+// }
+
+#[derive(Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct TemporaryDefaultBrowser {
+    pub target_browser: Browser,
+    pub selected_at: String,
+    pub valid_till: chrono::DateTime<chrono::Utc>,
+}
