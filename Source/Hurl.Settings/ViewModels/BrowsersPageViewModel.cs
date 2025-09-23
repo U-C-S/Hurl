@@ -2,6 +2,7 @@
 using Hurl.Library.Models;
 using Hurl.Settings.Services.Interfaces;
 using Microsoft.Extensions.Options;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -21,14 +22,14 @@ internal partial class BrowsersPageViewModel: ObservableObject
         this.settingsService = settingsService;
         browsers = settings.CurrentValue.Browsers;
 
-        settings.OnChange((s, _) =>
-        {
-            Browsers.Clear();
-            foreach (var browser in s.Browsers)
-            {
-                Browsers.Add(browser);
-            }
-        });
+        //settings.OnChange((s, _) =>
+        //{
+        //    Browsers.Clear();
+        //    foreach (var browser in s.Browsers)
+        //    {
+        //        Browsers.Add(browser);
+        //    }
+        //});
     }
 
     public void RefreshBrowserList() => RefreshBrowsers();
@@ -49,6 +50,11 @@ internal partial class BrowsersPageViewModel: ObservableObject
             }
         }
 
+        settingsService.UpdateBrowsers(Browsers);
+    }
+
+    internal void UpdateBrowserOrder()
+    {
         settingsService.UpdateBrowsers(Browsers);
     }
 }

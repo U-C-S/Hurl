@@ -15,8 +15,14 @@
         <StackPanel Spacing="4">
             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Browsers" />
 
-            <ItemsControl ItemsSource="{x:Bind ViewModel.Browsers}">
-                <ItemsControl.ItemTemplate>
+            <ListView
+                AllowDrop="True"
+                CanDragItems="True"
+                CanReorderItems="True"
+                DragItemsCompleted="ListView_DragItemsCompleted"
+                ItemsSource="{x:Bind ViewModel.Browsers}"
+                SelectionMode="None">
+                <ListView.ItemTemplate>
                     <DataTemplate>
                         <ctlabs:SettingsCard Description="{Binding ExePath}" Header="{Binding Name}">
                             <ctlabs:SettingsCard.HeaderIcon>
@@ -34,11 +40,11 @@
                                     </SplitButton.Flyout>
                                 </SplitButton>
                             </StackPanel>
-
                         </ctlabs:SettingsCard>
                     </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                </ListView.ItemTemplate>
+
+            </ListView>
         </StackPanel>
 
         <StackPanel Spacing="4">
