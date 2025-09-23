@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="Hurl.Settings.Views.Dialogs.EditBrowserPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
+    xmlns:viewmodels="using:Hurl.Settings.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewmodels:EditBrowserPageViewModel}"
+    mc:Ignorable="d">
+
+    <ScrollViewer>
+        <StackPanel MaxWidth="800" Spacing="12">
+            <TextBlock
+                FontSize="20"
+                FontWeight="SemiBold"
+                Text="Edit Browser" />
+            <StackPanel Spacing="16">
+                <StackPanel Spacing="4">
+                    <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Main Options" />
+                    <StackPanel>
+                        <toolkit:SettingsCard Header="Name">
+                            <TextBox
+                                x:Name="BrowserNameInput"
+                                MinWidth="180"
+                                MaxWidth="250"
+                                PlaceholderText="Name of the Browser/App"
+                                Text="{x:Bind ViewModel.Name, Mode=TwoWay}" />
+                        </toolkit:SettingsCard>
+                        <toolkit:SettingsCard Header="Executable Path">
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <Button
+                                    Padding="8"
+                                    Click="OpenContainingExe_Click"
+                                    ToolTipService.ToolTip="Open containing folder or select the file in Explorer">
+                                    <FontIcon FontSize="14" Glyph="&#xE70F;" />
+                                </Button>
+                                <TextBox
+                                    Width="300"
+                                    PlaceholderText="C:\Program Files\Browser\browser.exe"
+                                    Text="{x:Bind ViewModel.ExePath, Mode=TwoWay}" />
+                            </StackPanel>
+                        </toolkit:SettingsCard>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Spacing="4">
+                    <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Advanced Options" />
+
+                    <StackPanel>
+                        <toolkit:SettingsCard Description="Rules mentioning this browser will still keep working" Header="Hide from Selector">
+                            <CheckBox Content="Hidden" IsChecked="{x:Bind ViewModel.Hidden, Mode=TwoWay}" />
+                        </toolkit:SettingsCard>
+                        <toolkit:SettingsCard Description="Configure the icon shown in the selector, instead of the one from executable" Header="Custom Icon">
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <Button
+                                    Padding="8"
+                                    Click="OpenContainingIcon_Click"
+                                    ToolTipService.ToolTip="Open containing folder or select the file in Explorer">
+                                    <FontIcon FontSize="14" Glyph="&#xE70F;" />
+                                </Button>
+                                <TextBox
+                                    Width="280"
+                                    PlaceholderText="C:\path\to\icon.ico or image"
+                                    Text="{x:Bind ViewModel.CustomIconPath, Mode=TwoWay}" />
+                            </StackPanel>
+                        </toolkit:SettingsCard>
+                        <toolkit:SettingsCard Header="Launch Arguments">
+                            <TextBox
+                                Width="180"
+                                MaxWidth="340"
+                                PlaceholderText="--profile ..."
+                                Text="{x:Bind ViewModel.LaunchArgs, Mode=TwoWay}" />
+                        </toolkit:SettingsCard>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Spacing="4">
+                    <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Alternate Launches" />
+
+                    <ListView MaxHeight="160" ItemsSource="{x:Bind ViewModel.AlternateLaunches}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate xmlns:hurlLibraryModels="using:Hurl.Library.Models" x:DataType="hurlLibraryModels:AlternateLaunch">
+                                <Grid Padding="6" ColumnSpacing="8">
+                                    <TextBlock Grid.Column="0" Text="{x:Bind ItemName}" />
+                                    <TextBlock
+                                        Grid.Column="1"
+                                        Text="{x:Bind LaunchArgs}"
+                                        TextWrapping="WrapWholeWords" />
+                                    <Button
+                                        Grid.Column="2"
+                                        Click="RemoveAlternate_Click"
+                                        Content="Remove" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <StackPanel
+                        Margin="0,6,0,0"
+                        Orientation="Horizontal"
+                        Spacing="6">
+                        <TextBox
+                            x:Name="AltNameInput"
+                            Width="220"
+                            PlaceholderText="Alt name" />
+                        <TextBox
+                            x:Name="AltArgsInput"
+                            Width="300"
+                            PlaceholderText="Alt launch args" />
+                        <Button Click="AddAlternate_Click" Content="Add" />
+                    </StackPanel>
+
+                    <StackPanel
+                        Margin="0,12,0,0"
+                        HorizontalAlignment="Right"
+                        Orientation="Horizontal"
+                        Spacing="8">
+                        <Button Click="Cancel_Click" Content="Cancel" />
+                        <Button
+                            Click="Save_Click"
+                            Content="Save"
+                            Style="{StaticResource AccentButtonStyle}" />
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</Page>
