@@ -1,5 +1,6 @@
 ﻿using DotNet.Globbing;
 using Hurl.Library.Models;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 
 namespace Hurl.Library;
@@ -46,10 +47,18 @@ public class RuleMatch
 
     public static bool DomainCheck(string link, string rule)
     {
-        var uri = new Uri(link);
-        var domain = uri.Host;
+        try
+        {
+            var uri = new Uri(link);
+            var domain = uri.Host;
 
-        return domain.Equals(rule);
+            return domain.Equals(rule);
+        }
+        catch (Exception)
+        {
+            Debug.WriteLine("Invalid URL for Domain rule check");
+            return false;
+        }
     }
 
     private static bool RegexCheck(string link, string rule)

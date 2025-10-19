@@ -2,14 +2,16 @@
 
 use std::{
     env,
-    fs::write,
-    io::{self, Read},
+    io::{self, Read, Stdin},
     process::Command,
 };
 
 use byteorder::{NativeEndian, ReadBytesExt};
-use models::NativeMessage;
+use clap::Parser;
+use serde::Serialize;
 use tokio::net::windows::named_pipe;
+
+use crate::models::{NativeMessage, TemporaryDefaultBrowser};
 
 mod models;
 
@@ -17,28 +19,28 @@ static PIPE_NAME: &str = r"\\.\pipe\HurlNamedPipe";
 
 #[tokio::main]
 async fn main() {
-    // Try get the url from browser through native messaging
-    let native_msg_url = match read_input(io::stdin()) {
-        Ok(val) => {
-            let json_val: Result<NativeMessage, _> = serde_json::from_slice(&val);
-            match json_val {
-                Ok(val) => Some(val.url),
-                Err(_) => None,
+    let native_msg_url = try_get_native_message(io::stdin());
+    let args = env::args().collect::<Vec<String>>();
+    let cli_args = parse_cli_args(&args);
+
+    let app_config_dir = {
+        let roaming_dir = dirs::data_dir().unwrap();
+        roaming_dir.join("Hurl")
+    };
+
+    let temp_default_path = app_config_dir.join("TempDefault.json");
+    if temp_default_path.exists() {
+        let file_content = std::fs::read_to_string(&temp_default_path).unwrap();
+        let json_val: Result<TemporaryDefaultBrowser, _> = serde_json::from_str(&file_content);
+        if let Ok(val) = json_val {
+            if val.valid_till > chrono::Utc::now() {
+                Command::new(&val.target_browser.exe_path);
+                return;
+            } else {
+                let _ = std::fs::remove_file(&temp_default_path);
             }
         }
-        Err(_) => None,
-    };
-
-    let hurl_exe_path = {
-        let current_exe_path = env::current_exe().unwrap();
-        let current_dir = current_exe_path.parent().unwrap();
-        current_dir.join("Hurl.exe")
-
-        // ; String::from("../../../Hurl.BrowserSelector/bin/Debug/net8.0-windows/Hurl.exe")
-    };
-
-    let args = env::args().collect::<Vec<String>>();
-    let trimed_args = &args[1..];
+    }
 
     let pipe_conn = named_pipe::ClientOptions::new().open(PIPE_NAME);
     match pipe_conn {
@@ -47,33 +49,58 @@ async fn main() {
 
             let args_str = match native_msg_url {
                 Some(ref url) => serde_json::to_string(&vec![url]).unwrap(),
-                None => serde_json::to_string(&trimed_args).unwrap(),
+                None => serde_json::to_string(&cli_args).unwrap(),
             };
             let _ = client.try_write(args_str.as_bytes());
         }
         Err(_) => {
+            let hurl_exe_path = {
+                let current_exe_path = env::current_exe().unwrap();
+                let current_dir = current_exe_path.parent().unwrap();
+                current_dir.join("Hurl.exe")
+            };
             let args = match native_msg_url {
                 Some(url) => vec![url],
-                None => trimed_args.to_vec(),
+                None => args[1..].to_vec(),
             };
             let _ = Command::new(hurl_exe_path).args(args).spawn();
         }
     }
 }
 
-pub fn read_input<R: Read>(mut input: R) -> io::Result<Vec<u8>> {
-    match input.read_u32::<NativeEndian>() {
+fn try_get_native_message(mut input: Stdin) -> Option<String> {
+    let input = match input.read_u32::<NativeEndian>() {
         Ok(len) => {
             let mut buffer = vec![0; len as usize];
-            input.read_exact(&mut buffer)?;
-            Ok(buffer)
+            let x = input.read_exact(&mut buffer);
+            if x.is_err() {
+                Err(io::Error::new(io::ErrorKind::Other, "Failed to read input"))
+            } else {
+                Ok(buffer)
+            }
         }
         Err(_) => Err(io::Error::new(io::ErrorKind::Other, "Failed to read input")),
+    };
+
+    match input {
+        Ok(val) => {
+            let json_val: Result<NativeMessage, _> = serde_json::from_slice(&val);
+            match json_val {
+                Ok(val) => Some(val.url),
+                Err(_) => None,
+            }
+        }
+        Err(_) => None,
     }
 }
 
-// static USER_SETTINGS: &str = "C:\\Users\\uchan\\AppData\\Roaming\\Hurl\\UserSettings.json";
+#[derive(Parser, Debug, Serialize)]
+#[command(about = None, long_about = None, )]
+struct CliArgs {
+    url: Option<String>,
+}
 
-// let file = std::fs::read_to_string(USER_SETTINGS).unwrap();
-// let user_settings: models::Settings = serde_json::from_str(&file).unwrap();
-// let user_settings_json = serde_json::to_string(&user_settings).unwrap();
+fn parse_cli_args(args: &Vec<String>) -> CliArgs {
+    let cli = CliArgs::parse_from(args);
+    cli
+}

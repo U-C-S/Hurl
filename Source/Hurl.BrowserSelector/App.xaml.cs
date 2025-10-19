@@ -134,14 +134,12 @@ namespace Hurl.BrowserSelector
             Current.Dispatcher.InvokeAsync(() =>
             {
                 var cliArgs = CliArgs.GatherInfo(args, true);
-                var IsTimedSet = TimedBrowserSelect.CheckAndLaunch(cliArgs.Url);
+                // var IsTimedSet = TimedBrowserSelect.CheckAndLaunch(cliArgs.Url);
 
-                if (!IsTimedSet)
-                {
-                    Debug.WriteLine($"Hurl Browser Selector: Instance Invoked with URL: {cliArgs.Url}");
-                    AppHost.Services.GetRequiredService<CurrentUrlService>().Set(cliArgs.Url);
-                    _mainWindow?.Init(cliArgs);
-                }
+                // if (!IsTimedSet)
+                Debug.WriteLine($"Hurl Browser Selector: Instance Invoked with URL: {cliArgs.Url}");
+                AppHost.Services.GetRequiredService<CurrentUrlService>().Set(cliArgs.Url);
+                _mainWindow?.Init(cliArgs);
             });
         }
 
@@ -168,6 +166,7 @@ namespace Hurl.BrowserSelector
 
                     using StreamReader sr = new(_pipeserver);
                     string args = sr.ReadToEnd();
+                    Debug.WriteLine($"PipeServer received args: {args}");
                     string[] argsArray = JsonSerializer.Deserialize<string[]>(args) ?? [];
                     OnInstanceInvoked(argsArray);
                 }
