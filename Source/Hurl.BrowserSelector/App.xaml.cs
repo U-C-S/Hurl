@@ -8,10 +8,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Diagnostics;
-using System.IO;
-using System.IO.Pipes;
-using System.Security.AccessControl;
-using System.Security.Principal;
 using System.Text.Json;
 using System.Threading;
 using System.Windows;
@@ -26,13 +22,10 @@ namespace Hurl.BrowserSelector
         private MainWindow? _mainWindow;
 
         private const string MUTEX_NAME = "Hurl_Mutex_3721";
-        private const string EVENT_NAME = "Hurl_Event_3721";
 
         private Mutex? _singleInstanceMutex;
-        private EventWaitHandle? _singleInstanceWaitHandle;
+        private NamedPipeUrlReceiver? _pipeReceiver;
 
-        private readonly CancellationTokenSource _cancelTokenSource = new();
-        private Thread? _pipeServerListenThread;
         public static IHost? AppHost { get; private set; }
 
         public App()
@@ -77,41 +70,19 @@ namespace Hurl.BrowserSelector
         protected override void OnStartup(StartupEventArgs e)
         {
             _singleInstanceMutex = new Mutex(true, MUTEX_NAME, out var isOwned);
-            _singleInstanceWaitHandle = new EventWaitHandle(false, EventResetMode.AutoReset, EVENT_NAME);
 
             if (!isOwned)
             {
-                _singleInstanceWaitHandle.Set();
+                // Another instance is running - it will receive the URL via pipe from the Launcher
                 Shutdown();
                 return;
             }
 
-            new Thread(() =>
-            {
-                while (_singleInstanceWaitHandle.WaitOne())
-                {
-                    Current.Dispatcher.BeginInvoke(() =>
-                    {
-                        if (Current.MainWindow is { } window)
-                        {
-                            _mainWindow?.ShowWindow();
-                        }
-                        else
-                        {
-                            Shutdown();
-                        }
-                    });
-                }
-            })
-            {
-                IsBackground = true
-            }.Start();
-
-            _pipeServerListenThread = new Thread(PipeServer);
-            _pipeServerListenThread.Start();
+            // Start the pipe receiver (always ready for connections with overlapping listeners)
+            _pipeReceiver = new NamedPipeUrlReceiver(OnInstanceInvoked);
+            _pipeReceiver.Start();
 
             var cliArgs = CliArgs.GatherInfo(e.Args, false);
-            //OpenedUri.Value = cliArgs.Url;
             AppHost?.Services.GetRequiredService<CurrentUrlService>().Set(cliArgs.Url);
 
             _mainWindow = new();
@@ -120,16 +91,17 @@ namespace Hurl.BrowserSelector
 
         protected override void OnExit(ExitEventArgs e)
         {
-            _cancelTokenSource.Cancel();
-            _pipeServerListenThread?.Join();
+            if (_pipeReceiver != null)
+            {
+                _pipeReceiver.DisposeAsync().AsTask().GetAwaiter().GetResult();
+            }
 
             _singleInstanceMutex?.Close();
-            _singleInstanceWaitHandle?.Close();
 
             base.OnExit(e);
         }
 
-        public void OnInstanceInvoked(string[] args)
+        private void OnInstanceInvoked(string[] args)
         {
             Current.Dispatcher.InvokeAsync(() =>
             {
@@ -139,47 +111,10 @@ namespace Hurl.BrowserSelector
                 if (!IsTimedSet)
                 {
                     Debug.WriteLine($"Hurl Browser Selector: Instance Invoked with URL: {cliArgs.Url}");
-                    AppHost.Services.GetRequiredService<CurrentUrlService>().Set(cliArgs.Url);
+                    AppHost?.Services.GetRequiredService<CurrentUrlService>().Set(cliArgs.Url);
                     _mainWindow?.Init(cliArgs);
                 }
             });
-        }
-
-        public void PipeServer()
-        {
-            PipeSecurity pipeSecurity = new();
-            pipeSecurity.AddAccessRule(new PipeAccessRule(
-                new SecurityIdentifier(WellKnownSidType.WorldSid, null),
-                PipeAccessRights.ReadWrite,
-                AccessControlType.Allow));
-
-            while (!_cancelTokenSource.Token.IsCancellationRequested)
-            {
-                try
-                {
-                    using var _pipeserver = NamedPipeServerStreamAcl.Create(
-                        "HurlNamedPipe",
-                        PipeDirection.InOut, 1,
-                        PipeTransmissionMode.Byte,
-                        PipeOptions.Asynchronous,
-                        0, 0,
-                        pipeSecurity);
-                    _pipeserver.WaitForConnectionAsync(_cancelTokenSource.Token).Wait();
-
-                    using StreamReader sr = new(_pipeserver);
-                    string args = sr.ReadToEnd();
-                    string[] argsArray = JsonSerializer.Deserialize<string[]>(args) ?? [];
-                    OnInstanceInvoked(argsArray);
-                }
-                catch (OperationCanceledException)
-                {
-                    break;
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine($"Error in PipeServer: {e.Message}");
-                }
-            }
         }
     }
 }
