@@ -18,7 +18,6 @@ public sealed partial class AboutPage : Page
     public List<OSSLibrary> OpenSourceLibraries => [
         new ("https://github.com/CommunityToolkit/dotnet", "CommunityToolkit.Mvvm"),
         new ("https://github.com/CommunityToolkit/Windows","CommunityToolkit.WinUI.Controls.SettingsControls"),
-        new ("https://github.com/dazinator/DotNet.Glob","DotNet.Glob"),
         new ("https://github.com/dotnet/runtime","Microsoft.Win32.Registry"),
         new ("https://github.com/microsoft/cswinrt","Microsoft.Windows.CsWinRT"),
         new ("https://github.com/dotnet/winforms","System.Drawing.Common"),

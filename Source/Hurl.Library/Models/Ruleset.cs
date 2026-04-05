@@ -25,7 +25,6 @@ public partial class Ruleset: ObservableObject
 public enum RuleMode
 {
     Domain,
-    Glob,
     Regex,
     String,
 }
@@ -39,7 +38,6 @@ public class Rule
         {
             "Domain" => RuleMode.Domain,
             "Regex" => RuleMode.Regex,
-            "Glob" => RuleMode.Glob,
             _ => RuleMode.String
         };
     }
@@ -57,7 +55,6 @@ public class Rule
             {
                 "d" => RuleMode.Domain,
                 "r" => RuleMode.Regex,
-                "g" => RuleMode.Glob,
                 _ => RuleMode.String
             };
         }
@@ -79,7 +76,6 @@ public class Rule
             RuleMode.Domain => $"d${RuleContent}",
             RuleMode.String => $"{RuleContent}", // use this as default instead
             RuleMode.Regex => $"r${RuleContent}",
-            RuleMode.Glob => $"g${RuleContent}",
             _ => throw new NotImplementedException()
         };
 

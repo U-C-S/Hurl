@@ -9,7 +9,6 @@ They are text strings, which when configured can automatically open a browser fo
 - `String`: This does simple text matching. Triggers if your URL matches exactly with this plain rule.
 - `Domain`: Simply the domain part of a URL, example: For the URL `https://github.com/u-c-s/hurl`, `github.com` is the domain. Probably the most useful rule type.
 - `Regex`: Uses Regular Expressions to do text matching. Use <https://regex101.com> with (.NET/C# flavor) to test your rules.
-- `Glob`: (Prefer using `Domain` rule over this, possibly could get breaking changes or removed completely in future versions) Uses Glob Pattern matching. Use [this website](https://www.digitalocean.com/community/tools/glob) to test your rules.
 
 > [!NOTE]
 > URLs typically have the `https://` prefix which also needs to be taken care by the rules you have written.
@@ -76,4 +75,3 @@ Note that when adding rules to _UserSettings.json_ directly, follow the below pa
 | String | `s$<YourRule>` or `<YourRule>` | `https://github.com/U-C-S` |
 | Domain | `d$<YourRule>` | `d$github.com` |
 | Regex  | `r$<YourRule>` | `r$.*open\\.spotify\\.com.*` |
-| Glob   | `g$<YourRule>` | `g$*.google.com*` |

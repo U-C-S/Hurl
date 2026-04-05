@@ -96,8 +96,8 @@
             "type": "array",
             "items": {
               "type": "string",
-              "description": "The URL pattern prefixed with s$, g$, r$ or d$, followed by the pattern to match. s$ = simple string, g$ = glob, r$ = regex, d$ = domain.",
-              "pattern": "^(s\\$|g\\$|r\\$|d\\$).*"
+              "description": "The URL pattern prefixed with s$, g$, r$ or d$, followed by the pattern to match. s$ = simple string, r$ = regex, d$ = domain.",
+              "pattern": "^(s\\$|r\\$|d\\$).*"
             }
           },
           "BrowserName": {

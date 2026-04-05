@@ -1,5 +1,4 @@
-﻿using DotNet.Globbing;
-using Hurl.Library.Models;
+﻿using Hurl.Library.Models;
 using System.Text.RegularExpressions;
 
 namespace Hurl.Library;
@@ -31,7 +30,6 @@ public class RuleMatch
             {
                 RuleMode.Domain => DomainCheck,
                 RuleMode.Regex => RegexCheck,
-                RuleMode.Glob => GlobCheck,
                 _ => (link, rule) => link.Equals(rule)
             };
 
@@ -56,12 +54,6 @@ public class RuleMatch
     {
         var r = new Regex(rule);
         return r.IsMatch(link);
-    }
-
-    public static bool GlobCheck(string link, string rule)
-    {
-        var x = Glob.Parse(rule).IsMatch(link);
-        return x;
     }
 }
 
