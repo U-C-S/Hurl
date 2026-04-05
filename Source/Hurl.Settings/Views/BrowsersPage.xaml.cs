@@ -35,9 +35,4 @@ public sealed partial class BrowsersPage : Page
     {
         ViewModel.UpdateBrowserOrder();
     }
-
-    private void EditJsonButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
-    {
-        Process.Start("explorer", "\"" + Constants.APP_SETTINGS_MAIN + "\"");
-    }
 }
