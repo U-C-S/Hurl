@@ -11,7 +11,7 @@
     <Authors>U-C-S</Authors>
     <PackageId>Hurl.Settings</PackageId>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net9.0-windows10.0.26100.0</TargetFramework>
+    <TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>
     <RootNamespace>Hurl.Settings</RootNamespace>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <Platforms>x64;ARM64</Platforms>
@@ -31,14 +31,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
-    <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.2.250402" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.8" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.8" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.8" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250606001" GeneratePathProperty="true" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.2.251219" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.5" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.5" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.260317003" GeneratePathProperty="true" />
     <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.4948" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.28000.1721" />
+    <PackageReference Include="Microsoft.WindowsAppSDK.Runtime" Version="1.8.260317003" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 
@@ -51,7 +52,7 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="$(PkgMicrosoft_WindowsAppSDK)\include\WindowsAppSDK-VersionInfo.cs" />
+    <Compile Include="$(PkgMicrosoft_WindowsAppSDK_Runtime)\include\WindowsAppSDK-VersionInfo.cs" />
     <ProjectReference Include="..\Hurl.Library\Hurl.Library.csproj" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
