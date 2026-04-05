@@ -5,6 +5,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 
@@ -13,6 +14,7 @@ namespace Hurl.Settings.Views.Dialogs;
 public sealed partial class EditBrowserPage : Page
 {
     public EditBrowserPageViewModel? ViewModel { get; private set; }
+    public ObservableCollection<string> BreadcrumbItems { get; } = ["Browsers"];
 
     public EditBrowserPage()
     {
@@ -30,6 +32,7 @@ public sealed partial class EditBrowserPage : Page
         var options = App.AppHost.Services.GetRequiredService<Microsoft.Extensions.Options.IOptionsMonitor<Library.Models.Settings>>();
         var settingsService = App.AppHost.Services.GetRequiredService<Hurl.Settings.Services.Interfaces.ISettingsService>();
 
+        BreadcrumbItems.Add(browser.Name);
         ViewModel = new EditBrowserPageViewModel(browser, options, settingsService);
         this.DataContext = this;
     }
@@ -66,19 +69,14 @@ public sealed partial class EditBrowserPage : Page
     {
         if (ViewModel == null) return;
         ViewModel.Save();
-
-        // Try to navigate back if possible
-        if (Frame != null && Frame.CanGoBack)
-            Frame.GoBack();
+        NavigateBackToBrowsers();
     }
 
     private void Cancel_Click(object sender, RoutedEventArgs e)
     {
-        if (ViewModel != null)
-            ViewModel.Revert();
-
-        if (Frame != null && Frame.CanGoBack)
-            Frame.GoBack();
+        //if (ViewModel != null)
+        //    ViewModel.Revert();
+        NavigateBackToBrowsers();
     }
 
     private void OpenContainingExe_Click(object sender, RoutedEventArgs e)
@@ -123,6 +121,30 @@ public sealed partial class EditBrowserPage : Page
         {
             // ignore failures
         }
+    }
+
+    private void BreadcrumbBar_ItemClicked(BreadcrumbBar sender, BreadcrumbBarItemClickedEventArgs args)
+    {
+        if (args.Index == 0)
+        {
+            NavigateBackToBrowsers();
+        }
+    }
+
+    private void NavigateBackToBrowsers()
+    {
+        if (Frame == null)
+        {
+            return;
+        }
+
+        if (Frame.CanGoBack)
+        {
+            Frame.GoBack();
+            return;
+        }
+
+        Frame.Navigate(typeof(Hurl.Settings.Views.BrowsersPage));
     }
 }
 

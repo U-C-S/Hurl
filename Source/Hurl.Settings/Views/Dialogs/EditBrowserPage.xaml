@@ -12,10 +12,7 @@
 
     <ScrollViewer>
         <StackPanel MaxWidth="800" Spacing="12">
-            <TextBlock
-                FontSize="20"
-                FontWeight="SemiBold"
-                Text="Edit Browser" />
+            <BreadcrumbBar ItemClicked="BreadcrumbBar_ItemClicked" ItemsSource="{x:Bind BreadcrumbItems}" />
             <StackPanel Spacing="16">
                 <StackPanel Spacing="4">
                     <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Main Options" />

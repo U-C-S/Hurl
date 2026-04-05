@@ -13,8 +13,7 @@
 
     <StackPanel MaxWidth="800" Spacing="16">
         <StackPanel Spacing="4">
-            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Browsers" />
-
+            <BreadcrumbBar ItemClicked="BreadcrumbBar_ItemClicked" ItemsSource="{x:Bind BreadcrumbItems}" />
             <ListView
                 AllowDrop="True"
                 CanDragItems="True"

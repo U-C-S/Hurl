@@ -3,13 +3,14 @@ using Hurl.Library.Models;
 using Hurl.Settings.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
-using System.Diagnostics;
+using System.Collections.ObjectModel;
 
 namespace Hurl.Settings.Views;
 
 public sealed partial class BrowsersPage : Page
 {
     internal BrowsersPageViewModel ViewModel { get; }
+    public ObservableCollection<string> BreadcrumbItems { get; } = ["Browsers"];
 
     public BrowsersPage()
     {
@@ -34,5 +35,13 @@ public sealed partial class BrowsersPage : Page
     private void ListView_DragItemsCompleted(ListViewBase sender, DragItemsCompletedEventArgs args)
     {
         ViewModel.UpdateBrowserOrder();
+    }
+
+    private void BreadcrumbBar_ItemClicked(BreadcrumbBar sender, BreadcrumbBarItemClickedEventArgs args)
+    {
+        if (args.Index == 0 && Frame?.Content is not BrowsersPage)
+        {
+            Frame?.Navigate(typeof(BrowsersPage));
+        }
     }
 }
