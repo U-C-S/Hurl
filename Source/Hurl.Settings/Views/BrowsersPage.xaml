@@ -55,6 +55,17 @@
         <StackPanel Spacing="4">
             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Other Options" />
             <StackPanel>
+                <ctlabs:SettingsCard Description="Add a custom browser or app entry manually" Header="Add browser entry">
+                    <ctlabs:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE710;" />
+                    </ctlabs:SettingsCard.HeaderIcon>
+                    <Button
+                        Width="80"
+                        Click="CreateBrowser_Click"
+                        Style="{StaticResource AccentButtonStyle}">
+                        Create
+                    </Button>
+                </ctlabs:SettingsCard>
                 <ctlabs:SettingsCard Description="Finds and Appends newly installed browsers" Header="Refresh browsers">
                     <ctlabs:SettingsCard.HeaderIcon>
                         <FontIcon Glyph="&#xE72C;" />

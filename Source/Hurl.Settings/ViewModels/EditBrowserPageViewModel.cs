@@ -14,6 +14,7 @@ namespace Hurl.Settings.ViewModels
     public partial class EditBrowserPageViewModel : ObservableObject
     {
         public Browser Original { get; }
+        public bool IsNewBrowser { get; }
 
         [ObservableProperty]
         private string name = string.Empty;
@@ -33,14 +34,15 @@ namespace Hurl.Settings.ViewModels
         [ObservableProperty]
         private ObservableCollection<AlternateLaunch> alternateLaunches = new();
 
-        private readonly IOptionsMonitor<Library.Models.Settings> options;
+        private readonly ObservableCollection<Browser> browsers;
         private readonly ISettingsService settingsService;
 
-        public EditBrowserPageViewModel(Browser browser, IOptionsMonitor<Library.Models.Settings> options, ISettingsService settingsService)
+        public EditBrowserPageViewModel(Browser browser, IOptionsMonitor<Library.Models.Settings> options, ISettingsService settingsService, bool isNewBrowser = false)
         {
             Original = browser;
-            this.options = options;
+            browsers = options.CurrentValue.Browsers;
             this.settingsService = settingsService;
+            IsNewBrowser = isNewBrowser;
 
             // Initialize editable fields from the original browser
             Name = browser.Name ?? string.Empty;
@@ -79,8 +81,13 @@ namespace Hurl.Settings.ViewModels
                 ? new ObservableCollection<AlternateLaunch>(AlternateLaunches)
                 : null;
 
+            if (IsNewBrowser && !browsers.Contains(Original))
+            {
+                browsers.Add(Original);
+            }
+
             // Persist the browsers collection via the settings service
-            settingsService.UpdateBrowsers(options.CurrentValue.Browsers);
+            settingsService.UpdateBrowsers(browsers);
         }
 
         public void Revert()

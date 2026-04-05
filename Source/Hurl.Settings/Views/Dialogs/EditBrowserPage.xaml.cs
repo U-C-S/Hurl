@@ -37,14 +37,34 @@ public sealed partial class EditBrowserPage : Page
         this.DataContext = this;
     }
 
+    private void InitializeForNewBrowser()
+    {
+        var options = App.AppHost.Services.GetRequiredService<Microsoft.Extensions.Options.IOptionsMonitor<Library.Models.Settings>>();
+        var settingsService = App.AppHost.Services.GetRequiredService<Hurl.Settings.Services.Interfaces.ISettingsService>();
+
+        BreadcrumbItems.Add("New Browser");
+        ViewModel = new EditBrowserPageViewModel(new Browser(), options, settingsService, isNewBrowser: true);
+        DataContext = this;
+    }
+
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
         base.OnNavigatedTo(e);
+
+        if (ViewModel != null)
+        {
+            return;
+        }
 
         if (e.Parameter is Browser browser)
         {
             InitializeForBrowser(browser);
         }
+        else
+        {
+            InitializeForNewBrowser();
+        }
+
     }
 
     private void AddAlternate_Click(object sender, RoutedEventArgs e)

@@ -24,6 +24,11 @@ public sealed partial class BrowsersPage : Page
         ViewModel.RefreshBrowserList();
     }
 
+    private void CreateBrowser_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+        Frame?.Navigate(typeof(Hurl.Settings.Views.Dialogs.EditBrowserPage));
+    }
+
     private void EditBrowser_Click(SplitButton sender, SplitButtonClickEventArgs e)
     {
         if (sender is SplitButton btn && btn.DataContext is Browser browser)
