@@ -22,24 +22,30 @@
                 DragItemsCompleted="ListView_DragItemsCompleted"
                 ItemsSource="{x:Bind ViewModel.Browsers}"
                 SelectionMode="None">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Padding" Value="0" />
+                        <Setter Property="Margin" Value="0" />
+                        <Setter Property="MinHeight" Value="0" />
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ctlabs:SettingsCard Description="{Binding ExePath}" Header="{Binding Name}">
                             <ctlabs:SettingsCard.HeaderIcon>
                                 <FontIcon Glyph="&#xE8B0;" />
                             </ctlabs:SettingsCard.HeaderIcon>
-                            <StackPanel>
-                                <SplitButton x:Name="myColorButton" Click="EditBrowser_Click">
-                                    Edit
-                                    <SplitButton.Flyout>
-                                        <MenuFlyout Placement="Bottom">
-                                            <MenuFlyoutItem>
-                                                Delete
-                                            </MenuFlyoutItem>
-                                        </MenuFlyout>
-                                    </SplitButton.Flyout>
-                                </SplitButton>
-                            </StackPanel>
+                            <SplitButton x:Name="myColorButton" Click="EditBrowser_Click">
+                                Edit
+                                <SplitButton.Flyout>
+                                    <MenuFlyout Placement="Bottom">
+                                        <MenuFlyoutItem>
+                                            Delete
+                                        </MenuFlyoutItem>
+                                    </MenuFlyout>
+                                </SplitButton.Flyout>
+                            </SplitButton>
                         </ctlabs:SettingsCard>
                     </DataTemplate>
                 </ListView.ItemTemplate>
