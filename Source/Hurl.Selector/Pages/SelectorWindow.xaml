@@ -20,12 +20,10 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Grid>
-            <TextBlock
-                Padding="4,0"
-                Style="{StaticResource BodyTextBlockStyle}"
-                Text="Select a browser" />
-        </Grid>
+        <TextBlock
+            VerticalAlignment="Center"
+            Style="{StaticResource BodyTextBlockStyle}"
+            Text="Select a browser" />
 
         <ItemsRepeater
             Grid.Row="1"
@@ -95,7 +93,6 @@
             Grid.Row="2"
             Padding="4"
             HorizontalAlignment="Center"
-            Background="{ThemeResource AccentAcrylicBackgroundFillColorBaseBrush}"
             BorderBrush="{StaticResource ControlElevationBorderBrush}"
             BorderThickness="1.5"
             CornerRadius="6">

@@ -18,17 +18,15 @@ public sealed partial class SelectorWindow : Window
     {
         ViewModel = App.Services.GetRequiredService<SelectorPageViewModel>();
         this.ExtendsContentIntoTitleBar = true;
+        //this.AppWindow.TitleBar.PreferredHeightOption = Microsoft.UI.Windowing.TitleBarHeightOption.Collapsed;
 
         windowManager = WindowManager.Get(this);
         windowManager.IsMaximizable = false;
         windowManager.IsMinimizable = false;
-#if DEBUG == false
-            windowManager.AppWindow.IsShownInSwitchers = false;
-#endif
         windowManager.MinWidth = 500;
         windowManager.MinHeight = 250;
 
-        //window.AppWindow.IsShownInSwitchers = false;
+        //this.AppWindow.IsShownInSwitchers = false;
         this.AppWindow.ResizeClient(new Windows.Graphics.SizeInt32(600, 320));
 
         this.InitializeComponent();
@@ -47,7 +45,7 @@ public sealed partial class SelectorWindow : Window
     }
 
     private void SettingsBtnClick(object sender, RoutedEventArgs e) => Process.Start(Constants.SETTINGS_APP, "--page settings");
-    //private void Draggable(object sender, MouseButtonEventArgs e) => DragMove();
+
     private void CloseBtnClick(object sender, RoutedEventArgs e) => MinimizeWindow();
 
     private void MinimizeWindow()
@@ -137,36 +135,9 @@ public sealed partial class SelectorWindow : Window
 
     //private void Window_SizeChanged(object sender, SizeChangedEventArgs e) => Settings.AdjustWindowSize(e);
 
-    private void Linkpreview_Click(object sender, RoutedEventArgs e) => UrlEdit();
-
-    async private void UrlEdit()
-    {
-        //forcePreventWindowDeactivationEvent = true;
-        //var NewUrl = await URLEditor.ShowInputAsync(this, OpenedUri.Value);
-        //forcePreventWindowDeactivationEvent = false;
-
-        //if (!string.IsNullOrEmpty(NewUrl))
-        //{
-        //    OpenedUri.Value = NewUrl;
-        //    linkpreview.Content = NewUrl;
-        //}
-        //else
-        //{
-        //    OpenedUri.Clear();
-        //    linkpreview.Content = "No URL Opened";
-        //}
-
-    }
-
     private void Button_Click_1(object sender, RoutedEventArgs e)
     {
         MinimizeWindow();
         Process.Start(Constants.SETTINGS_APP, "--page rulesets");
-    }
-
-    private void ClearUriBtnClick(object sender, RoutedEventArgs e)
-    {
-        //OpenedUri.Clear();
-        //linkpreview.Content = "No URL Opened";
     }
 }
