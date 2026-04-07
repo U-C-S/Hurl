@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Hurl.Timely (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Hurl.Timely (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
