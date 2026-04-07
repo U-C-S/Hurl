@@ -1,7 +1,11 @@
-﻿using Hurl.Library;
+using Hurl.BrowserSelector.Helpers;
+using Hurl.Library;
+using Hurl.Selector.Models;
 using Hurl.Selector.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
 using System;
 using System.Diagnostics;
 using WinUIEx;
@@ -140,4 +144,74 @@ public sealed partial class SelectorWindow : Window
         MinimizeWindow();
         Process.Start(Constants.SETTINGS_APP, "--page rulesets");
     }
+
+    private void BrowserButton_Loaded(object sender, RoutedEventArgs e)
+    {
+        if (sender is Button button && button.Tag is Browser browser)
+        {
+            button.ContextFlyout = CreateAlternateLaunchFlyout(browser);
+        }
+    }
+
+    private void AdditionalBtn_Loaded(object sender, RoutedEventArgs e)
+    {
+        var x = sender.GetType();
+        if (sender is Button button && button.Tag is Browser browser)
+        {
+            var flyout = CreateAlternateLaunchFlyout(browser);
+            button.Flyout = flyout;
+            FlyoutBase.SetAttachedFlyout(button, flyout);
+        }
+    }
+
+    private void AdditionalBtn_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is Button button)
+        {
+            FlyoutBase.ShowAttachedFlyout(button);
+        }
+    }
+
+    private MenuFlyout? CreateAlternateLaunchFlyout(Browser browser)
+    {
+        if (browser.AlternateLaunches is not { Count: > 0 } alternateLaunches)
+        {
+            return null;
+        }
+
+        MenuFlyout flyout = new();
+
+        foreach (var alternateLaunch in alternateLaunches)
+        {
+            MenuFlyoutItem item = new()
+            {
+                Text = alternateLaunch.ItemName,
+                Tag = new AlternateLaunchContext(browser, alternateLaunch)
+            };
+            item.Click += AlternateLaunch_Click;
+            flyout.Items.Add(item);
+        }
+
+        return flyout;
+    }
+
+    private void AlternateLaunch_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is not MenuFlyoutItem { Tag: AlternateLaunchContext context })
+        {
+            return;
+        }
+
+        try
+        {
+            UriLauncher.Alternative(ViewModel.Url, context.Browser, context.AlternateLaunch);
+            MinimizeWindow();
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+        }
+    }
+
+    private sealed record AlternateLaunchContext(Browser Browser, AlternateLaunch AlternateLaunch);
 }

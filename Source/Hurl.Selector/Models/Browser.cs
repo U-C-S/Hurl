@@ -1,8 +1,8 @@
 using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System.Collections.ObjectModel;
 using System.Text.Json.Serialization;
-using System.Windows;
 
 namespace Hurl.Selector.Models;
 
@@ -46,7 +46,9 @@ public partial class Browser : ObservableObject
     {
         get
         {
-            return alternateLaunches == null || alternateLaunches.Count == 0 ? Visibility.Hidden : Visibility.Visible;
+            return AlternateLaunches == null || AlternateLaunches.Count == 0
+                ? Visibility.Collapsed
+                : Visibility.Visible;
         }
     }
 }
