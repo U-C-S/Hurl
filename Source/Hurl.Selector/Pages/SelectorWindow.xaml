@@ -56,6 +56,7 @@
                             Command="{Binding ViewModel.LaunchBrowserCommand, ElementName=SelectorRoot}"
                             CommandParameter="{x:Bind}"
                             Loaded="BrowserButton_Loaded"
+                            ToolTipService.ToolTip="{x:Bind Name}"
                             Tag="{x:Bind}">
                             <Grid RowSpacing="6">
                                 <Grid.RowDefinitions>
@@ -110,6 +111,7 @@
                     Padding="6"
                     Background="{x:Null}"
                     BorderBrush="{x:Null}"
+                    ToolTipService.ToolTip="Copy URL (C)"
                     Click="LinkCopyBtnClick">
                     <Button.Content>
                         <FontIcon FontSize="16" Glyph="&#xE8C8;" />
@@ -125,6 +127,7 @@
                     FontSize="12"
                     IsSpellCheckEnabled="False"
                     IsTextPredictionEnabled="False"
+                    ToolTipService.ToolTip="Edit URL (E)"
                     PlaceholderText="URL"
                     Text="{x:Bind ViewModel.Url, Mode=TwoWay}" />
                 <AppBarSeparator Grid.Column="2" />
