@@ -6,8 +6,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
+using Microsoft.UI.Xaml.Input;
 using System;
 using System.Diagnostics;
+using Windows.ApplicationModel.DataTransfer;
 using WinUIEx;
 
 namespace Hurl.Selector.Pages;
@@ -16,12 +18,12 @@ public sealed partial class SelectorWindow : Window
 {
     public SelectorPageViewModel ViewModel { get; }
 
-    WindowManager? windowManager;
+    private WindowManager? windowManager;
 
     public SelectorWindow()
     {
         ViewModel = App.Services.GetRequiredService<SelectorPageViewModel>();
-        this.ExtendsContentIntoTitleBar = true;
+        ExtendsContentIntoTitleBar = true;
         //this.AppWindow.TitleBar.PreferredHeightOption = Microsoft.UI.Windowing.TitleBarHeightOption.Collapsed;
 
         windowManager = WindowManager.Get(this);
@@ -31,20 +33,20 @@ public sealed partial class SelectorWindow : Window
         windowManager.MinHeight = 250;
 
         //this.AppWindow.IsShownInSwitchers = false;
-        this.AppWindow.ResizeClient(new Windows.Graphics.SizeInt32(600, 320));
+        AppWindow.ResizeClient(new Windows.Graphics.SizeInt32(600, 320));
 
-        this.InitializeComponent();
+        InitializeComponent();
     }
 
     private void LinkCopyBtnClick(object sender, RoutedEventArgs e)
     {
         try
         {
-            //Clipboard.SetText(OpenedUri.Value);
+            CopyCurrentUrlToClipboard();
         }
         catch (Exception err)
         {
-            System.Windows.MessageBox.Show(err.Message);
+            Debug.WriteLine(err);
         }
     }
 
@@ -54,8 +56,7 @@ public sealed partial class SelectorWindow : Window
 
     private void MinimizeWindow()
     {
-        //WindowState = WindowState.Minimized;
-        //Hide();
+        this.Minimize();
     }
 
     public void ShowWindow()
@@ -123,7 +124,7 @@ public sealed partial class SelectorWindow : Window
         //            Left = mouse.X;
         //            Top = mouse.Y;
 
-        //            Debug.WriteLine($"{Left}�{Top} with screen resolution: {SystemParameters.FullPrimaryScreenWidth}�{SystemParameters.FullPrimaryScreenHeight}");
+        //            Debug.WriteLine($"{Left}?{Top} with screen resolution: {SystemParameters.FullPrimaryScreenWidth}?{SystemParameters.FullPrimaryScreenHeight}");
         //        }
         //    }
         //}
@@ -155,7 +156,6 @@ public sealed partial class SelectorWindow : Window
 
     private void AdditionalBtn_Loaded(object sender, RoutedEventArgs e)
     {
-        var x = sender.GetType();
         if (sender is Button button && button.Tag is Browser browser)
         {
             var flyout = CreateAlternateLaunchFlyout(browser);
@@ -214,4 +214,90 @@ public sealed partial class SelectorWindow : Window
     }
 
     private sealed record AlternateLaunchContext(Browser Browser, AlternateLaunch AlternateLaunch);
+
+    private void EscapeAccelerator_Invoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
+    {
+        MinimizeWindow();
+        args.Handled = true;
+    }
+
+    private void CopyAccelerator_Invoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
+    {
+        if (IsTextBoxKeyAccelerator())
+        {
+            return;
+        }
+
+        CopyCurrentUrlToClipboard();
+        args.Handled = true;
+    }
+
+    private async void EditUrlAccelerator_Invoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
+    {
+        if (IsTextBoxKeyAccelerator())
+        {
+            return;
+        }
+
+        args.Handled = true;
+        UrlTextBox.Focus(FocusState.Keyboard);
+    }
+
+    private void RulesAccelerator_Invoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
+    {
+        if (IsTextBoxKeyAccelerator())
+        {
+            return;
+        }
+
+        MinimizeWindow();
+        Process.Start(Constants.SETTINGS_APP, "--page rulesets");
+        args.Handled = true;
+    }
+
+    private void CopyCurrentUrlToClipboard()
+    {
+        DataPackage package = new();
+        package.SetText(ViewModel.Url ?? string.Empty);
+        Clipboard.SetContent(package);
+        Clipboard.Flush();
+    }
+
+    //private async System.Threading.Tasks.Task UrlEditAsync()
+    //{
+    //    TextBox editor = new()
+    //    {
+    //        AcceptsReturn = false,
+    //        PlaceholderText = "Enter the URL you want to open",
+    //        Text = ViewModel.Url
+    //    };
+    //    editor.Loaded += (_, _) =>
+    //    {
+    //        editor.SelectAll();
+    //        editor.Focus(FocusState.Programmatic);
+    //    };
+
+    //    ContentDialog dialog = new()
+    //    {
+    //        XamlRoot = (Content as FrameworkElement)?.XamlRoot,
+    //        Title = "Edit URL to open",
+    //        Content = editor,
+    //        CloseButtonText = "Cancel",
+    //        PrimaryButtonText = "OK",
+    //        DefaultButton = ContentDialogButton.Primary
+    //    };
+
+    //    if (await dialog.ShowAsync() == ContentDialogResult.Primary)
+    //    {
+    //        ViewModel.Url = editor.Text?.Trim() ?? string.Empty;
+    //        UrlTextBox.Focus(FocusState.Programmatic);
+    //        UrlTextBox.SelectAll();
+    //    }
+    //}
+
+    private bool IsTextBoxKeyAccelerator()
+    {
+        var xamlRoot = (Content as FrameworkElement)?.XamlRoot;
+        return xamlRoot is not null && FocusManager.GetFocusedElement(xamlRoot) is TextBox;
+    }
 }

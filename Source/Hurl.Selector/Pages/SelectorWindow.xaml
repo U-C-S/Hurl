@@ -15,6 +15,12 @@
     </Window.SystemBackdrop>
 
     <Grid Padding="8" RowSpacing="8">
+        <Grid.KeyboardAccelerators>
+            <KeyboardAccelerator Invoked="EscapeAccelerator_Invoked" Key="Escape" />
+            <KeyboardAccelerator Invoked="CopyAccelerator_Invoked" Key="C" />
+            <KeyboardAccelerator Invoked="EditUrlAccelerator_Invoked" Key="E" />
+            <KeyboardAccelerator Invoked="RulesAccelerator_Invoked" Key="R" />
+        </Grid.KeyboardAccelerators>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
@@ -110,6 +116,7 @@
                     </Button.Content>
                 </Button>
                 <TextBox
+                    x:Name="UrlTextBox"
                     Grid.Column="1"
                     MaxHeight="32"
                     Padding="6"
