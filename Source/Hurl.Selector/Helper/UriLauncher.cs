@@ -3,7 +3,7 @@ using System;
 using System.Diagnostics;
 using Windows.System;
 
-namespace Hurl.BrowserSelector.Helpers;
+namespace Hurl.Selector.Helpers;
 
 class UriLauncher
 {

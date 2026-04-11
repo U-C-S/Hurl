@@ -1,6 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Hurl.BrowserSelector.Helpers;
+using Hurl.Selector.Helpers;
 using Hurl.Selector.Models;
 using Hurl.Selector.Services.Interfaces;
 using System;
@@ -23,7 +23,7 @@ public partial class SelectorPageViewModel : ObservableObject
     }
 
     [ObservableProperty]
-    private string url = "https://google.com";
+    private string url = string.Empty;
 
     [ObservableProperty]
     private ObservableCollection<Browser> browsers = new();

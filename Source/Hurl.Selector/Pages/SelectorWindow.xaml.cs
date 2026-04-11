@@ -1,5 +1,5 @@
-using Hurl.BrowserSelector.Helpers;
 using Hurl.Library;
+using Hurl.Selector.Helpers;
 using Hurl.Selector.Models;
 using Hurl.Selector.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
