@@ -1,9 +1,11 @@
-﻿using Hurl.Selector.Pages;
+using Hurl.Selector.Helpers;
+using Hurl.Selector.Pages;
 using Hurl.Selector.Services;
 using Hurl.Selector.Services.Interfaces;
 using Hurl.Selector.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Dispatching;
+using Microsoft.Windows.AppLifecycle;
 using System;
 using System.Text.Json;
 using System.Windows;
@@ -14,7 +16,8 @@ public partial class App : Microsoft.UI.Xaml.Application
 {
     public static IServiceProvider? Services { get; private set; }
 
-    private static Microsoft.UI.Xaml.Window? _mainWindow;
+    private static SelectorWindow? _mainWindow;
+    private AppActivationArguments? _pendingActivationArgs;
 
     public App()
     {
@@ -22,6 +25,7 @@ public partial class App : Microsoft.UI.Xaml.Application
         InitializeComponent();
         Current.UnhandledException += Dispatcher_UnhandledException;
         DispatcherShutdownMode = Microsoft.UI.Xaml.DispatcherShutdownMode.OnLastWindowClose;
+        AppInstance.GetCurrent().Activated += AppInstance_Activated;
     }
 
     private static ServiceProvider ConfigureServices()
@@ -38,12 +42,27 @@ public partial class App : Microsoft.UI.Xaml.Application
 
     protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
     {
-        //var cliArgs = CliArgs.GatherInfo(args.Arguments, false);
-        //OpenedUri.Value = cliArgs.Url;
+        _mainWindow ??= new SelectorWindow();
+        HandleActivation(_pendingActivationArgs ?? AppInstance.GetCurrent().GetActivatedEventArgs(), false);
+        _pendingActivationArgs = null;
+    }
 
-        _mainWindow = new SelectorWindow();
-        //_mainWindow.Init(cliArgs);
-        _mainWindow.Activate();
+    private void AppInstance_Activated(object? sender, AppActivationArguments args)
+    {
+        if (_mainWindow is null)
+        {
+            _pendingActivationArgs = args;
+            return;
+        }
+
+        _ = _mainWindow.DispatcherQueue.TryEnqueue(() => HandleActivation(args, true));
+    }
+
+    private static void HandleActivation(AppActivationArguments activationArgs, bool isSecondInstance)
+    {
+        _mainWindow ??= new SelectorWindow();
+        var cliArgs = CliArgs.GatherInfo(activationArgs, isSecondInstance);
+        _mainWindow.Init(cliArgs);
     }
 
     private void Dispatcher_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
@@ -68,5 +87,3 @@ public partial class App : Microsoft.UI.Xaml.Application
         Exit();
     }
 }
-
-

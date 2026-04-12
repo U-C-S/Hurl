@@ -4,7 +4,8 @@
       "commandName": "MsixPackage"
     },
     "Hurl.Selector (Unpackaged)": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "commandLineArgs": "--uri keep.google.com"
     }
   }
 }

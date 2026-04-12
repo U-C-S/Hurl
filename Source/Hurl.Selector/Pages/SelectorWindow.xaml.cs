@@ -38,6 +38,20 @@ public sealed partial class SelectorWindow : Window
         InitializeComponent();
     }
 
+    public void Init(CliArgs args)
+    {
+        ViewModel.Url = args.Url;
+
+        if (args.IsRunAsMin)
+        {
+            Activate();
+            MinimizeWindow();
+            return;
+        }
+
+        ShowWindow();
+    }
+
     private void LinkCopyBtnClick(object sender, RoutedEventArgs e)
     {
         try
@@ -61,9 +75,8 @@ public sealed partial class SelectorWindow : Window
 
     public void ShowWindow()
     {
-        //Show();
-        //PositionWindowUnderTheMouse();
-        //WindowState = WindowState.Normal;
+        this.Restore();
+        Activate();
     }
 
     private void TrayMenuItem_OnClick(object sender, RoutedEventArgs e)
