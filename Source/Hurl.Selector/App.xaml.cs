@@ -1,3 +1,4 @@
+using Hurl.Library;
 using Hurl.Selector.Helpers;
 using Hurl.Selector.Pages;
 using Hurl.Selector.Services;
@@ -6,6 +7,7 @@ using Hurl.Selector.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Windows.AppLifecycle;
 using System;
+using System.IO;
 using System.Text.Json;
 using System.Windows;
 
@@ -78,8 +80,14 @@ public partial class App : Microsoft.UI.Xaml.Application
                 ErrorMsgBuffer = "An unknown error has occurred. \n";
                 ErrorWndTitle = "Hurl - Unknown Error";
                 break;
-
         }
+
+        // TODO: create the crashes directory if it doesn't exist
+        long seconds = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+        var argsStoreFile = Path.Combine(Constants.ROAMING, "Hurl", "crashes", $"{seconds}.txt");
+        var errorFileContents = string.Format("{0}\n\nStackTrace:\n{1}", e.Message,e.Exception.StackTrace);
+        File.AppendAllText(argsStoreFile, errorFileContents);
+
         string errorMessage = string.Format("{0}\n{1}\n\n{2}", ErrorMsgBuffer, e.Exception?.InnerException?.Message, e.Exception?.Message);
         MessageBox.Show(errorMessage, ErrorWndTitle, MessageBoxButton.OK, MessageBoxImage.Error);
 
