@@ -32,7 +32,7 @@ async fn main() {
     let hurl_exe_path = {
         let current_exe_path = env::current_exe().unwrap();
         let current_dir = current_exe_path.parent().unwrap();
-        current_dir.join("Hurl.exe")
+        current_dir.join("Hurl Selector.exe")
 
         // ; String::from("../../../Hurl.BrowserSelector/bin/Debug/net8.0-windows/Hurl.exe")
     };
@@ -45,15 +45,16 @@ async fn main() {
         Ok(client) => {
             client.writable().await.unwrap();
 
-            let args_str = match native_msg_url {
-                Some(ref url) => serde_json::to_string(&vec![url]).unwrap(),
-                None => serde_json::to_string(&trimed_args).unwrap(),
+            let selector_args = match native_msg_url {
+                Some(ref url) => vec![String::from("--uri"), url.clone()],
+                None => trimed_args.to_vec(),
             };
+            let args_str = serde_json::to_string(&selector_args).unwrap();
             let _ = client.try_write(args_str.as_bytes());
         }
         Err(_) => {
             let args = match native_msg_url {
-                Some(url) => vec![url],
+                Some(url) => vec![String::from("--uri"), url],
                 None => trimed_args.to_vec(),
             };
             let _ = Command::new(hurl_exe_path).args(args).spawn();

@@ -9,6 +9,7 @@ using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Input;
 using System;
 using System.Diagnostics;
+using System.IO;
 using Windows.ApplicationModel.DataTransfer;
 using WinUIEx;
 
@@ -16,9 +17,14 @@ namespace Hurl.Selector.Pages;
 
 public sealed partial class SelectorWindow : Window
 {
+    private const uint TrayIconId = 3721;
+
     public SelectorPageViewModel ViewModel { get; }
 
     private WindowManager? windowManager;
+    private readonly TrayIcon trayIcon;
+    private readonly MenuFlyout trayMenuFlyout;
+    private bool trayIconDisposed;
 
     public SelectorWindow()
     {
@@ -34,6 +40,9 @@ public sealed partial class SelectorWindow : Window
 
         //this.AppWindow.IsShownInSwitchers = false;
         AppWindow.ResizeClient(new Windows.Graphics.SizeInt32(600, 320));
+        Closed += SelectorWindow_Closed;
+        trayMenuFlyout = CreateTrayMenuFlyout();
+        trayIcon = CreateTrayIcon();
 
         InitializeComponent();
     }
@@ -71,46 +80,55 @@ public sealed partial class SelectorWindow : Window
     private void MinimizeWindow()
     {
         this.Minimize();
+        this.Hide();
     }
 
     public void ShowWindow()
     {
+        this.Show();
         this.Restore();
         Activate();
+        this.SetForegroundWindow();
     }
 
     private void TrayMenuItem_OnClick(object sender, RoutedEventArgs e)
     {
-        //string? tag = ((MenuItem)sender).Tag as string;
-        //try
-        //{
-        //    switch (tag)
-        //    {
-        //        case "open":
-        //            ShowWindow();
-        //            break;
-        //        case "settings":
-        //            Process.Start(Constants.SETTINGS_APP, "--page settings");
-        //            break;
-        //        case "exit":
-        //            Application.Current.Exit();
-        //            break;
-        //        case "reload":
-        //            var AppPath = Path.Combine(AppContext.BaseDirectory, "Hurl.exe");
-        //            Process.Start(AppPath);
-        //            Application.Current.Exit();
-        //            break;
-        //        default:
-        //            break;
-        //    }
-        //}
-        //catch (Exception err)
-        //{
-        //    System.Windows.MessageBox.Show(err.Message);
-        //}
+        string? tag = (sender as MenuFlyoutItem)?.Tag as string;
+
+        try
+        {
+            switch (tag)
+            {
+                case "settings":
+                    Process.Start(Constants.SETTINGS_APP, "--page settings");
+                    break;
+                case "reload":
+                    ReloadApp();
+                    break;
+                case "exit":
+                    ExitApp();
+                    break;
+                default:
+                    break;
+            }
+        }
+        catch (Exception err)
+        {
+            Debug.WriteLine(err);
+        }
     }
 
-    private void NotifyIcon_LeftClick(object sender, RoutedEventArgs e) => ShowWindow();
+    private void NotifyIcon_LeftClick(object? sender, TrayIconEventArgs e)
+    {
+        e.Handled = true;
+        ShowWindow();
+    }
+
+    private void NotifyIcon_ContextMenu(object? sender, TrayIconEventArgs e)
+    {
+        e.Handled = true;
+        e.Flyout = trayMenuFlyout;
+    }
 
     private void Window_Deactivated(object sender, EventArgs e)
     {
@@ -312,5 +330,79 @@ public sealed partial class SelectorWindow : Window
     {
         var xamlRoot = (Content as FrameworkElement)?.XamlRoot;
         return xamlRoot is not null && FocusManager.GetFocusedElement(xamlRoot) is TextBox;
+    }
+
+    private TrayIcon CreateTrayIcon()
+    {
+        string iconPath = Path.Combine(AppContext.BaseDirectory, "Assets", "internet.ico");
+        TrayIcon icon = new(TrayIconId, iconPath, "Hurl is running in background for faster access")
+        {
+            IsVisible = true
+        };
+
+        icon.Selected += NotifyIcon_LeftClick;
+        icon.LeftDoubleClick += NotifyIcon_LeftClick;
+        icon.ContextMenu += NotifyIcon_ContextMenu;
+
+        return icon;
+    }
+
+    private MenuFlyout CreateTrayMenuFlyout()
+    {
+        MenuFlyout flyout = new();
+        flyout.Items.Add(CreateTrayMenuItem("Settings", "settings", "\uE713"));
+        flyout.Items.Add(CreateTrayMenuItem("Reload", "reload", "\uE777"));
+        flyout.Items.Add(CreateTrayMenuItem("Exit", "exit", "\uE8BB"));
+        return flyout;
+    }
+
+    private MenuFlyoutItem CreateTrayMenuItem(string text, string tag, string glyph)
+    {
+        MenuFlyoutItem item = new()
+        {
+            Text = text,
+            Tag = tag,
+            Icon = new FontIcon { Glyph = glyph }
+        };
+        item.Click += TrayMenuItem_OnClick;
+        return item;
+    }
+
+    private void ReloadApp()
+    {
+        string appPath = Environment.ProcessPath ?? Path.Combine(AppContext.BaseDirectory, "Hurl Selector.exe");
+        Process.Start(new ProcessStartInfo(appPath)
+        {
+            UseShellExecute = true
+        });
+        ExitApp();
+    }
+
+    private void ExitApp()
+    {
+        CleanupTrayIcon();
+        Application.Current.Exit();
+    }
+
+    private void SelectorWindow_Closed(object sender, WindowEventArgs args)
+    {
+        CleanupTrayIcon();
+    }
+
+    private void CleanupTrayIcon()
+    {
+        if (trayIconDisposed)
+        {
+            return;
+        }
+
+        trayIconDisposed = true;
+        trayIcon.CloseFlyout();
+        trayIcon.IsVisible = false;
+        trayIcon.Selected -= NotifyIcon_LeftClick;
+        trayIcon.LeftDoubleClick -= NotifyIcon_LeftClick;
+        trayIcon.ContextMenu -= NotifyIcon_ContextMenu;
+
+        trayIcon.Dispose();
     }
 }
