@@ -24,6 +24,7 @@ public sealed partial class SelectorWindow : Window
     private const uint TrayIconId = 3721;
     private readonly TrayIcon trayIcon;
     private readonly MenuFlyout trayMenuFlyout;
+    private bool allowWindowClose;
     private bool trayIconDisposed;
 
     #region Window Lifecycle
@@ -74,6 +75,13 @@ public sealed partial class SelectorWindow : Window
 
     private void SelectorWindow_Closed(object sender, WindowEventArgs args)
     {
+        if (!allowWindowClose)
+        {
+            args.Handled = true;
+            MinimizeWindow();
+            return;
+        }
+
         CleanupTrayIcon();
     }
 
@@ -127,7 +135,7 @@ public sealed partial class SelectorWindow : Window
 
     private void ExitApp()
     {
-        CleanupTrayIcon();
+        allowWindowClose = true;
         Application.Current.Exit();
     }
     #endregion
