@@ -17,15 +17,16 @@ namespace Hurl.Selector.Pages;
 
 public sealed partial class SelectorWindow : Window
 {
-    private const uint TrayIconId = 3721;
-
     public SelectorPageViewModel ViewModel { get; }
 
     private WindowManager? windowManager;
+
+    private const uint TrayIconId = 3721;
     private readonly TrayIcon trayIcon;
     private readonly MenuFlyout trayMenuFlyout;
     private bool trayIconDisposed;
 
+    #region Window Lifecycle
     public SelectorWindow()
     {
         ViewModel = App.Services.GetRequiredService<SelectorPageViewModel>();
@@ -61,75 +62,6 @@ public sealed partial class SelectorWindow : Window
         ShowWindow();
     }
 
-    private void LinkCopyBtnClick(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            CopyCurrentUrlToClipboard();
-        }
-        catch (Exception err)
-        {
-            Debug.WriteLine(err);
-        }
-    }
-
-    private void SettingsBtnClick(object sender, RoutedEventArgs e) => Process.Start(Constants.SETTINGS_APP, "--page settings");
-
-    private void CloseBtnClick(object sender, RoutedEventArgs e) => MinimizeWindow();
-
-    private void MinimizeWindow()
-    {
-        this.Minimize();
-        this.Hide();
-    }
-
-    public void ShowWindow()
-    {
-        this.Show();
-        this.Restore();
-        Activate();
-        this.SetForegroundWindow();
-    }
-
-    private void TrayMenuItem_OnClick(object sender, RoutedEventArgs e)
-    {
-        string? tag = (sender as MenuFlyoutItem)?.Tag as string;
-
-        try
-        {
-            switch (tag)
-            {
-                case "settings":
-                    Process.Start(Constants.SETTINGS_APP, "--page settings");
-                    break;
-                case "reload":
-                    ReloadApp();
-                    break;
-                case "exit":
-                    ExitApp();
-                    break;
-                default:
-                    break;
-            }
-        }
-        catch (Exception err)
-        {
-            Debug.WriteLine(err);
-        }
-    }
-
-    private void NotifyIcon_LeftClick(object? sender, TrayIconEventArgs e)
-    {
-        e.Handled = true;
-        ShowWindow();
-    }
-
-    private void NotifyIcon_ContextMenu(object? sender, TrayIconEventArgs e)
-    {
-        e.Handled = true;
-        e.Flyout = trayMenuFlyout;
-    }
-
     private void Window_Deactivated(object sender, EventArgs e)
     {
 #if DEBUG
@@ -138,6 +70,11 @@ public sealed partial class SelectorWindow : Window
         //var appSettings = Settings.AppSettings;
         //if (!forcePreventWindowDeactivationEvent && appSettings.MinimizeOnFocusLoss) MinimizeWindow();
 #endif
+    }
+
+    private void SelectorWindow_Closed(object sender, WindowEventArgs args)
+    {
+        CleanupTrayIcon();
     }
 
     private void PositionWindowUnderTheMouse()
@@ -161,7 +98,56 @@ public sealed partial class SelectorWindow : Window
         //}
         //catch (Exception) { }
     }
+    #endregion
 
+    #region Window Lifecycle Helper methods
+    private void MinimizeWindow()
+    {
+        this.Minimize();
+        this.Hide();
+    }
+
+    public void ShowWindow()
+    {
+        this.Show();
+        this.Restore();
+        Activate();
+        this.SetForegroundWindow();
+    }
+
+    private void ReloadApp()
+    {
+        string appPath = Environment.ProcessPath ?? Path.Combine(AppContext.BaseDirectory, "Hurl Selector.exe");
+        Process.Start(new ProcessStartInfo(appPath)
+        {
+            UseShellExecute = true
+        });
+        ExitApp();
+    }
+
+    private void ExitApp()
+    {
+        CleanupTrayIcon();
+        Application.Current.Exit();
+    }
+    #endregion
+
+    #region Selector UI Event Handlers
+    private void LinkCopyBtnClick(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            CopyCurrentUrlToClipboard();
+        }
+        catch (Exception err)
+        {
+            Debug.WriteLine(err);
+        }
+    }
+
+    private void SettingsBtnClick(object sender, RoutedEventArgs e) => Process.Start(Constants.SETTINGS_APP, "--page settings");
+
+    private void CloseBtnClick(object sender, RoutedEventArgs e) => MinimizeWindow();
     private void Button_Click(object sender, RoutedEventArgs e)
     {
         //forcePreventWindowDeactivationEvent = true;
@@ -245,7 +231,9 @@ public sealed partial class SelectorWindow : Window
     }
 
     private sealed record AlternateLaunchContext(Browser Browser, AlternateLaunch AlternateLaunch);
+    #endregion
 
+    #region Keyboard Accelerators
     private void EscapeAccelerator_Invoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
     {
         MinimizeWindow();
@@ -286,52 +274,14 @@ public sealed partial class SelectorWindow : Window
         args.Handled = true;
     }
 
-    private void CopyCurrentUrlToClipboard()
-    {
-        DataPackage package = new();
-        package.SetText(ViewModel.Url ?? string.Empty);
-        Clipboard.SetContent(package);
-        Clipboard.Flush();
-    }
-
-    //private async System.Threading.Tasks.Task UrlEditAsync()
-    //{
-    //    TextBox editor = new()
-    //    {
-    //        AcceptsReturn = false,
-    //        PlaceholderText = "Enter the URL you want to open",
-    //        Text = ViewModel.Url
-    //    };
-    //    editor.Loaded += (_, _) =>
-    //    {
-    //        editor.SelectAll();
-    //        editor.Focus(FocusState.Programmatic);
-    //    };
-
-    //    ContentDialog dialog = new()
-    //    {
-    //        XamlRoot = (Content as FrameworkElement)?.XamlRoot,
-    //        Title = "Edit URL to open",
-    //        Content = editor,
-    //        CloseButtonText = "Cancel",
-    //        PrimaryButtonText = "OK",
-    //        DefaultButton = ContentDialogButton.Primary
-    //    };
-
-    //    if (await dialog.ShowAsync() == ContentDialogResult.Primary)
-    //    {
-    //        ViewModel.Url = editor.Text?.Trim() ?? string.Empty;
-    //        UrlTextBox.Focus(FocusState.Programmatic);
-    //        UrlTextBox.SelectAll();
-    //    }
-    //}
-
     private bool IsTextBoxKeyAccelerator()
     {
         var xamlRoot = (Content as FrameworkElement)?.XamlRoot;
         return xamlRoot is not null && FocusManager.GetFocusedElement(xamlRoot) is TextBox;
     }
+    #endregion
 
+    #region TrayIcon Lifecycle methods
     private TrayIcon CreateTrayIcon()
     {
         string iconPath = Path.Combine(AppContext.BaseDirectory, "Assets", "internet.ico");
@@ -340,9 +290,9 @@ public sealed partial class SelectorWindow : Window
             IsVisible = true
         };
 
-        icon.Selected += NotifyIcon_LeftClick;
-        icon.LeftDoubleClick += NotifyIcon_LeftClick;
-        icon.ContextMenu += NotifyIcon_ContextMenu;
+        icon.Selected += TrayIcon_LeftClick;
+        icon.LeftDoubleClick += TrayIcon_LeftClick;
+        icon.ContextMenu += TrayIcon_ContextMenu;
 
         return icon;
     }
@@ -368,27 +318,6 @@ public sealed partial class SelectorWindow : Window
         return item;
     }
 
-    private void ReloadApp()
-    {
-        string appPath = Environment.ProcessPath ?? Path.Combine(AppContext.BaseDirectory, "Hurl Selector.exe");
-        Process.Start(new ProcessStartInfo(appPath)
-        {
-            UseShellExecute = true
-        });
-        ExitApp();
-    }
-
-    private void ExitApp()
-    {
-        CleanupTrayIcon();
-        Application.Current.Exit();
-    }
-
-    private void SelectorWindow_Closed(object sender, WindowEventArgs args)
-    {
-        CleanupTrayIcon();
-    }
-
     private void CleanupTrayIcon()
     {
         if (trayIconDisposed)
@@ -399,10 +328,63 @@ public sealed partial class SelectorWindow : Window
         trayIconDisposed = true;
         trayIcon.CloseFlyout();
         trayIcon.IsVisible = false;
-        trayIcon.Selected -= NotifyIcon_LeftClick;
-        trayIcon.LeftDoubleClick -= NotifyIcon_LeftClick;
-        trayIcon.ContextMenu -= NotifyIcon_ContextMenu;
+        trayIcon.Selected -= TrayIcon_LeftClick;
+        trayIcon.LeftDoubleClick -= TrayIcon_LeftClick;
+        trayIcon.ContextMenu -= TrayIcon_ContextMenu;
 
         trayIcon.Dispose();
     }
+    #endregion
+
+    #region TrayIcon Event Handlers
+    private void TrayIcon_LeftClick(object? sender, TrayIconEventArgs e)
+    {
+        e.Handled = true;
+        ShowWindow();
+    }
+
+    private void TrayIcon_ContextMenu(object? sender, TrayIconEventArgs e)
+    {
+        e.Handled = true;
+        e.Flyout = trayMenuFlyout;
+    }
+
+    private void TrayMenuItem_OnClick(object sender, RoutedEventArgs e)
+    {
+        string? tag = (sender as MenuFlyoutItem)?.Tag as string;
+
+        try
+        {
+            switch (tag)
+            {
+                case "settings":
+                    Process.Start(Constants.SETTINGS_APP, "--page settings");
+                    break;
+                case "reload":
+                    ReloadApp();
+                    break;
+                case "exit":
+                    ExitApp();
+                    break;
+                default:
+                    break;
+            }
+        }
+        catch (Exception err)
+        {
+            Debug.WriteLine(err);
+        }
+    }
+
+    #endregion
+
+    #region Helper methods
+    private void CopyCurrentUrlToClipboard()
+    {
+        DataPackage package = new();
+        package.SetText(ViewModel.Url ?? string.Empty);
+        Clipboard.SetContent(package);
+        Clipboard.Flush();
+    }
+    #endregion
 }
