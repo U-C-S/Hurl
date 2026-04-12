@@ -24,7 +24,7 @@ public sealed partial class SelectorWindow : Window
     {
         ViewModel = App.Services.GetRequiredService<SelectorPageViewModel>();
         ExtendsContentIntoTitleBar = true;
-        //this.AppWindow.TitleBar.PreferredHeightOption = Microsoft.UI.Windowing.TitleBarHeightOption.Collapsed;
+        this.AppWindow.TitleBar.PreferredHeightOption = Microsoft.UI.Windowing.TitleBarHeightOption.Tall;
 
         windowManager = WindowManager.Get(this);
         windowManager.IsMaximizable = false;
@@ -117,8 +117,8 @@ public sealed partial class SelectorWindow : Window
 #if DEBUG
         // No minimize on debug when not in focus
 #else
-        var appSettings = Settings.AppSettings;
-        if (!forcePreventWindowDeactivationEvent && appSettings.MinimizeOnFocusLoss) MinimizeWindow();
+        //var appSettings = Settings.AppSettings;
+        //if (!forcePreventWindowDeactivationEvent && appSettings.MinimizeOnFocusLoss) MinimizeWindow();
 #endif
     }
 

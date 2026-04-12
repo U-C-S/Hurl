@@ -16,10 +16,10 @@
 
     <Grid Padding="8" RowSpacing="8">
         <Grid.KeyboardAccelerators>
-            <KeyboardAccelerator Invoked="EscapeAccelerator_Invoked" Key="Escape" />
-            <KeyboardAccelerator Invoked="CopyAccelerator_Invoked" Key="C" />
-            <KeyboardAccelerator Invoked="EditUrlAccelerator_Invoked" Key="E" />
-            <KeyboardAccelerator Invoked="RulesAccelerator_Invoked" Key="R" />
+            <KeyboardAccelerator Key="Escape" Invoked="EscapeAccelerator_Invoked" />
+            <KeyboardAccelerator Key="C" Invoked="CopyAccelerator_Invoked" />
+            <KeyboardAccelerator Key="E" Invoked="EditUrlAccelerator_Invoked" />
+            <KeyboardAccelerator Key="R" Invoked="RulesAccelerator_Invoked" />
         </Grid.KeyboardAccelerators>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -27,10 +27,50 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBlock
-            VerticalAlignment="Center"
-            Style="{StaticResource BodyTextBlockStyle}"
-            Text="Select a browser" />
+        <Grid Margin="8,0,44,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock
+                VerticalAlignment="Center"
+                Style="{StaticResource BodyTextBlockStyle}"
+                Text="Select a browser" />
+            <DropDownButton Grid.Column="1">
+                <DropDownButton.Content>
+                    <FontIcon FontSize="16" Glyph="&#xE700;" />
+                </DropDownButton.Content>
+                <DropDownButton.Flyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem
+                            Click="Button_Click_1"
+                            Tag="settings"
+                            Text="Rules">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE710;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutItem
+                            Click="SettingsBtnClick"
+                            Tag="exit"
+                            Text="Settings">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE713;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutSeparator />
+                        <MenuFlyoutItem
+                            Click="Button_Click"
+                            Tag="reload"
+                            Text="Timed">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE916;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                    </MenuFlyout>
+                </DropDownButton.Flyout>
+            </DropDownButton>
+        </Grid>
 
         <ItemsRepeater
             Grid.Row="1"
@@ -56,8 +96,8 @@
                             Command="{Binding ViewModel.LaunchBrowserCommand, ElementName=SelectorRoot}"
                             CommandParameter="{x:Bind}"
                             Loaded="BrowserButton_Loaded"
-                            ToolTipService.ToolTip="{x:Bind Name}"
-                            Tag="{x:Bind}">
+                            Tag="{x:Bind}"
+                            ToolTipService.ToolTip="{x:Bind Name}">
                             <Grid RowSpacing="6">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="80" />
@@ -104,15 +144,15 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition MinWidth="240" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
+                    <!--<ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />-->
                 </Grid.ColumnDefinitions>
                 <Button
                     Padding="6"
                     Background="{x:Null}"
                     BorderBrush="{x:Null}"
-                    ToolTipService.ToolTip="Copy URL (C)"
-                    Click="LinkCopyBtnClick">
+                    Click="LinkCopyBtnClick"
+                    ToolTipService.ToolTip="Copy URL (C)">
                     <Button.Content>
                         <FontIcon FontSize="16" Glyph="&#xE8C8;" />
                     </Button.Content>
@@ -127,44 +167,11 @@
                     FontSize="12"
                     IsSpellCheckEnabled="False"
                     IsTextPredictionEnabled="False"
-                    ToolTipService.ToolTip="Edit URL (E)"
                     PlaceholderText="URL"
-                    Text="{x:Bind ViewModel.Url, Mode=TwoWay}" />
-                <AppBarSeparator Grid.Column="2" />
-                <DropDownButton Grid.Column="3" Height="32">
-                    <DropDownButton.Content>
-                        <FontIcon FontSize="16" Glyph="&#xE700;" />
-                    </DropDownButton.Content>
-                    <DropDownButton.Flyout>
-                        <MenuFlyout>
-                            <MenuFlyoutItem
-                                Click="Button_Click_1"
-                                Tag="settings"
-                                Text="Rules">
-                                <MenuFlyoutItem.Icon>
-                                    <FontIcon Glyph="&#xE710;" />
-                                </MenuFlyoutItem.Icon>
-                            </MenuFlyoutItem>
-                            <MenuFlyoutItem
-                                Click="SettingsBtnClick"
-                                Tag="exit"
-                                Text="Settings">
-                                <MenuFlyoutItem.Icon>
-                                    <FontIcon Glyph="&#xE713;" />
-                                </MenuFlyoutItem.Icon>
-                            </MenuFlyoutItem>
-                            <MenuFlyoutSeparator />
-                            <MenuFlyoutItem
-                                Click="Button_Click"
-                                Tag="reload"
-                                Text="Timed">
-                                <MenuFlyoutItem.Icon>
-                                    <FontIcon Glyph="&#xE916;" />
-                                </MenuFlyoutItem.Icon>
-                            </MenuFlyoutItem>
-                        </MenuFlyout>
-                    </DropDownButton.Flyout>
-                </DropDownButton>
+                    Text="{x:Bind ViewModel.Url, Mode=TwoWay}"
+                    ToolTipService.ToolTip="Edit URL (E)" />
+                <!--<AppBarSeparator Grid.Column="2" />-->
+
             </Grid>
         </Border>
     </Grid>
