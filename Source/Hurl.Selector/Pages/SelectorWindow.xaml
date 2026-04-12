@@ -14,10 +14,16 @@
         <MicaBackdrop />
     </Window.SystemBackdrop>
 
-    <Grid Padding="8" RowSpacing="8">
+    <Grid
+        Padding="8"
+        KeyboardAcceleratorPlacementMode="Hidden"
+        RowSpacing="8">
         <Grid.KeyboardAccelerators>
             <KeyboardAccelerator Key="C" Invoked="CopyAccelerator_Invoked" />
-            <KeyboardAccelerator Key="E" Invoked="EditUrlAccelerator_Invoked" />
+            <KeyboardAccelerator
+                Key="E"
+                Invoked="EditUrlAccelerator_Invoked"
+                Modifiers="Menu" />
             <KeyboardAccelerator Key="R" Invoked="RulesAccelerator_Invoked" />
             <KeyboardAccelerator Key="Escape" Invoked="EscapeAccelerator_Invoked" />
         </Grid.KeyboardAccelerators>
@@ -144,8 +150,6 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition MinWidth="240" />
-                    <!--<ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />-->
                 </Grid.ColumnDefinitions>
                 <Button
                     Padding="6"
@@ -169,9 +173,7 @@
                     IsTextPredictionEnabled="False"
                     PlaceholderText="URL"
                     Text="{x:Bind ViewModel.Url, Mode=TwoWay}"
-                    ToolTipService.ToolTip="Edit URL (E)" />
-                <!--<AppBarSeparator Grid.Column="2" />-->
-
+                    ToolTipService.ToolTip="Edit URL (Alt+E)" />
             </Grid>
         </Border>
     </Grid>

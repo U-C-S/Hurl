@@ -258,8 +258,8 @@ public sealed partial class SelectorWindow : Window
             return;
         }
 
-        args.Handled = true;
         UrlTextBox.Focus(FocusState.Keyboard);
+        args.Handled = true;
     }
 
     private void RulesAccelerator_Invoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
