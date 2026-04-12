@@ -37,7 +37,7 @@ public sealed partial class SelectorWindow : Window
         windowManager.IsMaximizable = false;
         windowManager.IsMinimizable = false;
         windowManager.MinWidth = 500;
-        windowManager.MinHeight = 250;
+        windowManager.MinHeight = 260;
 
         //this.AppWindow.IsShownInSwitchers = false;
         AppWindow.ResizeClient(new Windows.Graphics.SizeInt32(600, 320));

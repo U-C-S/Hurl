@@ -1,9 +1,8 @@
 using Hurl.Library;
 using Microsoft.Windows.AppLifecycle;
 using System;
-using System.CommandLine;
-using System.CommandLine.Parsing;
 using System.Collections.Generic;
+using System.CommandLine;
 using System.IO;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;

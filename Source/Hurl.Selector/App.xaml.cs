@@ -4,7 +4,6 @@ using Hurl.Selector.Services;
 using Hurl.Selector.Services.Interfaces;
 using Hurl.Selector.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.UI.Dispatching;
 using Microsoft.Windows.AppLifecycle;
 using System;
 using System.Text.Json;

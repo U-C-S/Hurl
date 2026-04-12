@@ -16,10 +16,10 @@
 
     <Grid Padding="8" RowSpacing="8">
         <Grid.KeyboardAccelerators>
-            <KeyboardAccelerator Key="Escape" Invoked="EscapeAccelerator_Invoked" />
             <KeyboardAccelerator Key="C" Invoked="CopyAccelerator_Invoked" />
             <KeyboardAccelerator Key="E" Invoked="EditUrlAccelerator_Invoked" />
             <KeyboardAccelerator Key="R" Invoked="RulesAccelerator_Invoked" />
+            <KeyboardAccelerator Key="Escape" Invoked="EscapeAccelerator_Invoked" />
         </Grid.KeyboardAccelerators>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
