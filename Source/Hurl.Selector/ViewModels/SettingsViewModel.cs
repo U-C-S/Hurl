@@ -14,8 +14,9 @@ partial class SettingsViewModel : ObservableObject
 {
     private readonly ISettingsService _settingsService;
     private readonly string _settingsPath;
+
     [ObservableProperty]
-    private Settings _settings = new();
+    public partial Settings Settings { get; set; } = new();
 
     public SettingsViewModel()
     {

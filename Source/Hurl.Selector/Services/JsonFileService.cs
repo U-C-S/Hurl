@@ -1,5 +1,6 @@
-﻿using Hurl.Library;
+using Hurl.Library;
 using Hurl.Selector.Models;
+using Hurl.Selector.Serialization;
 using Hurl.Selector.Services.Interfaces;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -23,13 +24,8 @@ public class JsonFileService : ISettingsService
             return new Settings();
 
         var json = await File.ReadAllTextAsync(_settingsPath);
-        var options = new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true,
-            WriteIndented = true
-        };
-
-        var settings = JsonSerializer.Deserialize<Settings>(json, options);
+        var settings = JsonSerializer.Deserialize(json, SelectorJsonSerializerContext.Default.Settings);
+        settings ??= new Settings();
 
         // Ensure collections are initialized
         settings.Browsers ??= new ObservableCollection<Browser>();
@@ -43,13 +39,7 @@ public class JsonFileService : ISettingsService
 
     public async Task SaveSettingsAsync(Settings settings)
     {
-        var options = new JsonSerializerOptions
-        {
-            WriteIndented = true
-        };
-
-        var json = JsonSerializer.Serialize(settings, options);
+        var json = JsonSerializer.Serialize(settings, SelectorJsonSerializerContext.Default.Settings);
         await File.WriteAllTextAsync(_settingsPath, json);
     }
 }
-

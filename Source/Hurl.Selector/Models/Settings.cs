@@ -15,10 +15,10 @@ public partial class Settings : ObservableObject
     public string lastUpdated = DateTime.Now.ToString();
 
     [ObservableProperty]
-    public ObservableCollection<Browser> browsers = [];
+    public partial ObservableCollection<Browser> Browsers { get; set; } = [];
 
     [ObservableProperty]
-    public AppSettings appSettings = new();
+    public partial AppSettings AppSettings { get; set; } = new();
 
     //public List<Ruleset> Rulesets { get; set; } = [];
 

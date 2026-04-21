@@ -7,9 +7,11 @@ using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using WinRT;
 
 namespace Hurl.Selector.ViewModels;
 
+[GeneratedBindableCustomPropertyAttribute]
 public partial class SelectorPageViewModel : ObservableObject
 {
     private readonly ISettingsService _settingsService;
@@ -23,10 +25,10 @@ public partial class SelectorPageViewModel : ObservableObject
     }
 
     [ObservableProperty]
-    private string url = string.Empty;
+    public partial string Url { get; set; } = string.Empty;
 
     [ObservableProperty]
-    private ObservableCollection<Browser> browsers = new();
+    public partial ObservableCollection<Browser> Browsers { get; set; } = new();
 
     private async void LoadBrowsers()
     {
@@ -40,9 +42,23 @@ public partial class SelectorPageViewModel : ObservableObject
         }
     }
 
-    [RelayCommand]
-    private void LaunchBrowser(Browser browser)
+    private IRelayCommand<Browser>? launchBrowserCommand;
+
+    public IRelayCommand<Browser> LaunchBrowserCommand
     {
+        get
+        {
+            return launchBrowserCommand ??= new RelayCommand<Browser>(LaunchBrowser);
+        }
+    }
+
+    private void LaunchBrowser(Browser? browser)
+    {
+        if (browser is null)
+        {
+            return;
+        }
+
         Debug.WriteLine($"Launching {browser.Name} with URL: {Url}");
         try
         {

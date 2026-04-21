@@ -10,36 +10,35 @@ public partial class Browser : ObservableObject
 {
     public Browser(string Name, string ExePath)
     {
-        this.name = Name;
-        this.exePath = ExePath;
+        this.Name = Name;
+        this.ExePath = ExePath;
     }
 
     [ObservableProperty]
-    public string name = string.Empty;
+    public partial string Name { get; set; } = string.Empty;
 
     [ObservableProperty]
-    public string exePath = string.Empty;
+    public partial string ExePath { get; set; } = string.Empty;
 
     [ObservableProperty]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-    public bool isUwp = false;
+    [field: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public partial bool IsUwp { get; set; } = false;
+    [ObservableProperty]
+    public partial string? LaunchArgs { get; set; }
 
     [ObservableProperty]
-    public string? launchArgs;
+    public partial ObservableCollection<AlternateLaunch>? AlternateLaunches { get; set; }
 
     [ObservableProperty]
-    public ObservableCollection<AlternateLaunch>? alternateLaunches;
+    public partial string? CustomIconPath { get; set; }
 
     [ObservableProperty]
-    public string? customIconPath;
+    [field: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public partial bool Hidden { get; set; } = false;
 
     [ObservableProperty]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-    public bool hidden = false;
-
-    [ObservableProperty]
-    [JsonIgnore]
-    public BitmapImage? icon;
+    [field: JsonIgnore]
+    public partial BitmapImage? Icon { get; set; }
 
     [JsonIgnore]
     public Visibility ShowAdditionalBtn
@@ -56,8 +55,8 @@ public partial class Browser : ObservableObject
 public partial class AlternateLaunch(string ItemName, string LaunchArgs) : ObservableObject
 {
     [ObservableProperty]
-    public string itemName = ItemName;
+    public partial string ItemName { get; set; } = ItemName;
 
     [ObservableProperty]
-    public string launchArgs = LaunchArgs;
+    public partial string LaunchArgs { get; set; } = LaunchArgs;
 }

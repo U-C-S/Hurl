@@ -11,10 +11,12 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using Windows.ApplicationModel.DataTransfer;
+using WinRT;
 using WinUIEx;
 
 namespace Hurl.Selector.Pages;
 
+[GeneratedBindableCustomProperty]
 public sealed partial class SelectorWindow : Window
 {
     public SelectorPageViewModel ViewModel { get; }
