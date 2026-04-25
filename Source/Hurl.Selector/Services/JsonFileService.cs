@@ -37,6 +37,25 @@ public class JsonFileService : ISettingsService
         return settings;
     }
 
+    public Settings LoadSettings()
+    {
+        if (!File.Exists(_settingsPath))
+            return new Settings();
+
+        var json = File.ReadAllText(_settingsPath);
+        var settings = JsonSerializer.Deserialize(json, SelectorJsonSerializerContext.Default.Settings);
+        settings ??= new Settings();
+
+        // Ensure collections are initialized
+        settings.Browsers ??= new ObservableCollection<Browser>();
+        foreach (var browser in settings.Browsers)
+        {
+            browser.AlternateLaunches ??= new ObservableCollection<AlternateLaunch>();
+        }
+
+        return settings;
+    }
+
     public async Task SaveSettingsAsync(Settings settings)
     {
         var json = JsonSerializer.Serialize(settings, SelectorJsonSerializerContext.Default.Settings);

@@ -28,6 +28,7 @@ public sealed partial class SelectorWindow : Window
     private readonly MenuFlyout trayMenuFlyout;
     private bool allowWindowClose;
     private bool trayIconDisposed;
+    private bool isHiddenToTray;
 
     #region Window Lifecycle
     public SelectorWindow()
@@ -45,7 +46,8 @@ public sealed partial class SelectorWindow : Window
         windowManager.MinHeight = 260;
 
         //this.AppWindow.IsShownInSwitchers = false;
-        AppWindow.ResizeClient(new Windows.Graphics.SizeInt32(600, 320));
+        ApplyConfiguredWindowSize();
+        Activated += Window_Activated;
         Closed += SelectorWindow_Closed;
         trayMenuFlyout = CreateTrayMenuFlyout();
         trayIcon = CreateTrayIcon();
@@ -69,12 +71,27 @@ public sealed partial class SelectorWindow : Window
 
     private void Window_Deactivated(object sender, EventArgs e)
     {
+        if (isHiddenToTray)
+        {
+            return;
+        }
+
 #if DEBUG
         // No minimize on debug when not in focus
 #else
-        //var appSettings = Settings.AppSettings;
-        //if (!forcePreventWindowDeactivationEvent && appSettings.MinimizeOnFocusLoss) MinimizeWindow();
+        if (ViewModel.AppSettings.MinimizeOnFocusLoss)
+        {
+            MinimizeWindow();
+        }
 #endif
+    }
+
+    private void Window_Activated(object sender, WindowActivatedEventArgs args)
+    {
+        if (args.WindowActivationState == WindowActivationState.Deactivated)
+        {
+            Window_Deactivated(sender, EventArgs.Empty);
+        }
     }
 
     private void SelectorWindow_Closed(object sender, WindowEventArgs args)
@@ -88,44 +105,66 @@ public sealed partial class SelectorWindow : Window
 
         CleanupTrayIcon();
         ViewModel.BrowserLaunched -= ViewModel_BrowserLaunched;
+        Activated -= Window_Activated;
     }
 
     private void PositionWindowUnderTheMouse()
     {
-        //var appSettings = Settings.appSettings;
+        try
+        {
+            if (!ViewModel.AppSettings.LaunchUnderMouse)
+            {
+                return;
+            }
 
-        //try
-        //{
-        //    if (appSettings?.LaunchUnderMouse == true)
-        //    {
-        //        var transform = PresentationSource.FromVisual(this)?.CompositionTarget?.TransformFromDevice;
-        //        if (transform is Matrix t)
-        //        {
-        //            var mouse = t.Transform(CursorPosition.LimitCursorWithin((int)Width, (int)Height));
-        //            Left = mouse.X;
-        //            Top = mouse.Y;
+            var (width, height) = GetConfiguredWindowSize();
+            var scale = (Content as FrameworkElement)?.XamlRoot?.RasterizationScale ?? 1.0;
+            var position = CursorPosition.LimitCursorWithin(
+                (int)Math.Round(width * scale),
+                (int)Math.Round(height * scale));
 
-        //            Debug.WriteLine($"{Left}?{Top} with screen resolution: {SystemParameters.FullPrimaryScreenWidth}?{SystemParameters.FullPrimaryScreenHeight}");
-        //        }
-        //    }
-        //}
-        //catch (Exception) { }
+            this.MoveAndResize(position.X / scale, position.Y / scale, width, height);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+        }
     }
     #endregion
 
     #region Window Lifecycle Helper methods
     private void MinimizeWindow()
     {
+        isHiddenToTray = true;
         this.Minimize();
         this.Hide();
     }
 
     public void ShowWindow()
     {
+        isHiddenToTray = false;
         this.Show();
         this.Restore();
+        PositionWindowUnderTheMouse();
         Activate();
         this.SetForegroundWindow();
+    }
+
+    private void ApplyConfiguredWindowSize()
+    {
+        var (width, height) = GetConfiguredWindowSize();
+        this.SetWindowSize(width, height);
+    }
+
+    private (double Width, double Height) GetConfiguredWindowSize()
+    {
+        var windowSize = ViewModel.AppSettings.WindowSize;
+        double width = windowSize is { Length: >= 1 } ? windowSize[0] : 500;
+        double height = windowSize is { Length: >= 2 } ? windowSize[1] : 260;
+
+        width = Math.Max(width, windowManager?.MinWidth ?? 500);
+        height = Math.Max(height, windowManager?.MinHeight ?? 260);
+        return (width, height);
     }
 
     private void ReloadApp()

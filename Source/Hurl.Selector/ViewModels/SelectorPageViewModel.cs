@@ -11,7 +11,7 @@ using WinRT;
 
 namespace Hurl.Selector.ViewModels;
 
-[GeneratedBindableCustomPropertyAttribute]
+[GeneratedBindableCustomProperty]
 public partial class SelectorPageViewModel : ObservableObject
 {
     private readonly ISettingsService _settingsService;
@@ -22,7 +22,9 @@ public partial class SelectorPageViewModel : ObservableObject
     {
         _settingsService = settingsService;
         _iconLoader = iconLoader;
-        LoadBrowsers();
+        Settings settings = _settingsService.LoadSettings();
+        AppSettings = settings.AppSettings ?? new AppSettings();
+        LoadBrowsers(settings);
     }
 
     [ObservableProperty]
@@ -31,9 +33,11 @@ public partial class SelectorPageViewModel : ObservableObject
     [ObservableProperty]
     public partial ObservableCollection<Browser> Browsers { get; set; } = new();
 
-    private async void LoadBrowsers()
+    [ObservableProperty]
+    public partial AppSettings AppSettings { get; set; }
+
+    private async void LoadBrowsers(Settings settings)
     {
-        var settings = await _settingsService.LoadSettingsAsync();
         Browsers.Clear();
 
         foreach (var browser in settings.Browsers.Where(b => !b.Hidden))
