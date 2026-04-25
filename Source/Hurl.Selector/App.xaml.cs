@@ -35,7 +35,6 @@ public partial class App : Microsoft.UI.Xaml.Application
 
         services.AddSingleton<ISettingsService, JsonFileService>();
         services.AddSingleton<IIconLoader, IconLoaderService>();
-        services.AddTransient<SettingsViewModel>();
         services.AddTransient<SelectorPageViewModel>();
 
         return services.BuildServiceProvider();
