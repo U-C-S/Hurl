@@ -33,12 +33,14 @@ public sealed partial class SelectorWindow : Window
     public SelectorWindow()
     {
         ViewModel = App.Services.GetRequiredService<SelectorPageViewModel>();
+        ViewModel.BrowserLaunched += ViewModel_BrowserLaunched;
         ExtendsContentIntoTitleBar = true;
         this.AppWindow.TitleBar.PreferredHeightOption = Microsoft.UI.Windowing.TitleBarHeightOption.Tall;
 
         windowManager = WindowManager.Get(this);
         windowManager.IsMaximizable = false;
         windowManager.IsMinimizable = false;
+        windowManager.IsAlwaysOnTop = true;
         windowManager.MinWidth = 500;
         windowManager.MinHeight = 260;
 
@@ -85,6 +87,7 @@ public sealed partial class SelectorWindow : Window
         }
 
         CleanupTrayIcon();
+        ViewModel.BrowserLaunched -= ViewModel_BrowserLaunched;
     }
 
     private void PositionWindowUnderTheMouse()
@@ -143,6 +146,8 @@ public sealed partial class SelectorWindow : Window
     #endregion
 
     #region Selector UI Event Handlers
+    private void ViewModel_BrowserLaunched(object? sender, EventArgs e) => MinimizeWindow();
+
     private void LinkCopyBtnClick(object sender, RoutedEventArgs e)
     {
         try

@@ -16,6 +16,7 @@ public partial class SelectorPageViewModel : ObservableObject
 {
     private readonly ISettingsService _settingsService;
     private readonly IIconLoader _iconLoader;
+    public event EventHandler? BrowserLaunched;
 
     public SelectorPageViewModel(ISettingsService settingsService, IIconLoader iconLoader)
     {
@@ -62,7 +63,8 @@ public partial class SelectorPageViewModel : ObservableObject
         Debug.WriteLine($"Launching {browser.Name} with URL: {Url}");
         try
         {
-            UriLauncher.Default(Url, browser);
+            UriLauncher.ResolveAutomatically(Url, browser, null);
+            BrowserLaunched?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
         {
