@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Hurl.Selector (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Hurl.Selector (Unpackaged)": {
+      "commandName": "Project",
+      "commandLineArgs": "--uri keep.google.com"
+    }
+  }
+}

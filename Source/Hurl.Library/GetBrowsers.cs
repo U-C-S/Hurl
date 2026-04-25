@@ -1,6 +1,5 @@
 ﻿using Hurl.Library.Models;
 using Microsoft.Win32;
-using System.IO;
 
 namespace Hurl.Library;
 

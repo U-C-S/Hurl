@@ -102,7 +102,7 @@ Root: {#RootKey}; Subkey: "Software\RegisteredApplications"; ValueType: string; 
 
 Root: HKCR ; Subkey: "{#NameSmall}"; ValueType: string; ValueName: ""; ValueData: "URL:{#NameSmall}"; Tasks: protocol; Flags: uninsdeletekey deletevalue
 Root: HKCR ; Subkey: "{#NameSmall}"; ValueType: string; ValueName: "URL Protocol"; ValueData: ""; Tasks: protocol; Flags: uninsdeletekey
-Root: HKCR ; Subkey: "{#NameSmall}\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#ExeLauncher}"" ""%1"""; Tasks: protocol; Flags: uninsdeletekey deletevalue
+Root: HKCR ; Subkey: "{#NameSmall}\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#ExeLauncher}"" --uri ""%1"""; Tasks: protocol; Flags: uninsdeletekey deletevalue
 
 
 [CustomMessages]
