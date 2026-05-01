@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Hurl.Selector.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:models="using:Hurl.Selector.Models"
+    xmlns:viewModels="using:Hurl.Selector.ViewModels"
     x:Name="SelectorRoot"
     Title="Hurl - Select"
     mc:Ignorable="d">
@@ -93,7 +93,7 @@
             </ItemsRepeater.Layout>
 
             <ItemsRepeater.ItemTemplate>
-                <DataTemplate x:DataType="models:Browser">
+                <DataTemplate x:DataType="viewModels:BrowserItemViewModel">
                     <Grid>
                         <Button
                             Padding="4"

@@ -1,19 +1,40 @@
-﻿using Hurl.Selector.Services.Interfaces;
+using Hurl.Library.Models;
+using Hurl.Selector.Services.Interfaces;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System;
+using System.IO;
 using System.Threading.Tasks;
 using Windows.Storage;
+using Windows.Storage.FileProperties;
 
 namespace Hurl.Selector.Services;
 
 public class IconLoaderService : IIconLoader
 {
+    public async Task<BitmapImage?> LoadIconAsync(Browser browser)
+    {
+        if (!string.IsNullOrWhiteSpace(browser.CustomIconPath))
+        {
+            string customIconPath = browser.CustomIconPath.Trim('"');
+            return string.Equals(Path.GetExtension(customIconPath), ".ico", StringComparison.OrdinalIgnoreCase)
+                ? await LoadIconFromIco(customIconPath)
+                : await LoadIconFromImage(customIconPath);
+        }
+
+        if (!string.IsNullOrWhiteSpace(browser.ExePath))
+        {
+            return await LoadIconFromExe(browser.ExePath.Trim('"'));
+        }
+
+        return null;
+    }
+
     public async Task<BitmapImage?> LoadIconFromExe(string exePath)
     {
         try
         {
             var file = await StorageFile.GetFileFromPathAsync(exePath);
-            var thumb = await file.GetThumbnailAsync(Windows.Storage.FileProperties.ThumbnailMode.SingleItem);
+            var thumb = await file.GetThumbnailAsync(ThumbnailMode.SingleItem);
             if (thumb != null)
             {
                 var bitmap = new BitmapImage();
@@ -21,28 +42,54 @@ public class IconLoaderService : IIconLoader
                 return bitmap;
             }
         }
-        catch { }
+        catch
+        {
+        }
 
         return null;
     }
 
-    public Task<BitmapImage> LoadIconFromExe(string exePath, int iconIndex)
+    public Task<BitmapImage?> LoadIconFromExe(string exePath, int iconIndex)
     {
-        throw new NotImplementedException();
+        // TODO: Implement icon index handling. For now, load the default icon.
+        return LoadIconFromExe(exePath);
     }
 
-    public Task<BitmapImage> LoadIconFromIco(string icoPath)
+    public Task<BitmapImage?> LoadIconFromIco(string icoPath)
     {
-        throw new NotImplementedException();
+        return LoadBitmapFromFileAsync(icoPath);
     }
 
-    public Task<BitmapImage> LoadIconFromImage(string imagePath)
+    public Task<BitmapImage?> LoadIconFromImage(string imagePath)
     {
-        throw new NotImplementedException();
+        return LoadBitmapFromFileAsync(imagePath);
     }
 
-    public Task<BitmapImage> LoadIconFromURL(string url)
+    public Task<BitmapImage?> LoadIconFromURL(string url)
     {
-        throw new NotImplementedException();
+        try
+        {
+            return Task.FromResult<BitmapImage?>(new BitmapImage(new Uri(url)));
+        }
+        catch
+        {
+            return Task.FromResult<BitmapImage?>(null);
+        }
+    }
+
+    private static async Task<BitmapImage?> LoadBitmapFromFileAsync(string path)
+    {
+        try
+        {
+            var file = await StorageFile.GetFileFromPathAsync(path);
+            using var stream = await file.OpenReadAsync();
+            var bitmap = new BitmapImage();
+            await bitmap.SetSourceAsync(stream);
+            return bitmap;
+        }
+        catch
+        {
+            return null;
+        }
     }
 }

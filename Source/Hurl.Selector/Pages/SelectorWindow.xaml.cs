@@ -221,17 +221,17 @@ public sealed partial class SelectorWindow : Window
 
     private void BrowserButton_Loaded(object sender, RoutedEventArgs e)
     {
-        if (sender is Button button && button.Tag is Browser browser)
+        if (sender is Button button && button.Tag is BrowserItemViewModel browserItem)
         {
-            button.ContextFlyout = CreateAlternateLaunchFlyout(browser);
+            button.ContextFlyout = CreateAlternateLaunchFlyout(browserItem.Model);
         }
     }
 
     private void AdditionalBtn_Loaded(object sender, RoutedEventArgs e)
     {
-        if (sender is Button button && button.Tag is Browser browser)
+        if (sender is Button button && button.Tag is BrowserItemViewModel browserItem)
         {
-            var flyout = CreateAlternateLaunchFlyout(browser);
+            var flyout = CreateAlternateLaunchFlyout(browserItem.Model);
             button.Flyout = flyout;
             FlyoutBase.SetAttachedFlyout(button, flyout);
         }

@@ -31,7 +31,7 @@ public partial class SelectorPageViewModel : ObservableObject
     public partial string Url { get; set; } = string.Empty;
 
     [ObservableProperty]
-    public partial ObservableCollection<Browser> Browsers { get; set; } = new();
+    public partial ObservableCollection<BrowserItemViewModel> Browsers { get; set; } = new();
 
     [ObservableProperty]
     public partial AppSettings AppSettings { get; set; }
@@ -42,28 +42,32 @@ public partial class SelectorPageViewModel : ObservableObject
 
         foreach (var browser in settings.Browsers.Where(b => !b.Hidden))
         {
-            browser.Icon = await _iconLoader.LoadIconFromExe(browser.ExePath);
-            Browsers.Add(browser);
+            BrowserItemViewModel item = new(browser)
+            {
+                Icon = await _iconLoader.LoadIconAsync(browser)
+            };
+            Browsers.Add(item);
         }
     }
 
-    private IRelayCommand<Browser>? launchBrowserCommand;
+    private IRelayCommand<BrowserItemViewModel>? launchBrowserCommand;
 
-    public IRelayCommand<Browser> LaunchBrowserCommand
+    public IRelayCommand<BrowserItemViewModel> LaunchBrowserCommand
     {
         get
         {
-            return launchBrowserCommand ??= new RelayCommand<Browser>(LaunchBrowser);
+            return launchBrowserCommand ??= new RelayCommand<BrowserItemViewModel>(LaunchBrowser);
         }
     }
 
-    private void LaunchBrowser(Browser? browser)
+    private void LaunchBrowser(BrowserItemViewModel? browserItem)
     {
-        if (browser is null)
+        if (browserItem is null)
         {
             return;
         }
 
+        Browser browser = browserItem.Model;
         Debug.WriteLine($"Launching {browser.Name} with URL: {Url}");
         try
         {
