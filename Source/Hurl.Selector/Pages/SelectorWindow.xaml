@@ -129,7 +129,7 @@
                             Click="AdditionalBtn_Click"
                             Loaded="AdditionalBtn_Loaded"
                             Tag="{x:Bind}"
-                            Visibility="{x:Bind ShowAdditionalBtn, Mode=OneWay}">
+                            Visibility="{x:Bind local:SelectorWindow.CollectionToVisibilityConverter(AlternateLaunches), Mode=OneWay}">
                             <Button.Content>
                                 <FontIcon Glyph="&#xE712;" />
                             </Button.Content>

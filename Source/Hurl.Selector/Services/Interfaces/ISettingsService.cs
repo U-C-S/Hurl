@@ -1,4 +1,4 @@
-﻿using Hurl.Selector.Models;
+﻿using Hurl.Library.Models;
 using System.Threading.Tasks;
 
 namespace Hurl.Selector.Services.Interfaces;

@@ -1,81 +1,46 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.ObjectModel;
-using System.Drawing;
 using System.Text.Json.Serialization;
-using System.Windows;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace Hurl.Library.Models;
 
 public partial class Browser : ObservableObject
 {
-    [ObservableProperty]
-    public string name = string.Empty;
-
-    [ObservableProperty]
-    public string exePath = string.Empty;
-
-    [ObservableProperty]
-    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-    public bool isUwp = false;
-
-    [ObservableProperty]
-    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-    public string? launchArgs;
-
-    [ObservableProperty]
-    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-    public ObservableCollection<AlternateLaunch>? alternateLaunches;
-
-    [ObservableProperty]
-    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-    public string? customIconPath;
-
-    [ObservableProperty]
-    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-    public bool hidden = false;
-
-    [JsonIgnore]
-    public ImageSource? Icon
+    public Browser(string Name, string ExePath)
     {
-        get
-        {
-            if (!string.IsNullOrEmpty(CustomIconPath) && CustomIconPath.EndsWith(".ico"))
-            {
-                Icon RawIcon = new(CustomIconPath, -1, -1);
-                return IconUtilites.ToImageSource(RawIcon);
-            }
-            else if (!string.IsNullOrEmpty(CustomIconPath))
-            {
-                return new BitmapImage(new Uri(CustomIconPath));
-            }
-            else if (!string.IsNullOrEmpty(ExePath))
-            {
-                Icon? RawIcon = IconExtractor.FromFile(ExePath.Trim('"'));
-
-                return IconUtilites.ToImageSource(RawIcon);
-            }
-            else
-                return null;
-        }
+        this.Name = Name;
+        this.ExePath = ExePath;
     }
 
-    [JsonIgnore]
-    public Visibility ShowAdditionalBtn
-    {
-        get
-        {
-            return AlternateLaunches == null || AlternateLaunches.Count == 0 ? Visibility.Hidden : Visibility.Visible;
-        }
-    }
+    [ObservableProperty]
+    public partial string Name { get; set; } = string.Empty;
+
+    [ObservableProperty]
+    public partial string ExePath { get; set; } = string.Empty;
+
+    [ObservableProperty]
+    [field: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public partial bool IsUwp { get; set; } = false;
+
+    [ObservableProperty]
+    public partial string? LaunchArgs { get; set; }
+
+    [ObservableProperty]
+    public partial ObservableCollection<AlternateLaunch>? AlternateLaunches { get; set; }
+
+    [ObservableProperty]
+    public partial string? CustomIconPath { get; set; }
+
+    [ObservableProperty]
+    [field: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public partial bool Hidden { get; set; } = false;
 }
 
 public partial class AlternateLaunch(string ItemName, string LaunchArgs) : ObservableObject
 {
     [ObservableProperty]
-    public string itemName = ItemName;
+    public partial string ItemName { get; set; } = ItemName;
 
     [ObservableProperty]
-    public string launchArgs = LaunchArgs;
+    public partial string LaunchArgs { get; set; } = LaunchArgs;
 }

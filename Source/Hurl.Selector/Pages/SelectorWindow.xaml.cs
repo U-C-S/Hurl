@@ -1,6 +1,6 @@
 using Hurl.Library;
 using Hurl.Selector.Helpers;
-using Hurl.Selector.Models;
+using Hurl.Library.Models;
 using Hurl.Selector.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
@@ -8,6 +8,7 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Input;
 using System;
+using System.Collections;
 using System.Diagnostics;
 using System.IO;
 using Windows.ApplicationModel.DataTransfer;
@@ -202,6 +203,7 @@ public sealed partial class SelectorWindow : Window
     private void SettingsBtnClick(object sender, RoutedEventArgs e) => Process.Start(Constants.SETTINGS_APP, "--page settings");
 
     private void CloseBtnClick(object sender, RoutedEventArgs e) => MinimizeWindow();
+
     private void Button_Click(object sender, RoutedEventArgs e)
     {
         //forcePreventWindowDeactivationEvent = true;
@@ -439,6 +441,13 @@ public sealed partial class SelectorWindow : Window
         package.SetText(ViewModel.Url ?? string.Empty);
         Clipboard.SetContent(package);
         Clipboard.Flush();
+    }
+
+    public static Visibility CollectionToVisibilityConverter(ICollection? coll)
+    {
+        return coll is { Count: > 0 }
+            ? Visibility.Visible
+            : Visibility.Collapsed;
     }
     #endregion
 }

@@ -1,5 +1,5 @@
 using Hurl.Library;
-using Hurl.Selector.Models;
+using Hurl.Library.Models;
 using Hurl.Selector.Serialization;
 using Hurl.Selector.Services.Interfaces;
 using System.Collections.ObjectModel;

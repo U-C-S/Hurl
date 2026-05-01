@@ -1,7 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Hurl.Selector.Helpers;
-using Hurl.Selector.Models;
+using Hurl.Library.Models;
 using Hurl.Selector.Services.Interfaces;
 using System;
 using System.Collections.ObjectModel;

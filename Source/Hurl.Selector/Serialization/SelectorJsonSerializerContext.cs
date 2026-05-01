@@ -1,4 +1,4 @@
-using Hurl.Selector.Models;
+using Hurl.Library.Models;
 using System.Collections.ObjectModel;
 using System.Text.Json.Serialization;
 
