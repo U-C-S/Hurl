@@ -5,22 +5,22 @@ namespace Hurl.Library.Models;
 public partial class AppSettings : ObservableObject
 {
     [ObservableProperty]
-    public bool launchUnderMouse = false;
+    public partial bool LaunchUnderMouse { get; set; } = false;
 
     [ObservableProperty]
-    public bool minimizeOnFocusLoss = true;
+    public partial bool MinimizeOnFocusLoss { get; set; } = true;
 
     [ObservableProperty]
-    public bool noWhiteBorder = false;
+    public partial bool NoWhiteBorder { get; set; } = false;
 
     [ObservableProperty]
-    public string backgroundType = "mica";
+    public partial string BackgroundType { get; set; } = "mica";
 
     [ObservableProperty]
-    public bool ruleMatching = false;
+    public partial bool RuleMatching { get; set; } = false;
 
     [ObservableProperty]
-    public int[] windowSize = [420, 210];
+    public partial int[] WindowSize { get; set; } = [500, 260];
 }
 
 

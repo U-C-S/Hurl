@@ -84,6 +84,12 @@ public sealed partial class TestRules : Page
 
     private void CopyRuleButton_Click(object sender, RoutedEventArgs e)
     {
-        System.Windows.Clipboard.SetText(_RuleInput.Text);
+        //System.Windows.Clipboard.SetText(_RuleInput.Text);
+
+        var dataPackage = new Windows.ApplicationModel.DataTransfer.DataPackage();
+        dataPackage.SetText(_RuleInput.Text);
+        dataPackage.RequestedOperation = Windows.ApplicationModel.DataTransfer.DataPackageOperation.Copy;
+        Windows.ApplicationModel.DataTransfer.Clipboard.SetContent(dataPackage);
+
     }
 }

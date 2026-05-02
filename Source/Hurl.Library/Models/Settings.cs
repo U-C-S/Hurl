@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace Hurl.Library.Models;
 
-public partial class Settings: ObservableObject
+public partial class Settings : ObservableObject
 {
     [JsonPropertyName("$schema")]
     public string Schema { get; } = "https://raw.githubusercontent.com/U-C-S/Hurl/main/Utils/UserSettings.schema.json";
@@ -12,11 +12,11 @@ public partial class Settings: ObservableObject
     public string lastUpdated = DateTime.Now.ToString();
 
     [ObservableProperty]
-    public ObservableCollection<Browser> browsers = [];
+    public partial ObservableCollection<Browser> Browsers { get; set; } = [];
 
     [ObservableProperty]
-    public AppSettings appSettings = new();
+    public partial AppSettings AppSettings { get; set; } = new();
 
     [ObservableProperty]
-    public List<Ruleset> rulesets = [];
+    public partial List<Ruleset> Rulesets { get; set; } = [];
 }

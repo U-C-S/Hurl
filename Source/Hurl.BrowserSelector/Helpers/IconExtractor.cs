@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.InteropServices;
@@ -7,7 +8,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace Hurl.Library;
+namespace Hurl.BrowserSelector.Helpers;
 
 public static class IconExtractor
 {
@@ -34,7 +35,7 @@ public static class IconExtractor
 }
 
 // Thanks to https://stackoverflow.com/a/1127795
-internal static class IconUtilites
+public static class IconUtilites
 {
     // Avoids memory leak
     [DllImport("gdi32.dll", SetLastError = true)]

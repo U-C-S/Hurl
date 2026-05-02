@@ -1,6 +1,5 @@
 ﻿using Hurl.Library.Models;
 using Microsoft.Win32;
-using System.IO;
 
 namespace Hurl.Library;
 
@@ -31,7 +30,7 @@ public static class GetBrowsers
 
                 if (Name is string _Name && ExePath is string _ExePath)
                 {
-                    Browser b = new() { Name = Name, ExePath = ExePath };
+                    Browser b = new(Name, ExePath);
                     browsers.Add(b);
                 }
             }
