@@ -1,3 +1,3 @@
 [workspace]
 resolver = "2"
-members = ["./Source/Launcher"]
+members = ["./Source/Launcher", "Source/Hurl.NativeMessagingHost"]
