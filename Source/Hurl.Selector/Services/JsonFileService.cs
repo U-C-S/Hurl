@@ -1,6 +1,6 @@
 using Hurl.Library;
 using Hurl.Library.Models;
-using Hurl.Selector.Serialization;
+using Hurl.Library.Serialization;
 using Hurl.Selector.Services.Interfaces;
 using System.Collections.ObjectModel;
 using System.IO;

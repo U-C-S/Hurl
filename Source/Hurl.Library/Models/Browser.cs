@@ -6,6 +6,8 @@ namespace Hurl.Library.Models;
 
 public partial class Browser : ObservableObject
 {
+    public Browser() { }
+
     public Browser(string Name, string ExePath)
     {
         this.Name = Name;

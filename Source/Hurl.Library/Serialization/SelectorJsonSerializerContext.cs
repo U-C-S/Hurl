@@ -2,7 +2,7 @@ using Hurl.Library.Models;
 using System.Collections.ObjectModel;
 using System.Text.Json.Serialization;
 
-namespace Hurl.Selector.Serialization;
+namespace Hurl.Library.Serialization;
 
 [JsonSourceGenerationOptions(
     PropertyNameCaseInsensitive = true,
@@ -12,6 +12,4 @@ namespace Hurl.Selector.Serialization;
 [JsonSerializable(typeof(Browser))]
 [JsonSerializable(typeof(AlternateLaunch))]
 [JsonSerializable(typeof(ObservableCollection<Browser>))]
-internal partial class SelectorJsonSerializerContext : JsonSerializerContext
-{
-}
+public partial class SelectorJsonSerializerContext : JsonSerializerContext { }
