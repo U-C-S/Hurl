@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<UserControl
+    x:Class="Hurl.Selector.Controls.BrowserBarButton"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid
+        x:Name="BrowserTileRoot"
+        GotFocus="BrowserTile_GotFocus"
+        LostFocus="BrowserTile_LostFocus"
+        PointerEntered="BrowserTile_PointerEntered"
+        PointerExited="BrowserTile_PointerExited">
+        <Grid.RenderTransform>
+            <CompositeTransform ScaleX="0.985" ScaleY="0.985" />
+        </Grid.RenderTransform>
+        <Border
+            x:Name="BrowserTileBackground"
+            Background="#26262D27"
+            BorderBrush="#33FFFFFF"
+            BorderThickness="1"
+            CornerRadius="6"
+            Opacity="0" />
+        <Button
+            x:Name="LaunchButton"
+            Padding="4"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Background="Transparent"
+            BorderBrush="Transparent"
+            Command="{x:Bind LaunchCommand, Mode=OneWay}"
+            CommandParameter="{x:Bind BrowserItem, Mode=OneWay}">
+            <Grid RowSpacing="6">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Image Source="{x:Bind BrowserItem.Icon, Mode=OneWay}" />
+                <TextBlock
+                    Grid.Row="1"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Text="{x:Bind BrowserItem.Name, Mode=OneWay}"
+                    TextAlignment="Center"
+                    TextWrapping="NoWrap"
+                    ToolTipService.ToolTip="{x:Bind BrowserItem.Name, Mode=OneWay}" />
+            </Grid>
+        </Button>
+        <Button
+            x:Name="AdditionalBtn"
+            Margin="2"
+            Padding="5"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Background="{x:Null}"
+            BorderBrush="{x:Null}"
+            Click="AdditionalBtn_Click"
+            IsHitTestVisible="False"
+            IsTabStop="True"
+            Opacity="0"
+            ToolTipService.ToolTip="More launch options"
+            Visibility="{x:Bind AlternateLaunchVisibility, Mode=OneWay}">
+            <Button.RenderTransform>
+                <CompositeTransform
+                    ScaleX="0.88"
+                    ScaleY="0.88"
+                    TranslateY="-4" />
+            </Button.RenderTransform>
+            <Button.Content>
+                <FontIcon FontSize="14" Glyph="&#xE712;" />
+            </Button.Content>
+        </Button>
+    </Grid>
+</UserControl>

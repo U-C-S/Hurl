@@ -1,14 +1,12 @@
 using Hurl.Library;
+using Hurl.Selector.Controls;
 using Hurl.Selector.Helpers;
-using Hurl.Library.Models;
 using Hurl.Selector.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Input;
 using System;
-using System.Collections;
 using System.Diagnostics;
 using System.IO;
 using Windows.ApplicationModel.DataTransfer;
@@ -219,65 +217,11 @@ public sealed partial class SelectorWindow : Window
         Process.Start(Constants.SETTINGS_APP, "--page rulesets");
     }
 
-    private void BrowserButton_Loaded(object sender, RoutedEventArgs e)
+    private void BrowserBarButton_AlternateLaunchRequested(object? sender, AlternateLaunchRequestedEventArgs e)
     {
-        if (sender is Button button && button.Tag is BrowserItemViewModel browserItem)
-        {
-            button.ContextFlyout = CreateAlternateLaunchFlyout(browserItem.Model);
-        }
-    }
-
-    private void AdditionalBtn_Loaded(object sender, RoutedEventArgs e)
-    {
-        if (sender is Button button && button.Tag is BrowserItemViewModel browserItem)
-        {
-            var flyout = CreateAlternateLaunchFlyout(browserItem.Model);
-            button.Flyout = flyout;
-            FlyoutBase.SetAttachedFlyout(button, flyout);
-        }
-    }
-
-    private void AdditionalBtn_Click(object sender, RoutedEventArgs e)
-    {
-        if (sender is Button button)
-        {
-            FlyoutBase.ShowAttachedFlyout(button);
-        }
-    }
-
-    private MenuFlyout? CreateAlternateLaunchFlyout(Browser browser)
-    {
-        if (browser.AlternateLaunches is not { Count: > 0 } alternateLaunches)
-        {
-            return null;
-        }
-
-        MenuFlyout flyout = new();
-
-        foreach (var alternateLaunch in alternateLaunches)
-        {
-            MenuFlyoutItem item = new()
-            {
-                Text = alternateLaunch.ItemName,
-                Tag = new AlternateLaunchContext(browser, alternateLaunch)
-            };
-            item.Click += AlternateLaunch_Click;
-            flyout.Items.Add(item);
-        }
-
-        return flyout;
-    }
-
-    private void AlternateLaunch_Click(object sender, RoutedEventArgs e)
-    {
-        if (sender is not MenuFlyoutItem { Tag: AlternateLaunchContext context })
-        {
-            return;
-        }
-
         try
         {
-            UriLauncher.Alternative(ViewModel.Url, context.Browser, context.AlternateLaunch);
+            UriLauncher.Alternative(ViewModel.Url, e.Browser, e.AlternateLaunch);
             MinimizeWindow();
         }
         catch (Exception ex)
@@ -285,8 +229,6 @@ public sealed partial class SelectorWindow : Window
             Debug.WriteLine(ex);
         }
     }
-
-    private sealed record AlternateLaunchContext(Browser Browser, AlternateLaunch AlternateLaunch);
     #endregion
 
     #region Keyboard Accelerators
@@ -443,11 +385,5 @@ public sealed partial class SelectorWindow : Window
         Clipboard.Flush();
     }
 
-    public static Visibility CollectionToVisibilityConverter(ICollection? coll)
-    {
-        return coll is { Count: > 0 }
-            ? Visibility.Visible
-            : Visibility.Collapsed;
-    }
     #endregion
 }
