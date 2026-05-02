@@ -40,7 +40,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="$(PkgMicrosoft_WindowsAppSDK_Runtime)\include\WindowsAppSDK-VersionInfo.cs" />
+    <!-- <Compile Include="$(PkgMicrosoft_WindowsAppSDK_Runtime)\include\WindowsAppSDK-VersionInfo.cs" /> -->
     <ProjectReference Include="..\Hurl.Library\Hurl.Library.csproj" />
   </ItemGroup>
 

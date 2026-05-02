@@ -93,10 +93,10 @@ public partial class App : Application
             e.Exception?.InnerException?.Message,
             e.Exception?.Message,
             e.Exception?.StackTrace);
-        System.Windows.MessageBox.Show(errorMessage,
-                                       ErrorWndTitle,
-                                       System.Windows.MessageBoxButton.OK,
-                                       System.Windows.MessageBoxImage.Error);
+        //System.Windows.MessageBox.Show(errorMessage,
+        //                               ErrorWndTitle,
+        //                               System.Windows.MessageBoxButton.OK,
+        //                               System.Windows.MessageBoxImage.Error);
         Exit();
     }
 }

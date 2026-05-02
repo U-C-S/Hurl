@@ -23,14 +23,14 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
-		<PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.5" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.5" />
-		<PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.5" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.7" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.7" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.7" />
 		<PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
 		<PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.2.0" />
-		<PackageReference Include="System.Drawing.Common" Version="10.0.5" />
-		<PackageReference Include="WPF-UI" Version="4.2.0" />
-		<PackageReference Include="WPF-UI.Tray" Version="4.2.0" />
+		<PackageReference Include="System.Drawing.Common" Version="10.0.7" />
+		<PackageReference Include="WPF-UI" Version="4.2.1" />
+		<PackageReference Include="WPF-UI.Tray" Version="4.2.1" />
 	</ItemGroup>
 	<ItemGroup>
 	  <None Remove="Assets\internet.ico" />
