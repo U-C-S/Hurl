@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:Hurl.Library.Models"
     xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
     xmlns:viewmodels="using:Hurl.Settings.ViewModels"
     d:DataContext="{d:DesignInstance Type=viewmodels:EditBrowserPageViewModel}"
@@ -46,7 +47,7 @@
                     <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Advanced Options" />
 
                     <StackPanel>
-                        <toolkit:SettingsCard Description="Rules mentioning this browser will still keep working" Header="Hide from Selector">
+                        <toolkit:SettingsCard Description="Rules associated to this browser will keep working" Header="Hide in Selector">
                             <CheckBox Content="Hidden" IsChecked="{x:Bind ViewModel.Hidden, Mode=TwoWay}" />
                         </toolkit:SettingsCard>
                         <toolkit:SettingsCard Description="Configure the icon shown in the selector, instead of the one from executable" Header="Custom Icon">
@@ -63,7 +64,7 @@
                                     Text="{x:Bind ViewModel.CustomIconPath, Mode=TwoWay}" />
                             </StackPanel>
                         </toolkit:SettingsCard>
-                        <toolkit:SettingsCard Header="Launch Arguments">
+                        <toolkit:SettingsCard Header="Arguments">
                             <TextBox
                                 Width="180"
                                 MaxWidth="340"
@@ -74,40 +75,51 @@
                 </StackPanel>
 
                 <StackPanel Spacing="4">
-                    <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Alternate Launches" />
+                    <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Launch Profiles" />
 
-                    <ListView MaxHeight="160" ItemsSource="{x:Bind ViewModel.AlternateLaunches}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate xmlns:hurlLibraryModels="using:Hurl.Library.Models" x:DataType="hurlLibraryModels:AlternateLaunch">
-                                <Grid Padding="6" ColumnSpacing="8">
-                                    <TextBlock Grid.Column="0" Text="{x:Bind ItemName}" />
-                                    <TextBlock
-                                        Grid.Column="1"
-                                        Text="{x:Bind LaunchArgs}"
-                                        TextWrapping="WrapWholeWords" />
+                    <toolkit:SettingsExpander
+                        Description="Will be available in Selector, Ruleset configurations etc."
+                        Header="Configured Profiles"
+                        IsExpanded="True"
+                        ItemsSource="{x:Bind ViewModel.AlternateLaunches}">
+                        <toolkit:SettingsExpander.HeaderIcon>
+                            <FontIcon Glyph="&#xE8B0;" />
+                        </toolkit:SettingsExpander.HeaderIcon>
+                        <toolkit:SettingsExpander.ItemTemplate>
+                            <DataTemplate x:DataType="models:AlternateLaunch">
+                                <toolkit:SettingsCard Description="{x:Bind LaunchArgs}" Header="{x:Bind ItemName}">
                                     <Button
-                                        Grid.Column="2"
                                         Click="RemoveAlternate_Click"
-                                        Content="Remove" />
-                                </Grid>
+                                        Style="{StaticResource EllipsisButton}"
+                                        ToolTipService.ToolTip="Remove alternate launch">
+                                        <FontIcon Glyph="&#xE74D;" />
+                                    </Button>
+                                </toolkit:SettingsCard>
                             </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                        </toolkit:SettingsExpander.ItemTemplate>
+                    </toolkit:SettingsExpander>
 
-                    <StackPanel
-                        Margin="0,6,0,0"
-                        Orientation="Horizontal"
-                        Spacing="6">
-                        <TextBox
-                            x:Name="AltNameInput"
-                            Width="220"
-                            PlaceholderText="Alt name" />
-                        <TextBox
-                            x:Name="AltArgsInput"
-                            Width="300"
-                            PlaceholderText="Alt launch args" />
-                        <Button Click="AddAlternate_Click" Content="Add" />
-                    </StackPanel>
+                    <toolkit:SettingsCard Header="Add Launch Profile">
+                        <Grid ColumnSpacing="8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="AltNameInput" PlaceholderText="Name" />
+                            <TextBox
+                                x:Name="AltArgsInput"
+                                Grid.Column="1"
+                                PlaceholderText="Arguments" />
+                            <Button
+                                Grid.Column="2"
+                                Click="AddAlternate_Click"
+                                Style="{StaticResource AccentButtonStyle}"
+                                ToolTipService.ToolTip="Add alternate launch">
+                                Add
+                            </Button>
+                        </Grid>
+                    </toolkit:SettingsCard>
 
                     <StackPanel
                         Margin="0,12,0,0"
