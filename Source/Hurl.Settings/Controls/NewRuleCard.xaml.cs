@@ -10,13 +10,13 @@ public sealed partial class NewRuleCard : UserControl
     {
         InitializeComponent();
 
-        RuleTypeControl.ItemsSource = Enum.GetValues(typeof(RuleMode));
+        RuleTypeControl.ItemsSource = Enum.GetValues<RuleMode>();
     }
 
     public NewRuleCard(Rule rule)
     {
         InitializeComponent();
-        var ruleModes = Enum.GetValues(typeof(RuleMode));
+        var ruleModes = Enum.GetValues<RuleMode>();
 
         RuleTypeControl.ItemsSource = ruleModes;
         RuleTypeControl.SelectedIndex = Array.IndexOf(ruleModes, rule.Mode); ;

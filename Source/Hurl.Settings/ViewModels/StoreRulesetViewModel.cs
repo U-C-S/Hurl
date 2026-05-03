@@ -49,7 +49,7 @@ public class StoreRulesetViewModel : ObservableObject
             var x = settings.CurrentValue.Browsers[SelectedBrowser]
                 ?.AlternateLaunches
                 ?.Select(x => x.ItemName)
-                .ToList();
+                .ToList() ?? [];
             altLaunchList.AddRange(x);
             AltLaunches = altLaunchList;
             SelectedAltLaunch = altLaunchIndex + 1;

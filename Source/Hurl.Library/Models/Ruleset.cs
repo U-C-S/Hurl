@@ -31,7 +31,7 @@ public enum RuleMode
 
 public class Rule
 {
-    public Rule(string RuleContent, string Mode)
+    public Rule(string RuleContent, string? Mode)
     {
         this.RuleContent = RuleContent;
         this.Mode = Mode switch

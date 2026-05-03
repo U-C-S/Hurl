@@ -16,36 +16,35 @@ public class JsonFileService(IOptions<Library.Models.Settings> settings) : ISett
 
     private IOptions<Library.Models.Settings> settings = settings;
 
-    public async Task SaveSettingsAsync(Library.Models.Settings settings)
+    public void SaveSettings(Library.Models.Settings settings)
     {
         var options = new JsonSerializerOptions
         {
             WriteIndented = true,
-            TypeInfoResolver = SelectorJsonSerializerContext.Default
         };
-        var json = JsonSerializer.Serialize(settings, options);
-        await File.WriteAllTextAsync(_settingsPath, json);
+        var json = JsonSerializer.Serialize(settings, SelectorJsonSerializerContext.Default.Settings);
+        File.WriteAllText(_settingsPath, json);
     }
 
     public void UpdateAppSettings(AppSettings appSettings)
     {
         var settings = this.settings.Value;
         settings.AppSettings = appSettings;
-        SaveSettingsAsync(settings);
+        SaveSettings(settings);
     }
 
     public void UpdateBrowsers(ObservableCollection<Browser> browsers)
     {
         var settings = this.settings.Value;
         settings.Browsers = browsers;
-        SaveSettingsAsync(settings);
+        SaveSettings(settings);
     }
 
     public void UpdateRulesets(ObservableCollection<Ruleset> rulesets)
     {
         var settings = this.settings.Value;
         settings.Rulesets = [.. rulesets];
-        SaveSettingsAsync(settings);
+        SaveSettings(settings);
     }
 }
 

@@ -8,7 +8,7 @@ public interface ISettingsService
 {
     //Task<Settings> LoadSettingsAsync();
 
-    Task SaveSettingsAsync(Library.Models.Settings settings);
+    void SaveSettings(Library.Models.Settings settings);
 
     void UpdateAppSettings(AppSettings appSettings);
 
