@@ -11,5 +11,6 @@ namespace Hurl.Library.Serialization;
 [JsonSerializable(typeof(AppSettings))]
 [JsonSerializable(typeof(Browser))]
 [JsonSerializable(typeof(AlternateLaunch))]
+[JsonSerializable(typeof(Ruleset))]
 [JsonSerializable(typeof(ObservableCollection<Browser>))]
 public partial class SelectorJsonSerializerContext : JsonSerializerContext { }

@@ -6,20 +6,20 @@ namespace Hurl.Library.Models;
 public partial class Ruleset: ObservableObject
 {
     [ObservableProperty]
-    public Guid id = Guid.NewGuid();
+    public partial Guid Id { get; set; } = Guid.NewGuid();
 
     [ObservableProperty]
-    public List<string> rules = [];
+    public partial List<string> Rules { get; set; } = [];
 
     [ObservableProperty]
-    public string rulesetName = string.Empty;
+    public partial string RulesetName { get; set; } = string.Empty;
 
     [ObservableProperty]
-    public string browserName = string.Empty;
+    public partial string BrowserName { get; set; } = string.Empty;
 
     [ObservableProperty]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-    public int? altLaunchIndex;
+    [field: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public partial int? AltLaunchIndex { get; set; }
 }
 
 public enum RuleMode
