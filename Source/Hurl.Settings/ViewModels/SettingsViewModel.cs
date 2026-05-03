@@ -8,13 +8,13 @@ namespace Hurl.Settings.ViewModels;
 public partial class SettingsViewModel : ObservableObject
 {
     [ObservableProperty]
-    private AppSettings appSettings;
+    public partial AppSettings AppSettings { get; set; }
 
     private readonly ISettingsService _settingsService;
 
     public SettingsViewModel(IOptionsMonitor<Library.Models.Settings> settings, ISettingsService settingsService)
     {
-        appSettings = settings.CurrentValue.AppSettings;
+        AppSettings = settings.CurrentValue.AppSettings;
         _settingsService = settingsService;
     }
 

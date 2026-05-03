@@ -13,16 +13,16 @@ public partial class RulesetPageViewModel : ObservableObject
     private readonly ISettingsService _settingsService;
 
     [ObservableProperty]
-    private ObservableCollection<Ruleset> rulesets;
+    public partial ObservableCollection<Ruleset> Rulesets { get; set; }
 
     [ObservableProperty]
-    private AppSettings appSettings;
+    public partial AppSettings AppSettings { get; set; }
 
     public RulesetPageViewModel(IOptions<Library.Models.Settings> settings, ISettingsService settingsService)
     {
         this._settingsService = settingsService;
-        rulesets = new(settings.Value.Rulesets);
-        appSettings = settings.Value.AppSettings;
+        Rulesets = new(settings.Value.Rulesets);
+        AppSettings = settings.Value.AppSettings;
     }
 
     public bool Option_RuleMatching
@@ -41,50 +41,50 @@ public partial class RulesetPageViewModel : ObservableObject
 
     public void NewRuleset(Ruleset ruleset)
     {
-        rulesets.Add(ruleset);
-        _settingsService.UpdateRulesets(rulesets);
+        Rulesets.Add(ruleset);
+        _settingsService.UpdateRulesets(Rulesets);
     }
 
     public void EditRuleset(Ruleset ruleset)
     {
-        var existingRuleset = rulesets.First(x => x.Id == ruleset.Id);
-        var index = rulesets.IndexOf(existingRuleset);
+        var existingRuleset = Rulesets.First(x => x.Id == ruleset.Id);
+        var index = Rulesets.IndexOf(existingRuleset);
         if (index != -1)
         {
-            rulesets[index] = ruleset;
-            _settingsService.UpdateRulesets(rulesets);
+            Rulesets[index] = ruleset;
+            _settingsService.UpdateRulesets(Rulesets);
         }
     }
 
     public void MoveRulesetUp(Guid Id)
     {
-        var existingRuleset = rulesets.First(x => x.Id == Id);
-        var index = rulesets.IndexOf(existingRuleset);
+        var existingRuleset = Rulesets.First(x => x.Id == Id);
+        var index = Rulesets.IndexOf(existingRuleset);
         if (index > 0)
         {
-            rulesets.Move(index, index - 1);
-            _settingsService.UpdateRulesets(rulesets);
+            Rulesets.Move(index, index - 1);
+            _settingsService.UpdateRulesets(Rulesets);
         }
     }
 
     public void MoveRulesetDown(Guid Id)
     {
-        var existingRuleset = rulesets.First(x => x.Id == Id);
-        var index = rulesets.IndexOf(existingRuleset);
-        if (index != -1 && index < rulesets.Count - 1)
+        var existingRuleset = Rulesets.First(x => x.Id == Id);
+        var index = Rulesets.IndexOf(existingRuleset);
+        if (index != -1 && index < Rulesets.Count - 1)
         {
-            rulesets.Move(index, index + 1);
-            _settingsService.UpdateRulesets(rulesets);
+            Rulesets.Move(index, index + 1);
+            _settingsService.UpdateRulesets(Rulesets);
         }
     }
 
     public void DeleteRuleset(Guid Id)
     {
-        var existingRuleset = rulesets.First(x => x.Id == Id);
+        var existingRuleset = Rulesets.First(x => x.Id == Id);
         if (existingRuleset != null)
         {
-            rulesets.Remove(existingRuleset);
-            _settingsService.UpdateRulesets(rulesets);
+            Rulesets.Remove(existingRuleset);
+            _settingsService.UpdateRulesets(Rulesets);
         }
     }
 

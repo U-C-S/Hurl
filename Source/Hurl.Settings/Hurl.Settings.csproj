@@ -1,20 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Title>Hurl Settings</Title>
-    <AssemblyName>Hurl Settings</AssemblyName>
-    <Version>0.10.0</Version>
-    <FileVersion>0.10.0.27</FileVersion>
-    <ApplicationIcon>internet.ico</ApplicationIcon>
-    <Copyright>Copyright (c) 2025 Chanakya</Copyright>
-    <Product>Hurl</Product>
-    <Company>Chanakya</Company>
-    <Authors>U-C-S</Authors>
-    <PackageId>Hurl.Settings</PackageId>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>
-    <RootNamespace>Hurl.Settings</RootNamespace>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
     <Platforms>x64;ARM64</Platforms>
+    <PublishAot>true</PublishAot>
     <RuntimeIdentifiers Condition="$([MSBuild]::GetTargetFrameworkVersion('$(TargetFramework)')) &gt;= 8">
       win-x64;win-arm64</RuntimeIdentifiers>
     <PublishProfile>win10-$(Platform).pubxml</PublishProfile>
@@ -24,11 +13,23 @@
     <WindowsSdkPackageVersion>10.0.26100.56</WindowsSdkPackageVersion>
     <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
     <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
+		<EnableConfigurationBindingGenerator>true</EnableConfigurationBindingGenerator>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Content Include="internet.ico" />
-  </ItemGroup>
+  <PropertyGroup>
+    <PackageId>Hurl.Settings</PackageId>
+    <RootNamespace>Hurl.Settings</RootNamespace>
+    <Title>Hurl Settings</Title>
+    <AssemblyName>Hurl Settings</AssemblyName>
+    <Version>0.10.0</Version>
+    <FileVersion>0.10.0.27</FileVersion>
+    <Copyright>Copyright (c) 2025 Chanakya</Copyright>
+    <Product>Hurl</Product>
+    <Company>Chanakya</Company>
+    <Authors>U-C-S</Authors>
+    <ApplicationIcon>internet.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
@@ -36,38 +37,28 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.7" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.7" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.7" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.260416003" GeneratePathProperty="true" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="2.0.1" GeneratePathProperty="true" />
     <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.28000.1721" />
-    <PackageReference Include="Microsoft.WindowsAppSDK.Runtime" Version="1.8.260416003" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.28000.1839" />
+    <PackageReference Include="Microsoft.WindowsAppSDK.Runtime" Version="2.0.1" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 
-  <!-- 
-    Defining the "Msix" ProjectCapability here allows the Single-project MSIX Packaging
-    Tools extension to be activated for this project even if the Windows App SDK Nuget
-    package has not yet been restored.
-  -->
+  <ItemGroup>
+    <Content Include="internet.ico" />
+    <ProjectReference Include="..\Hurl.Library\Hurl.Library.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <DefineConstants>DISABLE_XAML_GENERATED_MAIN</DefineConstants>
+  </PropertyGroup>
   <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
     <ProjectCapability Include="Msix" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="$(PkgMicrosoft_WindowsAppSDK_Runtime)\include\WindowsAppSDK-VersionInfo.cs" />
-    <ProjectReference Include="..\Hurl.Library\Hurl.Library.csproj" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <WebView2EnableCsWinRTProjection>False</WebView2EnableCsWinRTProjection>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <DefineConstants>DISABLE_XAML_GENERATED_MAIN</DefineConstants>
-  </PropertyGroup>
-
-  <!-- 
-    Defining the "HasPackageAndPublishMenuAddedByProject" property here allows the Solution 
-    Explorer "Package and Publish" context menu entry to be enabled for this project even if 
-    the Windows App SDK Nuget package has not yet been restored.
-  -->
   <PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
     <HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
   </PropertyGroup>

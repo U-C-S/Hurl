@@ -1,4 +1,3 @@
-using Hurl.Library;
 using Hurl.Library.Models;
 using Hurl.Settings.ViewModels;
 using Microsoft.Extensions.DependencyInjection;

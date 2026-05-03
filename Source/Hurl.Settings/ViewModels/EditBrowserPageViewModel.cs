@@ -3,11 +3,6 @@ using Hurl.Library.Models;
 using Hurl.Settings.Services.Interfaces;
 using Microsoft.Extensions.Options;
 using System.Collections.ObjectModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hurl.Settings.ViewModels
 {
@@ -17,22 +12,22 @@ namespace Hurl.Settings.ViewModels
         public bool IsNewBrowser { get; }
 
         [ObservableProperty]
-        private string name = string.Empty;
+        public partial string Name { get; set; } = string.Empty;
 
         [ObservableProperty]
-        private string exePath = string.Empty;
+        public partial string ExePath { get; set; } = string.Empty;
 
         [ObservableProperty]
-        private string launchArgs = string.Empty;
+        public partial string LaunchArgs { get; set; } = string.Empty;
 
         [ObservableProperty]
-        private bool hidden = false;
+        public partial bool Hidden { get; set; } = false;
 
         [ObservableProperty]
-        private string? customIconPath;
+        public partial string? CustomIconPath { get; set; }
 
         [ObservableProperty]
-        private ObservableCollection<AlternateLaunch> alternateLaunches = new();
+        public partial ObservableCollection<AlternateLaunch> AlternateLaunches { get; set; } = new();
 
         private readonly ObservableCollection<Browser> browsers;
         private readonly ISettingsService settingsService;

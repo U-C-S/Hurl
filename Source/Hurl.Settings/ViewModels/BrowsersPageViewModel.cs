@@ -2,25 +2,23 @@
 using Hurl.Library.Models;
 using Hurl.Settings.Services.Interfaces;
 using Microsoft.Extensions.Options;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 
 namespace Hurl.Settings.ViewModels;
 
-internal partial class BrowsersPageViewModel: ObservableObject
+internal partial class BrowsersPageViewModel : ObservableObject
 {
     [ObservableProperty]
-    public ObservableCollection<Browser> browsers;
+    public partial ObservableCollection<Browser> Browsers { get; set; }
 
     private ISettingsService settingsService;
 
     public BrowsersPageViewModel(IOptionsMonitor<Library.Models.Settings> settings, ISettingsService settingsService)
     {
         this.settingsService = settingsService;
-        browsers = settings.CurrentValue.Browsers;
+        Browsers = settings.CurrentValue.Browsers;
 
         //settings.OnChange((s, _) =>
         //{

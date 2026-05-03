@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Hurl.Settings.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:Hurl.Library.Models"
     xmlns:uc="using:Hurl.Settings.Controls"
     xmlns:vm="using:Hurl.Settings.ViewModels"
     mc:Ignorable="d">
@@ -30,8 +31,8 @@
                     </Style>
                 </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ctlabs:SettingsCard Description="{Binding ExePath}" Header="{Binding Name}">
+                    <DataTemplate x:DataType="models:Browser">
+                        <ctlabs:SettingsCard Description="{x:Bind ExePath}" Header="{x:Bind Name}">
                             <ctlabs:SettingsCard.HeaderIcon>
                                 <FontIcon Glyph="&#xE8B0;" />
                             </ctlabs:SettingsCard.HeaderIcon>

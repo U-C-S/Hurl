@@ -1,7 +1,7 @@
 using Hurl.Library;
 using Hurl.Library.Models;
+using Hurl.Library.Serialization;
 using Hurl.Settings.Services.Interfaces;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -20,9 +20,9 @@ public class JsonFileService(IOptions<Library.Models.Settings> settings) : ISett
     {
         var options = new JsonSerializerOptions
         {
-            WriteIndented = true
+            WriteIndented = true,
+            TypeInfoResolver = SelectorJsonSerializerContext.Default
         };
-
         var json = JsonSerializer.Serialize(settings, options);
         await File.WriteAllTextAsync(_settingsPath, json);
     }
