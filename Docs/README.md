@@ -42,7 +42,7 @@ The following snippet shows the default options:
     "NoWhiteBorder": false,
     "BackgroundType": "mica",
     "RuleMatching": false,
-    "WindowSize": [460,210]
+    "WindowSize": [460,230]
 }
 ```
 

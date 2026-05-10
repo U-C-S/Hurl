@@ -69,8 +69,8 @@
         },
         "BackgroundType": {
           "type": "string",
-          "description": "The type of background to use for the browser window. mica or acrylic.",
-          "enum": ["mica", "acrylic"]
+          "description": "The type of background to use for the browser window. mica, acrylic, or solid.",
+          "enum": ["mica", "acrylic", "solid"]
         },
         "WindowSize": {
           "type": "array",
@@ -96,8 +96,8 @@
             "type": "array",
             "items": {
               "type": "string",
-              "description": "The URL pattern prefixed with s$, g$, r$ or d$, followed by the pattern to match. s$ = simple string, r$ = regex, d$ = domain.",
-              "pattern": "^(s\\$|r\\$|d\\$).*"
+              "description": "The URL pattern, optionally prefixed with s$, r$, or d$. The prefix selects how the pattern is matched; an unprefixed value is treated as a simple string. s$ = simple string, r$ = regex, d$ = domain.",
+              "pattern": "^(s\\$|r\\$|d\\$)?.+$"
             }
           },
           "BrowserName": {
