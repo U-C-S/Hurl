@@ -13,16 +13,12 @@
         LostFocus="BrowserTile_LostFocus"
         PointerEntered="BrowserTile_PointerEntered"
         PointerExited="BrowserTile_PointerExited">
-        <Grid.RenderTransform>
-            <CompositeTransform ScaleX="0.985" ScaleY="0.985" />
-        </Grid.RenderTransform>
         <Border
             x:Name="BrowserTileBackground"
             Background="#26262D27"
             BorderBrush="#33FFFFFF"
             BorderThickness="1"
-            CornerRadius="6"
-            Opacity="0" />
+            CornerRadius="6" />
         <Button
             x:Name="LaunchButton"
             Padding="4"
@@ -57,16 +53,8 @@
             BorderBrush="{x:Null}"
             Click="AdditionalBtn_Click"
             IsHitTestVisible="False"
-            IsTabStop="True"
-            Opacity="0"
             ToolTipService.ToolTip="More launch options"
             Visibility="{x:Bind AlternateLaunchVisibility, Mode=OneWay}">
-            <Button.RenderTransform>
-                <CompositeTransform
-                    ScaleX="0.88"
-                    ScaleY="0.88"
-                    TranslateY="-4" />
-            </Button.RenderTransform>
             <Button.Content>
                 <FontIcon FontSize="14" Glyph="&#xE712;" />
             </Button.Content>

@@ -1,18 +1,27 @@
 using Hurl.Library.Models;
 using Hurl.Selector.ViewModels;
+using Microsoft.UI.Composition;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
+using Microsoft.UI.Xaml.Hosting;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Media.Animation;
 using System;
+using System.Numerics;
 using System.Windows.Input;
 
 namespace Hurl.Selector.Controls;
 
 public sealed partial class BrowserBarButton : UserControl
 {
+    private const float InactiveTileScale = 0.985f;
+    private const float InactiveAdditionalScale = 0.88f;
+    private const float InactiveAdditionalOffsetY = -4f;
+    private static readonly TimeSpan BackgroundAnimationDuration = TimeSpan.FromMilliseconds(160);
+    private static readonly TimeSpan TileAnimationDuration = TimeSpan.FromMilliseconds(180);
+    private static readonly TimeSpan AdditionalAnimationDuration = TimeSpan.FromMilliseconds(140);
+
     private readonly BrowserTileInteractionState interactionState = new();
     private readonly bool isInitialized;
 
@@ -20,6 +29,7 @@ public sealed partial class BrowserBarButton : UserControl
     public BrowserBarButton()
     {
         InitializeComponent();
+        InitializeInteractionVisualState();
         isInitialized = true;
     }
 
@@ -187,42 +197,96 @@ public sealed partial class BrowserBarButton : UserControl
 
         interactionState.IsActive = isActive;
 
-        AnimateDouble(BrowserTileBackground, nameof(Opacity), isActive ? 1 : 0, 160);
-
-        if (BrowserTileRoot.RenderTransform is CompositeTransform tileTransform)
-        {
-            AnimateDouble(tileTransform, nameof(CompositeTransform.ScaleX), isActive ? 1 : 0.985, 180);
-            AnimateDouble(tileTransform, nameof(CompositeTransform.ScaleY), isActive ? 1 : 0.985, 180);
-        }
-
         AdditionalBtn.IsHitTestVisible = isActive;
         AdditionalBtn.IsTabStop = isActive;
-        AnimateDouble(AdditionalBtn, nameof(Opacity), isActive ? 1 : 0, 140);
-
-        if (AdditionalBtn.RenderTransform is CompositeTransform transform)
-        {
-            AnimateDouble(transform, nameof(CompositeTransform.TranslateY), isActive ? 0 : -4, 180);
-            AnimateDouble(transform, nameof(CompositeTransform.ScaleX), isActive ? 1 : 0.88, 180);
-            AnimateDouble(transform, nameof(CompositeTransform.ScaleY), isActive ? 1 : 0.88, 180);
-        }
+        AnimateInteractionVisualState(isActive);
     }
 
-    private static void AnimateDouble(DependencyObject target, string property, double to, double milliseconds)
+    private void InitializeInteractionVisualState()
     {
-        DoubleAnimation animation = new()
-        {
-            To = to,
-            Duration = TimeSpan.FromMilliseconds(milliseconds),
-            EnableDependentAnimation = true,
-            EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut }
-        };
+        BrowserTileRoot.SizeChanged += (_, _) => UpdateVisualCenterPoints();
+        AdditionalBtn.SizeChanged += (_, _) => UpdateVisualCenterPoints();
+        SetInteractionVisualState(isActive: false);
+    }
 
-        Storyboard.SetTarget(animation, target);
-        Storyboard.SetTargetProperty(animation, property);
+    private void AnimateInteractionVisualState(bool isActive)
+    {
+        var backgroundVisual = ElementCompositionPreview.GetElementVisual(BrowserTileBackground);
+        var tileVisual = ElementCompositionPreview.GetElementVisual(BrowserTileRoot);
+        var additionalVisual = ElementCompositionPreview.GetElementVisual(AdditionalBtn);
 
-        Storyboard storyboard = new();
-        storyboard.Children.Add(animation);
-        storyboard.Begin();
+        StartScalarAnimation(backgroundVisual, "Opacity", isActive ? 1f : 0f, BackgroundAnimationDuration);
+        StartVector3Animation(
+            tileVisual,
+            "Scale",
+            CreateUniformScale(isActive ? 1f : InactiveTileScale),
+            TileAnimationDuration);
+        StartScalarAnimation(additionalVisual, "Opacity", isActive ? 1f : 0f, AdditionalAnimationDuration);
+        StartVector3Animation(
+            additionalVisual,
+            "Scale",
+            CreateUniformScale(isActive ? 1f : InactiveAdditionalScale),
+            TileAnimationDuration);
+        StartVector3Animation(
+            additionalVisual,
+            "Offset",
+            new Vector3(0, isActive ? 0 : InactiveAdditionalOffsetY, 0),
+            TileAnimationDuration);
+    }
+
+    private void SetInteractionVisualState(bool isActive)
+    {
+        var backgroundVisual = ElementCompositionPreview.GetElementVisual(BrowserTileBackground);
+        var tileVisual = ElementCompositionPreview.GetElementVisual(BrowserTileRoot);
+        var additionalVisual = ElementCompositionPreview.GetElementVisual(AdditionalBtn);
+
+        backgroundVisual.Opacity = isActive ? 1f : 0f;
+        tileVisual.Scale = CreateUniformScale(isActive ? 1f : InactiveTileScale);
+        additionalVisual.Opacity = isActive ? 1f : 0f;
+        additionalVisual.Scale = CreateUniformScale(isActive ? 1f : InactiveAdditionalScale);
+        additionalVisual.Offset = new Vector3(0, isActive ? 0 : InactiveAdditionalOffsetY, 0);
+        UpdateVisualCenterPoints();
+    }
+
+    private void UpdateVisualCenterPoints()
+    {
+        ElementCompositionPreview.GetElementVisual(BrowserTileRoot).CenterPoint = new Vector3(
+            (float)BrowserTileRoot.ActualWidth / 2,
+            (float)BrowserTileRoot.ActualHeight / 2,
+            0);
+
+        ElementCompositionPreview.GetElementVisual(AdditionalBtn).CenterPoint = new Vector3(
+            (float)AdditionalBtn.ActualWidth / 2,
+            (float)AdditionalBtn.ActualHeight / 2,
+            0);
+    }
+
+    private static void StartScalarAnimation(Visual visual, string property, float to, TimeSpan duration)
+    {
+        var animation = visual.Compositor.CreateScalarKeyFrameAnimation();
+        animation.InsertKeyFrame(1f, to, CreateEaseOut(visual));
+        animation.Duration = duration;
+        visual.StartAnimation(property, animation);
+    }
+
+    private static void StartVector3Animation(Visual visual, string property, Vector3 to, TimeSpan duration)
+    {
+        var animation = visual.Compositor.CreateVector3KeyFrameAnimation();
+        animation.InsertKeyFrame(1f, to, CreateEaseOut(visual));
+        animation.Duration = duration;
+        visual.StartAnimation(property, animation);
+    }
+
+    private static CompositionEasingFunction CreateEaseOut(Visual visual)
+    {
+        return visual.Compositor.CreateCubicBezierEasingFunction(
+            new Vector2(0.16f, 1f),
+            new Vector2(0.3f, 1f));
+    }
+
+    private static Vector3 CreateUniformScale(float scale)
+    {
+        return new Vector3(scale, scale, 1);
     }
     #endregion
 
