@@ -1,13 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.5.11716.220 stable
+VisualStudioVersion = 18.5.11716.220
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hurl.BrowserSelector", "Source\Hurl.BrowserSelector\Hurl.BrowserSelector.csproj", "{3B8293BB-A929-44CD-BC07-EC718CB60823}"
-	ProjectSection(ProjectDependencies) = postProject
-		{30822343-5DFD-4B1A-AD87-14396AA8B995} = {30822343-5DFD-4B1A-AD87-14396AA8B995}
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hurl.Library", "Source\Hurl.Library\Hurl.Library.csproj", "{30822343-5DFD-4B1A-AD87-14396AA8B995}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hurl.Settings", "Source\Hurl.Settings\Hurl.Settings.csproj", "{C4DB15A3-1D60-437C-BD29-688E9E280E87}"
@@ -26,22 +21,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3B8293BB-A929-44CD-BC07-EC718CB60823}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3B8293BB-A929-44CD-BC07-EC718CB60823}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3B8293BB-A929-44CD-BC07-EC718CB60823}.Debug|ARM64.ActiveCfg = Debug|Any CPU
-		{3B8293BB-A929-44CD-BC07-EC718CB60823}.Debug|ARM64.Build.0 = Debug|Any CPU
-		{3B8293BB-A929-44CD-BC07-EC718CB60823}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{3B8293BB-A929-44CD-BC07-EC718CB60823}.Debug|x64.Build.0 = Debug|Any CPU
-		{3B8293BB-A929-44CD-BC07-EC718CB60823}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{3B8293BB-A929-44CD-BC07-EC718CB60823}.Debug|x86.Build.0 = Debug|Any CPU
-		{3B8293BB-A929-44CD-BC07-EC718CB60823}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3B8293BB-A929-44CD-BC07-EC718CB60823}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3B8293BB-A929-44CD-BC07-EC718CB60823}.Release|ARM64.ActiveCfg = Release|Any CPU
-		{3B8293BB-A929-44CD-BC07-EC718CB60823}.Release|ARM64.Build.0 = Release|Any CPU
-		{3B8293BB-A929-44CD-BC07-EC718CB60823}.Release|x64.ActiveCfg = Release|Any CPU
-		{3B8293BB-A929-44CD-BC07-EC718CB60823}.Release|x64.Build.0 = Release|Any CPU
-		{3B8293BB-A929-44CD-BC07-EC718CB60823}.Release|x86.ActiveCfg = Release|Any CPU
-		{3B8293BB-A929-44CD-BC07-EC718CB60823}.Release|x86.Build.0 = Release|Any CPU
 		{30822343-5DFD-4B1A-AD87-14396AA8B995}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{30822343-5DFD-4B1A-AD87-14396AA8B995}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30822343-5DFD-4B1A-AD87-14396AA8B995}.Debug|ARM64.ActiveCfg = Debug|Any CPU
