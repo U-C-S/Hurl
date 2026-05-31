@@ -1,5 +1,4 @@
-﻿using Microsoft.Windows.ApplicationModel.DynamicDependency;
-using Microsoft.Windows.AppLifecycle;
+﻿using Microsoft.Windows.AppLifecycle;
 using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
@@ -17,7 +16,6 @@ public partial class Program
     [global::System.STAThreadAttribute]
     static void Main(string[] args)
     {
-        InitializeWASDK();
         XamlCheckProcessRequirements();
         global::WinRT.ComWrappersSupport.InitializeComWrappers();
 
@@ -32,38 +30,6 @@ public partial class Program
                 var x = new App();
             });
         }
-    }
-
-    public static bool InitializeWASDK()
-    {
-        uint minSupportedMinorVersion = global::Microsoft.WindowsAppSDK.Release.MajorMinor; // 0x00010005
-        uint maxSupportedMinorVersion = 0x00010008;
-        for (uint version = minSupportedMinorVersion; version <= maxSupportedMinorVersion; version++)
-        {
-            if (global::Microsoft.Windows.ApplicationModel.DynamicDependency.Bootstrap.TryInitialize(version, out _))
-                return true;
-        }
-
-        // Failure in trying to initialize supported versions.
-        // Try one last time in the WINDOWSAPPSDK_BOOTSTRAP_AUTO_INITIALIZE way
-        // that <WindowsPackageType>None</WindowsPackageType> property does.
-        try
-        {
-            string versionTag = global::Microsoft.WindowsAppSDK.Release.VersionTag;
-            var minVersion = new PackageVersion(global::Microsoft.WindowsAppSDK.Runtime.Version.UInt64);
-            var options = global::Microsoft.Windows.ApplicationModel.DynamicDependency.Bootstrap.InitializeOptions.OnNoMatch_ShowUI;
-            int hr = 0;
-            if (!global::Microsoft.Windows.ApplicationModel.DynamicDependency.Bootstrap.TryInitialize(minSupportedMinorVersion, versionTag, minVersion, options, out hr))
-            {
-                Environment.Exit(hr);
-            }
-        }
-        catch (Exception ex)
-        {
-            throw new Exception("Error in initializing the default version of Windows App Runtime", ex);
-        }
-
-        return false;
     }
 
     private static bool DecideRedirection()
