@@ -7,7 +7,10 @@ cargo build --release --workspace
 Write-Output "Building Hurl...."
 dotnet restore
 
+Write-Output "Building Hurl Settings app...."
 dotnet publish .\Source\Hurl.Settings\Hurl.Settings.csproj -c Release -r win-x64 -o .\_Publish
+
+Write-Output "Building Hurl Selector app...."
 dotnet publish .\Source\Hurl.Selector\Hurl.Selector.csproj -c Release -r win-x64 -o .\_Publish
 
 Write-Output "Building Installer...."

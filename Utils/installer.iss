@@ -1,6 +1,6 @@
 #define MyAppName "Hurl"
 #define NameSmall "hurl"
-#define MyAppVersion "0.10.0.27"
+#define MyAppVersion "0.10.0.002"
 #define MyAppPublisher "U-C-S"
 #define MyAppURL "https://github.com/U-C-S/Hurl"
 #define ExeNativeHost "NativeMessagingHost.exe"
