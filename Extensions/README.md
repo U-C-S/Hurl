@@ -14,9 +14,9 @@ Run the `install-nmh.ps1` script as admin located in `{installationDir}/Extensio
 
 ```powershell
 cd {installationDir}
-.\Extensions\install-nmh.ps1 {EXTENSION_ID} {<optional> dir_where_Launcher.exe_is}
+.\Extensions\install-nmh.ps1 {EXTENSION_ID} {<optional> dir_where_NativeMessagingHost.exe_is}
 ```
 
 You can modify the script to use it for other chromium-based browsers by editing the REG command in it and pointing to appropriate browser's registry key for Native Messaging Hosts.
 
-During **Development**, use the `dir_where_Launcher.exe_is` to point to the directory where the _Launcher.exe_ is located (usually to `Source/Launcher/target/debug`).
+During **Development**, use the `dir_where_NativeMessagingHost.exe_is` to point to the directory where the _NativeMessagingHost.exe_ is located (usually `target/debug`).

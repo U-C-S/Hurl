@@ -15,7 +15,7 @@ $NMH_MANIFEST = @"
 {
   "name": "com.3721tools.hurl",
   "description": "Hurl Proxy Native Messaging Host",
-  "path": "$CURRENT_DIR/Launcher.exe",
+  "path": "$CURRENT_DIR/NativeMessagingHost.exe",
   "type": "stdio",
   "allowed_origins": ["chrome-extension://$EXTENSION_ID/"]
 }
@@ -25,7 +25,7 @@ $NMH_MANIFEST = @"
 # {
 #   "name": "com.3721tools.hurl",
 #   "description": "Hurl Proxy Native Messaging Host",
-#   "path": "$CURRENT_DIR/Launcher.exe",
+#   "path": "$CURRENT_DIR/NativeMessagingHost.exe",
 #   "type": "stdio",
 #   "allowed_extensions": ["chrome-extension://$EXTENSION_ID/"]
 # }
