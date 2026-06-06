@@ -113,6 +113,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition MinWidth="240" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <Button
                     Padding="6"
@@ -137,6 +138,17 @@
                     PlaceholderText="URL"
                     Text="{x:Bind ViewModel.Url, Mode=TwoWay}"
                     ToolTipService.ToolTip="Edit URL (Alt+E)" />
+                <Button
+                    Grid.Column="2"
+                    Padding="6"
+                    Background="{x:Null}"
+                    BorderBrush="{x:Null}"
+                    Click="QuickViewBtnClick"
+                    ToolTipService.ToolTip="Quick View">
+                    <Button.Content>
+                        <FontIcon FontSize="16" Glyph="&#xE8A7;" />
+                    </Button.Content>
+                </Button>
             </Grid>
         </Border>
     </Grid>

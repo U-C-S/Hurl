@@ -1,6 +1,7 @@
 using Hurl.Library;
 using Hurl.Selector.Controls;
 using Hurl.Selector.Helpers;
+using Hurl.Selector.Services.Interfaces;
 using Hurl.Selector.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
@@ -19,6 +20,7 @@ namespace Hurl.Selector.Pages;
 public sealed partial class SelectorWindow : Window
 {
     public SelectorPageViewModel ViewModel { get; }
+    private readonly IQuickViewService quickViewService;
 
     private WindowManager? windowManager;
 
@@ -32,7 +34,9 @@ public sealed partial class SelectorWindow : Window
     #region Window Lifecycle
     public SelectorWindow()
     {
-        ViewModel = App.Services.GetRequiredService<SelectorPageViewModel>();
+        IServiceProvider services = App.Services ?? throw new InvalidOperationException("Application services are not configured.");
+        ViewModel = services.GetRequiredService<SelectorPageViewModel>();
+        quickViewService = services.GetRequiredService<IQuickViewService>();
         ViewModel.BrowserLaunched += ViewModel_BrowserLaunched;
         ExtendsContentIntoTitleBar = true;
         this.AppWindow.TitleBar.PreferredHeightOption = Microsoft.UI.Windowing.TitleBarHeightOption.Tall;
@@ -227,6 +231,14 @@ public sealed partial class SelectorWindow : Window
         catch (Exception ex)
         {
             Debug.WriteLine(ex);
+        }
+    }
+
+    private void QuickViewBtnClick(object sender, RoutedEventArgs e)
+    {
+        if (quickViewService.TryOpen(ViewModel.Url))
+        {
+            MinimizeWindow();
         }
     }
     #endregion
