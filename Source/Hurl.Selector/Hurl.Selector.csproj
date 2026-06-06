@@ -9,6 +9,7 @@
     <AssemblyName>Hurl Selector</AssemblyName>
     <ApplicationIcon>Assets\internet.ico</ApplicationIcon>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <WebView2EnableCsWinRTProjection>true</WebView2EnableCsWinRTProjection>
   </PropertyGroup>
 
   <ItemGroup>

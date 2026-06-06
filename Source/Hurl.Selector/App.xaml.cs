@@ -5,6 +5,7 @@ using Hurl.Selector.Services;
 using Hurl.Selector.Services.Interfaces;
 using Hurl.Selector.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.UI.Dispatching;
 using Microsoft.Windows.AppLifecycle;
 using System;
 using System.IO;
@@ -16,11 +17,14 @@ public partial class App : Microsoft.UI.Xaml.Application
 {
     public static IServiceProvider? Services { get; private set; }
 
-    private static SelectorWindow? _mainWindow;
+    private static SelectorWindow? _selectorWindow;
+    private readonly DispatcherQueue dispatcherQueue;
     private AppActivationArguments? _pendingActivationArgs;
+    private bool isLaunched;
 
     public App()
     {
+        dispatcherQueue = DispatcherQueue.GetForCurrentThread();
         Services = ConfigureServices();
         InitializeComponent();
         Current.UnhandledException += Dispatcher_UnhandledException;
@@ -34,6 +38,8 @@ public partial class App : Microsoft.UI.Xaml.Application
 
         services.AddSingleton<ISettingsService, JsonFileService>();
         services.AddSingleton<IIconLoader, IconLoaderService>();
+        services.AddSingleton<IWebViewEnvironmentService, WebViewEnvironmentService>();
+        services.AddSingleton<IQuickViewService, QuickViewService>();
         services.AddTransient<SelectorPageViewModel>();
 
         return services.BuildServiceProvider();
@@ -41,27 +47,35 @@ public partial class App : Microsoft.UI.Xaml.Application
 
     protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
     {
-        _mainWindow ??= new SelectorWindow();
+        isLaunched = true;
         HandleActivation(_pendingActivationArgs ?? AppInstance.GetCurrent().GetActivatedEventArgs(), false);
         _pendingActivationArgs = null;
     }
 
     private void AppInstance_Activated(object? sender, AppActivationArguments args)
     {
-        if (_mainWindow is null)
+        if (!isLaunched)
         {
             _pendingActivationArgs = args;
             return;
         }
 
-        _ = _mainWindow.DispatcherQueue.TryEnqueue(() => HandleActivation(args, true));
+        _ = dispatcherQueue.TryEnqueue(() => HandleActivation(args, true));
     }
 
     private static void HandleActivation(AppActivationArguments activationArgs, bool isSecondInstance)
     {
-        _mainWindow ??= new SelectorWindow();
         var cliArgs = CliArgs.GatherInfo(activationArgs, isSecondInstance);
-        _mainWindow.Init(cliArgs);
+        IServiceProvider services = Services ?? throw new InvalidOperationException("Application services are not configured.");
+
+        if (KeyboardState.IsAltKeyDown()
+            && services.GetRequiredService<IQuickViewService>().TryOpen(cliArgs.Url))
+        {
+            return;
+        }
+
+        _selectorWindow ??= new SelectorWindow();
+        _selectorWindow.Init(cliArgs);
     }
 
     private void Dispatcher_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)

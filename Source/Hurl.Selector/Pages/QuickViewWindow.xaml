@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Window
+    x:Class="Hurl.Selector.Pages.QuickViewWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Hurl - Quick View"
+    mc:Ignorable="d">
+    <Window.SystemBackdrop>
+        <MicaBackdrop />
+    </Window.SystemBackdrop>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Border
+            x:Name="ToolbarBorder"
+            Padding="8"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+            BorderThickness="0,0,0,1">
+            <Grid ColumnSpacing="6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Button
+                    x:Name="BackButton"
+                    Padding="8"
+                    Click="BackButton_Click"
+                    IsEnabled="False"
+                    ToolTipService.ToolTip="Back">
+                    <FontIcon FontSize="16" Glyph="&#xE72B;" />
+                </Button>
+
+                <Button
+                    x:Name="ForwardButton"
+                    Grid.Column="1"
+                    Padding="8"
+                    Click="ForwardButton_Click"
+                    IsEnabled="False"
+                    ToolTipService.ToolTip="Forward">
+                    <FontIcon FontSize="16" Glyph="&#xE72A;" />
+                </Button>
+
+                <Button
+                    Grid.Column="2"
+                    Padding="8"
+                    Click="RefreshButton_Click"
+                    ToolTipService.ToolTip="Refresh">
+                    <FontIcon FontSize="16" Glyph="&#xE72C;" />
+                </Button>
+
+                <TextBox
+                    x:Name="AddressTextBox"
+                    Grid.Column="3"
+                    MaxHeight="34"
+                    Padding="8,5"
+                    HorizontalAlignment="Stretch"
+                    IsSpellCheckEnabled="False"
+                    IsTextPredictionEnabled="False"
+                    KeyDown="AddressTextBox_KeyDown" />
+
+                <ProgressRing
+                    x:Name="LoadingRing"
+                    Grid.Column="4"
+                    Width="20"
+                    Height="20"
+                    IsActive="False"
+                    Visibility="Collapsed" />
+
+                <DropDownButton
+                    x:Name="OpenInButton"
+                    Grid.Column="5"
+                    ToolTipService.ToolTip="Open in browser">
+                    <DropDownButton.Content>
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <FontIcon FontSize="16" Glyph="&#xE8A7;" />
+                            <TextBlock Text="Open In" />
+                        </StackPanel>
+                    </DropDownButton.Content>
+                </DropDownButton>
+            </Grid>
+        </Border>
+
+        <Grid x:Name="WebViewHost" Grid.Row="1" />
+    </Grid>
+</Window>
