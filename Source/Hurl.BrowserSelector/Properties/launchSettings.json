@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "Hurl.BrowserSelector": {
-      "commandName": "Project",
-      "commandLineArgs": "\"https://github.com/search?q=meow&type=repositories\""
-    }
-  }
-}
