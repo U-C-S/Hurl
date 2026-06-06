@@ -11,67 +11,64 @@
         <MicaBackdrop />
     </Window.SystemBackdrop>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Border
-            x:Name="ToolbarBorder"
-            Padding="8"
-            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-            BorderThickness="0,0,0,1">
+        <Border x:Name="ToolbarBorder" Padding="8">
             <Grid ColumnSpacing="6">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <Button
-                    x:Name="BackButton"
-                    Padding="8"
-                    Click="BackButton_Click"
-                    IsEnabled="False"
-                    ToolTipService.ToolTip="Back">
-                    <FontIcon FontSize="16" Glyph="&#xE72B;" />
-                </Button>
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <Button
+                        x:Name="BackButton"
+                        Padding="8"
+                        Click="BackButton_Click"
+                        IsEnabled="False"
+                        Style="{StaticResource SubtleButtonStyle}"
+                        ToolTipService.ToolTip="Back">
+                        <FontIcon FontSize="16" Glyph="&#xE72B;" />
+                    </Button>
 
-                <Button
-                    x:Name="ForwardButton"
-                    Grid.Column="1"
-                    Padding="8"
-                    Click="ForwardButton_Click"
-                    IsEnabled="False"
-                    ToolTipService.ToolTip="Forward">
-                    <FontIcon FontSize="16" Glyph="&#xE72A;" />
-                </Button>
+                    <Button
+                        x:Name="ForwardButton"
+                        Padding="8"
+                        Click="ForwardButton_Click"
+                        IsEnabled="False"
+                        Style="{StaticResource SubtleButtonStyle}"
+                        ToolTipService.ToolTip="Forward">
+                        <FontIcon FontSize="16" Glyph="&#xE72A;" />
+                    </Button>
 
-                <Button
-                    Grid.Column="2"
-                    Padding="8"
-                    Click="RefreshButton_Click"
-                    ToolTipService.ToolTip="Refresh">
-                    <FontIcon FontSize="16" Glyph="&#xE72C;" />
-                </Button>
+                    <Button
+                        Padding="8"
+                        Click="RefreshButton_Click"
+                        Style="{StaticResource SubtleButtonStyle}"
+                        ToolTipService.ToolTip="Refresh">
+                        <FontIcon FontSize="16" Glyph="&#xE72C;" />
+                    </Button>
+                </StackPanel>
 
                 <TextBox
                     x:Name="AddressTextBox"
-                    Grid.Column="3"
-                    MaxHeight="34"
-                    Padding="8,5"
+                    Grid.Column="1"
+                    MaxHeight="32"
                     HorizontalAlignment="Stretch"
+                    BorderBrush="{StaticResource ControlElevationBorderBrush}"
                     IsSpellCheckEnabled="False"
                     IsTextPredictionEnabled="False"
                     KeyDown="AddressTextBox_KeyDown" />
 
                 <ProgressRing
                     x:Name="LoadingRing"
-                    Grid.Column="4"
+                    Grid.Column="2"
                     Width="20"
                     Height="20"
                     IsActive="False"
@@ -79,7 +76,7 @@
 
                 <DropDownButton
                     x:Name="OpenInButton"
-                    Grid.Column="5"
+                    Grid.Column="3"
                     ToolTipService.ToolTip="Open in browser">
                     <DropDownButton.Content>
                         <StackPanel Orientation="Horizontal" Spacing="6">
@@ -91,6 +88,9 @@
             </Grid>
         </Border>
 
-        <Grid x:Name="WebViewHost" Grid.Row="1" />
+        <Grid
+            x:Name="WebViewHost"
+            Grid.Row="1"
+            Padding="8,0,8,8" />
     </Grid>
 </Window>
