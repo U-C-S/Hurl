@@ -68,8 +68,7 @@ public partial class App : Microsoft.UI.Xaml.Application
         var cliArgs = CliArgs.GatherInfo(activationArgs, isSecondInstance);
         IServiceProvider services = Services ?? throw new InvalidOperationException("Application services are not configured.");
 
-        if (KeyboardState.IsAltKeyDown()
-            && services.GetRequiredService<IQuickViewService>().TryOpen(cliArgs.Url))
+        if (services.GetRequiredService<IQuickViewService>().TryOpenIfModifierKeyActivated(cliArgs.Url))
         {
             return;
         }

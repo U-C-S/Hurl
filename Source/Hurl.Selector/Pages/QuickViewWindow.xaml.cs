@@ -24,6 +24,7 @@ public sealed partial class QuickViewWindow : Window
     private static readonly string[] SupportedSchemes = ["http", "https"];
 
     private readonly IReadOnlyList<Browser> browsers;
+    private readonly QuickViewSettings quickViewSettings;
     private readonly IWebViewEnvironmentService webViewEnvironmentService;
     private readonly WebView2 quickWebView;
     private bool isWebViewInitialized;
@@ -32,9 +33,11 @@ public sealed partial class QuickViewWindow : Window
     public QuickViewWindow(
         string url,
         List<Browser> browsers,
+        QuickViewSettings quickViewSettings,
         IWebViewEnvironmentService webViewEnvironmentService)
     {
         this.browsers = browsers;
+        this.quickViewSettings = quickViewSettings;
         this.webViewEnvironmentService = webViewEnvironmentService;
 
         InitializeComponent();
@@ -197,6 +200,7 @@ public sealed partial class QuickViewWindow : Window
 
         if (sender.CoreWebView2 is not null)
         {
+            ApplyTrackingPrevention(sender.CoreWebView2);
             sender.CoreWebView2.NewWindowRequested += CoreWebView2_NewWindowRequested;
         }
     }
@@ -261,6 +265,24 @@ public sealed partial class QuickViewWindow : Window
     {
         BackButton.IsEnabled = quickWebView.CanGoBack;
         ForwardButton.IsEnabled = quickWebView.CanGoForward;
+    }
+
+    private void ApplyTrackingPrevention(CoreWebView2 coreWebView)
+    {
+        try
+        {
+            coreWebView.Profile.PreferredTrackingPreventionLevel = quickViewSettings.TrackingPrevention switch
+            {
+                QuickViewTrackingPreventionLevel.None => CoreWebView2TrackingPreventionLevel.None,
+                QuickViewTrackingPreventionLevel.Basic => CoreWebView2TrackingPreventionLevel.Basic,
+                QuickViewTrackingPreventionLevel.Strict => CoreWebView2TrackingPreventionLevel.Strict,
+                _ => CoreWebView2TrackingPreventionLevel.Balanced
+            };
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+        }
     }
 
     #region Utils

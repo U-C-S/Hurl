@@ -56,6 +56,7 @@ public sealed partial class SelectorWindow : Window
         trayIcon = CreateTrayIcon();
 
         InitializeComponent();
+        QuickViewButton.IsEnabled = quickViewService.IsQuickViewEnabled;
     }
 
     public void Init(CliArgs args)

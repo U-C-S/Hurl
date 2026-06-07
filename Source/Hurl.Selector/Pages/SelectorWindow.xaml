@@ -139,6 +139,7 @@
                     Text="{x:Bind ViewModel.Url, Mode=TwoWay}"
                     ToolTipService.ToolTip="Edit URL (Alt+E)" />
                 <Button
+                    x:Name="QuickViewButton"
                     Grid.Column="2"
                     Padding="6"
                     Background="{x:Null}"
