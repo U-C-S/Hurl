@@ -33,6 +33,13 @@ public class JsonFileService(IOptions<Library.Models.Settings> settings) : ISett
         SaveSettings(settings);
     }
 
+    public void UpdateQuickView(QuickViewSettings quickView)
+    {
+        var settings = this.settings.Value;
+        settings.QuickView = quickView;
+        SaveSettings(settings);
+    }
+
     public void UpdateBrowsers(ObservableCollection<Browser> browsers)
     {
         var settings = this.settings.Value;

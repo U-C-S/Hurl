@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="Hurl.Settings.Views.QuickViewPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
+    xmlns:vm="using:Hurl.Settings.ViewModels"
+    d:DataContext="{d:DesignInstance Type=vm:QuickViewPageViewModel}"
+    mc:Ignorable="d">
+
+    <StackPanel MaxWidth="800" Spacing="16">
+        <StackPanel Spacing="4">
+            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Quick View" />
+            <StackPanel>
+                <toolkit:SettingsCard Description="Open links in a temporary preview flow when the configured modifier is held" Header="Enable Quick View">
+                    <toolkit:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE8A7;" />
+                    </toolkit:SettingsCard.HeaderIcon>
+                    <ToggleSwitch
+                        IsOn="{x:Bind ViewModel.Option_Enabled, Mode=TwoWay}"
+                        OffContent="Disabled"
+                        OnContent="Enabled" />
+                </toolkit:SettingsCard>
+
+                <toolkit:SettingsCard Description="Choose whether the shortcut opens the built-in WebView window or a configured browser launch profile" Header="Open With">
+                    <toolkit:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE774;" />
+                    </toolkit:SettingsCard.HeaderIcon>
+                    <ComboBox MinWidth="180" SelectedIndex="{x:Bind ViewModel.Option_LaunchMode, Mode=TwoWay}">
+                        <ComboBoxItem Content="Edge WebView2" />
+                        <ComboBoxItem Content="Browser / Launch profile" />
+                    </ComboBox>
+                </toolkit:SettingsCard>
+
+                <toolkit:SettingsCard Description="Keyboard modifier that must be held while opening a link" Header="Modifier Keys">
+                    <toolkit:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE765;" />
+                    </toolkit:SettingsCard.HeaderIcon>
+                    <ComboBox MinWidth="140" SelectedIndex="{x:Bind ViewModel.Option_ModifierKeys, Mode=TwoWay}">
+                        <ComboBoxItem Content="Alt" />
+                        <ComboBoxItem Content="Ctrl + Alt" />
+                        <ComboBoxItem Content="Ctrl" />
+                    </ComboBox>
+                </toolkit:SettingsCard>
+
+                <toolkit:SettingsCard
+                    Description="Browser or alternate launch profile used when Quick View is set to open a browser directly"
+                    Header="Launch Target"
+                    IsEnabled="{x:Bind ViewModel.BrowserLaunchOptionsEnabled, Mode=OneWay}">
+                    <toolkit:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE8B0;" />
+                    </toolkit:SettingsCard.HeaderIcon>
+                    <ComboBox
+                        MinWidth="220"
+                        ItemsSource="{x:Bind ViewModel.BrowserLaunchOptions, Mode=OneWay}"
+                        SelectedIndex="{x:Bind ViewModel.Option_BrowserLaunchTarget, Mode=TwoWay}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate x:DataType="vm:QuickViewBrowserLaunchOption">
+                                <TextBlock Text="{x:Bind DisplayName}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </toolkit:SettingsCard>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Spacing="4">
+            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="WebView Options" />
+            <StackPanel>
+                <toolkit:SettingsCard
+                    Description="Passed to the WebView2 browser process when the shared Quick View environment is created"
+                    Header="Additional Browser Arguments"
+                    IsEnabled="{x:Bind ViewModel.WebViewOptionsEnabled, Mode=OneWay}">
+                    <toolkit:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE756;" />
+                    </toolkit:SettingsCard.HeaderIcon>
+                    <TextBox
+                        Width="320"
+                        IsSpellCheckEnabled="False"
+                        IsTextPredictionEnabled="False"
+                        PlaceholderText="--disable-features=Example"
+                        Text="{x:Bind ViewModel.Option_AdditionalBrowserArguments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </toolkit:SettingsCard>
+
+                <toolkit:SettingsCard
+                    Description="Allow WebView2 to load Microsoft Edge browser extensions in Quick View"
+                    Header="Edge Browser Extensions"
+                    IsEnabled="{x:Bind ViewModel.WebViewOptionsEnabled, Mode=OneWay}">
+                    <toolkit:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE710;" />
+                    </toolkit:SettingsCard.HeaderIcon>
+                    <ToggleSwitch
+                        IsOn="{x:Bind ViewModel.Option_BrowserExtensionsEnabled, Mode=TwoWay}"
+                        OffContent="Disabled"
+                        OnContent="Enabled" />
+                </toolkit:SettingsCard>
+
+                <toolkit:SettingsCard
+                    Description="Controls WebView2 tracking prevention for Quick View browsing"
+                    Header="Tracking Prevention"
+                    IsEnabled="{x:Bind ViewModel.WebViewOptionsEnabled, Mode=OneWay}">
+                    <toolkit:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE83D;" />
+                    </toolkit:SettingsCard.HeaderIcon>
+                    <ComboBox MinWidth="140" SelectedIndex="{x:Bind ViewModel.Option_TrackingPrevention, Mode=TwoWay}">
+                        <ComboBoxItem Content="Disabled" />
+                        <ComboBoxItem Content="Basic" />
+                        <ComboBoxItem Content="Balanced" />
+                        <ComboBoxItem Content="Strict" />
+                    </ComboBox>
+                </toolkit:SettingsCard>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</Page>

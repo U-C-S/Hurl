@@ -18,5 +18,8 @@ public partial class Settings : ObservableObject
     public partial AppSettings AppSettings { get; set; } = new();
 
     [ObservableProperty]
+    public partial QuickViewSettings QuickView { get; set; } = new();
+
+    [ObservableProperty]
     public partial List<Ruleset> Rulesets { get; set; } = [];
 }

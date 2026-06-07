@@ -15,7 +15,7 @@ public sealed partial class MainWindow : Window
         ExtendsContentIntoTitleBar = true;
         Title = "Hurl Settings Preview";
 
-        this.AppWindow.ResizeClient(new SizeInt32(1200, 840));
+        this.AppWindow.ResizeClient(new SizeInt32(1320, 900));
         this.AppWindow.SetIcon("internet.ico");
         this.SystemBackdrop = new MicaBackdrop();
 
@@ -50,9 +50,15 @@ public sealed partial class MainWindow : Window
                 break;
             case "rulesets":
                 NavigationFrame.Navigate(typeof(Views.RulesetPage));
+                NavMenuHeaderList.SelectedIndex = 1;
+                break;
+            case "quickview":
+                NavigationFrame.Navigate(typeof(Views.QuickViewPage));
+                NavMenuHeaderList.SelectedIndex = 2;
                 break;
             case "settings":
                 NavigationFrame.Navigate(typeof(Views.Settings));
+                NavMenuHeaderList.SelectedIndex = 3;
                 break;
         }
 

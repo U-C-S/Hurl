@@ -37,6 +37,12 @@
                             <TextBlock Text="Rulesets" />
                         </StackPanel>
                     </ListViewItem>
+                    <ListViewItem MinWidth="0" Tag="quickview">
+                        <StackPanel Orientation="Horizontal" Spacing="12">
+                            <FontIcon Glyph="&#xE8A7;" />
+                            <TextBlock Text="Quick View" />
+                        </StackPanel>
+                    </ListViewItem>
                     <ListViewItem MinWidth="0" Tag="settings">
                         <StackPanel Orientation="Horizontal" Spacing="12">
                             <FontIcon Glyph="&#xE713;" />

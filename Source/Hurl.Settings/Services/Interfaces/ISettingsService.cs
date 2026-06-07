@@ -12,6 +12,8 @@ public interface ISettingsService
 
     void UpdateAppSettings(AppSettings appSettings);
 
+    void UpdateQuickView(QuickViewSettings quickView);
+
     void UpdateBrowsers(ObservableCollection<Browser> browsers);
 
     void UpdateRulesets(ObservableCollection<Ruleset> rulesets);
