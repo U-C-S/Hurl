@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Hurl.App (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Hurl.App (Unpackaged)": {
+      "commandName": "Project",
+      "commandLineArgs": "--uri keep.google.com"
+    }
+  }
+}

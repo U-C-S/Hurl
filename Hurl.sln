@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hurl.Library", "Source\Hurl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hurl.Settings", "Source\Hurl.Settings\Hurl.Settings.csproj", "{C4DB15A3-1D60-437C-BD29-688E9E280E87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hurl.Selector", "Source\Hurl.Selector\Hurl.Selector.csproj", "{2406894E-1688-44C0-BBA8-2EB8FF11709B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hurl.App", "Source\Hurl.App\Hurl.App.csproj", "{2406894E-1688-44C0-BBA8-2EB8FF11709B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
