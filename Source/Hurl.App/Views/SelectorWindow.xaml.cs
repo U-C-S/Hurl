@@ -14,7 +14,7 @@ using Windows.ApplicationModel.DataTransfer;
 using WinRT;
 using WinUIEx;
 
-namespace Hurl.App.Pages;
+namespace Hurl.App.Views;
 
 [GeneratedBindableCustomProperty]
 public sealed partial class SelectorWindow : Window

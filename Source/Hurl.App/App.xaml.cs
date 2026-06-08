@@ -1,6 +1,6 @@
 using Hurl.Library;
 using Hurl.App.Helpers;
-using Hurl.App.Pages;
+using Hurl.App.Views;
 using Hurl.App.Services;
 using Hurl.App.Services.Interfaces;
 using Hurl.App.ViewModels;

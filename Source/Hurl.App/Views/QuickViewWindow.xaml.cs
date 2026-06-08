@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using Windows.System;
 using WinUIEx;
 
-namespace Hurl.App.Pages;
+namespace Hurl.App.Views;
 
 public sealed partial class QuickViewWindow : Window
 {
