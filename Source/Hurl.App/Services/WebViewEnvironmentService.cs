@@ -1,6 +1,6 @@
+using Hurl.App.Services.Interfaces;
 using Hurl.Library;
 using Hurl.Library.Models;
-using Hurl.App.Services.Interfaces;
 using Microsoft.Web.WebView2.Core;
 using System;
 using System.IO;

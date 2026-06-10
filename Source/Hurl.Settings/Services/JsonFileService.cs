@@ -6,7 +6,6 @@ using Microsoft.Extensions.Options;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Hurl.Settings.Services;
 

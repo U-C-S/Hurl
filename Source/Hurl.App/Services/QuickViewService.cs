@@ -1,7 +1,7 @@
-using Hurl.Library.Models;
 using Hurl.App.Helpers;
-using Hurl.App.Views;
 using Hurl.App.Services.Interfaces;
+using Hurl.App.Views;
+using Hurl.Library.Models;
 using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Generic;

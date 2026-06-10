@@ -1,8 +1,8 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Hurl.Library.Models;
 using Hurl.App.Helpers;
 using Hurl.App.Services.Interfaces;
+using Hurl.Library.Models;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;

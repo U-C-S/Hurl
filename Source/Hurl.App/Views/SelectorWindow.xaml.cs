@@ -1,8 +1,8 @@
-using Hurl.Library;
 using Hurl.App.Controls;
 using Hurl.App.Helpers;
 using Hurl.App.Services.Interfaces;
 using Hurl.App.ViewModels;
+using Hurl.Library;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;

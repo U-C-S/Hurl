@@ -1,7 +1,7 @@
+using Hurl.App.Services.Interfaces;
 using Hurl.Library;
 using Hurl.Library.Models;
 using Hurl.Library.Serialization;
-using Hurl.App.Services.Interfaces;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Text.Json;

@@ -1,5 +1,5 @@
-using Hurl.Library.Models;
 using Hurl.App.ViewModels;
+using Hurl.Library.Models;
 using Microsoft.UI.Composition;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;

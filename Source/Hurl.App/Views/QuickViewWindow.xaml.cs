@@ -1,6 +1,6 @@
-using Hurl.Library.Models;
 using Hurl.App.Helpers;
 using Hurl.App.Services.Interfaces;
+using Hurl.Library.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;

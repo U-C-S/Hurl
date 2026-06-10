@@ -1,9 +1,9 @@
-using Hurl.Library;
 using Hurl.App.Helpers;
-using Hurl.App.Views;
 using Hurl.App.Services;
 using Hurl.App.Services.Interfaces;
 using Hurl.App.ViewModels;
+using Hurl.App.Views;
+using Hurl.Library;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Dispatching;
 using Microsoft.Windows.AppLifecycle;

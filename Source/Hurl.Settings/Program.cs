@@ -1,7 +1,4 @@
-﻿using Microsoft.Windows.ApplicationModel.DynamicDependency;
-using System;
-
-namespace Hurl.Settings;
+﻿namespace Hurl.Settings;
 
 public class Program
 {

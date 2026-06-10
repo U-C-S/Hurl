@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Hurl.Library.Models;
 
-public partial class Ruleset: ObservableObject
+public partial class Ruleset : ObservableObject
 {
     [ObservableProperty]
     public partial Guid Id { get; set; } = Guid.NewGuid();

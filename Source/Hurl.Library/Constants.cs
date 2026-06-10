@@ -1,13 +1,11 @@
-﻿using System.IO;
-
-namespace Hurl.Library;
+﻿namespace Hurl.Library;
 
 public class Constants
 {
     public const string NAME = "Hurl";
     public const string DESCRIPTION = "Hurl - A tool to select the browsers dynamically";
     public const string VERSION = "0.10.0-alpha-2";
-    public const string SOURCE_CODE_LINK= "https://github.com/U-C-S/Hurl";
+    public const string SOURCE_CODE_LINK = "https://github.com/U-C-S/Hurl";
 
     public static string APP_PARENT_DIR = AppContext.BaseDirectory;
     public static string APP_LAUNCH_PATH = Environment.GetCommandLineArgs()[0];

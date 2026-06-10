@@ -1,5 +1,5 @@
-using Hurl.Library.Models;
 using Hurl.App.Services.Interfaces;
+using Hurl.Library.Models;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System;
 using System.IO;
