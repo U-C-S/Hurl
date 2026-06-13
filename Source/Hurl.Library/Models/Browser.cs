@@ -15,6 +15,9 @@ public partial class Browser : ObservableObject
     }
 
     [ObservableProperty]
+    public partial Guid Id { get; set; } = Guid.NewGuid();
+
+    [ObservableProperty]
     public partial string Name { get; set; } = string.Empty;
 
     [ObservableProperty]
@@ -38,11 +41,22 @@ public partial class Browser : ObservableObject
     public partial bool Hidden { get; set; } = false;
 }
 
-public partial class AlternateLaunch(string ItemName, string LaunchArgs) : ObservableObject
+public partial class AlternateLaunch : ObservableObject
 {
-    [ObservableProperty]
-    public partial string ItemName { get; set; } = ItemName;
+    public AlternateLaunch() { }
+
+    public AlternateLaunch(string itemName, string launchArgs)
+    {
+        ItemName = itemName;
+        LaunchArgs = launchArgs;
+    }
 
     [ObservableProperty]
-    public partial string LaunchArgs { get; set; } = LaunchArgs;
+    public partial Guid Id { get; set; } = Guid.NewGuid();
+
+    [ObservableProperty]
+    public partial string ItemName { get; set; } = string.Empty;
+
+    [ObservableProperty]
+    public partial string LaunchArgs { get; set; } = string.Empty;
 }

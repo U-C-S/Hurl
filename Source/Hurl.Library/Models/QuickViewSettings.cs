@@ -17,10 +17,10 @@ public partial class QuickViewSettings : ObservableObject
     public partial QuickViewModifierKeys ModifierKeys { get; set; } = QuickViewModifierKeys.Alt;
 
     [ObservableProperty]
-    public partial string BrowserName { get; set; } = string.Empty;
+    public partial Guid? BrowserId { get; set; }
 
     [ObservableProperty]
-    public partial int? AlternateLaunchIndex { get; set; }
+    public partial Guid? AlternateLaunchId { get; set; }
 
     [ObservableProperty]
     public partial string AdditionalBrowserArguments { get; set; } = string.Empty;

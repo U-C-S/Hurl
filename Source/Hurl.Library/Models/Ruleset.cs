@@ -15,11 +15,11 @@ public partial class Ruleset : ObservableObject
     public partial string RulesetName { get; set; } = string.Empty;
 
     [ObservableProperty]
-    public partial string BrowserName { get; set; } = string.Empty;
+    public partial Guid BrowserId { get; set; }
 
     [ObservableProperty]
     [field: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-    public partial int? AltLaunchIndex { get; set; }
+    public partial Guid? AlternateLaunchId { get; set; }
 }
 
 public enum RuleMode

@@ -1,24 +1,22 @@
-﻿using Hurl.Library.Models;
+using Hurl.Library.Models;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using Windows.System;
 
 namespace Hurl.App.Helpers;
 
 class UriLauncher
 {
-    public static void ResolveAutomatically(string uri, Browser browser, int? altLaunchIndex)
+    public static void ResolveAutomatically(string uri, Browser browser, Guid? alternateLaunchId)
     {
         if (browser.IsUwp)
         {
             Uwp(uri, browser);
         }
-        else if (altLaunchIndex is not null)
+        else if (alternateLaunchId is Guid id)
         {
-            if (browser.AlternateLaunches?.Count - 1 < altLaunchIndex) // 
-                throw new Exception("Alternate Launch profile does not exist");
-            else
-                Alternative(uri, browser, (int)altLaunchIndex);
+            Alternative(uri, browser, id);
         }
         else
         {
@@ -39,19 +37,12 @@ class UriLauncher
         }
     }
 
-    public static void Alternative(string uri, Browser browser, int altLaunchIndex)
+    public static void Alternative(string uri, Browser browser, Guid alternateLaunchId)
     {
-        var alt = (browser?.AlternateLaunches?[altLaunchIndex]) ?? throw new Exception("Alternate Launch profile does not exist");
-        if (alt.LaunchArgs.Contains("%URL%"))
-        {
-            var args = alt.LaunchArgs.Replace("%URL%", uri);
-            Process.Start(browser.ExePath, args);
-        }
-        else
-        {
-            var args = uri + " " + alt.LaunchArgs;
-            Process.Start(browser.ExePath, args);
-        }
+        var alt = browser.AlternateLaunches?.FirstOrDefault(x => x.Id == alternateLaunchId)
+            ?? throw new Exception("Alternate Launch profile does not exist");
+
+        Alternative(uri, browser, alt);
     }
 
     public static void Alternative(string uri, Browser browser, AlternateLaunch alt)
@@ -80,4 +71,3 @@ class UriLauncher
         await Launcher.LaunchUriAsync(uri_object, options);
     }
 }
-
