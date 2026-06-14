@@ -44,10 +44,24 @@ public class RuleMatch
 
     public static bool DomainCheck(string link, string rule)
     {
-        var uri = new Uri(link);
+        if (!Uri.TryCreate(link, UriKind.Absolute, out var uri))
+        {
+            return false;
+        }
+
         var domain = uri.Host;
 
-        return domain.Equals(rule);
+        // A rule of the form "*.example.com" matches "example.com" itself
+        // as well as any of its subdomains (e.g. "docs.example.com").
+        if (rule.StartsWith("*.", StringComparison.Ordinal))
+        {
+            var baseDomain = rule[2..];
+
+            return domain.Equals(baseDomain, StringComparison.OrdinalIgnoreCase)
+                || domain.EndsWith("." + baseDomain, StringComparison.OrdinalIgnoreCase);
+        }
+
+        return domain.Equals(rule, StringComparison.OrdinalIgnoreCase);
     }
 
     private static bool RegexCheck(string link, string rule)
