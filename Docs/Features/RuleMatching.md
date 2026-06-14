@@ -7,7 +7,7 @@ They are text strings, which when configured can automatically open a browser fo
 ### Types of rules
 
 - `String`: This does simple text matching. Triggers if your URL matches exactly with this plain rule.
-- `Domain`: Simply the domain part of a URL, example: For the URL `https://github.com/u-c-s/hurl`, `github.com` is the domain. Probably the most useful rule type.
+- `Domain`: Simply the domain part of a URL, example: For the URL `https://github.com/u-c-s/hurl`, `github.com` is the domain. Probably the most useful rule type. By default it matches the host exactly, so `github.com` will not match `docs.github.com`. To also match subdomains, prefix the domain with `*.` — a rule of `*.github.com` matches `github.com` itself as well as any subdomain such as `docs.github.com`.
 - `Regex`: Uses Regular Expressions to do text matching. Use <https://regex101.com> with (.NET/C# flavor) to test your rules.
 
 > [!NOTE]
@@ -73,5 +73,5 @@ Note that when adding rules to _UserSettings.json_ directly, follow the below pa
 | Rule type | Format | Example |
 | --- | --- | --- |
 | String | `s$<YourRule>` or `<YourRule>` | `https://github.com/U-C-S` |
-| Domain | `d$<YourRule>` | `d$github.com` |
+| Domain | `d$<YourRule>` | `d$github.com` (exact) or `d$*.github.com` (with subdomains) |
 | Regex  | `r$<YourRule>` | `r$.*open\\.spotify\\.com.*` |
