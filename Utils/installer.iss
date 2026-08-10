@@ -4,7 +4,7 @@
 #define MyAppPublisher "U-C-S"
 #define MyAppURL "https://github.com/U-C-S/Hurl"
 #define ExeNativeHost "NativeMessagingHost.exe"
-#define ExeSelector "Hurl Selector.exe"
+#define ExeSelector "Hurl.exe"
 #define ExeSettings "Hurl Settings.exe"
 #define AppDescription "Choose the browser on the click of a link"
 
@@ -51,7 +51,7 @@ Name: "protocol"; Description: "{cm:CreateProtocol}"; GroupDescription: "{cm:Oth
 
 [Files]
 Source: "..\target\release\{#ExeNativeHost}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\_Publish\*"; DestDir: "{app}"; Excludes: "*.pdb,Hurl.exe,Hurl.dll,Hurl.BrowserSelector.dll,Hurl.Library.dll,*.deps.json,*.runtimeconfig.json"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\_Publish\*"; DestDir: "{app}"; Excludes: "*.pdb"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\LICENSE"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Extensions\*"; Excludes: "package-lock.json,node_modules"; DestDir: "{app}\Extensions"; Flags: ignoreversion recursesubdirs
 
