@@ -1,5 +1,6 @@
 # Browsers
 
+- `Id` - Stable UUID for this browser. Required. Rulesets and Quick View refer to this value.
 - `Name` - Displayed name for browser. Required.
 - `ExePath` - The path of browser main exe file. Required.
 - `CustomIconPath` - The absolute path of the image. Supports URLs. Optional.
@@ -22,14 +23,17 @@ Adding the `AlternateLaunches` field to the browser entity allows you to simply 
 ```json
 "AlternateLaunches": [
   {
+    "Id": "f81a1698-1488-461d-9294-4f4f8313178e",
     "ItemName": "Main Profile",
     "LaunchArgs": "--profile-directory=\"Default\""
   },
   {
+    "Id": "e9e5df5a-1bc6-4bce-8f8d-e66950daa495",
     "ItemName": "Profile 2",
     "LaunchArgs": "--profile-directory=\"Profile 1\""
   },
   {
+    "Id": "4bd80686-0a0b-4668-8ed0-063989e99c14",
     "ItemName": "Incognito",
     "LaunchArgs": "-incognito"
   }
@@ -42,6 +46,7 @@ Right-clicking on the browser that has `AlternateLauches` brings up the context 
 
 - `ItemName` - The name that shows up in the context menu for this launch
 - `LaunchArgs` - Launch args. You can keep launch the browser in incognito, other browser profiles...
+- `Id` - Stable UUID for this alternate launch. Required when rulesets or Quick View target this profile.
 
 ## UWP Browsers
 
@@ -55,11 +60,13 @@ get the package name)
 
 ```json
 {
+  "Id": "2b36a1fe-97f7-4509-ae6e-5c2c61602af4",
   "Name": "Firefox",
   "ExePath": "Mozilla.Firefox_n80bbvh6b1yt2",
   "IsUwp": true,
 },
 {
+  "Id": "e48b823f-c4b0-4218-a7e2-a8c80231228a",
   "Name": "Arc",
   "ExePath": "TheBrowserCompany.Arc_ttt1ap7aakyb4",
   "IsUwp": true,

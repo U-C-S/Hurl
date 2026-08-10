@@ -33,12 +33,12 @@ Adding a new rule can be done from UI by selecting **Rules** in the Hurl main wi
 
 ## From UserSettings.json
 
-You can add new rules into `AutoRoutingRules` property, which itself is a list of Rules Objects. Each rule object should contain 2 properties:
+You can add new rules into the `Rulesets` property, which itself is a list of ruleset objects. Each ruleset object should contain these properties:
 
 - `Rules`: It can be a single rule or multiple rules. Rules are prioritized: the first rule that matches will trigger the opening of a browser.
-- `BrowserName`: The value should be a Browser name that matches one of the `Browsers` names. It will be opened once a rule from the `Rules` property matches. Use `_Hurl` to open Hurl.
-- `Name`: To name the ruleset. Only for visual purposes.
-- `AltLaunchIndex` to select the Alt Launch for a browser. It's an index number.
+- `BrowserId`: The value should match the `Id` of one of the configured `Browsers`. It will be opened once a rule from the `Rules` property matches.
+- `RulesetName`: To name the ruleset. Only for visual purposes.
+- `AlternateLaunchId` to select a browser's alternate launch profile. Omit it or set it to `null` for the browser's default launch.
 
 Sample Json file for more advanced editing:
 
@@ -46,23 +46,27 @@ Sample Json file for more advanced editing:
 {
   "Browsers": [
     {
+      "Id": "2b36a1fe-97f7-4509-ae6e-5c2c61602af4",
       "Name": "Firefox Nightly",
       "ExePath": "C:\\Program Files\\Firefox Nightly\\firefox.exe"
     },
     {
+      "Id": "e48b823f-c4b0-4218-a7e2-a8c80231228a",
       "Name": "Google Chrome Dev",
       "ExePath": "C:\\Program Files\\Google\\Chrome Dev\\Application\\chrome.exe"
     }
   ],
   "Rulesets": [
     {
-      "Name": "Googly",
-      "Rules": ["g$*.google.com*"],
-      "BrowserName": "Google Chrome Dev"
+      "Id": "6f1e9e11-5a02-4e4f-a4f2-b86dbf85d8af",
+      "RulesetName": "Googly",
+      "Rules": ["d$google.com"],
+      "BrowserId": "e48b823f-c4b0-4218-a7e2-a8c80231228a"
     },
     {
+      "Id": "41f1ed96-77f5-43cc-a920-e1052c8f620d",
       "Rules": ["https://github.com/u-c-s", "r$.*open\\.spotify\\.com.*"],
-      "BrowserName": "Firefox Nightly",
+      "BrowserId": "2b36a1fe-97f7-4509-ae6e-5c2c61602af4"
     }
   ]
 }
