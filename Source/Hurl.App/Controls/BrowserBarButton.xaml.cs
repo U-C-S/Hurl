@@ -89,6 +89,7 @@ public sealed partial class BrowserBarButton : UserControl
             new PropertyMetadata(null, OnLaunchCommandChanged));
 
     public event EventHandler<AlternateLaunchRequestedEventArgs>? AlternateLaunchRequested;
+
     #endregion
 
     #region AltLaunch Flyout
