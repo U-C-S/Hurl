@@ -19,6 +19,18 @@
             BorderBrush="#33FFFFFF"
             BorderThickness="1"
             CornerRadius="6" />
+        <Border
+            Margin="6"
+            Padding="6,2"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Background="#A6000000"
+            CornerRadius="999"
+            Visibility="{x:Bind BrowserItem.ShortcutHintVisibility, Mode=OneWay}">
+            <TextBlock
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Text="{x:Bind BrowserItem.ShortcutHintText, Mode=OneWay}" />
+        </Border>
         <Button
             x:Name="LaunchButton"
             Padding="4"

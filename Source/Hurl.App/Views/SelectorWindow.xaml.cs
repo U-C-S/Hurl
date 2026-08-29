@@ -11,6 +11,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using Windows.ApplicationModel.DataTransfer;
+using Windows.System;
 using WinRT;
 using WinUIEx;
 
@@ -251,9 +252,45 @@ public sealed partial class SelectorWindow : Window
         args.Handled = true;
     }
 
+    private void BrowserDigitAccelerator_Invoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
+    {
+        if (IsEditableInputFocused())
+        {
+            return;
+        }
+
+        int browserIndex = sender.Key switch
+        {
+            VirtualKey.Number1 => 0,
+            VirtualKey.Number2 => 1,
+            VirtualKey.Number3 => 2,
+            VirtualKey.Number4 => 3,
+            VirtualKey.Number5 => 4,
+            VirtualKey.Number6 => 5,
+            VirtualKey.Number7 => 6,
+            VirtualKey.Number8 => 7,
+            VirtualKey.Number9 => 8,
+            VirtualKey.NumberPad1 => 0,
+            VirtualKey.NumberPad2 => 1,
+            VirtualKey.NumberPad3 => 2,
+            VirtualKey.NumberPad4 => 3,
+            VirtualKey.NumberPad5 => 4,
+            VirtualKey.NumberPad6 => 5,
+            VirtualKey.NumberPad7 => 6,
+            VirtualKey.NumberPad8 => 7,
+            VirtualKey.NumberPad9 => 8,
+            _ => -1
+        };
+
+        if (browserIndex >= 0 && ViewModel.LaunchBrowserAtIndex(browserIndex))
+        {
+            args.Handled = true;
+        }
+    }
+
     private void CopyAccelerator_Invoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
     {
-        if (IsTextBoxKeyAccelerator())
+        if (IsEditableInputFocused())
         {
             return;
         }
@@ -264,7 +301,7 @@ public sealed partial class SelectorWindow : Window
 
     private async void EditUrlAccelerator_Invoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
     {
-        if (IsTextBoxKeyAccelerator())
+        if (IsEditableInputFocused())
         {
             return;
         }
@@ -275,7 +312,7 @@ public sealed partial class SelectorWindow : Window
 
     private void RulesAccelerator_Invoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
     {
-        if (IsTextBoxKeyAccelerator())
+        if (IsEditableInputFocused())
         {
             return;
         }
@@ -285,7 +322,7 @@ public sealed partial class SelectorWindow : Window
         args.Handled = true;
     }
 
-    private bool IsTextBoxKeyAccelerator()
+    private bool IsEditableInputFocused()
     {
         var xamlRoot = (Content as FrameworkElement)?.XamlRoot;
         return xamlRoot is not null && FocusManager.GetFocusedElement(xamlRoot) is TextBox;

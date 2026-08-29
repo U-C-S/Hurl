@@ -40,13 +40,17 @@ public partial class SelectorPageViewModel : ObservableObject
     {
         Browsers.Clear();
 
+        int visibleBrowserIndex = 0;
+
         foreach (var browser in settings.Browsers.Where(b => !b.Hidden))
         {
             BrowserItemViewModel item = new(browser)
             {
-                Icon = await _iconLoader.LoadIconAsync(browser)
+                Icon = await _iconLoader.LoadIconAsync(browser),
+                ShortcutIndex = visibleBrowserIndex
             };
             Browsers.Add(item);
+            visibleBrowserIndex++;
         }
     }
 
@@ -56,15 +60,25 @@ public partial class SelectorPageViewModel : ObservableObject
     {
         get
         {
-            return launchBrowserCommand ??= new RelayCommand<BrowserItemViewModel>(LaunchBrowser);
+            return launchBrowserCommand ??= new RelayCommand<BrowserItemViewModel>(browserItem => _ = LaunchBrowser(browserItem));
         }
     }
 
-    private void LaunchBrowser(BrowserItemViewModel? browserItem)
+    public bool LaunchBrowserAtIndex(int zeroBasedIndex)
+    {
+        if (zeroBasedIndex < 0 || zeroBasedIndex >= Browsers.Count)
+        {
+            return false;
+        }
+
+        return LaunchBrowser(Browsers[zeroBasedIndex]);
+    }
+
+    private bool LaunchBrowser(BrowserItemViewModel? browserItem)
     {
         if (browserItem is null)
         {
-            return;
+            return false;
         }
 
         Browser browser = browserItem.Model;
@@ -73,10 +87,12 @@ public partial class SelectorPageViewModel : ObservableObject
         {
             UriLauncher.ResolveAutomatically(Url, browser, null);
             BrowserLaunched?.Invoke(this, EventArgs.Empty);
+            return true;
         }
         catch (Exception ex)
         {
             Debug.WriteLine(ex);
+            return false;
         }
     }
 }
