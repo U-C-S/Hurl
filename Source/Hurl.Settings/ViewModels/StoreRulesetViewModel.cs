@@ -1,112 +1,78 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Hurl.Library.Models;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Hurl.Settings.ViewModels;
 
 public class StoreRulesetViewModel : ObservableObject
 {
-    public readonly Guid Id;
+    private static readonly AlternateLaunchOption NoAlternateLaunch = new(null, "< None >");
 
-    public readonly List<string> Browsers;
-
-    public List<string> AltLaunches { get; set; } = ["< None >"];
-
+    public Guid Id { get; } = Guid.NewGuid();
+    public List<Browser> Browsers { get; }
+    public ObservableCollection<AlternateLaunchOption> AltLaunches { get; } = [NoAlternateLaunch];
     public string? Name { get; set; }
-
-    public List<Rule> Rules { get; set; }
+    public List<Rule> Rules { get; set; } = [];
 
     public StoreRulesetViewModel(IOptionsMonitor<Library.Models.Settings> settings)
     {
-        Id = Guid.NewGuid();
-        Browsers = settings.CurrentValue.Browsers
-            .Select(x => x.Name)
-            .ToList();
-        Rules = [];
+        Browsers = settings.CurrentValue.Browsers.ToList();
     }
 
     public StoreRulesetViewModel(IOptionsMonitor<Library.Models.Settings> settings, Guid id)
+        : this(settings)
     {
+        var ruleset = settings.CurrentValue.Rulesets.First(rule => rule.Id == id);
         Id = id;
-        var currentRuleset = settings.CurrentValue.Rulesets.First(x => Guid.Equals(x.Id, id));
-        Browsers = settings.CurrentValue.Browsers
-            .Select(x => x.Name)
-            .ToList();
-        Name = currentRuleset?.RulesetName;
-        Rules = currentRuleset?.Rules?
-                    .Select(x => new Rule(x))
-                    .ToList() ?? [];
-
-        if (currentRuleset?.BrowserName is string browser)
-            SelectedBrowser = Browsers.IndexOf(browser);
-
-        if (currentRuleset?.AltLaunchIndex is int altLaunchIndex)
-        {
-            List<string> altLaunchList = ["< None >"];
-            var x = settings.CurrentValue.Browsers[SelectedBrowser]
-                ?.AlternateLaunches
-                ?.Select(x => x.ItemName)
-                .ToList() ?? [];
-            altLaunchList.AddRange(x);
-            AltLaunches = altLaunchList;
-            SelectedAltLaunch = altLaunchIndex + 1;
-        }
+        Name = ruleset.RulesetName;
+        Rules = ruleset.Rules?.Select(rule => new Rule(rule)).ToList() ?? [];
+        SelectedBrowser = Browsers.FirstOrDefault(browser => browser.Id == ruleset.BrowserId);
+        SelectedAltLaunch = AltLaunches.FirstOrDefault(launch => launch.Id == ruleset.AlternateLaunchId)
+            ?? NoAlternateLaunch;
     }
 
-    private int _selectedBrowser = -1;
-
-    public int SelectedBrowser
+    private Browser? selectedBrowser;
+    public Browser? SelectedBrowser
     {
-        get => _selectedBrowser;
+        get => selectedBrowser;
         set
         {
-            if (value < 0)
+            if (selectedBrowser == value)
             {
-                SelectedAltLaunch = 0;
-                AltLaunches = ["< None >"];
+                return;
             }
-            else
+
+            selectedBrowser = value;
+            AltLaunches.Clear();
+            AltLaunches.Add(NoAlternateLaunch);
+            foreach (var launch in value?.AlternateLaunches ?? [])
             {
-                _selectedBrowser = value;
-                SelectedBrowserChanged(value);
+                AltLaunches.Add(new AlternateLaunchOption(launch.Id, launch.ItemName));
             }
+            SelectedAltLaunch = NoAlternateLaunch;
+            OnPropertyChanged();
         }
     }
 
-    public int SelectedAltLaunch { get; set; } = 0;
-
-    private void SelectedBrowserChanged(int value)
+    private AlternateLaunchOption? selectedAltLaunch = NoAlternateLaunch;
+    public AlternateLaunchOption? SelectedAltLaunch
     {
-        //var selected = State.Settings.GetBrowsers()[value];
-        //if (selected.AlternateLaunches?.Count > 0)
-        //{
-        //    List<string> altLaunchList = ["< None >"];
-        //    var x = selected
-        //        .AlternateLaunches
-        //        .Select(x => x.ItemName)
-        //        .ToList();
-        //    altLaunchList.AddRange(x);
-        //    AltLaunches = altLaunchList;
-        //}
-        //else
-        //{
-        //    AltLaunches = ["< None >"];
-        //}
+        get => selectedAltLaunch;
+        set => SetProperty(ref selectedAltLaunch, value);
     }
 
-    public Ruleset ToRuleSet()
+    public Ruleset ToRuleSet() => new()
     {
-        return new()
-        {
-            Id = Id,
-            RulesetName = Name ?? "",
-            BrowserName = Browsers[SelectedBrowser],
-            Rules = Rules.Select(x => x.ToString()).ToList(),
-            AltLaunchIndex = SelectedAltLaunch > 0 ? SelectedAltLaunch - 1 : null
-        };
-    }
-
+        Id = Id,
+        RulesetName = Name ?? "",
+        BrowserId = SelectedBrowser?.Id ?? Guid.Empty,
+        AlternateLaunchId = SelectedAltLaunch?.Id,
+        Rules = Rules.Select(rule => rule.ToString()).ToList()
+    };
 }
+
+public sealed record AlternateLaunchOption(Guid? Id, string DisplayName);

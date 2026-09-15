@@ -50,18 +50,18 @@
                     Description="Rulesets are checked from top down until a matching rule is found"
                     Header="Rulesets"
                     IsExpanded="{x:Bind RuleMatchToggle.IsOn, Mode=OneWay}"
-                    ItemsSource="{x:Bind ViewModel.Rulesets, Mode=TwoWay}">
+                    ItemsSource="{x:Bind ViewModel.RulesetItems, Mode=OneWay}">
                     <toolkit:SettingsExpander.HeaderIcon>
                         <FontIcon Glyph="&#xF168;" />
                     </toolkit:SettingsExpander.HeaderIcon>
                     <toolkit:SettingsExpander.ItemTemplate>
-                        <DataTemplate x:DataType="model:Ruleset">
-                            <toolkit:SettingsCard Description="{x:Bind BrowserName}" Header="{x:Bind RulesetName}">
+                        <DataTemplate x:DataType="vm:RulesetItemViewModel">
+                            <toolkit:SettingsCard Description="{x:Bind BrowserDisplayName}" Header="{x:Bind Model.RulesetName}">
                                 <StackPanel Orientation="Horizontal">
                                     <Button
                                         Click="ViewRuleset"
                                         Style="{StaticResource EllipsisButton}"
-                                        Tag="{x:Bind Id}"
+                                        Tag="{x:Bind Model.Id}"
                                         ToolTipService.ToolTip="View Rules">
                                         <FontIcon Glyph="&#xE946;" />
                                     </Button>
@@ -73,7 +73,7 @@
                                             <MenuFlyout Placement="Bottom">
                                                 <MenuFlyoutItem
                                                     Click="ClickEditRuleset"
-                                                    Tag="{x:Bind Id}"
+                                                    Tag="{x:Bind Model.Id}"
                                                     Text="Edit">
                                                     <MenuFlyoutItem.Icon>
                                                         <FontIcon Glyph="&#xE70F;" />
@@ -81,7 +81,7 @@
                                                 </MenuFlyoutItem>
                                                 <MenuFlyoutItem
                                                     Click="ClickMoveUpRuleset"
-                                                    Tag="{x:Bind Id}"
+                                                    Tag="{x:Bind Model.Id}"
                                                     Text="Move Up">
                                                     <MenuFlyoutItem.Icon>
                                                         <FontIcon Glyph="&#xE74A;" />
@@ -89,7 +89,7 @@
                                                 </MenuFlyoutItem>
                                                 <MenuFlyoutItem
                                                     Click="ClickMoveDownRuleset"
-                                                    Tag="{x:Bind Id}"
+                                                    Tag="{x:Bind Model.Id}"
                                                     Text="Move Down">
                                                     <MenuFlyoutItem.Icon>
                                                         <FontIcon Glyph="&#xE74B;" />
@@ -97,7 +97,7 @@
                                                 </MenuFlyoutItem>
                                                 <MenuFlyoutItem
                                                     Click="ClickDeleteRuleset"
-                                                    Tag="{x:Bind Id}"
+                                                    Tag="{x:Bind Model.Id}"
                                                     Text="Delete">
                                                     <MenuFlyoutItem.Icon>
                                                         <FontIcon Glyph="&#xE74D;" />

@@ -52,9 +52,4 @@ public sealed partial class NewRulesetDialog : Page
         return viewModel.ToRuleSet();
     }
 
-    private void TargetBrowser_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        // At this point, AltLaunches can be of List<string> type
-        TargetAltLaunch.ItemsSource = viewModel.AltLaunches;
-    }
 }

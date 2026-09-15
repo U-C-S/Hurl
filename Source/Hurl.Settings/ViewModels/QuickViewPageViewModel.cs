@@ -100,38 +100,23 @@ public partial class QuickViewPageViewModel : ObservableObject
         }
     }
 
-    public int Option_BrowserLaunchTarget
+    public QuickViewBrowserLaunchOption? Option_BrowserLaunchTarget
     {
-        get
-        {
-            int selectedIndex = BrowserLaunchOptions
-                .Select((option, index) => new { option, index })
-                .Where(item => item.option.Matches(QuickView.BrowserName, QuickView.AlternateLaunchIndex))
-                .Select(item => item.index)
-                .FirstOrDefault(-1);
-
-            return selectedIndex;
-        }
+        get => BrowserLaunchOptions.FirstOrDefault(option =>
+            option.BrowserId == QuickView.BrowserId && option.AlternateLaunchId == QuickView.AlternateLaunchId);
         set
         {
-            if (value < 0 || value >= BrowserLaunchOptions.Count)
+            if (value is null || value == Option_BrowserLaunchTarget)
             {
                 return;
             }
 
-            QuickViewBrowserLaunchOption option = BrowserLaunchOptions[value];
-            if (option.Matches(QuickView.BrowserName, QuickView.AlternateLaunchIndex))
-            {
-                return;
-            }
-
-            QuickView.BrowserName = option.BrowserName;
-            QuickView.AlternateLaunchIndex = option.AlternateLaunchIndex;
+            QuickView.BrowserId = value.BrowserId;
+            QuickView.AlternateLaunchId = value.AlternateLaunchId;
             SaveQuickView();
             OnPropertyChanged();
         }
     }
-
     public string Option_AdditionalBrowserArguments
     {
         get => QuickView.AdditionalBrowserArguments;
@@ -212,7 +197,7 @@ public partial class QuickViewPageViewModel : ObservableObject
         {
             BrowserLaunchOptions.Add(new QuickViewBrowserLaunchOption(
                 $"{browser.Name} - Default",
-                browser.Name,
+                browser.Id,
                 null));
 
             if (browser.AlternateLaunches is not { Count: > 0 })
@@ -220,13 +205,12 @@ public partial class QuickViewPageViewModel : ObservableObject
                 continue;
             }
 
-            for (int index = 0; index < browser.AlternateLaunches.Count; index++)
+            foreach (AlternateLaunch alternateLaunch in browser.AlternateLaunches)
             {
-                AlternateLaunch alternateLaunch = browser.AlternateLaunches[index];
                 BrowserLaunchOptions.Add(new QuickViewBrowserLaunchOption(
                     $"{browser.Name} - {alternateLaunch.ItemName}",
-                    browser.Name,
-                    index));
+                    browser.Id,
+                    alternateLaunch.Id));
             }
         }
     }
@@ -235,25 +219,18 @@ public partial class QuickViewPageViewModel : ObservableObject
     {
         if (QuickView.LaunchMode != QuickViewLaunchMode.Browser
             || BrowserLaunchOptions.Count == 0
-            || Option_BrowserLaunchTarget >= 0)
+            || Option_BrowserLaunchTarget is not null)
         {
             return;
         }
 
         QuickViewBrowserLaunchOption option = BrowserLaunchOptions[0];
-        QuickView.BrowserName = option.BrowserName;
-        QuickView.AlternateLaunchIndex = option.AlternateLaunchIndex;
+        QuickView.BrowserId = option.BrowserId;
+        QuickView.AlternateLaunchId = option.AlternateLaunchId;
     }
 }
 
 public sealed record QuickViewBrowserLaunchOption(
     string DisplayName,
-    string BrowserName,
-    int? AlternateLaunchIndex)
-{
-    public bool Matches(string browserName, int? alternateLaunchIndex)
-    {
-        return string.Equals(BrowserName, browserName, StringComparison.OrdinalIgnoreCase)
-            && AlternateLaunchIndex == alternateLaunchIndex;
-    }
-}
+    Guid BrowserId,
+    Guid? AlternateLaunchId);

@@ -55,7 +55,7 @@
                     <ComboBox
                         MinWidth="220"
                         ItemsSource="{x:Bind ViewModel.BrowserLaunchOptions, Mode=OneWay}"
-                        SelectedIndex="{x:Bind ViewModel.Option_BrowserLaunchTarget, Mode=TwoWay}">
+                        SelectedItem="{x:Bind ViewModel.Option_BrowserLaunchTarget, Mode=TwoWay}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate x:DataType="vm:QuickViewBrowserLaunchOption">
                                 <TextBlock Text="{x:Bind DisplayName}" />

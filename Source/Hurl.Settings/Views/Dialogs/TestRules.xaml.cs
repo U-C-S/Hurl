@@ -56,11 +56,12 @@ public sealed partial class TestRules : Page
         }
 
         var matchingRuleset = rulesets
-            .FirstOrDefault(ruleset => RuleMatch.CheckMultiple(uri, ruleset.Rules), null);
+            .FirstOrDefault(ruleset => ruleset.Rules is { } rules
+                && RuleMatch.CheckMultiple(uri, rules));
 
         if (matchingRuleset != null)
         {
-            PresentOutput($"Ruleset match: {matchingRuleset.BrowserName}\nRuleset name: {matchingRuleset?.RulesetName}", InfoBarSeverity.Success);
+            PresentOutput($"Ruleset match: {ViewModel.GetBrowserDisplayName(matchingRuleset.BrowserId)}\nRuleset name: {matchingRuleset?.RulesetName}", InfoBarSeverity.Success);
         }
         else
         {

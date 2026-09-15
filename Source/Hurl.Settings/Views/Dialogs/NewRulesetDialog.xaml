@@ -4,7 +4,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="using:Hurl.Settings.Views.Dialogs"
+    xmlns:model="using:Hurl.Library.Models"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
     xmlns:viewmodels="using:Hurl.Settings.ViewModels"
@@ -31,10 +31,15 @@
                             x:Name="TargetBrowser"
                             Grid.Row="1"
                             Grid.Column="1"
-                            Width="150"
-                            ItemsSource="{x:Bind viewModel.Browsers}"
-                            SelectedIndex="{x:Bind viewModel.SelectedBrowser, Mode=TwoWay}"
-                            SelectionChanged="TargetBrowser_SelectionChanged" />
+                            Width="220"
+                            ItemsSource="{x:Bind viewModel.Browsers, Mode=OneWay}"
+                            SelectedItem="{x:Bind viewModel.SelectedBrowser, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate x:DataType="model:Browser">
+                                    <TextBlock Text="{x:Bind Name}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
                     </toolkit:SettingsCard>
 
                     <toolkit:SettingsCard Header="Alternate Launch">
@@ -42,9 +47,15 @@
                             x:Name="TargetAltLaunch"
                             Grid.Row="2"
                             Grid.Column="1"
-                            Width="150"
-                            ItemsSource="{x:Bind viewModel.AltLaunches, Mode=TwoWay}"
-                            SelectedIndex="{x:Bind viewModel.SelectedAltLaunch, Mode=TwoWay}" />
+                            Width="220"
+                            ItemsSource="{x:Bind viewModel.AltLaunches, Mode=OneWay}"
+                            SelectedItem="{x:Bind viewModel.SelectedAltLaunch, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate x:DataType="viewmodels:AlternateLaunchOption">
+                                    <TextBlock Text="{x:Bind DisplayName}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
                     </toolkit:SettingsCard>
                 </toolkit:SettingsExpander.Items>
             </toolkit:SettingsExpander>

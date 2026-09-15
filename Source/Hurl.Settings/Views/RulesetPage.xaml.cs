@@ -101,7 +101,7 @@ public sealed partial class RulesetPage : Page
 
     private string? Validate(Ruleset rs)
     {
-        if (string.IsNullOrWhiteSpace(rs.BrowserName))
+        if (rs.BrowserId == Guid.Empty)
         {
             return "Missing Browser. This prevents configured rules from triggering";
         }
@@ -119,7 +119,7 @@ public sealed partial class RulesetPage : Page
     private async void ViewRuleset(object sender, RoutedEventArgs e)
     {
         var id = (Guid)(sender as Button)!.Tag;
-        var ruleset = ViewModel.Rulesets.Where(x => x.Id == id).First();
+        var ruleset = ViewModel.GetRuleset(id);
         ViewRulesDialog ViewRulesDialogContent = new(ruleset);
         ContentDialog viewRulesDialog = new()
         {
