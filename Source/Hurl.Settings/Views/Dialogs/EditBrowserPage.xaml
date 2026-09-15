@@ -20,7 +20,7 @@
                     <StackPanel>
                         <toolkit:SettingsCard Header="Name">
                             <TextBox
-                                x:Name="BrowserNameInput"
+                                x:Name="BrowserDisplayNameInput"
                                 MinWidth="180"
                                 MaxWidth="250"
                                 PlaceholderText="Name of the Browser/App"

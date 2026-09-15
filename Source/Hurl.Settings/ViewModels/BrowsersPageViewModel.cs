@@ -1,8 +1,7 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Hurl.Library.Models;
 using Hurl.Settings.Services.Interfaces;
 using Microsoft.Extensions.Options;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -30,29 +29,26 @@ internal partial class BrowsersPageViewModel : ObservableObject
         //});
     }
 
-    public void RefreshBrowserList() => RefreshBrowsers();
-
-    public void RefreshBrowsers()
+    public void RefreshBrowserList(BrowserRefreshMode mode)
     {
-        var refreshedBrowsers = Library.GetBrowsers.FromRegistry();
-        List<Browser> newList = [.. Browsers];
-
-        // Go over the new browser list and add any of those browsers that are not already present
-        // in the existing browser list
-        foreach (var newBrowser in refreshedBrowsers)
+        foreach (var browser in Library.GetBrowsers.FromRegistry())
         {
-            var isExists = newList.Any(b => b.ExePath == newBrowser.ExePath);
-            if (!isExists)
+            if (mode == BrowserRefreshMode.AddAllDetectedAsNew
+                || !Browsers.Any(existing => existing.ExePath == browser.ExePath))
             {
-                Browsers.Add(newBrowser);
+                Browsers.Add(browser);
             }
         }
-
         settingsService.UpdateBrowsers(Browsers);
     }
-
     internal void UpdateBrowserOrder()
     {
         settingsService.UpdateBrowsers(Browsers);
     }
+}
+
+internal enum BrowserRefreshMode
+{
+    PreserveExistingByExePath,
+    AddAllDetectedAsNew
 }
