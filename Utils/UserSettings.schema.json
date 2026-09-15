@@ -12,9 +12,13 @@
       "items": {
         "type": "object",
         "properties": {
+          "Id": {
+            "type": "string",
+            "format": "uuid"
+          },
           "Name": {
             "type": "string",
-            "description": "The name of the browser. This must be unique."
+            "description": "The display name of the browser."
           },
           "ExePath": {
             "type": "string",
@@ -38,6 +42,10 @@
             "items": {
               "type": "object",
               "properties": {
+                "Id": {
+                  "type": "string",
+                  "format": "uuid"
+                },
                 "ItemName": {
                   "type": "string"
                 },
@@ -45,11 +53,11 @@
                   "type": "string"
                 }
               },
-              "required": ["ItemName", "LaunchArgs"]
+              "required": ["Id", "ItemName", "LaunchArgs"]
             }
           }
         },
-        "required": ["Name", "ExePath"]
+        "required": ["Id", "Name", "ExePath"]
       }
     },
     "AppSettings": {
@@ -86,12 +94,59 @@
         }
       }
     },
+    "QuickView": {
+      "type": "object",
+      "description": "Settings for the Quick View link preview feature.",
+      "properties": {
+        "Enabled": {
+          "type": "boolean",
+          "description": "If true, enables Quick View."
+        },
+        "LaunchMode": {
+          "type": "string",
+          "description": "Determines whether Quick View opens the built-in WebView preview or launches a configured browser profile.",
+          "enum": ["WebView", "Browser"]
+        },
+        "ModifierKeys": {
+          "type": "string",
+          "description": "Modifier keys required to trigger Quick View.",
+          "enum": ["Alt", "CtrlAlt", "Ctrl"]
+        },
+        "BrowserId": {
+          "type": ["string", "null"],
+          "format": "uuid",
+          "description": "The browser Id to launch when LaunchMode is Browser."
+        },
+        "AlternateLaunchId": {
+          "type": ["string", "null"],
+          "format": "uuid",
+          "description": "The alternate launch Id to use when LaunchMode is Browser. Null uses the browser's default launch."
+        },
+        "AdditionalBrowserArguments": {
+          "type": "string",
+          "description": "Additional browser arguments passed to the WebView2 environment."
+        },
+        "BrowserExtensionsEnabled": {
+          "type": "boolean",
+          "description": "If true, enables Microsoft Edge browser extensions in WebView2 Quick View."
+        },
+        "TrackingPrevention": {
+          "type": "string",
+          "description": "Tracking prevention level used by the WebView2 profile.",
+          "enum": ["None", "Basic", "Balanced", "Strict"]
+        }
+      }
+    },
     "Rulesets": {
       "type": "array",
       "description": "Rulesets to apply to URLs. Each Ruleset can contain multiple rules and One browser can be assigned to multiple Rulesets.",
       "items": {
         "type": "object",
         "properties": {
+          "Id": {
+            "type": "string",
+            "format": "uuid"
+          },
           "Rules": {
             "type": "array",
             "items": {
@@ -100,20 +155,22 @@
               "pattern": "^(s\\$|r\\$|d\\$)?.+$"
             }
           },
-          "BrowserName": {
+          "BrowserId": {
             "type": "string",
-            "description": "The name of the browser to launch for this Ruleset. should match the Name property of a browser in the Browsers array."
+            "format": "uuid",
+            "description": "The Id of the browser to launch for this Ruleset. This should match the Id property of a browser in the Browsers array."
           },
           "RulesetName": {
             "type": "string",
             "description": "The name of the Ruleset. This should ideally be unique."
           },
-          "AltLaunchIndex": {
-            "type": "integer",
-            "description": "The index of the Alternate Launch to used. Index starts from 0,1,2..."
+          "AlternateLaunchId": {
+            "type": ["string", "null"],
+            "format": "uuid",
+            "description": "The Id of the Alternate Launch to use. Null or omitted uses the browser's default launch."
           }
         },
-        "required": ["Rules", "BrowserName"]
+        "required": ["Id", "Rules", "BrowserId"]
       }
     }
   },
