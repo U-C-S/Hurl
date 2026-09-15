@@ -56,6 +56,14 @@ public sealed partial class BrowsersPage : Page
         }
     }
 
+    private void DeleteBrowser_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+        if (sender is MenuFlyoutItem { Tag: Guid browserId })
+        {
+            ViewModel.DeleteBrowser(browserId);
+        }
+    }
+
     private void ListView_DragItemsCompleted(ListViewBase sender, DragItemsCompletedEventArgs args)
     {
         ViewModel.UpdateBrowserOrder();

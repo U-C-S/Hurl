@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using Hurl.Library.Models;
 using Hurl.Settings.Services.Interfaces;
 using Microsoft.Extensions.Options;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -41,6 +42,15 @@ internal partial class BrowsersPageViewModel : ObservableObject
         }
         settingsService.UpdateBrowsers(Browsers);
     }
+    public void DeleteBrowser(Guid browserId)
+    {
+        var browser = Browsers.FirstOrDefault(browser => browser.Id == browserId);
+        if (browser != null && Browsers.Remove(browser))
+        {
+            settingsService.UpdateBrowsers(Browsers);
+        }
+    }
+
     internal void UpdateBrowserOrder()
     {
         settingsService.UpdateBrowsers(Browsers);

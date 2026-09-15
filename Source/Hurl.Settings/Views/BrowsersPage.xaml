@@ -40,7 +40,7 @@
                                 Edit
                                 <SplitButton.Flyout>
                                     <MenuFlyout Placement="Bottom">
-                                        <MenuFlyoutItem>
+                                        <MenuFlyoutItem Click="DeleteBrowser_Click" Tag="{x:Bind Id}">
                                             Delete
                                         </MenuFlyoutItem>
                                     </MenuFlyout>
