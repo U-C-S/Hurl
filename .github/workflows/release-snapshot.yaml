@@ -1,16 +1,13 @@
 name: Release snapshot
 
 on:
-  push:
-    branches:
-      - 'main'
+  workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
   release:
-    if: contains(github.event.head_commit.message, '[release-snapshot]')
     runs-on: windows-latest
 
     steps:
