@@ -104,6 +104,7 @@
 
         <Border
             Grid.Row="2"
+            Margin="8,0"
             Padding="4"
             HorizontalAlignment="Center"
             BorderBrush="{StaticResource ControlElevationBorderBrush}"
