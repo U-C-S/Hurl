@@ -38,7 +38,6 @@
                     <ComboBox SelectedIndex="{x:Bind ViewModel.Option_BackgroundType, Mode=TwoWay}">
                         <ComboBoxItem Content="Mica" />
                         <ComboBoxItem Content="Acrylic" />
-                        <ComboBoxItem Content="Solid" />
                     </ComboBox>
                 </toolkit:SettingsCard>
             </StackPanel>

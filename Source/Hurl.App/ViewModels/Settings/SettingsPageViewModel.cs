@@ -50,19 +50,17 @@ public partial class SettingsPageViewModel : ObservableObject
 
     public int Option_BackgroundType
     {
-        get => AppSettings.BackgroundType switch
+        get => AppSettings.BackgroundType?.ToLowerInvariant() switch
         {
-            "mica" => 0,
             "acrylic" => 1,
-            _ => 2
+            _ => 0
         };
         set
         {
             AppSettings.BackgroundType = value switch
             {
-                0 => "mica",
                 1 => "acrylic",
-                _ => "solid"
+                _ => "mica"
             };
             _settingsService.UpdateAppSettings(AppSettings);
             OnPropertyChanged();

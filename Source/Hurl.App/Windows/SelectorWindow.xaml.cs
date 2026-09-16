@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -58,6 +59,7 @@ public sealed partial class SelectorWindow : Window
         trayIcon = CreateTrayIcon();
 
         InitializeComponent();
+        ApplyConfiguredBackground();
         QuickViewButton.IsEnabled = quickViewService.IsQuickViewEnabled;
         settingsService.SettingsChanged += SettingsChanged;
     }
@@ -158,6 +160,22 @@ public sealed partial class SelectorWindow : Window
         this.SetForegroundWindow();
     }
 
+    private void ApplyConfiguredBackground()
+    {
+        string? backgroundType = ViewModel.AppSettings.BackgroundType?.ToLowerInvariant();
+        if (backgroundType == "acrylic")
+        {
+            if (SystemBackdrop is not DesktopAcrylicBackdrop)
+            {
+                SystemBackdrop = new DesktopAcrylicBackdrop();
+            }
+        }
+        else if (SystemBackdrop is not MicaBackdrop)
+        {
+            SystemBackdrop = new MicaBackdrop();
+        }
+    }
+
     private void ApplyConfiguredWindowSize()
     {
         var (width, height) = GetConfiguredWindowSize();
@@ -210,6 +228,7 @@ public sealed partial class SelectorWindow : Window
     private void SettingsChanged(object? sender, EventArgs e)
     {
         ViewModel.RefreshSettings();
+        ApplyConfiguredBackground();
         QuickViewButton.IsEnabled = quickViewService.IsQuickViewEnabled;
         ApplyConfiguredWindowSize();
     }

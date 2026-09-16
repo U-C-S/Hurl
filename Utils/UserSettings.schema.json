@@ -73,8 +73,9 @@
         },
         "BackgroundType": {
           "type": "string",
-          "description": "The type of background to use for the browser window. mica, acrylic, or solid.",
-          "enum": ["mica", "acrylic", "solid"]
+          "description": "The type of background to use for the browser window.",
+          "enum": ["mica", "acrylic"],
+          "default": "mica"
         },
         "WindowSize": {
           "type": "array",

@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Hurl.Library.Models;
 
@@ -24,6 +24,5 @@ public partial class AppSettings : ObservableObject
 public enum BackgroundMaterial
 {
     Acrylic,
-    Mica,
-    Solid
+    Mica
 }

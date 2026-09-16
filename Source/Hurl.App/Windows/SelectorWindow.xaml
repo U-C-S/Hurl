@@ -10,10 +10,6 @@
     x:Name="SelectorRoot"
     Title="Hurl - Select"
     mc:Ignorable="d">
-    <Window.SystemBackdrop>
-        <MicaBackdrop />
-    </Window.SystemBackdrop>
-
     <Grid
         Padding="8"
         KeyboardAcceleratorPlacementMode="Hidden"
