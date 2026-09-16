@@ -1,13 +1,15 @@
-﻿using Hurl.Library.Models;
-using System.Threading.Tasks;
+using Hurl.Library.Models;
+using System;
+using System.Collections.ObjectModel;
 
 namespace Hurl.App.Services.Interfaces;
 
 public interface ISettingsService
 {
-    Task<Settings> LoadSettingsAsync();
-
     Settings LoadSettings();
-
-    Task SaveSettingsAsync(Settings settings);
+    event EventHandler? SettingsChanged;
+    void UpdateAppSettings(AppSettings appSettings);
+    void UpdateQuickView(QuickViewSettings quickView);
+    void UpdateBrowsers(ObservableCollection<Browser> browsers);
+    void UpdateRulesets(ObservableCollection<Ruleset> rulesets);
 }

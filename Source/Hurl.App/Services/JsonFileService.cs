@@ -2,63 +2,88 @@ using Hurl.App.Services.Interfaces;
 using Hurl.Library;
 using Hurl.Library.Models;
 using Hurl.Library.Serialization;
+using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Hurl.App.Services;
 
 public class JsonFileService : ISettingsService
 {
-    private readonly string _settingsPath;
+    private readonly string settingsPath;
+    private Settings? settings;
 
-    public JsonFileService(string settingsPath = "settings.json")
+    public JsonFileService(string? settingsPath = null)
     {
-        _settingsPath = Constants.APP_SETTINGS_MAIN;
+        this.settingsPath = settingsPath ?? Constants.APP_SETTINGS_MAIN;
     }
 
-    public async Task<Settings> LoadSettingsAsync()
-    {
-        if (!File.Exists(_settingsPath))
-            return new Settings();
+    public event EventHandler? SettingsChanged;
 
-        var json = await File.ReadAllTextAsync(_settingsPath);
-        var settings = JsonSerializer.Deserialize(json, SelectorJsonSerializerContext.Default.Settings);
-        settings ??= new Settings();
-
-        // Ensure collections are initialized
-        settings.Browsers ??= new ObservableCollection<Browser>();
-        foreach (var browser in settings.Browsers)
-        {
-            browser.AlternateLaunches ??= new ObservableCollection<AlternateLaunch>();
-        }
-
-        return settings;
-    }
-
+    // All windows share this instance; saving one section preserves the others.
     public Settings LoadSettings()
     {
-        if (!File.Exists(_settingsPath))
-            return new Settings();
+        if (settings is not null)
+        {
+            return settings;
+        }
 
-        var json = File.ReadAllText(_settingsPath);
-        var settings = JsonSerializer.Deserialize(json, SelectorJsonSerializerContext.Default.Settings);
-        settings ??= new Settings();
+        bool firstRun = !File.Exists(settingsPath);
+        settings = firstRun
+            ? new Settings { Browsers = new(GetBrowsers.FromRegistry()) }
+            : JsonSerializer.Deserialize(File.ReadAllText(settingsPath), SelectorJsonSerializerContext.Default.Settings)
+                ?? new Settings();
 
-        // Ensure collections are initialized
-        settings.Browsers ??= new ObservableCollection<Browser>();
+        settings.Browsers ??= [];
+        settings.AppSettings ??= new();
+        settings.QuickView ??= new();
+        settings.Rulesets ??= [];
         foreach (var browser in settings.Browsers)
         {
-            browser.AlternateLaunches ??= new ObservableCollection<AlternateLaunch>();
+            browser.AlternateLaunches ??= [];
+        }
+
+        if (firstRun)
+        {
+            SaveSettings();
         }
 
         return settings;
     }
 
-    public async Task SaveSettingsAsync(Settings settings)
+    private void SaveSettings()
     {
-        var json = JsonSerializer.Serialize(settings, SelectorJsonSerializerContext.Default.Settings);
-        await File.WriteAllTextAsync(_settingsPath, json);
+        Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(settingsPath))!);
+        string json = JsonSerializer.Serialize(settings, SelectorJsonSerializerContext.Default.Settings);
+        // Replace only after the complete document is written.
+        string temporaryPath = settingsPath + ".tmp";
+        File.WriteAllText(temporaryPath, json);
+        File.Move(temporaryPath, settingsPath, overwrite: true);
+        SettingsChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void UpdateAppSettings(AppSettings appSettings)
+    {
+        LoadSettings().AppSettings = appSettings;
+        SaveSettings();
+    }
+
+    public void UpdateQuickView(QuickViewSettings quickView)
+    {
+        LoadSettings().QuickView = quickView;
+        SaveSettings();
+    }
+
+    public void UpdateBrowsers(ObservableCollection<Browser> browsers)
+    {
+        LoadSettings().Browsers = browsers;
+        SaveSettings();
+    }
+
+    public void UpdateRulesets(ObservableCollection<Ruleset> rulesets)
+    {
+        LoadSettings().Rulesets = [.. rulesets];
+        SaveSettings();
     }
 }

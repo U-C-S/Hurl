@@ -14,6 +14,8 @@ public partial class CliArgs
     // CLI Options and Arguments
     private static readonly Option<bool> MinimizedOption = new("--minimized");
     private static readonly Option<string?> UriOption = new("--uri");
+    private static readonly Option<bool> SettingsOption = new("--settings");
+    private static readonly Option<string?> PageOption = new("--page");
     private static readonly Argument<string[]> ValuesArgument = new("values")
     {
         Arity = ArgumentArity.ZeroOrMore
@@ -25,11 +27,19 @@ public partial class CliArgs
     public bool IsSecondInstance = false;
     public bool IsRunAsMin = false;
     public bool IsProtocolActivated = false;
+    public string? SettingsPage { get; private set; }
     public string Url { get; set; } = string.Empty;
 
     private CliArgs(ParseResult parseResult, bool isSecondInstance)
     {
+        IsSecondInstance = isSecondInstance;
         IsRunAsMin = parseResult.GetValue(MinimizedOption);
+        string? page = parseResult.GetValue(PageOption);
+        if (parseResult.GetValue(SettingsOption) || page is not null)
+        {
+            SettingsPage = string.IsNullOrWhiteSpace(page) ? "browsers" : page;
+            return;
+        }
 
         var values = new List<string>(parseResult.GetValue(ValuesArgument) ?? []);
         string? uriValue = parseResult.GetValue(UriOption);
@@ -37,19 +47,6 @@ public partial class CliArgs
         if (IsRunAsMin)
         {
             return;
-        }
-
-        if (isSecondInstance)
-        {
-            IsSecondInstance = true;
-            if (values.Count >= 2)
-            {
-                values.RemoveAt(0);
-            }
-            else if (values.Count == 1 && values[0].Contains("Hurl", StringComparison.OrdinalIgnoreCase))
-            {
-                return;
-            }
         }
 
         TrimExecutablePath(values);
@@ -96,6 +93,14 @@ public partial class CliArgs
 
     public static CliArgs GatherInfo(AppActivationArguments activationArgs, bool isSecondInstance)
     {
+        if (activationArgs.Kind == ExtendedActivationKind.Protocol
+            && activationArgs.Data is IProtocolActivatedEventArgs protocolArgs)
+        {
+            var protocol = new CliArgs(CliRoot.Parse(Array.Empty<string>()), isSecondInstance);
+            protocol.AssignUrl(protocolArgs.Uri.AbsoluteUri);
+            return protocol;
+        }
+
         var rawCommandLine = GetActivationCommandLine(activationArgs);
         var parseResult = CliRoot.Parse(rawCommandLine);
 
@@ -123,6 +128,8 @@ public partial class CliArgs
 
         root.Add(MinimizedOption);
         root.Add(UriOption);
+        root.Add(SettingsOption);
+        root.Add(PageOption);
         root.Add(ValuesArgument);
 
         return root;

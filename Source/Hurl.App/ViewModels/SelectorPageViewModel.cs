@@ -36,17 +36,22 @@ public partial class SelectorPageViewModel : ObservableObject
     [ObservableProperty]
     public partial AppSettings AppSettings { get; set; }
 
+    public void RefreshSettings()
+    {
+        Settings settings = _settingsService.LoadSettings();
+        AppSettings = settings.AppSettings;
+        LoadBrowsers(settings);
+    }
+
     private async void LoadBrowsers(Settings settings)
     {
-        Browsers.Clear();
-
-        foreach (var browser in settings.Browsers.Where(b => !b.Hidden))
+        // Snapshot before awaiting so editing/reordering browsers cannot invalidate enumeration.
+        var items = settings.Browsers.Where(browser => !browser.Hidden)
+            .Select(browser => new BrowserItemViewModel(browser)).ToArray();
+        Browsers = new(items);
+        foreach (var item in items)
         {
-            BrowserItemViewModel item = new(browser)
-            {
-                Icon = await _iconLoader.LoadIconAsync(browser)
-            };
-            Browsers.Add(item);
+            item.Icon = await _iconLoader.LoadIconAsync(item.Model);
         }
     }
 

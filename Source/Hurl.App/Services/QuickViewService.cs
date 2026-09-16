@@ -1,6 +1,6 @@
 using Hurl.App.Helpers;
 using Hurl.App.Services.Interfaces;
-using Hurl.App.Views;
+using Hurl.App.Windows;
 using Hurl.Library.Models;
 using Microsoft.UI.Xaml;
 using System;
