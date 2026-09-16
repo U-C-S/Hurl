@@ -30,7 +30,7 @@ fn main() {
     let hurl_exe_path = {
         let current_exe_path = env::current_exe().unwrap();
         let current_dir = current_exe_path.parent().unwrap();
-        current_dir.join("Hurl Selector.exe")
+        current_dir.join("Hurl.exe")
     };
 
     let args = env::args().collect::<Vec<String>>();
