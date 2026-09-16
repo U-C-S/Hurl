@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Dispatching;
 using Microsoft.Windows.AppLifecycle;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Text.Json;
 using WinUIEx;
@@ -23,10 +24,14 @@ public partial class App : Microsoft.UI.Xaml.Application
     private readonly DispatcherQueue dispatcherQueue;
     private AppActivationArguments? _pendingActivationArgs;
     private bool isLaunched;
+    private TrayService? trayService;
+
+    internal static bool IsExiting { get; private set; }
 
     public App()
     {
         dispatcherQueue = DispatcherQueue.GetForCurrentThread();
+        dispatcherQueue.ShutdownStarting += DispatcherQueue_ShutdownStarting;
         Services = ConfigureServices();
         InitializeComponent();
         Current.UnhandledException += Dispatcher_UnhandledException;
@@ -72,7 +77,7 @@ public partial class App : Microsoft.UI.Xaml.Application
         _ = dispatcherQueue.TryEnqueue(() => HandleActivation(args, true));
     }
 
-    private static void HandleActivation(AppActivationArguments activationArgs, bool isSecondInstance)
+    private void HandleActivation(AppActivationArguments activationArgs, bool isSecondInstance)
     {
         var cliArgs = CliArgs.GatherInfo(activationArgs, isSecondInstance);
         IServiceProvider services = Services ?? throw new InvalidOperationException("Application services are not configured.");
@@ -89,7 +94,38 @@ public partial class App : Microsoft.UI.Xaml.Application
         }
 
         _selectorWindow ??= new SelectorWindow();
+        trayService ??= new TrayService(ShowSelector, () => ShowSettings("settings"), ReloadApp, ExitApp);
         _selectorWindow.Init(cliArgs);
+    }
+
+    private static void ShowSelector()
+    {
+        _selectorWindow ??= new SelectorWindow();
+        _selectorWindow.ShowWindow();
+    }
+
+    private void ReloadApp()
+    {
+        string appPath = Environment.ProcessPath ?? Path.Combine(AppContext.BaseDirectory, "Hurl.exe");
+        Process.Start(new ProcessStartInfo(appPath)
+        {
+            UseShellExecute = true
+        });
+        ExitApp();
+    }
+
+    private void ExitApp()
+    {
+        IsExiting = true;
+        trayService?.Dispose();
+        Exit();
+    }
+
+    private void DispatcherQueue_ShutdownStarting(DispatcherQueue sender, DispatcherQueueShutdownStartingEventArgs args)
+    {
+        IsExiting = true;
+        trayService?.Dispose();
+        dispatcherQueue.ShutdownStarting -= DispatcherQueue_ShutdownStarting;
     }
 
     public static void ShowSettings(string page = "browsers")
@@ -137,6 +173,6 @@ public partial class App : Microsoft.UI.Xaml.Application
         // };
         // await dialog.ShowAsync();
 
-        Exit();
+        ExitApp();
     }
 }

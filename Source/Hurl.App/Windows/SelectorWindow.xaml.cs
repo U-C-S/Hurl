@@ -10,7 +10,6 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using System;
 using System.Diagnostics;
-using System.IO;
 using Windows.ApplicationModel.DataTransfer;
 using WinRT;
 using WinUIEx;
@@ -26,11 +25,6 @@ public sealed partial class SelectorWindow : Window
 
     private WindowManager? windowManager;
 
-    private const uint TrayIconId = 3721;
-    private readonly TrayIcon trayIcon;
-    private readonly MenuFlyout trayMenuFlyout;
-    private bool allowWindowClose;
-    private bool trayIconDisposed;
     private bool isHiddenToTray;
 
     #region Window Lifecycle
@@ -55,8 +49,6 @@ public sealed partial class SelectorWindow : Window
         ApplyConfiguredWindowSize();
         Activated += Window_Activated;
         Closed += SelectorWindow_Closed;
-        trayMenuFlyout = CreateTrayMenuFlyout();
-        trayIcon = CreateTrayIcon();
 
         InitializeComponent();
         ApplyConfiguredBackground();
@@ -105,14 +97,13 @@ public sealed partial class SelectorWindow : Window
 
     private void SelectorWindow_Closed(object sender, WindowEventArgs args)
     {
-        if (!allowWindowClose)
+        if (!App.IsExiting)
         {
             args.Handled = true;
             MinimizeWindow();
             return;
         }
 
-        CleanupTrayIcon();
         settingsService.SettingsChanged -= SettingsChanged;
         ViewModel.BrowserLaunched -= ViewModel_BrowserLaunched;
         Activated -= Window_Activated;
@@ -193,21 +184,6 @@ public sealed partial class SelectorWindow : Window
         return (width, height);
     }
 
-    private void ReloadApp()
-    {
-        string appPath = Environment.ProcessPath ?? Path.Combine(AppContext.BaseDirectory, "Hurl.exe");
-        Process.Start(new ProcessStartInfo(appPath)
-        {
-            UseShellExecute = true
-        });
-        ExitApp();
-    }
-
-    private void ExitApp()
-    {
-        allowWindowClose = true;
-        Application.Current.Exit();
-    }
     #endregion
 
     #region Selector UI Event Handlers
@@ -318,103 +294,6 @@ public sealed partial class SelectorWindow : Window
         var xamlRoot = (Content as FrameworkElement)?.XamlRoot;
         return xamlRoot is not null && FocusManager.GetFocusedElement(xamlRoot) is TextBox;
     }
-    #endregion
-
-    #region TrayIcon Lifecycle methods
-    private TrayIcon CreateTrayIcon()
-    {
-        string iconPath = Path.Combine(AppContext.BaseDirectory, "Assets", "internet.ico");
-        TrayIcon icon = new(TrayIconId, iconPath, "Hurl is running in background for faster access")
-        {
-            IsVisible = true
-        };
-
-        icon.Selected += TrayIcon_LeftClick;
-        icon.LeftDoubleClick += TrayIcon_LeftClick;
-        icon.ContextMenu += TrayIcon_ContextMenu;
-
-        return icon;
-    }
-
-    private MenuFlyout CreateTrayMenuFlyout()
-    {
-        MenuFlyout flyout = new();
-        flyout.Items.Add(CreateTrayMenuItem("Settings", "settings", "\uE713"));
-        flyout.Items.Add(CreateTrayMenuItem("Reload", "reload", "\uE777"));
-        flyout.Items.Add(CreateTrayMenuItem("Exit", "exit", "\uE8BB"));
-        return flyout;
-    }
-
-    private MenuFlyoutItem CreateTrayMenuItem(string text, string tag, string glyph)
-    {
-        MenuFlyoutItem item = new()
-        {
-            Text = text,
-            Tag = tag,
-            Icon = new FontIcon { Glyph = glyph }
-        };
-        item.Click += TrayMenuItem_OnClick;
-        return item;
-    }
-
-    private void CleanupTrayIcon()
-    {
-        if (trayIconDisposed)
-        {
-            return;
-        }
-
-        trayIconDisposed = true;
-        trayIcon.CloseFlyout();
-        trayIcon.IsVisible = false;
-        trayIcon.Selected -= TrayIcon_LeftClick;
-        trayIcon.LeftDoubleClick -= TrayIcon_LeftClick;
-        trayIcon.ContextMenu -= TrayIcon_ContextMenu;
-
-        trayIcon.Dispose();
-    }
-    #endregion
-
-    #region TrayIcon Event Handlers
-    private void TrayIcon_LeftClick(object? sender, TrayIconEventArgs e)
-    {
-        e.Handled = true;
-        ShowWindow();
-    }
-
-    private void TrayIcon_ContextMenu(object? sender, TrayIconEventArgs e)
-    {
-        e.Handled = true;
-        e.Flyout = trayMenuFlyout;
-    }
-
-    private void TrayMenuItem_OnClick(object sender, RoutedEventArgs e)
-    {
-        string? tag = (sender as MenuFlyoutItem)?.Tag as string;
-
-        try
-        {
-            switch (tag)
-            {
-                case "settings":
-                    App.ShowSettings("settings");
-                    break;
-                case "reload":
-                    ReloadApp();
-                    break;
-                case "exit":
-                    ExitApp();
-                    break;
-                default:
-                    break;
-            }
-        }
-        catch (Exception err)
-        {
-            Debug.WriteLine(err);
-        }
-    }
-
     #endregion
 
     #region Helper methods
