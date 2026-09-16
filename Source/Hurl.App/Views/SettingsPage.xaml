@@ -30,14 +30,6 @@
                     <ToggleSwitch IsOn="{x:Bind ViewModel.Option_MinimizeOnFocusLoss, Mode=TwoWay}" />
                 </toolkit:SettingsCard>
 
-                <toolkit:SettingsCard Header="No White Border">
-                    <toolkit:SettingsCard.HeaderIcon>
-                        <FontIcon Glyph="&#xE739;" />
-                    </toolkit:SettingsCard.HeaderIcon>
-
-                    <ToggleSwitch IsOn="{x:Bind ViewModel.Option_NoWhiteBorder, Mode=TwoWay}" />
-                </toolkit:SettingsCard>
-
                 <toolkit:SettingsCard Header="Background Type">
                     <toolkit:SettingsCard.HeaderIcon>
                         <FontIcon Glyph="&#xE790;" />

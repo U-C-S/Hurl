@@ -48,21 +48,6 @@ public partial class SettingsPageViewModel : ObservableObject
         }
     }
 
-    public bool Option_NoWhiteBorder
-    {
-        get => AppSettings.NoWhiteBorder;
-        set
-        {
-            if (AppSettings.NoWhiteBorder != value)
-            {
-                AppSettings.NoWhiteBorder = value;
-                _settingsService.UpdateAppSettings(AppSettings);
-
-                OnPropertyChanged();
-            }
-        }
-    }
-
     public int Option_BackgroundType
     {
         get => AppSettings.BackgroundType switch

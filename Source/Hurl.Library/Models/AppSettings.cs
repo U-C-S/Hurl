@@ -11,9 +11,6 @@ public partial class AppSettings : ObservableObject
     public partial bool MinimizeOnFocusLoss { get; set; } = true;
 
     [ObservableProperty]
-    public partial bool NoWhiteBorder { get; set; } = false;
-
-    [ObservableProperty]
     public partial string BackgroundType { get; set; } = "mica";
 
     [ObservableProperty]

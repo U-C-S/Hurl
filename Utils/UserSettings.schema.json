@@ -67,10 +67,6 @@
           "type": "boolean",
           "description": "If true, the browser will be launched under the mouse cursor."
         },
-        "NoWhiteBorder": {
-          "type": "boolean",
-          "description": "If true, the white border around the browser window will be removed."
-        },
         "RuleMatching": {
           "type": "boolean",
           "description": "If true, Enables Rule Matching feature with the rules defined in the 'Rulesets' Property."

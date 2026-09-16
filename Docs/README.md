@@ -39,7 +39,6 @@ The following snippet shows the default options:
 "AppSettings": {
     "LaunchUnderMouse": false,
     "MinimizeOnFocusLoss": true,
-    "NoWhiteBorder": false,
     "BackgroundType": "mica",
     "RuleMatching": false,
     "WindowSize": [460,230]
@@ -50,7 +49,6 @@ The following snippet shows the default options:
 
 - `LaunchUnderMouse` default is **false**, can be used to launch the Hurl window under the mouse when enabled
 - `MinimizeOnFocusLoss` default is **true**
-- `NoWhiteBorder` set **true** or **false** to enable or disable the white border around the window
 - `BackgroundType` supports **mica**, **acrylic**, **none**
   - Windows 11 22H2 or above supports all options
   - Windows 11 build 22000 supports only mica
