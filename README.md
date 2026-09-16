@@ -1,5 +1,5 @@
 <div align="center">
-  <img width="130" src="Source/Hurl.BrowserSelector/Assets/internet.ico">
+  <img width="130" src="Source/Hurl.App/Assets/internet.ico">
   
   <h1>Hurl</h1>
   
@@ -31,7 +31,7 @@ Sometimes you might want to open a link in a browser of your choice, instead of 
 - Modern Windows UI with multiple customization options
 - Supports adding custom browser configuration with Launch Arguments
 - Rules to automatically open a browser without prompting
-- Settings application to manage all the features (beta)
+- Settings window to manage all the features
 - A Web Extension to open browser tabs in Hurl (experimental)
 
 <p align="center">
@@ -60,7 +60,7 @@ See [Extensions readme](./Extensions/README.md) for installing the Browser Exten
   - .NET desktop development
   - Windows application development
   - Desktop development with C++ (required for building Launcher)
-- After forking and cloning the repository, open the solution file `./Hurl.sln` in Visual Studio. You can change the projects between _Hurl.BrowserSelector_ and _Hurl.Settings_
+- After forking and cloning the repository, open the solution file `./Hurl.sln` in Visual Studio. Set **Hurl.App** as the startup project.
 - Install [Rustup / Setup Rust complier](https://www.rust-lang.org/tools/install) locally to debug Launcher app
 - Install [Inno Setup](https://jrsoftware.org/isdl.php) to create the Hurl Installer
 

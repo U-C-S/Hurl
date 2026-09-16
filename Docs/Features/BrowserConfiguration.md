@@ -82,7 +82,7 @@ get the package name)
 
 ## Refreshing Browsers list
 
-The new _Hurl Settings_ application supports re-fetching the browsers
+The _Hurl Settings_ window supports re-fetching the browsers
 list and automatically appends any new ones to the end of the current
 list of browsers configured in Hurl.
 

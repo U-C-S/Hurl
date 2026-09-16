@@ -5,7 +5,7 @@
 #define MyAppURL "https://github.com/U-C-S/Hurl"
 #define ExeNativeHost "NativeMessagingHost.exe"
 #define ExeSelector "Hurl.exe"
-#define ExeSettings "Hurl Settings.exe"
+
 #define AppDescription "Choose the browser on the click of a link"
 
 
@@ -22,7 +22,7 @@ AppReadmeFile={#MyAppURL}#README
 SetupIconFile=..\Source\Hurl.App\Assets\internet.ico
 LicenseFile=..\LICENSE
 InfoBeforeFile=README.md
-UninstallDisplayIcon={app}\{#ExeSettings}
+UninstallDisplayIcon={app}\{#ExeSelector}
 
 UsePreviousAppDir=yes
 DefaultDirName={autopf64}\{#MyAppName}
@@ -56,6 +56,8 @@ Source: "..\LICENSE"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Extensions\*"; Excludes: "package-lock.json,node_modules"; DestDir: "{app}\Extensions"; Flags: ignoreversion recursesubdirs
 
 [InstallDelete]
+Type: files; Name: "{app}\Hurl Settings.exe"
+Type: files; Name: "{app}\Hurl Settings.dll"
 Type: files; Name: "{app}\Hurl.exe"
 Type: files; Name: "{app}\Hurl.dll"
 Type: files; Name: "{app}\Hurl.BrowserSelector.dll"
@@ -70,9 +72,9 @@ Type: files; Name: "{app}\nmh-manifest.json"
 
 [Icons]
 Name: "{autoprograms}\{#MyAppName}\{#MyAppName}"; Filename: "{app}\{#ExeSelector}"; Comment: "{#AppDescription}"
-Name: "{autoprograms}\{#MyAppName}\{#MyAppName} Settings"; Filename: "{app}\{#ExeSettings}"
+Name: "{autoprograms}\{#MyAppName}\{#MyAppName} Settings"; Filename: "{app}\{#ExeSelector}"; Parameters: "--settings"
 Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#ExeSelector}"; Comment: "{#AppDescription}"; Tasks: desktopicon
-Name: "{autodesktop}\{#MyAppName} Settings"; Filename: "{app}\{#ExeSettings}"; Tasks: desktopicon
+Name: "{autodesktop}\{#MyAppName} Settings"; Filename: "{app}\{#ExeSelector}"; Parameters: "--settings"; Tasks: desktopicon
 
 [Registry]
 #define RootKey "HKA"
