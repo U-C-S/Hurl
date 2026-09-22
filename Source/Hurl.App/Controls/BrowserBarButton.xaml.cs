@@ -15,11 +15,10 @@ namespace Hurl.App.Controls;
 
 public sealed partial class BrowserBarButton : UserControl
 {
-    private const float InactiveTileScale = 0.985f;
     private const float InactiveAdditionalScale = 0.88f;
     private const float InactiveAdditionalOffsetY = -4f;
     private static readonly TimeSpan BackgroundAnimationDuration = TimeSpan.FromMilliseconds(160);
-    private static readonly TimeSpan TileAnimationDuration = TimeSpan.FromMilliseconds(180);
+    private static readonly TimeSpan AdditionalTransformAnimationDuration = TimeSpan.FromMilliseconds(180);
     private static readonly TimeSpan AdditionalAnimationDuration = TimeSpan.FromMilliseconds(140);
 
     private readonly BrowserTileInteractionState interactionState = new();
@@ -204,57 +203,43 @@ public sealed partial class BrowserBarButton : UserControl
 
     private void InitializeInteractionVisualState()
     {
-        BrowserTileRoot.SizeChanged += (_, _) => UpdateVisualCenterPoints();
-        AdditionalBtn.SizeChanged += (_, _) => UpdateVisualCenterPoints();
+        AdditionalBtn.SizeChanged += (_, _) => UpdateAdditionalVisualCenterPoint();
         SetInteractionVisualState(isActive: false);
     }
 
     private void AnimateInteractionVisualState(bool isActive)
     {
         var backgroundVisual = ElementCompositionPreview.GetElementVisual(BrowserTileBackground);
-        var tileVisual = ElementCompositionPreview.GetElementVisual(BrowserTileRoot);
         var additionalVisual = ElementCompositionPreview.GetElementVisual(AdditionalBtn);
 
         StartScalarAnimation(backgroundVisual, "Opacity", isActive ? 1f : 0f, BackgroundAnimationDuration);
-        StartVector3Animation(
-            tileVisual,
-            "Scale",
-            CreateUniformScale(isActive ? 1f : InactiveTileScale),
-            TileAnimationDuration);
         StartScalarAnimation(additionalVisual, "Opacity", isActive ? 1f : 0f, AdditionalAnimationDuration);
         StartVector3Animation(
             additionalVisual,
             "Scale",
             CreateUniformScale(isActive ? 1f : InactiveAdditionalScale),
-            TileAnimationDuration);
+            AdditionalTransformAnimationDuration);
         StartVector3Animation(
             additionalVisual,
             "Offset",
             new Vector3(0, isActive ? 0 : InactiveAdditionalOffsetY, 0),
-            TileAnimationDuration);
+            AdditionalTransformAnimationDuration);
     }
 
     private void SetInteractionVisualState(bool isActive)
     {
         var backgroundVisual = ElementCompositionPreview.GetElementVisual(BrowserTileBackground);
-        var tileVisual = ElementCompositionPreview.GetElementVisual(BrowserTileRoot);
         var additionalVisual = ElementCompositionPreview.GetElementVisual(AdditionalBtn);
 
         backgroundVisual.Opacity = isActive ? 1f : 0f;
-        tileVisual.Scale = CreateUniformScale(isActive ? 1f : InactiveTileScale);
         additionalVisual.Opacity = isActive ? 1f : 0f;
         additionalVisual.Scale = CreateUniformScale(isActive ? 1f : InactiveAdditionalScale);
         additionalVisual.Offset = new Vector3(0, isActive ? 0 : InactiveAdditionalOffsetY, 0);
-        UpdateVisualCenterPoints();
+        UpdateAdditionalVisualCenterPoint();
     }
 
-    private void UpdateVisualCenterPoints()
+    private void UpdateAdditionalVisualCenterPoint()
     {
-        ElementCompositionPreview.GetElementVisual(BrowserTileRoot).CenterPoint = new Vector3(
-            (float)BrowserTileRoot.ActualWidth / 2,
-            (float)BrowserTileRoot.ActualHeight / 2,
-            0);
-
         ElementCompositionPreview.GetElementVisual(AdditionalBtn).CenterPoint = new Vector3(
             (float)AdditionalBtn.ActualWidth / 2,
             (float)AdditionalBtn.ActualHeight / 2,
