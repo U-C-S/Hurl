@@ -96,7 +96,9 @@ public partial class App : Microsoft.UI.Xaml.Application
         }
 
         var settings = services.GetRequiredService<ISettingsService>().LoadSettings();
-        if (cliArgs.Url is not null && RuleMatch.CheckRulesets(cliArgs.Url, settings.Rulesets) is Ruleset matchingRuleset)
+        if (cliArgs.Url is not null
+            && settings.AppSettings.RuleMatching
+            && RuleMatch.CheckRulesets(cliArgs.Url, settings.Rulesets) is Ruleset matchingRuleset)
         {
             var selectedBrowser = settings.Browsers.FirstOrDefault(b => b.Id == matchingRuleset.BrowserId);
             if (selectedBrowser is not null)
