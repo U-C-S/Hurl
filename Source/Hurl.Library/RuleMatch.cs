@@ -5,6 +5,12 @@ namespace Hurl.Library;
 
 public class RuleMatch
 {
+    public static Ruleset? CheckRulesets(string link, List<Ruleset> rulesets)
+    {
+        return rulesets.FirstOrDefault(ruleset => ruleset.Rules is { } rules
+            && CheckMultiple(link, rules));
+    }
+
     public static bool CheckMultiple(string link, List<string> rules)
     {
         var value = rules.FirstOrDefault(rule => CheckRule(link, rule), null);

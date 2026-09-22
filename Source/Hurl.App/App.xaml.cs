@@ -4,12 +4,14 @@ using Hurl.App.Services.Interfaces;
 using Hurl.App.ViewModels;
 using Hurl.App.Windows;
 using Hurl.Library;
+using Hurl.Library.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Dispatching;
 using Microsoft.Windows.AppLifecycle;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using WinUIEx;
 
@@ -92,6 +94,18 @@ public partial class App : Microsoft.UI.Xaml.Application
         {
             return;
         }
+
+        var settings = services.GetRequiredService<ISettingsService>().LoadSettings();
+        if (cliArgs.Url is not null && RuleMatch.CheckRulesets(cliArgs.Url, settings.Rulesets) is Ruleset matchingRuleset)
+        {
+            var selectedBrowser = settings.Browsers.FirstOrDefault(b => b.Id == matchingRuleset.BrowserId);
+            if (selectedBrowser is not null)
+            {
+                UriLauncher.ResolveAutomatically(cliArgs.Url, selectedBrowser, matchingRuleset.AlternateLaunchId);
+            }
+            return;
+        }
+
 
         _selectorWindow ??= new SelectorWindow();
         trayService ??= new TrayService(ShowSelector, () => ShowSettings("settings"), ReloadApp, ExitApp);

@@ -55,9 +55,7 @@ public sealed partial class TestRules : Page
             return;
         }
 
-        var matchingRuleset = rulesets
-            .FirstOrDefault(ruleset => ruleset.Rules is { } rules
-                && RuleMatch.CheckMultiple(uri, rules));
+        var matchingRuleset = RuleMatch.CheckRulesets(uri, [.. rulesets]);
 
         if (matchingRuleset != null)
         {
