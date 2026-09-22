@@ -175,7 +175,7 @@ public partial class App : Microsoft.UI.Xaml.Application
                 break;
         }
 
-        // TODO: create the crashes directory if it doesn't exist
+        Directory.CreateDirectory(Path.Combine(Constants.ROAMING, "Hurl", "crashes"));
         long seconds = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
         var argsStoreFile = Path.Combine(Constants.ROAMING, "Hurl", "crashes", $"{seconds}.txt");
         var errorFileContents = string.Format("{0}\n\nStackTrace:\n{1}", e.Message, e.Exception.StackTrace);
