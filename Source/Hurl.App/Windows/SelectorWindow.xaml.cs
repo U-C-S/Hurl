@@ -13,6 +13,7 @@ using System.Diagnostics;
 using Windows.ApplicationModel.DataTransfer;
 using WinRT;
 using WinUIEx;
+using WinUIEx.Messaging;
 
 namespace Hurl.App.Windows;
 
@@ -24,8 +25,10 @@ public sealed partial class SelectorWindow : Window
     private readonly ISettingsService settingsService;
 
     private WindowManager? windowManager;
+    private readonly WindowMessageMonitor windowMessageMonitor;
 
     private bool isHiddenToTray;
+    private bool isSavingWindowSize;
 
     #region Window Lifecycle
     public SelectorWindow()
@@ -54,6 +57,8 @@ public sealed partial class SelectorWindow : Window
         ApplyConfiguredBackground();
         QuickViewButton.IsEnabled = quickViewService.IsQuickViewEnabled;
         settingsService.SettingsChanged += SettingsChanged;
+        windowMessageMonitor = new WindowMessageMonitor(this);
+        windowMessageMonitor.WindowMessageReceived += WindowMessageReceived;
     }
 
     public void Init(CliArgs args)
@@ -107,6 +112,8 @@ public sealed partial class SelectorWindow : Window
         settingsService.SettingsChanged -= SettingsChanged;
         ViewModel.BrowserLaunched -= ViewModel_BrowserLaunched;
         Activated -= Window_Activated;
+        windowMessageMonitor.WindowMessageReceived -= WindowMessageReceived;
+        windowMessageMonitor.Dispose();
     }
 
     private void PositionWindowUnderTheMouse()
@@ -187,6 +194,40 @@ public sealed partial class SelectorWindow : Window
     #endregion
 
     #region Selector UI Event Handlers
+    private void WindowMessageReceived(object? sender, WindowMessageEventArgs e)
+    {
+        const uint WM_EXITSIZEMOVE = 0x0232;
+        // Save once the user finishes resizing
+        if (e.Message.MessageId != WM_EXITSIZEMOVE
+            || isHiddenToTray || windowManager is null)
+        {
+            return;
+        }
+
+        int width = (int)Math.Round(Math.Max(windowManager.Width, windowManager.MinWidth));
+        int height = (int)Math.Round(Math.Max(windowManager.Height, windowManager.MinHeight));
+        var appSettings = settingsService.LoadSettings().AppSettings;
+        if (appSettings.WindowSize is { Length: 2 } size && size[0] == width && size[1] == height)
+        {
+            return;
+        }
+
+        try
+        {
+            isSavingWindowSize = true;
+            appSettings.WindowSize = [width, height];
+            settingsService.UpdateAppSettings(appSettings);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+        }
+        finally
+        {
+            isSavingWindowSize = false;
+        }
+    }
+
     private void ViewModel_BrowserLaunched(object? sender, EventArgs e) => MinimizeWindow();
 
     private void LinkCopyBtnClick(object sender, RoutedEventArgs e)
@@ -203,6 +244,11 @@ public sealed partial class SelectorWindow : Window
 
     private void SettingsChanged(object? sender, EventArgs e)
     {
+        if (isSavingWindowSize)
+        {
+            return;
+        }
+
         ViewModel.RefreshSettings();
         ApplyConfiguredBackground();
         QuickViewButton.IsEnabled = quickViewService.IsQuickViewEnabled;
@@ -219,8 +265,6 @@ public sealed partial class SelectorWindow : Window
         //new TimeSelectWindow(Settings.browsers).ShowDialog();
         //forcePreventWindowDeactivationEvent = false;
     }
-
-    //private void Window_SizeChanged(object sender, SizeChangedEventArgs e) => Settings.AdjustWindowSize(e);
 
     private void Button_Click_1(object sender, RoutedEventArgs e)
     {
