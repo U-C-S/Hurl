@@ -31,18 +31,23 @@ public class IconLoaderService : IIconLoader
     #region Primary Methods
     public async Task<BitmapImage?> LoadIconAsync(Browser browser)
     {
-        if (!string.IsNullOrWhiteSpace(browser.CustomIconPath))
+        var IconConfig = browser.Icon;
+        if (!string.IsNullOrWhiteSpace(IconConfig?.Path))
         {
-            var customIcon = await LoadIconFromImage(browser.CustomIconPath);
-            if (customIcon is not null)
+            var customIcon = IconConfig.Source switch
             {
-                return customIcon;
-            }
+                BrowserIconSource.LocalImage => await LoadIconFromImage(IconConfig.Path),
+                BrowserIconSource.Url => await LoadIconFromURL(IconConfig.Path),
+                _ => null
+            };
+            if (customIcon is not null) return customIcon;
         }
 
-        return string.IsNullOrWhiteSpace(browser.ExePath)
-            ? null
-            : await LoadIconFromExe(browser.ExePath);
+        if (string.IsNullOrWhiteSpace(browser.ExePath)) return null;
+
+        int index = IconConfig?.Source == BrowserIconSource.Executable ? Math.Max(0, IconConfig.Index) : 0;
+        var icon = await LoadIconFromExe(browser.ExePath, index);
+        return icon ?? (index != 0 ? await LoadIconFromExe(browser.ExePath) : null);
     }
 
     public Task<BitmapImage?> LoadIconFromExe(string exePath) => LoadIconFromExe(exePath, 0);
@@ -93,7 +98,7 @@ public class IconLoaderService : IIconLoader
                 return null;
             }
 
-            string key = $"icon|{path.ToUpperInvariant()}|{file.Length}|{iconIndex}|{IconSize}";
+            string key = $"icon|{path.ToUpperInvariant()}|{file.Length}|{file.LastWriteTimeUtc.Ticks}|{iconIndex}|{IconSize}";
             string extension = iconIndex.HasValue ? ".png" : Path.GetExtension(path);
             return await LoadCachedIconAsync(key, extension, () => iconIndex.HasValue
                 ? Task.Run(() => ExtractIcon(path, iconIndex.Value))
