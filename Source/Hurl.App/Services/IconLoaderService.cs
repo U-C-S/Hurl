@@ -1,95 +1,181 @@
 using Hurl.App.Services.Interfaces;
+using Hurl.Library;
 using Hurl.Library.Models;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System;
+using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
+using System.Net.Http;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
-using Windows.Storage;
-using Windows.Storage.FileProperties;
 
 namespace Hurl.App.Services;
 
 public class IconLoaderService : IIconLoader
 {
+    /// <summary>
+    /// The selector takes up 80x80 pixels. so size 256 can cover display scaling till 300%.
+    /// </summary>
+    private const int IconSize = 256;
+    private static readonly HttpClient HttpClient = new() { Timeout = TimeSpan.FromSeconds(10) };
+    private readonly string cacheDirectory;
+
+    public IconLoaderService(string? cacheDirectory = null)
+    {
+        this.cacheDirectory = cacheDirectory ?? Path.Combine(Constants.APP_SETTINGS_DIR, "cache", "icons");
+    }
+
+    #region Primary Methods
     public async Task<BitmapImage?> LoadIconAsync(Browser browser)
     {
         if (!string.IsNullOrWhiteSpace(browser.CustomIconPath))
         {
-            string customIconPath = browser.CustomIconPath.Trim('"');
-            return string.Equals(Path.GetExtension(customIconPath), ".ico", StringComparison.OrdinalIgnoreCase)
-                ? await LoadIconFromIco(customIconPath)
-                : await LoadIconFromImage(customIconPath);
-        }
-
-        if (!string.IsNullOrWhiteSpace(browser.ExePath))
-        {
-            return await LoadIconFromExe(browser.ExePath.Trim('"'));
-        }
-
-        return null;
-    }
-
-    public async Task<BitmapImage?> LoadIconFromExe(string exePath)
-    {
-        try
-        {
-            var file = await StorageFile.GetFileFromPathAsync(exePath);
-            var thumb = await file.GetThumbnailAsync(ThumbnailMode.SingleItem);
-            if (thumb != null)
+            var customIcon = await LoadIconFromImage(browser.CustomIconPath);
+            if (customIcon is not null)
             {
-                var bitmap = new BitmapImage();
-                await bitmap.SetSourceAsync(thumb);
-                return bitmap;
+                return customIcon;
             }
         }
-        catch
-        {
-        }
 
-        return null;
+        return string.IsNullOrWhiteSpace(browser.ExePath)
+            ? null
+            : await LoadIconFromExe(browser.ExePath);
     }
 
-    public Task<BitmapImage?> LoadIconFromExe(string exePath, int iconIndex)
-    {
-        // TODO: Implement icon index handling. For now, load the default icon.
-        return LoadIconFromExe(exePath);
-    }
+    public Task<BitmapImage?> LoadIconFromExe(string exePath) => LoadIconFromExe(exePath, 0);
 
-    public Task<BitmapImage?> LoadIconFromIco(string icoPath)
-    {
-        return LoadBitmapFromFileAsync(icoPath);
-    }
+    public Task<BitmapImage?> LoadIconFromExe(string exePath, int iconIndex) =>
+        LoadLocalIconAsync(exePath, iconIndex);
 
-    public Task<BitmapImage?> LoadIconFromImage(string imagePath)
-    {
-        return LoadBitmapFromFileAsync(imagePath);
-    }
+    public Task<BitmapImage?> LoadIconFromIco(string icoPath) => LoadIconFromImage(icoPath);
 
-    public Task<BitmapImage?> LoadIconFromURL(string url)
+    public Task<BitmapImage?> LoadIconFromImage(string imagePath) => LoadLocalIconAsync(imagePath);
+
+    public async Task<BitmapImage?> LoadIconFromURL(string url)
     {
         try
         {
-            return Task.FromResult<BitmapImage?>(new BitmapImage(new Uri(url)));
-        }
-        catch
-        {
-            return Task.FromResult<BitmapImage?>(null);
-        }
-    }
+            if (!Uri.TryCreate(url, UriKind.Absolute, out var uri)
+                || (uri.Scheme != Uri.UriSchemeHttp && uri.Scheme != Uri.UriSchemeHttps))
+            {
+                return null;
+            }
 
-    private static async Task<BitmapImage?> LoadBitmapFromFileAsync(string path)
-    {
-        try
-        {
-            var file = await StorageFile.GetFileFromPathAsync(path);
-            using var stream = await file.OpenReadAsync();
-            var bitmap = new BitmapImage();
-            await bitmap.SetSourceAsync(stream);
-            return bitmap;
+            // Remote images are reused until the cache is cleared or the URL changes.
+            return await LoadCachedIconAsync($"url|{uri.AbsoluteUri}", ".img",
+                () => HttpClient.GetByteArrayAsync(uri));
         }
-        catch
+        catch (Exception ex)
         {
+            Debug.WriteLine($"Could not load icon from Url: {ex.Message}");
             return null;
         }
     }
+    #endregion
+
+    #region Helper Methods
+    private async Task<BitmapImage?> LoadLocalIconAsync(string path, int? iconIndex = null)
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                return null;
+            }
+
+            path = Path.GetFullPath(Environment.ExpandEnvironmentVariables(path.Trim().Trim('"')));
+            var file = new FileInfo(path);
+            if (!file.Exists)
+            {
+                return null;
+            }
+
+            string key = $"icon|{path.ToUpperInvariant()}|{file.Length}|{iconIndex}|{IconSize}";
+            string extension = iconIndex.HasValue ? ".png" : Path.GetExtension(path);
+            return await LoadCachedIconAsync(key, extension, () => iconIndex.HasValue
+                ? Task.Run(() => ExtractIcon(path, iconIndex.Value))
+                : File.ReadAllBytesAsync(path));
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Could not load local icon: {ex.Message}");
+            return null;
+        }
+    }
+
+    private static byte[] ExtractIcon(string path, int iconIndex)
+    {
+        using var icon = Icon.ExtractIcon(path, iconIndex, IconSize)
+            ?? throw new IOException($"Icon {iconIndex} was not found in '{path}'.");
+        using var bitmap = icon.ToBitmap();
+        using var stream = new MemoryStream();
+        bitmap.Save(stream, ImageFormat.Png);
+        return stream.ToArray();
+    }
+    #endregion
+
+    #region Cache Helper Methods
+    private async Task<BitmapImage> LoadCachedIconAsync(string key, string extension, Func<Task<byte[]>> loadSource)
+    {
+        string hash = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(key)));
+        string cachePath = Path.Combine(cacheDirectory, hash + extension.ToLowerInvariant());
+        if (File.Exists(cachePath))
+        {
+            try
+            {
+                return await DecodeAsync(await File.ReadAllBytesAsync(cachePath));
+            }
+            catch (Exception ex)
+            {
+                // A corrupt or inaccessible cache entry must not prevent loading its source.
+                Debug.WriteLine($"Could not read cached icon: {ex.Message}");
+            }
+        }
+
+        byte[] bytes = await loadSource();
+        var bitmap = await DecodeAsync(bytes);
+        // Only publish images that have successfully decoded.
+        await TryCacheAsync(cachePath, bytes);
+        return bitmap;
+    }
+
+    private static async Task<BitmapImage> DecodeAsync(byte[] bytes)
+    {
+        using var stream = new MemoryStream(bytes, writable: false);
+        using var randomAccessStream = stream.AsRandomAccessStream();
+        var bitmap = new BitmapImage();
+        await bitmap.SetSourceAsync(randomAccessStream);
+        return bitmap;
+    }
+
+    private async Task TryCacheAsync(string cachePath, byte[] bytes)
+    {
+        string temporaryPath = cachePath + "." + Guid.NewGuid().ToString("N") + ".tmp";
+        try
+        {
+            Directory.CreateDirectory(cacheDirectory);
+            await File.WriteAllBytesAsync(temporaryPath, bytes);
+            // A unique temporary file and atomic replacement keep concurrent readers safe.
+            File.Move(temporaryPath, cachePath, overwrite: true);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Could not cache icon: {ex.Message}");
+        }
+        finally
+        {
+            try
+            {
+                File.Delete(temporaryPath);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Could not remove temporary icon: {ex.Message}");
+            }
+        }
+    }
+    #endregion
 }
