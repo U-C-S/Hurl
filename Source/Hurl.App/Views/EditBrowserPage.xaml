@@ -17,30 +17,49 @@
             <StackPanel Spacing="16">
                 <StackPanel Spacing="4">
                     <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Main Options" />
-                    <StackPanel>
-                        <toolkit:SettingsCard Header="Name">
-                            <TextBox
-                                x:Name="BrowserDisplayNameInput"
-                                MinWidth="180"
-                                MaxWidth="250"
-                                PlaceholderText="Name of the Browser/App"
-                                Text="{x:Bind ViewModel.Name, Mode=TwoWay}" />
-                        </toolkit:SettingsCard>
-                        <toolkit:SettingsCard Header="Executable Path">
-                            <StackPanel Orientation="Horizontal" Spacing="4">
-                                <Button
-                                    Padding="8"
-                                    Click="OpenContainingExe_Click"
-                                    ToolTipService.ToolTip="Open containing folder or select the file in Explorer">
-                                    <FontIcon FontSize="14" Glyph="&#xE70F;" />
-                                </Button>
-                                <TextBox
-                                    Width="300"
-                                    PlaceholderText="C:\Program Files\Browser\browser.exe"
-                                    Text="{x:Bind ViewModel.ExePath, Mode=TwoWay}" />
+                    <Grid ColumnSpacing="12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button
+                            Width="136"
+                            VerticalAlignment="Stretch">
+                            <StackPanel Spacing="12">
+                                <Grid Width="96" Height="96">
+                                    <FontIcon
+                                        FontSize="48"
+                                        Glyph="&#xE774;"
+                                        Visibility="{x:Bind ViewModel.HasNoIcon, Mode=OneWay}" />
+                                    <Image Source="{x:Bind ViewModel.IconPreview, Mode=OneWay}" Stretch="Uniform" />
+                                </Grid>
                             </StackPanel>
-                        </toolkit:SettingsCard>
-                    </StackPanel>
+                        </Button>
+                        <StackPanel Grid.Column="1" Spacing="4">
+                            <toolkit:SettingsCard Header="Name">
+                                <TextBox
+                                    x:Name="BrowserDisplayNameInput"
+                                    MinWidth="180"
+                                    MaxWidth="250"
+                                    PlaceholderText="Name of the Browser/App"
+                                    Text="{x:Bind ViewModel.Name, Mode=TwoWay}" />
+                            </toolkit:SettingsCard>
+                            <toolkit:SettingsCard Header="Executable Path">
+                                <StackPanel Orientation="Horizontal" Spacing="4">
+                                    <Button
+                                        Padding="8"
+                                        Click="OpenContainingExe_Click"
+                                        ToolTipService.ToolTip="Open containing folder or select the file in Explorer">
+                                        <FontIcon FontSize="14" Glyph="&#xE70F;" />
+                                    </Button>
+                                    <TextBox
+                                        Width="250"
+                                        PlaceholderText="C:\Program Files\Browser\browser.exe"
+                                        Text="{x:Bind ViewModel.ExePath, Mode=TwoWay}" />
+                                </StackPanel>
+                            </toolkit:SettingsCard>
+                        </StackPanel>
+                    </Grid>
                 </StackPanel>
 
                 <StackPanel Spacing="4">

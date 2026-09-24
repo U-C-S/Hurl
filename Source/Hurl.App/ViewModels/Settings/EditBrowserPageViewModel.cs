@@ -1,6 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using Hurl.Library.Models;
 using Hurl.App.Services.Interfaces;
+using Microsoft.UI.Xaml.Media.Imaging;
 
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -25,7 +26,13 @@ namespace Hurl.App.ViewModels
         public partial bool Hidden { get; set; } = false;
 
         [ObservableProperty]
-        public partial string? CustomIconPath { get; set; }
+        public partial BrowserIcon? Icon { get; set; }
+
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(HasNoIcon))]
+        public partial BitmapImage? IconPreview { get; set; }
+
+        public bool HasNoIcon => IconPreview is null;
 
         [ObservableProperty]
         public partial ObservableCollection<AlternateLaunch> AlternateLaunches { get; set; } = new();
@@ -45,7 +52,7 @@ namespace Hurl.App.ViewModels
             ExePath = browser.ExePath ?? string.Empty;
             LaunchArgs = browser.LaunchArgs ?? string.Empty;
             Hidden = browser.Hidden;
-            CustomIconPath = browser.CustomIconPath;
+            Icon = browser.Icon;
             AlternateLaunches = browser.AlternateLaunches != null
                 ? CloneAlternateLaunches(browser.AlternateLaunches)
                 : new ObservableCollection<AlternateLaunch>();
@@ -75,7 +82,7 @@ namespace Hurl.App.ViewModels
             Original.ExePath = ExePath;
             Original.LaunchArgs = string.IsNullOrWhiteSpace(LaunchArgs) ? null : LaunchArgs;
             Original.Hidden = Hidden;
-            Original.CustomIconPath = string.IsNullOrWhiteSpace(CustomIconPath) ? null : CustomIconPath;
+            Original.Icon = Icon;
             Original.AlternateLaunches = AlternateLaunches.Count > 0
                 ? new ObservableCollection<AlternateLaunch>(AlternateLaunches)
                 : null;
@@ -96,7 +103,7 @@ namespace Hurl.App.ViewModels
             ExePath = Original.ExePath ?? string.Empty;
             LaunchArgs = Original.LaunchArgs ?? string.Empty;
             Hidden = Original.Hidden;
-            CustomIconPath = Original.CustomIconPath;
+            Icon = Original.Icon;
             AlternateLaunches = Original.AlternateLaunches != null
                 ? CloneAlternateLaunches(Original.AlternateLaunches)
                 : new ObservableCollection<AlternateLaunch>();
