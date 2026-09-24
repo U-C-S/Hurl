@@ -1,51 +1,59 @@
-using CommunityToolkit.Mvvm.ComponentModel;
-using Hurl.Library.Models;
 using Hurl.App.Services.Interfaces;
-
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hurl.App.ViewModels;
 
-internal partial class BrowsersPageViewModel : ObservableObject
+internal class BrowsersPageViewModel
 {
-    [ObservableProperty]
-    public partial ObservableCollection<Browser> Browsers { get; set; }
+    private readonly ISettingsService settingsService;
+    private readonly IIconLoader iconLoader;
 
-    private ISettingsService settingsService;
+    public ObservableCollection<BrowserItemViewModel> Browsers { get; }
 
-    public BrowsersPageViewModel(ISettingsService settingsService)
+    public BrowsersPageViewModel(ISettingsService settingsService, IIconLoader iconLoader)
     {
         this.settingsService = settingsService;
-        Browsers = settingsService.LoadSettings().Browsers;
+        this.iconLoader = iconLoader;
+        Browsers = new(settingsService.LoadSettings().Browsers.Select(browser => new BrowserItemViewModel(browser)));
     }
 
-    public void RefreshBrowserList(BrowserRefreshMode mode)
+    public async Task LoadIconsAsync()
+    {
+        foreach (var item in Browsers.ToArray())
+        {
+            item.Icon = await iconLoader.LoadIconAsync(item.Model);
+        }
+    }
+
+    public async Task RefreshBrowserListAsync(BrowserRefreshMode mode)
     {
         foreach (var browser in Library.GetBrowsers.FromRegistry())
         {
             if (mode == BrowserRefreshMode.AddAllDetectedAsNew
-                || !Browsers.Any(existing => existing.ExePath == browser.ExePath))
+                || !Browsers.Any(existing => existing.Model.ExePath == browser.ExePath))
             {
-                Browsers.Add(browser);
+                Browsers.Add(new BrowserItemViewModel(browser));
             }
         }
-        settingsService.UpdateBrowsers(Browsers);
+        SaveBrowsers();
+        await LoadIconsAsync();
     }
+
     public void DeleteBrowser(Guid browserId)
     {
-        var browser = Browsers.FirstOrDefault(browser => browser.Id == browserId);
+        var browser = Browsers.FirstOrDefault(browser => browser.Model.Id == browserId);
         if (browser != null && Browsers.Remove(browser))
         {
-            settingsService.UpdateBrowsers(Browsers);
+            SaveBrowsers();
         }
     }
 
-    internal void UpdateBrowserOrder()
-    {
-        settingsService.UpdateBrowsers(Browsers);
-    }
+    internal void UpdateBrowserOrder() => SaveBrowsers();
+
+    private void SaveBrowsers() => settingsService.UpdateBrowsers(new(Browsers.Select(item => item.Model)));
 }
 
 internal enum BrowserRefreshMode

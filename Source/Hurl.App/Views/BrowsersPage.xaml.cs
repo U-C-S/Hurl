@@ -1,6 +1,6 @@
-using Hurl.Library.Models;
 using Hurl.App.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.ObjectModel;
@@ -14,9 +14,13 @@ public sealed partial class BrowsersPage : Page
 
     public BrowsersPage()
     {
-        this.InitializeComponent();
         ViewModel = App.Services!.GetRequiredService<BrowsersPageViewModel>();
+        InitializeComponent();
+    }
 
+    private async void Page_Loaded(object sender, RoutedEventArgs e)
+    {
+        await ViewModel.LoadIconsAsync();
     }
 
     private async void RefreshButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
@@ -35,11 +39,11 @@ public sealed partial class BrowsersPage : Page
         ContentDialogResult result = await dialog.ShowAsync();
         if (result == ContentDialogResult.Primary)
         {
-            ViewModel.RefreshBrowserList(BrowserRefreshMode.PreserveExistingByExePath);
+            await ViewModel.RefreshBrowserListAsync(BrowserRefreshMode.PreserveExistingByExePath);
         }
         else if (result == ContentDialogResult.Secondary)
         {
-            ViewModel.RefreshBrowserList(BrowserRefreshMode.AddAllDetectedAsNew);
+            await ViewModel.RefreshBrowserListAsync(BrowserRefreshMode.AddAllDetectedAsNew);
         }
     }
 
@@ -50,9 +54,9 @@ public sealed partial class BrowsersPage : Page
 
     private void EditBrowser_Click(SplitButton sender, SplitButtonClickEventArgs e)
     {
-        if (sender is SplitButton btn && btn.DataContext is Browser browser)
+        if (sender is SplitButton btn && btn.DataContext is BrowserItemViewModel browser)
         {
-            Frame?.Navigate(typeof(Hurl.App.Views.EditBrowserPage), browser);
+            Frame?.Navigate(typeof(Hurl.App.Views.EditBrowserPage), browser.Model);
         }
     }
 

@@ -7,9 +7,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Hurl.App.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:models="using:Hurl.Library.Models"
     xmlns:uc="using:Hurl.App.Controls"
     xmlns:vm="using:Hurl.App.ViewModels"
+    Loaded="Page_Loaded"
     mc:Ignorable="d">
 
     <StackPanel MaxWidth="800" Spacing="16">
@@ -31,16 +31,16 @@
                     </Style>
                 </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="models:Browser">
-                        <ctlabs:SettingsCard Description="{x:Bind ExePath}" Header="{x:Bind Name}">
+                    <DataTemplate x:DataType="vm:BrowserItemViewModel">
+                        <ctlabs:SettingsCard Description="{x:Bind Model.ExePath, Mode=OneWay}" Header="{x:Bind Model.Name, Mode=OneWay}">
                             <ctlabs:SettingsCard.HeaderIcon>
-                                <FontIcon Glyph="&#xE8B0;" />
+                                <ImageIcon Source="{x:Bind Icon, Mode=OneWay}" />
                             </ctlabs:SettingsCard.HeaderIcon>
                             <SplitButton x:Name="myColorButton" Click="EditBrowser_Click">
                                 Edit
                                 <SplitButton.Flyout>
                                     <MenuFlyout Placement="Bottom">
-                                        <MenuFlyoutItem Click="DeleteBrowser_Click" Tag="{x:Bind Id}">
+                                        <MenuFlyoutItem Click="DeleteBrowser_Click" Tag="{x:Bind Model.Id}">
                                             Delete
                                         </MenuFlyoutItem>
                                     </MenuFlyout>
