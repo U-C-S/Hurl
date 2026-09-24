@@ -14,6 +14,7 @@ namespace Hurl.Library.Serialization;
 [JsonSerializable(typeof(QuickViewModifierKeys))]
 [JsonSerializable(typeof(QuickViewTrackingPreventionLevel))]
 [JsonSerializable(typeof(Browser))]
+[JsonSerializable(typeof(BrowserIcon))]
 [JsonSerializable(typeof(AlternateLaunch))]
 [JsonSerializable(typeof(Ruleset))]
 [JsonSerializable(typeof(ObservableCollection<Browser>))]
