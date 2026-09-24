@@ -34,7 +34,8 @@ public partial class Browser : ObservableObject
     public partial ObservableCollection<AlternateLaunch>? AlternateLaunches { get; set; }
 
     [ObservableProperty]
-    public partial string? CustomIconPath { get; set; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public partial BrowserIcon? Icon { get; set; }
 
     [ObservableProperty]
     [field: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
