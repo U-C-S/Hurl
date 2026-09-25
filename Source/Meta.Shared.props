@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
     <Version>0.10.0</Version>
-    <FileVersion>0.10.0.002</FileVersion>
+    <FileVersion>0.10.0.003</FileVersion>
     <Copyright>Copyright (c) 2026 Chanakya</Copyright>
     <Product>Hurl</Product>
     <Company>Chanakya</Company>
