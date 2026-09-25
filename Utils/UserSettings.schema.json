@@ -24,9 +24,26 @@
             "type": "string",
             "description": "The path to the browser executable. Use LaunchArgs to pass arguments to the executable."
           },
-          "CustomIconPath": {
-            "type": "string",
-            "description": "The path to a custom icon for the browser. This must be a .ico file."
+          "Icon": {
+            "type": ["object", "null"],
+            "description": "Optional override for browser icon. Use null for the default icon.",
+            "properties": {
+              "Source": {
+                "type": "string",
+                "enum": ["Executable", "LocalImage", "Url"]
+              },
+              "Path": {
+                "type": ["string", "null"],
+                "description": "Local image path or direct HTTP(S) image URL."
+              },
+              "Index": {
+                "type": "integer",
+                "minimum": 0,
+                "default": 0,
+                "description": "Zero-based icon index within the browser executable."
+              }
+            },
+            "required": ["Source"]
           },
           "LaunchArgs": {
             "type": "string",
