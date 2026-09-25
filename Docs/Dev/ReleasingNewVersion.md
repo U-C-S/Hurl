@@ -1,47 +1,30 @@
-# New version release spec
+# Releasing a new version
 
-## Update app version in the source code
+## Update version information
 
-The version information of the Application is currentlty hardcoded in
-the source code. Following are the files that has version information
-hardcoded
+Release versions are set in these files:
 
-```
-Source/Hurl.BrowserSelector/AssemblyInfo.cs
-Source/Hurl.Library/Constants.cs
-Source/Hurl.Settings/Hurl.Settings.csproj
-Source/Launcher/Cargo.toml
-Utils/installer.iss
-```
+| File                                                                       | Values                                                             |
+| -------------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| [Source/Meta.Shared.props](../../Source/Meta.Shared.props)                 | `Version` and `FileVersion` for the app                            |
+| [Source/Hurl.Library/Constants.cs](../../Source/Hurl.Library/Constants.cs) | `VERSION`, the version displayed by Hurl                           |
+| [Utils/installer.iss](../../Utils/installer.iss)                           | `MyAppVersion`, used for the installer and its version information |
 
-This can potentially be a find-and-replace script in the future.
+## Version format
 
-### Version format
+In the format of `x.y.z.n` (windows) or `x.y.z-<type>-n` (human/git tags)
+- The `x.y.z` mostly tries to follow semantic versioning (or maybe [zeroVer](https://0ver.org/) :D)
+- `n` is release number.
+  - Increments are done when a same version is released multiple times
+  - like in the case of alpha, snapshot releases which also control the `<type>`, while it's semeantic version
+  is the same.
+  - Fox example, 
+    - in case of `v0.10.0-alpha-2` it's windows format would be `0.10.0.002`
+    - for the stable release, `v0.10.0`, windows format would be `0.10.0.100` 
 
-Hurl mostly follows Semantic versioning: `x.y.z` in general.
+## And the Rest
 
-But you might also notice a `x.y.z.r` pattern in couple of places.
-The `r` part of the version keeps the count of number of releases
-since the inception of Hurl. For `0.9.1.24` means that a semantic
-version of `0.9.1` and 24th build that's publicly released. But ideally
-this `r` part of the version should not matter and mostly just keeping
-up something I randomly started.
+Depending on the type of release, you can either run the `release` or `release-snapshot` github actions. which
+automatically creates a release (or a draft release). 
 
-## Triggering the Github CI build
-
-GitHub Actions are used to create release build of the Hurl. The build
-script is located in the the [./build.ps1](/build.ps1).
-
-A build job is triggered from pushing a tag to remote, which uses the
-build script to build all the necessary binaries, create a installer
-and create a draft github release with resulting installer artifact.
-
-To create a tag and push it to remote
-
-```sh
-git tag 'v0.9.1'
-git push --tags
-```
-
-Should trigger the CI action and create a draft release in the github
-releases.
+Not expanding on this much.
