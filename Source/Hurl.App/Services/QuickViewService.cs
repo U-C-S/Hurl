@@ -37,14 +37,12 @@ public sealed class QuickViewService(
 
         try
         {
-            List<Browser> browsers = settings.Browsers?
-                .Where(browser => !browser.Hidden)
-                .ToList() ?? [];
+            List<Browser> browsers = settings.Browsers?.ToList() ?? [];
 
             return quickView.LaunchMode switch
             {
                 QuickViewLaunchMode.Browser => TryOpenBrowser(url!, browsers, quickView),
-                _ => TryOpenWebView(url!, browsers, quickView)
+                _ => TryOpenWebView(url!, browsers.Where(browser => !browser.Hidden).ToList(), quickView)
             };
         }
         catch (Exception ex)
