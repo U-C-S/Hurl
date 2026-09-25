@@ -1,9 +1,12 @@
 name: Release
 
 on:
-  push:
-    tags:
-      - "**"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: New tag to create for this release (e.g. v1.2.3)
+        required: true
+        type: string
 
 jobs:
   build:
@@ -12,6 +15,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          ref: main
       - name: rustup toolchain install
         uses: dtolnay/rust-toolchain@stable
       - name: Setup .NET
@@ -21,9 +26,13 @@ jobs:
       - name: Build Hurl and its components
         run: .\build.ps1
       - name: Create Github Release
-        run: gh release create ${{ github.ref_name }} './Utils/Hurl_Installer.exe' --title "${{ github.ref_name }}" --draft --latest --verify-tag --notes-from-tag
+        shell: pwsh
+        run: |
+          $commit = git rev-parse HEAD
+          gh release create "$env:RELEASE_TAG" './Utils/Hurl_Installer.exe' --title "$env:RELEASE_TAG" --draft --latest --generate-notes --target $commit
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          RELEASE_TAG: ${{ inputs.tag }}
       - name: Upload artifact
         uses: actions/upload-artifact@v7
         with:
