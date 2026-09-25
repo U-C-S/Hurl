@@ -8,13 +8,14 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Net.Http;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Hurl.App.Services;
 
-public class IconLoaderService : IIconLoader
+public partial class IconLoaderService : IIconLoader
 {
     /// <summary>
     /// The selector takes up 80x80 pixels. so size 256 can cover display scaling till 300%.
@@ -54,6 +55,27 @@ public class IconLoaderService : IIconLoader
 
     public Task<BitmapImage?> LoadIconFromExe(string exePath, int iconIndex) =>
         LoadLocalIconAsync(exePath, iconIndex);
+
+    public Task<int> GetExeIconCountAsync(string exePath) => Task.Run(() =>
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(exePath)) return 0;
+            string path = Path.GetFullPath(Environment.ExpandEnvironmentVariables(exePath.Trim().Trim('"')));
+            if (!File.Exists(path)) return 0;
+
+            uint count = ExtractIconEx(path, -1, IntPtr.Zero, IntPtr.Zero, 0);
+            return count <= int.MaxValue ? (int)count : 0;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Could not enumerate executable icons: {ex.Message}");
+            return 0;
+        }
+    });
+
+    [LibraryImport("shell32.dll", EntryPoint = "ExtractIconExW", StringMarshalling = StringMarshalling.Utf16)]
+    private static partial uint ExtractIconEx(string file, int index, IntPtr largeIcons, IntPtr smallIcons, uint count);
 
     public Task<BitmapImage?> LoadIconFromIco(string icoPath) => LoadIconFromImage(icoPath);
 

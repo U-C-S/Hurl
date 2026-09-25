@@ -1,5 +1,7 @@
 using Hurl.Library.Models;
 using Hurl.App.ViewModels;
+using Hurl.App.Services.Interfaces;
+using Hurl.App.Views.Dialogs;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -15,6 +17,7 @@ public sealed partial class EditBrowserPage : Page
 {
     public EditBrowserPageViewModel? ViewModel { get; private set; }
     public ObservableCollection<string> BreadcrumbItems { get; } = ["Browsers"];
+    private bool isChoosingIcon;
 
     public EditBrowserPage()
     {
@@ -27,21 +30,13 @@ public sealed partial class EditBrowserPage : Page
         InitializeForBrowser(browser);
     }
 
-    private void InitializeForBrowser(Browser browser)
+    private void InitializeForBrowser(Browser browser, bool isNewBrowser = false)
     {
-        var settingsService = App.Services!.GetRequiredService<Hurl.App.Services.Interfaces.ISettingsService>();
+        var settingsService = App.Services!.GetRequiredService<ISettingsService>();
+        var iconLoader = App.Services!.GetRequiredService<IIconLoader>();
 
-        BreadcrumbItems.Add(browser.Name);
-        ViewModel = new EditBrowserPageViewModel(browser, settingsService);
-        this.DataContext = this;
-    }
-
-    private void InitializeForNewBrowser()
-    {
-        var settingsService = App.Services!.GetRequiredService<Hurl.App.Services.Interfaces.ISettingsService>();
-
-        BreadcrumbItems.Add("New Browser");
-        ViewModel = new EditBrowserPageViewModel(new Browser(), settingsService, isNewBrowser: true);
+        BreadcrumbItems.Add(isNewBrowser ? "New Browser" : browser.Name);
+        ViewModel = new EditBrowserPageViewModel(browser, settingsService, iconLoader, isNewBrowser);
         DataContext = this;
     }
 
@@ -60,7 +55,7 @@ public sealed partial class EditBrowserPage : Page
         }
         else
         {
-            InitializeForNewBrowser();
+            InitializeForBrowser(new Browser(), isNewBrowser: true);
         }
 
     }
@@ -119,25 +114,25 @@ public sealed partial class EditBrowserPage : Page
         }
     }
 
-    private void OpenContainingIcon_Click(object sender, RoutedEventArgs e)
+    private async void ChooseIcon_Click(object sender, RoutedEventArgs e)
     {
-        if (ViewModel == null) return;
-
+        if (ViewModel is null || isChoosingIcon) return;
+        isChoosingIcon = true;
         try
         {
-            var path = ViewModel.CustomIconPath ?? string.Empty;
-            if (File.Exists(path))
+            var dialog = new BrowserIconDialog(App.Services!.GetRequiredService<IIconLoader>(), ViewModel.ExePath, ViewModel.Icon)
             {
-                Process.Start("explorer", $"/select,\"{path}\"");
-            }
-            else
+                XamlRoot = XamlRoot,
+                RequestedTheme = ActualTheme
+            };
+            if (await dialog.ShowAsync() == ContentDialogResult.Primary && dialog.ViewModel.Selection is { } choice)
             {
-                Process.Start("explorer");
+                ViewModel.ApplyIcon(choice.Icon, choice.Image);
             }
         }
-        catch (Exception)
+        finally
         {
-            // ignore failures
+            isChoosingIcon = false;
         }
     }
 

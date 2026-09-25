@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentDialog
+    x:Class="Hurl.App.Views.Dialogs.BrowserIconDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:models="using:Hurl.Library.Models"
+    xmlns:viewmodels="using:Hurl.App.ViewModels"
+    Title="Select Browser Icon"
+    Style="{StaticResource DefaultContentDialogStyle}"
+    CloseButtonText="Cancel"
+    Closed="Dialog_Closed"
+    DefaultButton="Primary"
+    IsPrimaryButtonEnabled="{x:Bind ViewModel.CanSave, Mode=OneWay}"
+    Opened="Dialog_Opened"
+    PrimaryButtonStyle="{StaticResource AccentButtonStyle}"
+    PrimaryButtonText="Save">
+
+    <StackPanel Width="440" Spacing="16">
+        <SelectorBar
+            x:Name="SourceSelector"
+            IsEnabled="{x:Bind ViewModel.CanInteract, Mode=OneWay}"
+            SelectionChanged="SourceSelector_SelectionChanged">
+            <SelectorBarItem Tag="{x:Bind models:BrowserIconSource.Executable}" Text="Exe Icons" />
+            <SelectorBarItem Tag="{x:Bind models:BrowserIconSource.LocalImage}" Text="Local Image" />
+            <SelectorBarItem Tag="{x:Bind models:BrowserIconSource.Url}" Text="From URL" />
+        </SelectorBar>
+        <Grid Height="1" Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+
+        <Grid MinHeight="270">
+            <StackPanel Spacing="12" Visibility="{x:Bind SourceVisibility(ViewModel.SelectedSource, models:BrowserIconSource.Executable), Mode=OneWay}">
+                <TextBlock
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    Text="Choose an icon from the browser executable."
+                    TextWrapping="Wrap" />
+                <GridView
+                    MaxHeight="280"
+                    HorizontalAlignment="Center"
+                    IsEnabled="{x:Bind ViewModel.CanInteract, Mode=OneWay}"
+                    ItemsSource="{x:Bind ViewModel.ExeIcons}"
+                    SelectedItem="{x:Bind ViewModel.SelectedExeIcon, Mode=TwoWay}"
+                    SelectionMode="Single">
+                    <GridView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <ItemsWrapGrid MaximumRowsOrColumns="4" Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </GridView.ItemsPanel>
+                    <GridView.ItemContainerStyle>
+                        <Style BasedOn="{StaticResource DefaultGridViewItemStyle}" TargetType="GridViewItem">
+                            <Setter Property="Margin" Value="4" />
+                            <Setter Property="Padding" Value="10" />
+                            <Setter Property="CornerRadius" Value="8" />
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        </Style>
+                    </GridView.ItemContainerStyle>
+                    <GridView.ItemTemplate>
+                        <DataTemplate x:DataType="viewmodels:BrowserIconChoice">
+                            <StackPanel
+                                Width="76"
+                                Spacing="6"
+                                AutomationProperties.Name="{x:Bind Name}"
+                                ToolTipService.ToolTip="{x:Bind Name}">
+                                <Image Width="64" Height="64" Source="{x:Bind Image}" />
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                    Text="{x:Bind Name}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </GridView>
+            </StackPanel>
+
+            <Grid RowSpacing="20" Visibility="{x:Bind ImageSourceVisibility(ViewModel.SelectedSource), Mode=OneWay}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid
+                    ColumnSpacing="8"
+                    Visibility="{x:Bind SourceVisibility(ViewModel.SelectedSource, models:BrowserIconSource.Url), Mode=OneWay}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox
+                        AutomationProperties.Name="Image URL"
+                        IsEnabled="{x:Bind ViewModel.CanInteract, Mode=OneWay}"
+                        KeyDown="UrlInput_KeyDown"
+                        PlaceholderText="https://example.com/icon.png"
+                        Text="{x:Bind ViewModel.UrlText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button
+                        Grid.Column="1"
+                        AutomationProperties.Name="Load image"
+                        IsEnabled="{x:Bind ViewModel.CanInteract, Mode=OneWay}"
+                        Click="LoadUrl_Click"
+                        ToolTipService.ToolTip="Load image">
+                        <FontIcon FontSize="16" Glyph="&#xE72A;" />
+                    </Button>
+                </Grid>
+
+                <StackPanel
+                    Grid.Row="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Spacing="12"
+                    Visibility="{x:Bind ViewModel.ShowEmptyState, Mode=OneWay}">
+                    <FontIcon
+                        FontSize="40"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Glyph="&#xEB9F;" />
+                    <TextBlock
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="Choose an image for this browser."
+                        Visibility="{x:Bind SourceVisibility(ViewModel.SelectedSource, models:BrowserIconSource.LocalImage), Mode=OneWay}" />
+                    <TextBlock
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="Enter an image URL, then load its preview."
+                        Visibility="{x:Bind SourceVisibility(ViewModel.SelectedSource, models:BrowserIconSource.Url), Mode=OneWay}" />
+                    <Button
+                        HorizontalAlignment="Center"
+                        Click="SelectFile_Click"
+                        Content="Select file"
+                        Style="{StaticResource AccentButtonStyle}"
+                        Visibility="{x:Bind SourceVisibility(ViewModel.SelectedSource, models:BrowserIconSource.LocalImage), Mode=OneWay}" />
+                </StackPanel>
+
+                <Grid
+                    Grid.Row="1"
+                    VerticalAlignment="Center"
+                    ColumnSpacing="16"
+                    Visibility="{x:Bind ViewModel.HasPreview, Mode=OneWay}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="156" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Border
+                        Height="156"
+                        Padding="16"
+                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1"
+                        CornerRadius="12">
+                        <Image
+                            AutomationProperties.Name="Selected icon preview"
+                            Source="{x:Bind ViewModel.Selection.Image, Mode=OneWay}"
+                            Stretch="Uniform" />
+                    </Border>
+                    <StackPanel
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Spacing="8">
+                        <TextBlock
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="{x:Bind ViewModel.Selection.Name, Mode=OneWay}"
+                            TextTrimming="CharacterEllipsis"
+                            ToolTipService.ToolTip="{x:Bind ViewModel.Selection.Name, Mode=OneWay}" />
+                        <TextBlock Text="{x:Bind ViewModel.Selection.Details, Mode=OneWay}" />
+                        <TextBlock
+                            MaxLines="3"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="{x:Bind ViewModel.Selection.Source, Mode=OneWay}"
+                            TextTrimming="CharacterEllipsis"
+                            TextWrapping="Wrap"
+                            ToolTipService.ToolTip="{x:Bind ViewModel.Selection.Source, Mode=OneWay}" />
+                        <Button
+                            Click="SelectFile_Click"
+                            Content="Select file"
+                            IsEnabled="{x:Bind ViewModel.CanInteract, Mode=OneWay}"
+                            Visibility="{x:Bind SourceVisibility(ViewModel.SelectedSource, models:BrowserIconSource.LocalImage), Mode=OneWay}" />
+                    </StackPanel>
+                </Grid>
+            </Grid>
+
+            <ProgressRing
+                Width="32"
+                Height="32"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                AutomationProperties.Name="Loading icon"
+                IsActive="{x:Bind ViewModel.IsBusy, Mode=OneWay}"
+                Visibility="{x:Bind ViewModel.IsBusy, Mode=OneWay}" />
+        </Grid>
+
+        <InfoBar
+            IsClosable="False"
+            IsOpen="{x:Bind ViewModel.HasError, Mode=OneWay}"
+            Message="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}"
+            Severity="Error" />
+    </StackPanel>
+</ContentDialog>

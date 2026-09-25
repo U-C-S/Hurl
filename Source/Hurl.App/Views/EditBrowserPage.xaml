@@ -24,15 +24,22 @@
                         </Grid.ColumnDefinitions>
                         <Button
                             Width="136"
-                            VerticalAlignment="Stretch">
-                            <StackPanel Spacing="12">
-                                <Grid Width="96" Height="96">
+                            VerticalAlignment="Stretch"
+                            AutomationProperties.Name="Choose browser icon"
+                            Click="ChooseIcon_Click"
+                            ToolTipService.ToolTip="Choose browser icon">
+                            <StackPanel Spacing="8">
+                                <Grid Width="80" Height="80">
                                     <FontIcon
                                         FontSize="48"
                                         Glyph="&#xE774;"
                                         Visibility="{x:Bind ViewModel.HasNoIcon, Mode=OneWay}" />
                                     <Image Source="{x:Bind ViewModel.IconPreview, Mode=OneWay}" Stretch="Uniform" />
                                 </Grid>
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                    Text="Change icon" />
                             </StackPanel>
                         </Button>
                         <StackPanel Grid.Column="1" Spacing="4">
@@ -68,20 +75,6 @@
                     <StackPanel>
                         <toolkit:SettingsCard Description="Rules associated to this browser will keep working" Header="Hide in Selector">
                             <CheckBox Content="Hidden" IsChecked="{x:Bind ViewModel.Hidden, Mode=TwoWay}" />
-                        </toolkit:SettingsCard>
-                        <toolkit:SettingsCard Description="Configure the icon shown in the selector, instead of the one from executable" Header="Custom Icon">
-                            <StackPanel Orientation="Horizontal" Spacing="4">
-                                <Button
-                                    Padding="8"
-                                    Click="OpenContainingIcon_Click"
-                                    ToolTipService.ToolTip="Open containing folder or select the file in Explorer">
-                                    <FontIcon FontSize="14" Glyph="&#xE70F;" />
-                                </Button>
-                                <TextBox
-                                    Width="280"
-                                    PlaceholderText="C:\path\to\icon.ico or image"
-                                    Text="{x:Bind ViewModel.CustomIconPath, Mode=TwoWay}" />
-                            </StackPanel>
                         </toolkit:SettingsCard>
                         <toolkit:SettingsCard Header="Arguments">
                             <TextBox

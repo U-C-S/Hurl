@@ -3,8 +3,11 @@ using Hurl.Library.Models;
 using Hurl.App.Services.Interfaces;
 using Microsoft.UI.Xaml.Media.Imaging;
 
+using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hurl.App.ViewModels
 {
@@ -39,23 +42,63 @@ namespace Hurl.App.ViewModels
 
         private readonly ObservableCollection<Browser> browsers;
         private readonly ISettingsService settingsService;
+        private readonly IIconLoader iconLoader;
+        private bool suppressPreviewRefresh;
+        private int previewVersion;
 
-        public EditBrowserPageViewModel(Browser browser, ISettingsService settingsService, bool isNewBrowser = false)
+        // Tracks the current refresh so callers can await preview initialization or updates.
+        public Task IconPreviewLoadTask { get; private set; } = Task.CompletedTask;
+
+        public EditBrowserPageViewModel(Browser browser, ISettingsService settingsService, IIconLoader iconLoader, bool isNewBrowser = false)
         {
             Original = browser;
             browsers = settingsService.LoadSettings().Browsers;
             this.settingsService = settingsService;
+            this.iconLoader = iconLoader;
             IsNewBrowser = isNewBrowser;
+            Revert();
+        }
 
-            // Initialize editable fields from the original browser
-            Name = browser.Name ?? string.Empty;
-            ExePath = browser.ExePath ?? string.Empty;
-            LaunchArgs = browser.LaunchArgs ?? string.Empty;
-            Hidden = browser.Hidden;
-            Icon = browser.Icon;
-            AlternateLaunches = browser.AlternateLaunches != null
-                ? CloneAlternateLaunches(browser.AlternateLaunches)
-                : new ObservableCollection<AlternateLaunch>();
+        partial void OnExePathChanged(string value) => RefreshIconPreview();
+
+        partial void OnIconChanged(BrowserIcon? value) => RefreshIconPreview();
+
+        private void RefreshIconPreview()
+        {
+            if (!suppressPreviewRefresh)
+                IconPreviewLoadTask = LoadIconPreviewAsync();
+        }
+
+        private async Task LoadIconPreviewAsync()
+        {
+            int version = ++previewVersion;
+            try
+            {
+                var image = await iconLoader.LoadIconAsync(new Browser { ExePath = ExePath, Icon = Icon });
+                if (version == previewVersion) IconPreview = image;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Could not refresh browser icon preview: {ex.Message}");
+                if (version == previewVersion) IconPreview = null;
+            }
+        }
+
+        public void ApplyIcon(BrowserIcon icon, BitmapImage preview)
+        {
+            // Reuse the validated chooser image and invalidate any older preview request.
+            previewVersion++;
+            suppressPreviewRefresh = true;
+            try
+            {
+                Icon = icon.Source == BrowserIconSource.Executable && icon.Index == 0 ? null : icon;
+                IconPreview = preview;
+                IconPreviewLoadTask = Task.CompletedTask;
+            }
+            finally
+            {
+                suppressPreviewRefresh = false;
+            }
         }
 
         private static ObservableCollection<AlternateLaunch> CloneAlternateLaunches(ObservableCollection<AlternateLaunch> launches)
@@ -98,15 +141,24 @@ namespace Hurl.App.ViewModels
 
         public void Revert()
         {
-            // Re-load values from the original browser (discard unsaved edits)
-            Name = Original.Name ?? string.Empty;
-            ExePath = Original.ExePath ?? string.Empty;
-            LaunchArgs = Original.LaunchArgs ?? string.Empty;
-            Hidden = Original.Hidden;
-            Icon = Original.Icon;
-            AlternateLaunches = Original.AlternateLaunches != null
-                ? CloneAlternateLaunches(Original.AlternateLaunches)
-                : new ObservableCollection<AlternateLaunch>();
+            // Restore the draft as a batch so only the final icon configuration is loaded.
+            suppressPreviewRefresh = true;
+            try
+            {
+                Name = Original.Name ?? string.Empty;
+                ExePath = Original.ExePath ?? string.Empty;
+                LaunchArgs = Original.LaunchArgs ?? string.Empty;
+                Hidden = Original.Hidden;
+                Icon = Original.Icon;
+                AlternateLaunches = Original.AlternateLaunches != null
+                    ? CloneAlternateLaunches(Original.AlternateLaunches)
+                    : new ObservableCollection<AlternateLaunch>();
+            }
+            finally
+            {
+                suppressPreviewRefresh = false;
+            }
+            RefreshIconPreview();
         }
     }
 }
