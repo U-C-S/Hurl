@@ -11,7 +11,7 @@
 
     <StackPanel MaxWidth="800" Spacing="16">
         <StackPanel Spacing="4">
-            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="General Settings" />
+            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Selector Settings" />
 
             <StackPanel>
                 <toolkit:SettingsCard Header="Launch Under Mouse">

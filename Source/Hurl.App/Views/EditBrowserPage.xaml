@@ -15,59 +15,56 @@
         <StackPanel MaxWidth="800" Spacing="12">
             <BreadcrumbBar ItemClicked="BreadcrumbBar_ItemClicked" ItemsSource="{x:Bind BreadcrumbItems}" />
             <StackPanel Spacing="16">
-                <StackPanel Spacing="4">
-                    <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Main Options" />
-                    <Grid ColumnSpacing="12">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Button
-                            Width="136"
-                            VerticalAlignment="Stretch"
-                            AutomationProperties.Name="Choose browser icon"
-                            Click="ChooseIcon_Click"
-                            ToolTipService.ToolTip="Choose browser icon">
-                            <StackPanel Spacing="8">
-                                <Grid Width="80" Height="80">
-                                    <FontIcon
-                                        FontSize="48"
-                                        Glyph="&#xE774;"
-                                        Visibility="{x:Bind ViewModel.HasNoIcon, Mode=OneWay}" />
-                                    <Image Source="{x:Bind ViewModel.IconPreview, Mode=OneWay}" Stretch="Uniform" />
-                                </Grid>
-                                <TextBlock
-                                    HorizontalAlignment="Center"
-                                    Style="{StaticResource CaptionTextBlockStyle}"
-                                    Text="Change icon" />
-                            </StackPanel>
-                        </Button>
-                        <StackPanel Grid.Column="1" Spacing="4">
-                            <toolkit:SettingsCard Header="Name">
-                                <TextBox
-                                    x:Name="BrowserDisplayNameInput"
-                                    MinWidth="180"
-                                    MaxWidth="250"
-                                    PlaceholderText="Name of the Browser/App"
-                                    Text="{x:Bind ViewModel.Name, Mode=TwoWay}" />
-                            </toolkit:SettingsCard>
-                            <toolkit:SettingsCard Header="Executable Path">
-                                <StackPanel Orientation="Horizontal" Spacing="4">
-                                    <Button
-                                        Padding="8"
-                                        Click="OpenContainingExe_Click"
-                                        ToolTipService.ToolTip="Open containing folder or select the file in Explorer">
-                                        <FontIcon FontSize="14" Glyph="&#xE70F;" />
-                                    </Button>
-                                    <TextBox
-                                        Width="250"
-                                        PlaceholderText="C:\Program Files\Browser\browser.exe"
-                                        Text="{x:Bind ViewModel.ExePath, Mode=TwoWay}" />
-                                </StackPanel>
-                            </toolkit:SettingsCard>
+                <Grid ColumnSpacing="12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button
+                        Width="136"
+                        VerticalAlignment="Stretch"
+                        AutomationProperties.Name="Choose browser icon"
+                        Click="ChooseIcon_Click"
+                        ToolTipService.ToolTip="Choose browser icon">
+                        <StackPanel Spacing="8">
+                            <Grid Width="80" Height="80">
+                                <FontIcon
+                                    FontSize="48"
+                                    Glyph="&#xE774;"
+                                    Visibility="{x:Bind ViewModel.HasNoIcon, Mode=OneWay}" />
+                                <Image Source="{x:Bind ViewModel.IconPreview, Mode=OneWay}" Stretch="Uniform" />
+                            </Grid>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                Text="Change icon" />
                         </StackPanel>
-                    </Grid>
-                </StackPanel>
+                    </Button>
+                    <StackPanel Grid.Column="1" Spacing="4">
+                        <toolkit:SettingsCard Header="Name">
+                            <TextBox
+                                x:Name="BrowserDisplayNameInput"
+                                MinWidth="180"
+                                MaxWidth="250"
+                                PlaceholderText="Name of the Browser/App"
+                                Text="{x:Bind ViewModel.Name, Mode=TwoWay}" />
+                        </toolkit:SettingsCard>
+                        <toolkit:SettingsCard Header="Executable Path">
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <Button
+                                    Padding="8"
+                                    Click="OpenContainingExe_Click"
+                                    ToolTipService.ToolTip="Open containing folder or select the file in Explorer">
+                                    <FontIcon FontSize="14" Glyph="&#xE70F;" />
+                                </Button>
+                                <TextBox
+                                    Width="250"
+                                    PlaceholderText="C:\Program Files\Browser\browser.exe"
+                                    Text="{x:Bind ViewModel.ExePath, Mode=TwoWay}" />
+                            </StackPanel>
+                        </toolkit:SettingsCard>
+                    </StackPanel>
+                </Grid>
 
                 <StackPanel Spacing="4">
                     <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Advanced Options" />
