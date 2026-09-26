@@ -108,5 +108,5 @@ Note that when adding rules to _UserSettings.json_ directly, follow the below pa
 | Regex     | `r$<YourRule>`                 | `r$.*open\.spotify\.com.*`                                   |
 
 - The table shows rule strings before JSON escaping. In JSON, escape each backslash as `\\`, as in the sample above.
-- For a string rule containing a literal `$` in hand-edited JSON, include `s$` explicitly so the first `$` is interpreted as the type separator.
-- When using the UI, choose the rule type and enter the pattern without a `d$`, `r$`, or `s$` prefix.
+- Only a leading `d$`, `r$`, or `s$` is interpreted as a rule-type prefix. Other `$` characters are preserved, so an unprefixed URL such as `https://example.com/$value` works as an exact-string rule.
+- When using the UI, choose the rule type and enter the pattern without a type prefix; Hurl adds it when saving.

@@ -44,17 +44,15 @@ public class Rule
 
     public Rule(string storedRule)
     {
-        if (storedRule.Contains('$'))
+        if (storedRule.Length >= 2 
+            && storedRule[1] == '$' 
+            && storedRule[0] is 'd' or 'r' or 's')
         {
-            var split = storedRule.Split('$', 2);
-            var modeLetter = split[0];
-            var content = split[1];
-
-            RuleContent = content;
-            Mode = modeLetter switch
+            RuleContent = storedRule[2..];
+            Mode = storedRule[0] switch
             {
-                "d" => RuleMode.Domain,
-                "r" => RuleMode.Regex,
+                'd' => RuleMode.Domain,
+                'r' => RuleMode.Regex,
                 _ => RuleMode.String
             };
         }
@@ -74,7 +72,7 @@ public class Rule
         string RuleString = Mode switch
         {
             RuleMode.Domain => $"d${RuleContent}",
-            RuleMode.String => $"{RuleContent}", // use this as default instead
+            RuleMode.String => $"s${RuleContent}",
             RuleMode.Regex => $"r${RuleContent}",
             _ => throw new NotImplementedException()
         };
