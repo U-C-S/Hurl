@@ -12,6 +12,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text.Json;
 using WinUIEx;
 
@@ -168,34 +169,40 @@ public partial class App : Microsoft.UI.Xaml.Application
 
     private void Dispatcher_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
     {
-        string ErrorMsgBuffer;
-        string ErrorWndTitle;
-        switch (e.Exception?.InnerException)
+        var exception = e.Exception?.GetBaseException();
+        string title = exception is JsonException ? "Hurl - Invalid JSON" : "Hurl - Error";
+        string summary = exception is JsonException
+            ? "The UserSettings.json file contains invalid JSON."
+            : "An unexpected error has occurred.";
+        string errorMessage = $"{summary}\n\n{exception?.Message ?? e.Message}\n\nHurl will close when you dismiss this message.";
+
+        try
         {
-            case JsonException:
-                ErrorMsgBuffer = "The UserSettings.json file is in invalid JSON format. \n";
-                ErrorWndTitle = "Hurl - Invalid JSON";
-                break;
-            default:
-                ErrorMsgBuffer = "An unknown error has occurred. \n";
-                ErrorWndTitle = "Hurl - Unknown Error";
-                break;
+            string crashDirectory = Path.Combine(Constants.ROAMING, "Hurl", "crashes");
+            Directory.CreateDirectory(crashDirectory);
+            string crashFile = Path.Combine(crashDirectory, $"{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}.txt");
+            File.AppendAllText(crashFile, $"{e.Message}\n\n{e.Exception}\n");
+            errorMessage += $"\n\nCrash log: {crashFile}";
+        }
+        catch (Exception logException)
+        {
+            Debug.WriteLine(logException);
         }
 
-        Directory.CreateDirectory(Path.Combine(Constants.ROAMING, "Hurl", "crashes"));
-        long seconds = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-        var argsStoreFile = Path.Combine(Constants.ROAMING, "Hurl", "crashes", $"{seconds}.txt");
-        var errorFileContents = string.Format("{0}\n\nStackTrace:\n{1}", e.Message, e.Exception.StackTrace);
-        File.AppendAllText(argsStoreFile, errorFileContents);
+        try
+        {
+            const uint MB_ICONERROR = 0x00000010;
+            const uint MB_TASKMODAL = 0x00002000;
+            const uint MB_SETFOREGROUND = 0x00010000;
 
-        string errorMessage = string.Format("{0}\n{1}\n\n{2}", ErrorMsgBuffer, e.Exception?.InnerException?.Message, e.Exception?.Message);
-        // ContentDialog dialog = new()
-        // {
-        //     Content = errorMessage,
-        //     Title = ErrorWndTitle,
-        // };
-        // await dialog.ShowAsync();
-
-        ExitApp();
+            MessageBox(IntPtr.Zero, errorMessage, title, MB_ICONERROR | MB_TASKMODAL | MB_SETFOREGROUND);
+        }
+        finally
+        {
+            ExitApp();
+        }
     }
+
+    [LibraryImport("user32.dll", EntryPoint = "MessageBoxW", StringMarshalling = StringMarshalling.Utf16)]
+    private static partial int MessageBox(IntPtr hWnd, string text, string caption, uint type);
 }

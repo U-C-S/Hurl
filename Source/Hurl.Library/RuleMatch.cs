@@ -70,6 +70,8 @@ public class RuleMatch
         return domain.Equals(rule, StringComparison.OrdinalIgnoreCase);
     }
 
+    // TODO: Timeout the regex rule checks in 50ms or so
+    // Also Add include time taken checks in Test Rules Page
     private static bool RegexCheck(string link, string rule)
     {
         var r = new Regex(rule);
