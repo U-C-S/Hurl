@@ -259,13 +259,6 @@ public sealed partial class SelectorWindow : Window
 
     private void CloseBtnClick(object sender, RoutedEventArgs e) => MinimizeWindow();
 
-    private void Button_Click(object sender, RoutedEventArgs e)
-    {
-        //forcePreventWindowDeactivationEvent = true;
-        //new TimeSelectWindow(Settings.browsers).ShowDialog();
-        //forcePreventWindowDeactivationEvent = false;
-    }
-
     private void Button_Click_1(object sender, RoutedEventArgs e)
     {
         App.ShowSettings("rulesets");

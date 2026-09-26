@@ -60,15 +60,6 @@
                                 <FontIcon Glyph="&#xE713;" />
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
-                        <MenuFlyoutSeparator />
-                        <MenuFlyoutItem
-                            Click="Button_Click"
-                            Tag="reload"
-                            Text="Timed">
-                            <MenuFlyoutItem.Icon>
-                                <FontIcon Glyph="&#xE916;" />
-                            </MenuFlyoutItem.Icon>
-                        </MenuFlyoutItem>
                     </MenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
