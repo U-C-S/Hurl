@@ -45,7 +45,8 @@ public partial class App : Microsoft.UI.Xaml.Application
     {
         var services = new ServiceCollection();
 
-        services.AddSingleton<ISettingsService, JsonFileService>();
+        services.AddSingleton<ISettingsService, SettingsService>();
+        services.AddSingleton<IAppStateService, AppStateService>();
         services.AddSingleton<IIconLoader, IconLoaderService>();
         // selector
         services.AddSingleton<IWebViewEnvironmentService, WebViewEnvironmentService>();
