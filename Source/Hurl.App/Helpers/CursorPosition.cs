@@ -3,26 +3,26 @@ using System.Runtime.InteropServices;
 
 namespace Hurl.App.Helpers;
 
-internal static partial class CursorPosition
+internal static class CursorPosition
 {
     private const uint MonitorDefaultToNearest = 0x00000002;
 
-    public static ScreenPoint LimitCursorWithin(int width, int height)
+    public static NativeMethods.ScreenPoint LimitCursorWithin(int width, int height)
     {
-        if (!GetCursorPos(out var cursor))
+        if (!NativeMethods.GetCursorPos(out var cursor))
         {
-            return new ScreenPoint(0, 0);
+            return new NativeMethods.ScreenPoint(0, 0);
         }
 
-        var monitor = MonitorFromPoint(cursor, MonitorDefaultToNearest);
-        MonitorInfo monitorInfo = new()
+        var monitor = NativeMethods.MonitorFromPoint(cursor, MonitorDefaultToNearest);
+        NativeMethods.MonitorInfo monitorInfo = new()
         {
-            CbSize = Marshal.SizeOf<MonitorInfo>()
+            CbSize = Marshal.SizeOf<NativeMethods.MonitorInfo>()
         };
 
-        if (monitor == IntPtr.Zero || !GetMonitorInfo(monitor, ref monitorInfo))
+        if (monitor == IntPtr.Zero || !NativeMethods.GetMonitorInfo(monitor, ref monitorInfo))
         {
-            return new ScreenPoint(cursor.X - width / 2, cursor.Y - height / 2);
+            return new NativeMethods.ScreenPoint(cursor.X - width / 2, cursor.Y - height / 2);
         }
 
         var workArea = monitorInfo.RcWork;
@@ -46,42 +46,6 @@ internal static partial class CursorPosition
             y = workArea.Top;
         }
 
-        return new ScreenPoint(x, y);
-    }
-
-    [LibraryImport("user32.dll")]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    private static partial bool GetCursorPos(out ScreenPoint lpPoint);
-
-    [LibraryImport("user32.dll")]
-    private static partial IntPtr MonitorFromPoint(ScreenPoint pt, uint dwFlags);
-
-    [LibraryImport("user32.dll", EntryPoint = "GetMonitorInfoW")]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    private static partial bool GetMonitorInfo(IntPtr hMonitor, ref MonitorInfo lpmi);
-
-    [StructLayout(LayoutKind.Sequential)]
-    public struct ScreenPoint(int x, int y)
-    {
-        public int X = x;
-        public int Y = y;
-    }
-
-    [StructLayout(LayoutKind.Sequential)]
-    private struct MonitorInfo
-    {
-        public int CbSize;
-        public Rect RcMonitor;
-        public Rect RcWork;
-        public uint DwFlags;
-    }
-
-    [StructLayout(LayoutKind.Sequential)]
-    private struct Rect
-    {
-        public int Left;
-        public int Top;
-        public int Right;
-        public int Bottom;
+        return new NativeMethods.ScreenPoint(x, y);
     }
 }
