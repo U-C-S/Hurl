@@ -6,6 +6,10 @@
     "Hurl.App (Unpackaged)": {
       "commandName": "Project",
       "commandLineArgs": "--uri https://pouncelight.games/tiny-glade/"
+    },
+    "Hurl Settings": {
+      "commandLineArgs": "--settings",
+      "commandName": "Project"
     }
   }
 }
