@@ -1,6 +1,5 @@
 ﻿namespace Hurl.Library.Models;
 
-
 public record TransientBrowser(
     Guid BrowserId,
     Guid? AltLaunchId,
