@@ -8,6 +8,7 @@ namespace Hurl.Library.Serialization;
     PropertyNameCaseInsensitive = true,
     WriteIndented = true)]
 [JsonSerializable(typeof(Settings))]
+[JsonSerializable(typeof(AppState))]
 [JsonSerializable(typeof(AppSettings))]
 [JsonSerializable(typeof(QuickViewSettings))]
 [JsonSerializable(typeof(QuickViewLaunchMode))]

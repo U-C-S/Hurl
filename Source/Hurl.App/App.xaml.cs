@@ -12,7 +12,6 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text.Json;
 using WinUIEx;
 
@@ -46,7 +45,10 @@ public partial class App : Microsoft.UI.Xaml.Application
     {
         var services = new ServiceCollection();
 
-        services.AddSingleton<ISettingsService, JsonFileService>();
+        services.AddSingleton<ISettingsService, SettingsService>();
+        services.AddSingleton<IAppStateService, AppStateService>();
+        services.AddSingleton(TimeProvider.System);
+        services.AddSingleton<ITransientDefaultBrowserService, TransientDefaultBrowserService>();
         services.AddSingleton<IIconLoader, IconLoaderService>();
         // selector
         services.AddSingleton<IWebViewEnvironmentService, WebViewEnvironmentService>();
@@ -195,14 +197,11 @@ public partial class App : Microsoft.UI.Xaml.Application
             const uint MB_TASKMODAL = 0x00002000;
             const uint MB_SETFOREGROUND = 0x00010000;
 
-            MessageBox(IntPtr.Zero, errorMessage, title, MB_ICONERROR | MB_TASKMODAL | MB_SETFOREGROUND);
+            NativeMethods.MessageBox(IntPtr.Zero, errorMessage, title, MB_ICONERROR | MB_TASKMODAL | MB_SETFOREGROUND);
         }
         finally
         {
             ExitApp();
         }
     }
-
-    [LibraryImport("user32.dll", EntryPoint = "MessageBoxW", StringMarshalling = StringMarshalling.Utf16)]
-    private static partial int MessageBox(IntPtr hWnd, string text, string caption, uint type);
 }

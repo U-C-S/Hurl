@@ -34,11 +34,29 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <TextBlock
-                VerticalAlignment="Center"
-                Style="{StaticResource BodyTextBlockStyle}"
-                Text="Select a browser" />
-            <DropDownButton Grid.Column="1">
+            <DropDownButton
+                x:Name="BrowserSelOptionsButton"
+                Margin="-8,0,0,0"
+                Padding="8,4,8,6"
+                AutomationProperties.Name="Browser selection options">
+                <DropDownButton.Content>
+                    <TextBlock Text="Select a browser" />
+                </DropDownButton.Content>
+                <DropDownButton.Flyout>
+                    <MenuFlyout Placement="BottomEdgeAlignedLeft">
+                        <MenuFlyoutItem IsEnabled="False" Text="Use browser for" />
+                        <RadioMenuFlyoutItem
+                            GroupName="BrowserDuration"
+                            IsChecked="True"
+                            Text="This link only" />
+                        <RadioMenuFlyoutItem GroupName="BrowserDuration" Text="15 minutes" />
+                        <RadioMenuFlyoutItem GroupName="BrowserDuration" Text="30 minutes" />
+                        <RadioMenuFlyoutItem GroupName="BrowserDuration" Text="1 hour" />
+                        <RadioMenuFlyoutItem GroupName="BrowserDuration" Text="2 hours" />
+                    </MenuFlyout>
+                </DropDownButton.Flyout>
+            </DropDownButton>
+            <DropDownButton x:Name="SelectorMenuButton" Grid.Column="1">
                 <DropDownButton.Content>
                     <FontIcon FontSize="16" Glyph="&#xE700;" />
                 </DropDownButton.Content>
