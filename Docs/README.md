@@ -1,5 +1,11 @@
 # User settings
 
+## Feature Documentation
+
+- [Browser Configuration](./Features/BrowserConfiguration.md)
+- [Rule Matching](./Features/RuleMatching.md)
+- [Quick View](./Features/QuickView.md)
+
 When Hurl is lauched for the first time, it automatically detects the installed browsers and creates a _UserSettings.json_ file at `C:\Users\{USER}\AppData\Roaming\Hurl` filling it with browsers it detected. A typical UserSettings.json file looks like this:
 
 ```json
@@ -60,9 +66,3 @@ The following snippet shows the default options:
 - `BackgroundType` supports **mica** (default) and **acrylic** for the selector window.
 - `RuleMatching` defaults to **false**. Enable it in **Hurl Settings > Rulesets** to automatically open links using [rule matching](./Features/RuleMatching.md).
 - `WindowSize` stores the selector's width and height, defaults to **[500, 260]**, and is saved when you finish resizing the window. The minimum size is also 500 by 260.
-
-
-## Feature Documentation
-
-- [Browser Configuration](./Features/BrowserConfiguration.md)
-- [Rule Matching](./Features/RuleMatching.md)
