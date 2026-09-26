@@ -47,6 +47,8 @@ public partial class App : Microsoft.UI.Xaml.Application
 
         services.AddSingleton<ISettingsService, SettingsService>();
         services.AddSingleton<IAppStateService, AppStateService>();
+        services.AddSingleton(TimeProvider.System);
+        services.AddSingleton<ITransientDefaultBrowserService, TransientDefaultBrowserService>();
         services.AddSingleton<IIconLoader, IconLoaderService>();
         // selector
         services.AddSingleton<IWebViewEnvironmentService, WebViewEnvironmentService>();
