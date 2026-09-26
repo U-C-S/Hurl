@@ -62,7 +62,7 @@ You can add new rules into the `Rulesets` property, which itself is a list of ru
 - `Rules`: An array of rule strings, even when there is only one rule. Any matching rule selects this ruleset's browser.
 - `BrowserId`: The value should match the `Id` of one of the configured `Browsers`. It will be opened once a rule from the `Rules` property matches.
 - `RulesetName`: Optional display name for the ruleset.
-- `AlternateLaunchId`: The `Id` of an entry in the selected browser's `AlternateLaunches` array. Omit it or set it to `null` for the browser's default launch. Packaged browsers with `IsUwp: true` use Windows URI activation and ignore this setting.
+- `AlternateLaunchId`: The `Id` of an entry in the selected browser's `AlternateLaunches` array. Omit it or set it to `null` for the browser's default launch.
 
 Sample Json file for more advanced editing:
 

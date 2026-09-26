@@ -2,7 +2,6 @@ using Hurl.Library.Models;
 using System;
 using System.Diagnostics;
 using System.Linq;
-using Windows.System;
 
 namespace Hurl.App.Helpers;
 
@@ -10,11 +9,7 @@ class UriLauncher
 {
     public static void ResolveAutomatically(string uri, Browser browser, Guid? alternateLaunchId)
     {
-        if (browser.IsUwp)
-        {
-            Uwp(uri, browser);
-        }
-        else if (alternateLaunchId is Guid id)
+        if (alternateLaunchId is Guid id)
         {
             Alternative(uri, browser, id);
         }
@@ -57,17 +52,5 @@ class UriLauncher
             var args = uri + " " + alt.LaunchArgs;
             Process.Start(browser.ExePath, args);
         }
-    }
-
-    public static async void Uwp(string uri, Browser browser)
-    {
-        var uri_object = new Uri(uri);
-        var options = new LauncherOptions
-        {
-            //options.TargetApplicationPackageFamilyName = "TheBrowserCompany.Arc_ttt1ap7aakyb4";
-            //TargetApplicationPackageFamilyName = "Mozilla.Firefox_n80bbvh6b1yt2"
-            TargetApplicationPackageFamilyName = browser.ExePath
-        };
-        await Launcher.LaunchUriAsync(uri_object, options);
     }
 }

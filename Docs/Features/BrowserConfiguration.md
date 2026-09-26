@@ -5,12 +5,11 @@ The settings UI supports creating, editing, deleting, and dragging browser entri
 
 - `Id` - Stable UUID for this browser. Various other settings refer to this browser by this Id. Required.
 - `Name` - Display name for browser. Required.
-- `ExePath` - Path to the browser's main executable, or its package family name when `IsUwp` is **true**. Required.
+- `ExePath` - Path to the browser's main executable. Required.
 - `Icon` - Optional icon configuration containing `Source`, `Path`, and `Index`. Omit it or use `null` to use the executable's default icon. See below.
 - `LaunchArgs` - Default executable launch arguments. Use `%URL%` to insert the URL at a specific position. If `%URL%` is absent, the URL is placed before the arguments. Optional.
 - `Hidden` - Set to **true** to hide the browser from the selector and Quick View's browser targets. Rules can still launch it. Defaults to **false**.
 - `AlternateLaunches` - This is an array; See below. Optional.
-- `IsUwp` - Set to **true** to launch a packaged browser using its package family name. Defaults to **false**. Configure this property in JSON; the browser editor does not currently expose it.
 
 ## Browser icons
 
@@ -79,44 +78,6 @@ Selecting an alternate launch includes the URL automatically. Its arguments repl
 - `ItemName` - The name that shows up in the context menu for this launch
 - `LaunchArgs` - Arguments for this alternate launch, such as an incognito flag or profile directory. Supports `%URL%` with the same behavior as the browser's default arguments.
 - `Id` - Stable UUID for this alternate launch. Hurl generates one when absent. Preserve it when rulesets or Quick View target this profile.
-
-## UWP Browsers
-
-Packaged browsers can be launched through Windows using `IsUwp: true`. In this mode, `ExePath` contains the **package family name**, not an executable path or an application ID.
-
-Find the package family name for an installed browser in PowerShell:
-
-```powershell
-Get-AppxPackage | Select-Object Name, PackageFamilyName
-```
-
-For example, a `Browsers` array containing packaged Firefox and Arc entries looks like this. Use the package family names reported on your machine:
-
-```json
-{
-  "Browsers": [
-    {
-      "Id": "2b36a1fe-97f7-4509-ae6e-5c2c61602af4",
-      "Name": "Firefox",
-      "ExePath": "Mozilla.Firefox_n80bbvh6b1yt2",
-      "IsUwp": true
-    },
-    {
-      "Id": "e48b823f-c4b0-4218-a7e2-a8c80231228a",
-      "Name": "Arc",
-      "ExePath": "TheBrowserCompany.Arc_ttt1ap7aakyb4",
-      "IsUwp": true
-    }
-  ]
-}
-```
-
-### Limitations
-
-- Icons cannot be loaded from a package family name. Choose a local image or URL in the icon chooser instead.
-- The URL must be an absolute URI with a scheme, such as `https://github.com`.
-- Default launches and automatic launches from rules or Quick View use Windows URI activation, which does not pass `LaunchArgs` or alternate-launch arguments. Alternate launches from the selector attempt to run `ExePath` as an executable and are not supported for package family names.
-- Registry detection does not discover every packaged browser. Add missing browsers manually.
 
 ## Refreshing Browsers list
 

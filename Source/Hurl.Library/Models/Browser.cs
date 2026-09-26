@@ -24,10 +24,6 @@ public partial class Browser : ObservableObject
     public partial string ExePath { get; set; } = string.Empty;
 
     [ObservableProperty]
-    [field: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-    public partial bool IsUwp { get; set; } = false;
-
-    [ObservableProperty]
     public partial string? LaunchArgs { get; set; }
 
     [ObservableProperty]
