@@ -103,9 +103,16 @@ public partial class App : Microsoft.UI.Xaml.Application
             var selectedBrowser = settings.Browsers.FirstOrDefault(b => b.Id == matchingRuleset.BrowserId);
             if (selectedBrowser is not null)
             {
-                UriLauncher.ResolveAutomatically(cliArgs.Url, selectedBrowser, matchingRuleset.AlternateLaunchId);
+                try
+                {
+                    UriLauncher.ResolveAutomatically(cliArgs.Url, selectedBrowser, matchingRuleset.AlternateLaunchId);
+                    return;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
             }
-            return;
         }
 
 

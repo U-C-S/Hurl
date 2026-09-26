@@ -36,8 +36,8 @@ in the ruleset is enough to match. Multiple rulesets can target the same browser
 matches a URL, the one higher in the list wins.
 
 - Rulesets can target hidden browsers too.
-- a matching ruleset with a missing browser currently stops processing without opening the selector
-- A missing alternate launch can fail to launch.
+- If the matching ruleset's browser or alternate launch is missing, or launching the browser fails,
+  the selector opens with the original URL so you can choose another browser.
 - Rulesets cannot target the built-in Quick View window currently.
 
 ## From UI
