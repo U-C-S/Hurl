@@ -10,7 +10,7 @@
       <img src="https://img.shields.io/github/v/release/u-c-s/hurl?color=red&label=latest%20version&style=flat-square" alt="Releases" />
     </a>
     <a style="text-decoration:none">
-      <img src="https://img.shields.io/badge/platform-Windows%2010%20%26%2011-blue.svg?style=flat-square" alt="Platform" />
+      <img src="https://img.shields.io/badge/platform-Windows%2011-blue.svg?style=flat-square" alt="Platform" />
     </a>
     <a style="text-decoration:none">
       <img src="https://img.shields.io/github/license/u-c-s/hurl?style=flat-square" alt="License" />
