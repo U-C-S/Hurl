@@ -38,12 +38,32 @@ public sealed class TransientDefaultBrowserService(
         });
     }
 
+    public void End()
+    {
+        if (appStateService.LoadState().TransientDefaultConfig is not null)
+        {
+            appStateService.UpdateTransientDefault(null);
+        }
+    }
+
     public TransientBrowser? GetActiveBrowser()
     {
         TransientDefaultConfig? current = appStateService.LoadState().TransientDefaultConfig;
         return current is not null && current.ValidTill > timeProvider.GetUtcNow().UtcDateTime
             ? current.Browser
             : null;
+    }
+
+    public TimeSpan GetRemainingTime()
+    {
+        TransientDefaultConfig? current = appStateService.LoadState().TransientDefaultConfig;
+        if (current is null)
+        {
+            return TimeSpan.Zero;
+        }
+
+        TimeSpan remaining = current.ValidTill - timeProvider.GetUtcNow().UtcDateTime;
+        return remaining > TimeSpan.Zero ? remaining : TimeSpan.Zero;
     }
 
     public bool AddFifteenMinutes()
