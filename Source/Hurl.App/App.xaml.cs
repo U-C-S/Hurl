@@ -87,17 +87,35 @@ public partial class App : Microsoft.UI.Xaml.Application
         var cliArgs = CliArgs.GatherInfo(activationArgs, isSecondInstance);
         IServiceProvider services = Services ?? throw new InvalidOperationException("Application services are not configured.");
 
+        // Settings Window
         if (cliArgs.SettingsPage is string page)
         {
             ShowSettings(page);
             return;
         }
 
+        // Quick View
         if (services.GetRequiredService<IQuickViewService>().TryOpenIfModifierKeyActivated(cliArgs.Url))
         {
             return;
         }
 
+        // Transient Default Browser
+        try
+        {
+            if (!string.IsNullOrWhiteSpace(cliArgs.Url)
+                && services.GetRequiredService<ITransientDefaultBrowserService>().GetActiveBrowser() is { } transientBrowser)
+            {
+                UriLauncher.Default(cliArgs.Url, transientBrowser);
+                return;
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+        }
+
+        // Rule Check
         var settings = services.GetRequiredService<ISettingsService>().LoadSettings();
         if (cliArgs.Url is not null
             && settings.AppSettings.RuleMatching
@@ -118,7 +136,7 @@ public partial class App : Microsoft.UI.Xaml.Application
             }
         }
 
-
+        // Finally Selector
         _selectorWindow ??= new SelectorWindow();
         trayService ??= new TrayService(ShowSelector, () => ShowSettings("settings"), ReloadApp, ExitApp);
         _selectorWindow.Init(cliArgs);

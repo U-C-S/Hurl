@@ -38,6 +38,14 @@ public sealed class TransientDefaultBrowserService(
         });
     }
 
+    public TransientBrowser? GetActiveBrowser()
+    {
+        TransientDefaultConfig? current = appStateService.LoadState().TransientDefaultConfig;
+        return current is not null && current.ValidTill > timeProvider.GetUtcNow().UtcDateTime
+            ? current.Browser
+            : null;
+    }
+
     public bool AddFifteenMinutes()
     {
         TransientDefaultConfig? current = appStateService.LoadState().TransientDefaultConfig;
