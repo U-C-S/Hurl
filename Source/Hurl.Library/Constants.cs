@@ -12,6 +12,7 @@ public class Constants
     public static string ROAMING = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
     public static string APP_SETTINGS_DIR = Path.Combine(ROAMING, "Hurl");
     public static string APP_SETTINGS_MAIN = Path.Combine(APP_SETTINGS_DIR, "UserSettings.json");
+    public static string APP_STATE_MAIN = Path.Combine(APP_SETTINGS_DIR, "AppState.json");
 
     public const string NEW_LINE = "1&#x0a;";
 

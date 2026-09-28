@@ -34,16 +34,56 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <TextBlock
-                VerticalAlignment="Center"
-                Style="{StaticResource BodyTextBlockStyle}"
-                Text="Select a browser" />
-            <DropDownButton Grid.Column="1">
+            <DropDownButton
+                x:Name="BrowserSelOptionsButton"
+                Margin="-8,0,0,0"
+                Padding="8,4,8,6"
+                AutomationProperties.Name="Browser selection options">
+                <DropDownButton.Content>
+                    <TextBlock Text="Select a browser" />
+                </DropDownButton.Content>
+                <DropDownButton.Flyout>
+                    <MenuFlyout Placement="BottomEdgeAlignedLeft">
+                        <MenuFlyoutItem IsEnabled="False" Text="Use browser for" />
+                        <RadioMenuFlyoutItem
+                            Command="{x:Bind ViewModel.TransientDurationCommand}"
+                            CommandParameter="0"
+                            GroupName="BrowserDuration"
+                            IsChecked="{x:Bind ViewModel.IsTransientDurationSelected(0), Mode=OneWay}"
+                            Text="This link only" />
+                        <RadioMenuFlyoutItem
+                            Command="{x:Bind ViewModel.TransientDurationCommand}"
+                            CommandParameter="15"
+                            GroupName="BrowserDuration"
+                            IsChecked="{x:Bind ViewModel.IsTransientDurationSelected(15), Mode=OneWay}"
+                            Text="15 minutes" />
+                        <RadioMenuFlyoutItem
+                            Command="{x:Bind ViewModel.TransientDurationCommand}"
+                            CommandParameter="30"
+                            GroupName="BrowserDuration"
+                            IsChecked="{x:Bind ViewModel.IsTransientDurationSelected(30), Mode=OneWay}"
+                            Text="30 minutes" />
+                        <RadioMenuFlyoutItem
+                            Command="{x:Bind ViewModel.TransientDurationCommand}"
+                            CommandParameter="60"
+                            GroupName="BrowserDuration"
+                            IsChecked="{x:Bind ViewModel.IsTransientDurationSelected(60), Mode=OneWay}"
+                            Text="1 hour" />
+                        <RadioMenuFlyoutItem
+                            Command="{x:Bind ViewModel.TransientDurationCommand}"
+                            CommandParameter="120"
+                            GroupName="BrowserDuration"
+                            IsChecked="{x:Bind ViewModel.IsTransientDurationSelected(120), Mode=OneWay}"
+                            Text="2 hours" />
+                    </MenuFlyout>
+                </DropDownButton.Flyout>
+            </DropDownButton>
+            <DropDownButton x:Name="SelectorMenuButton" Grid.Column="1">
                 <DropDownButton.Content>
                     <FontIcon FontSize="16" Glyph="&#xE700;" />
                 </DropDownButton.Content>
                 <DropDownButton.Flyout>
-                    <MenuFlyout>
+                    <MenuFlyout Placement="BottomEdgeAlignedLeft">
                         <MenuFlyoutItem
                             Click="Button_Click_1"
                             Tag="settings"

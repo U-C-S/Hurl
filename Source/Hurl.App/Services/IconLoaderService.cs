@@ -1,3 +1,4 @@
+using Hurl.App.Helpers;
 using Hurl.App.Services.Interfaces;
 using Hurl.Library;
 using Hurl.Library.Models;
@@ -8,14 +9,13 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Net.Http;
-using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Hurl.App.Services;
 
-public partial class IconLoaderService : IIconLoader
+public class IconLoaderService : IIconLoader
 {
     /// <summary>
     /// The selector takes up 80x80 pixels. so size 256 can cover display scaling till 300%.
@@ -64,7 +64,7 @@ public partial class IconLoaderService : IIconLoader
             string path = Path.GetFullPath(Environment.ExpandEnvironmentVariables(exePath.Trim().Trim('"')));
             if (!File.Exists(path)) return 0;
 
-            uint count = ExtractIconEx(path, -1, IntPtr.Zero, IntPtr.Zero, 0);
+            uint count = NativeMethods.ExtractIconEx(path, -1, IntPtr.Zero, IntPtr.Zero, 0);
             return count <= int.MaxValue ? (int)count : 0;
         }
         catch (Exception ex)
@@ -73,9 +73,6 @@ public partial class IconLoaderService : IIconLoader
             return 0;
         }
     });
-
-    [LibraryImport("shell32.dll", EntryPoint = "ExtractIconExW", StringMarshalling = StringMarshalling.Utf16)]
-    private static partial uint ExtractIconEx(string file, int index, IntPtr largeIcons, IntPtr smallIcons, uint count);
 
     public Task<BitmapImage?> LoadIconFromIco(string icoPath) => LoadIconFromImage(icoPath);
 

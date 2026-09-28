@@ -2,21 +2,22 @@ using Hurl.App.Services.Interfaces;
 using Hurl.Library;
 using Hurl.Library.Models;
 using Hurl.Library.Serialization;
+using Hurl.Library.Storage;
 using System;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Text.Json;
 
 namespace Hurl.App.Services;
 
-public class JsonFileService : ISettingsService
+public class SettingsService : ISettingsService
 {
-    private readonly string settingsPath;
+    private readonly JsonFileStore<Settings> store;
     private Settings? settings;
 
-    public JsonFileService(string? settingsPath = null)
+    public SettingsService(string? settingsPath = null)
     {
-        this.settingsPath = settingsPath ?? Constants.APP_SETTINGS_MAIN;
+        store = new JsonFileStore<Settings>(
+            settingsPath ?? Constants.APP_SETTINGS_MAIN,
+            SelectorJsonSerializerContext.Default.Settings);
     }
 
     public event EventHandler? SettingsChanged;
@@ -29,10 +30,10 @@ public class JsonFileService : ISettingsService
             return settings;
         }
 
-        bool firstRun = !File.Exists(settingsPath);
+        bool firstRun = !store.Exists;
         settings = firstRun
             ? new Settings { Browsers = new(GetBrowsers.FromRegistry()) }
-            : JsonSerializer.Deserialize(File.ReadAllText(settingsPath), SelectorJsonSerializerContext.Default.Settings)
+            : store.Read()
                 ?? new Settings();
 
         settings.Browsers ??= [];
@@ -54,12 +55,7 @@ public class JsonFileService : ISettingsService
 
     private void SaveSettings()
     {
-        Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(settingsPath))!);
-        string json = JsonSerializer.Serialize(settings, SelectorJsonSerializerContext.Default.Settings);
-        // Replace only after the complete document is written.
-        string temporaryPath = settingsPath + ".tmp";
-        File.WriteAllText(temporaryPath, json);
-        File.Move(temporaryPath, settingsPath, overwrite: true);
+        store.Write(settings!);
         SettingsChanged?.Invoke(this, EventArgs.Empty);
     }
 
