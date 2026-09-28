@@ -46,13 +46,35 @@
                     <MenuFlyout Placement="BottomEdgeAlignedLeft">
                         <MenuFlyoutItem IsEnabled="False" Text="Use browser for" />
                         <RadioMenuFlyoutItem
+                            Command="{x:Bind ViewModel.TransientDurationCommand}"
+                            CommandParameter="0"
                             GroupName="BrowserDuration"
-                            IsChecked="True"
+                            IsChecked="{x:Bind ViewModel.IsTransientDurationSelected(0), Mode=OneWay}"
                             Text="This link only" />
-                        <RadioMenuFlyoutItem GroupName="BrowserDuration" Text="15 minutes" />
-                        <RadioMenuFlyoutItem GroupName="BrowserDuration" Text="30 minutes" />
-                        <RadioMenuFlyoutItem GroupName="BrowserDuration" Text="1 hour" />
-                        <RadioMenuFlyoutItem GroupName="BrowserDuration" Text="2 hours" />
+                        <RadioMenuFlyoutItem
+                            Command="{x:Bind ViewModel.TransientDurationCommand}"
+                            CommandParameter="15"
+                            GroupName="BrowserDuration"
+                            IsChecked="{x:Bind ViewModel.IsTransientDurationSelected(15), Mode=OneWay}"
+                            Text="15 minutes" />
+                        <RadioMenuFlyoutItem
+                            Command="{x:Bind ViewModel.TransientDurationCommand}"
+                            CommandParameter="30"
+                            GroupName="BrowserDuration"
+                            IsChecked="{x:Bind ViewModel.IsTransientDurationSelected(30), Mode=OneWay}"
+                            Text="30 minutes" />
+                        <RadioMenuFlyoutItem
+                            Command="{x:Bind ViewModel.TransientDurationCommand}"
+                            CommandParameter="60"
+                            GroupName="BrowserDuration"
+                            IsChecked="{x:Bind ViewModel.IsTransientDurationSelected(60), Mode=OneWay}"
+                            Text="1 hour" />
+                        <RadioMenuFlyoutItem
+                            Command="{x:Bind ViewModel.TransientDurationCommand}"
+                            CommandParameter="120"
+                            GroupName="BrowserDuration"
+                            IsChecked="{x:Bind ViewModel.IsTransientDurationSelected(120), Mode=OneWay}"
+                            Text="2 hours" />
                     </MenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
@@ -61,7 +83,7 @@
                     <FontIcon FontSize="16" Glyph="&#xE700;" />
                 </DropDownButton.Content>
                 <DropDownButton.Flyout>
-                    <MenuFlyout>
+                    <MenuFlyout Placement="BottomEdgeAlignedLeft">
                         <MenuFlyoutItem
                             Click="Button_Click_1"
                             Tag="settings"

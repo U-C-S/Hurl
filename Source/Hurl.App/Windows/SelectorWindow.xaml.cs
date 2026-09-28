@@ -266,15 +266,7 @@ public sealed partial class SelectorWindow : Window
 
     private void BrowserBarButton_AlternateLaunchRequested(object? sender, AlternateLaunchRequestedEventArgs e)
     {
-        try
-        {
-            UriLauncher.Alternative(ViewModel.Url, e.Browser, e.AlternateLaunch);
-            MinimizeWindow();
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex);
-        }
+        ViewModel.LaunchBrowser(e.Browser, e.AlternateLaunch.Id);
     }
 
     private void QuickViewBtnClick(object sender, RoutedEventArgs e)
