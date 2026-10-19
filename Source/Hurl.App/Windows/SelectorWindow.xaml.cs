@@ -131,7 +131,7 @@ public sealed partial class SelectorWindow : Window
                 (int)Math.Round(width * scale),
                 (int)Math.Round(height * scale));
 
-            this.MoveAndResize(position.X / scale, position.Y / scale, width, height);
+            this.MoveAndResize(position.X, position.Y, width, height);
         }
         catch (Exception ex)
         {
