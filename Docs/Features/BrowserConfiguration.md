@@ -11,6 +11,15 @@ The settings UI supports creating, editing, deleting, and dragging browser entri
 - `Hidden` - Set to **true** to hide the browser from the selector and Quick View's browser targets. Rules can still launch it. Defaults to **false**.
 - `AlternateLaunches` - This is an array; See below. Optional.
 
+## Packaged browsers
+
+For browsers such as Dia, `ExePath` can point to the app execution alias, for example
+`%LOCALAPPDATA%\Microsoft\WindowsApps\Dia.exe`. With no default `LaunchArgs`, Hurl resolves
+the installed package and uses targeted Windows protocol activation for protocols declared
+by that application. This lets Dia open the selected link rather than only activating its window.
+Custom arguments and all alternate launches continue to launch the executable directly.
+If Windows rejects targeted activation, the launch fails instead of retrying the alias or opening another browser.
+
 ## Browser icons
 
 Click the icon preview beside **Name** and **Executable Path** to open **Select Browser Icon**:
@@ -20,6 +29,8 @@ Click the icon preview beside **Name** and **Executable Path** to open **Select 
 - **From URL** loads a direct HTTP(S) image URL. Press Enter or the arrow button to preview it.
 
 Hurl falls back to the executable's default icon if the override cannot be loaded.
+If an app execution alias has no embedded icon, Hurl uses the installed application's
+package logo instead. Custom icons still take priority.
 
 ### Caching
 

@@ -1,3 +1,4 @@
+using Hurl.App.Helpers;
 using Hurl.App.Services.Interfaces;
 using Hurl.Library;
 using Hurl.Library.Models;
@@ -48,7 +49,19 @@ public partial class IconLoaderService : IIconLoader
 
         int index = IconConfig?.Source == BrowserIconSource.Executable ? Math.Max(0, IconConfig.Index) : 0;
         var icon = await LoadIconFromExe(browser.ExePath, index);
-        return icon ?? (index != 0 ? await LoadIconFromExe(browser.ExePath) : null);
+        icon ??= index != 0 ? await LoadIconFromExe(browser.ExePath) : null;
+        if (icon is not null) return icon;
+
+        try
+        {
+            var package = await Task.Run(() => PackagedBrowserResolver.Resolve(browser.ExePath));
+            return package?.LogoPath is string logo ? await LoadIconFromImage(logo) : null;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Could not load packaged browser icon: {ex.Message}");
+            return null;
+        }
     }
 
     public Task<BitmapImage?> LoadIconFromExe(string exePath) => LoadIconFromExe(exePath, 0);

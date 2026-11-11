@@ -277,9 +277,9 @@ public sealed partial class SelectorWindow : Window
         }
     }
 
-    private void QuickViewBtnClick(object sender, RoutedEventArgs e)
+    private async void QuickViewBtnClick(object sender, RoutedEventArgs e)
     {
-        if (quickViewService.TryOpen(ViewModel.Url))
+        if (await quickViewService.TryOpenAsync(ViewModel.Url))
         {
             MinimizeWindow();
         }

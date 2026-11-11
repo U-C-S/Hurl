@@ -7,6 +7,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using WinRT;
 
 namespace Hurl.App.ViewModels;
@@ -55,17 +56,17 @@ public partial class SelectorPageViewModel : ObservableObject
         }
     }
 
-    private IRelayCommand<BrowserItemViewModel>? launchBrowserCommand;
+    private IAsyncRelayCommand<BrowserItemViewModel>? launchBrowserCommand;
 
-    public IRelayCommand<BrowserItemViewModel> LaunchBrowserCommand
+    public IAsyncRelayCommand<BrowserItemViewModel> LaunchBrowserCommand
     {
         get
         {
-            return launchBrowserCommand ??= new RelayCommand<BrowserItemViewModel>(LaunchBrowser);
+            return launchBrowserCommand ??= new AsyncRelayCommand<BrowserItemViewModel>(LaunchBrowserAsync);
         }
     }
 
-    private void LaunchBrowser(BrowserItemViewModel? browserItem)
+    private async Task LaunchBrowserAsync(BrowserItemViewModel? browserItem)
     {
         if (browserItem is null)
         {
@@ -76,7 +77,7 @@ public partial class SelectorPageViewModel : ObservableObject
         Debug.WriteLine($"Launching {browser.Name} with URL: {Url}");
         try
         {
-            UriLauncher.ResolveAutomatically(Url, browser, null);
+            await UriLauncher.ResolveAutomaticallyAsync(Url, browser, null);
             BrowserLaunched?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)

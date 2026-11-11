@@ -1,0 +1,21 @@
+name: Test
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.0.x
+      - name: Run packaged-browser regression checks
+        run: dotnet run --project Source/Hurl.Tests --configuration Release
+      - name: Build Windows app
+        run: dotnet build Source/Hurl.App --configuration Release -p:Platform=x64 -p:RuntimeIdentifier=win-x64 -p:PublishAot=false
