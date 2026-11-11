@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hurl.App.Services;
 
@@ -25,7 +26,7 @@ public sealed class QuickViewService(
         }
     }
 
-    public bool TryOpen(string? url)
+    public async Task<bool> TryOpenAsync(string? url)
     {
         Settings settings = settingsService.LoadSettings();
         QuickViewSettings quickView = settings.QuickView ?? new QuickViewSettings();
@@ -41,7 +42,7 @@ public sealed class QuickViewService(
 
             return quickView.LaunchMode switch
             {
-                QuickViewLaunchMode.Browser => TryOpenBrowser(url!, browsers, quickView),
+                QuickViewLaunchMode.Browser => await TryOpenBrowserAsync(url!, browsers, quickView),
                 _ => TryOpenWebView(url!, browsers.Where(browser => !browser.Hidden).ToList(), quickView)
             };
         }
@@ -52,7 +53,7 @@ public sealed class QuickViewService(
         }
     }
 
-    public bool TryOpenIfModifierKeyActivated(string? url)
+    public async Task<bool> TryOpenIfModifierKeyActivatedAsync(string? url)
     {
         bool isAltDown = KeyboardState.IsAltKeyDown();
         bool isCtrlDown = KeyboardState.IsCtrlKeyDown();
@@ -70,7 +71,7 @@ public sealed class QuickViewService(
             _ => isAltDown && !isCtrlDown
         };
 
-        return result && TryOpen(url);
+        return result && await TryOpenAsync(url);
     }
 
     private void QuickViewWindow_Closed(object sender, WindowEventArgs args)
@@ -102,7 +103,7 @@ public sealed class QuickViewService(
         return true;
     }
 
-    private bool TryOpenBrowser(string url, List<Browser> browsers, QuickViewSettings quickView)
+    private async Task<bool> TryOpenBrowserAsync(string url, List<Browser> browsers, QuickViewSettings quickView)
     {
         if (quickView.BrowserId is not Guid browserId)
         {
@@ -116,7 +117,7 @@ public sealed class QuickViewService(
             return false;
         }
 
-        UriLauncher.ResolveAutomatically(url, browser, quickView.AlternateLaunchId);
+        await UriLauncher.ResolveAutomaticallyAsync(url, browser, quickView.AlternateLaunchId);
         return true;
     }
 }

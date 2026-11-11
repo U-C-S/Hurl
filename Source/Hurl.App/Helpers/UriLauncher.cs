@@ -1,56 +1,28 @@
 using Hurl.Library.Models;
 using System;
 using System.Diagnostics;
-using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hurl.App.Helpers;
 
 class UriLauncher
 {
-    public static void ResolveAutomatically(string uri, Browser browser, Guid? alternateLaunchId)
+    private static readonly BrowserLauncher Launcher = new(
+        PackagedBrowserResolver.Resolve,
+        LaunchPackageAsync,
+        (path, arguments) => Process.Start(path, arguments));
+
+    public static Task ResolveAutomaticallyAsync(string uri, Browser browser, Guid? alternateLaunchId) =>
+        Launcher.LaunchAsync(uri, browser, alternateLaunchId);
+
+    private static async Task<bool> LaunchPackageAsync(Uri uri, string family)
     {
-        if (alternateLaunchId is Guid id)
+        return await global::Windows.System.Launcher.LaunchUriAsync(uri, new global::Windows.System.LauncherOptions
         {
-            Alternative(uri, browser, id);
-        }
-        else
-        {
-            Default(uri, browser);
-        }
+            TargetApplicationPackageFamilyName = family
+        });
     }
 
-    public static void Default(string uri, Browser browser)
-    {
-        if (!string.IsNullOrEmpty(browser.LaunchArgs) && browser.LaunchArgs.Contains("%URL%"))
-        {
-            var newArg = browser.LaunchArgs.Replace("%URL%", uri);
-            Process.Start(browser.ExePath, newArg);
-        }
-        else
-        {
-            Process.Start(browser.ExePath, uri + " " + browser.LaunchArgs);
-        }
-    }
-
-    public static void Alternative(string uri, Browser browser, Guid alternateLaunchId)
-    {
-        var alt = browser.AlternateLaunches?.FirstOrDefault(x => x.Id == alternateLaunchId)
-            ?? throw new Exception("Alternate Launch profile does not exist");
-
-        Alternative(uri, browser, alt);
-    }
-
-    public static void Alternative(string uri, Browser browser, AlternateLaunch alt)
-    {
-        if (alt.LaunchArgs.Contains("%URL%"))
-        {
-            var args = alt.LaunchArgs.Replace("%URL%", uri);
-            Process.Start(browser.ExePath, args);
-        }
-        else
-        {
-            var args = uri + " " + alt.LaunchArgs;
-            Process.Start(browser.ExePath, args);
-        }
-    }
+    public static void Alternative(string uri, Browser browser, AlternateLaunch alt) =>
+        Launcher.LaunchAlternate(uri, browser, alt);
 }

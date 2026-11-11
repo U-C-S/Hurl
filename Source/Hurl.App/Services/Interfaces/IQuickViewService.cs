@@ -1,10 +1,12 @@
+using System.Threading.Tasks;
+
 namespace Hurl.App.Services.Interfaces;
 
 public interface IQuickViewService
 {
     bool IsQuickViewEnabled { get; }
 
-    bool TryOpen(string? url);
+    Task<bool> TryOpenAsync(string? url);
 
-    bool TryOpenIfModifierKeyActivated(string? url);
+    Task<bool> TryOpenIfModifierKeyActivatedAsync(string? url);
 }

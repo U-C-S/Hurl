@@ -132,7 +132,7 @@ public sealed partial class QuickViewWindow : Window
     #endregion
 
     #region UI Event Handlers
-    private void OpenInBrowser_Click(object sender, RoutedEventArgs e)
+    private async void OpenInBrowser_Click(object sender, RoutedEventArgs e)
     {
         if (sender is not MenuFlyoutItem { Tag: Browser browser })
         {
@@ -141,7 +141,7 @@ public sealed partial class QuickViewWindow : Window
 
         try
         {
-            UriLauncher.ResolveAutomatically(GetCurrentUrl(), browser, null);
+            await UriLauncher.ResolveAutomaticallyAsync(GetCurrentUrl(), browser, null);
             Close();
         }
         catch (Exception ex)

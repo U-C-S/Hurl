@@ -64,6 +64,16 @@ Use the Build Script from `Utils/build.ps1` to build the application in _Release
 
 To check out older versions source code, go to [Github Tags](https://github.com/U-C-S/Hurl/tags).
 
+Run the packaged-browser regression checks with `.NET 10`:
+
+```shell
+dotnet run --project Source/Hurl.Tests --configuration Release
+```
+
+These checks use injected launch operations and temporary package assets; they do not
+open browsers or change installed applications. On Linux, add `-p:EnableWindowsTargeting=true`.
+The Windows CI job also builds the WinUI app.
+
 ## Contributing
 
 This project is open to Pull-Requests and Feedback. MIT License.

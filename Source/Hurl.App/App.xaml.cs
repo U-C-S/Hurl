@@ -14,6 +14,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text.Json;
+using System.Threading.Tasks;
 using WinUIEx;
 
 namespace Hurl.App;
@@ -62,11 +63,12 @@ public partial class App : Microsoft.UI.Xaml.Application
         return services.BuildServiceProvider();
     }
 
-    protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
+    protected override async void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
     {
         isLaunched = true;
-        HandleActivation(_pendingActivationArgs ?? AppInstance.GetCurrent().GetActivatedEventArgs(), false);
+        var activationArgs = _pendingActivationArgs ?? AppInstance.GetCurrent().GetActivatedEventArgs();
         _pendingActivationArgs = null;
+        await HandleActivationAsync(activationArgs, false);
     }
 
     private void AppInstance_Activated(object? sender, AppActivationArguments args)
@@ -77,10 +79,10 @@ public partial class App : Microsoft.UI.Xaml.Application
             return;
         }
 
-        _ = dispatcherQueue.TryEnqueue(() => HandleActivation(args, true));
+        _ = dispatcherQueue.TryEnqueue(async () => await HandleActivationAsync(args, true));
     }
 
-    private void HandleActivation(AppActivationArguments activationArgs, bool isSecondInstance)
+    private async Task HandleActivationAsync(AppActivationArguments activationArgs, bool isSecondInstance)
     {
         var cliArgs = CliArgs.GatherInfo(activationArgs, isSecondInstance);
         IServiceProvider services = Services ?? throw new InvalidOperationException("Application services are not configured.");
@@ -91,7 +93,7 @@ public partial class App : Microsoft.UI.Xaml.Application
             return;
         }
 
-        if (services.GetRequiredService<IQuickViewService>().TryOpenIfModifierKeyActivated(cliArgs.Url))
+        if (await services.GetRequiredService<IQuickViewService>().TryOpenIfModifierKeyActivatedAsync(cliArgs.Url))
         {
             return;
         }
@@ -106,7 +108,7 @@ public partial class App : Microsoft.UI.Xaml.Application
             {
                 try
                 {
-                    UriLauncher.ResolveAutomatically(cliArgs.Url, selectedBrowser, matchingRuleset.AlternateLaunchId);
+                    await UriLauncher.ResolveAutomaticallyAsync(cliArgs.Url, selectedBrowser, matchingRuleset.AlternateLaunchId);
                     return;
                 }
                 catch (Exception ex)
