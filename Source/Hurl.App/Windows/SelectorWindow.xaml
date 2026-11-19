@@ -38,43 +38,65 @@
                 x:Name="BrowserSelOptionsButton"
                 Margin="-8,0,0,0"
                 Padding="8,4,8,6"
-                AutomationProperties.Name="Browser selection options">
+                AutomationProperties.Name="Browser selection options"
+                AutomationProperties.HelpText="{x:Bind ViewModel.DurationButtonDescription, Mode=OneWay}"
+                ToolTipService.ToolTip="{x:Bind ViewModel.DurationButtonDescription, Mode=OneWay}">
                 <DropDownButton.Content>
-                    <TextBlock Text="Select a browser" />
+                    <TextBlock Text="{x:Bind ViewModel.DurationButtonText, Mode=OneWay}" />
                 </DropDownButton.Content>
                 <DropDownButton.Flyout>
-                    <MenuFlyout Placement="BottomEdgeAlignedLeft">
-                        <MenuFlyoutItem IsEnabled="False" Text="Use browser for" />
+                    <MenuFlyout Opening="BrowserDurationFlyout_Opening" Placement="BottomEdgeAlignedLeft">
+                        <MenuFlyoutItem
+                            IsEnabled="False"
+                            Text="Use browser for"
+                            Visibility="{x:Bind ViewModel.CanSelectDuration, Mode=OneWay}" />
                         <RadioMenuFlyoutItem
                             Command="{x:Bind ViewModel.TransientDurationCommand}"
                             CommandParameter="0"
                             GroupName="BrowserDuration"
+                            Visibility="{x:Bind ViewModel.CanSelectDuration, Mode=OneWay}"
                             IsChecked="{x:Bind ViewModel.IsTransientDurationSelected(0), Mode=OneWay}"
                             Text="This link only" />
                         <RadioMenuFlyoutItem
                             Command="{x:Bind ViewModel.TransientDurationCommand}"
                             CommandParameter="15"
                             GroupName="BrowserDuration"
+                            Visibility="{x:Bind ViewModel.CanSelectDuration, Mode=OneWay}"
                             IsChecked="{x:Bind ViewModel.IsTransientDurationSelected(15), Mode=OneWay}"
                             Text="15 minutes" />
                         <RadioMenuFlyoutItem
                             Command="{x:Bind ViewModel.TransientDurationCommand}"
                             CommandParameter="30"
                             GroupName="BrowserDuration"
+                            Visibility="{x:Bind ViewModel.CanSelectDuration, Mode=OneWay}"
                             IsChecked="{x:Bind ViewModel.IsTransientDurationSelected(30), Mode=OneWay}"
                             Text="30 minutes" />
                         <RadioMenuFlyoutItem
                             Command="{x:Bind ViewModel.TransientDurationCommand}"
                             CommandParameter="60"
                             GroupName="BrowserDuration"
+                            Visibility="{x:Bind ViewModel.CanSelectDuration, Mode=OneWay}"
                             IsChecked="{x:Bind ViewModel.IsTransientDurationSelected(60), Mode=OneWay}"
                             Text="1 hour" />
                         <RadioMenuFlyoutItem
                             Command="{x:Bind ViewModel.TransientDurationCommand}"
                             CommandParameter="120"
                             GroupName="BrowserDuration"
+                            Visibility="{x:Bind ViewModel.CanSelectDuration, Mode=OneWay}"
                             IsChecked="{x:Bind ViewModel.IsTransientDurationSelected(120), Mode=OneWay}"
                             Text="2 hours" />
+                        <MenuFlyoutItem
+                            IsEnabled="False"
+                            Text="{x:Bind ViewModel.RemainingTimeText, Mode=OneWay}"
+                            Visibility="{x:Bind ViewModel.HasTransientDefault, Mode=OneWay}" />
+                        <MenuFlyoutItem
+                            Command="{x:Bind ViewModel.AddFifteenMinutesCommand}"
+                            Text="Add 15 minutes"
+                            Visibility="{x:Bind ViewModel.HasTransientDefault, Mode=OneWay}" />
+                        <MenuFlyoutItem
+                            Command="{x:Bind ViewModel.EndTransientDefaultCommand}"
+                            Text="End now"
+                            Visibility="{x:Bind ViewModel.HasTransientDefault, Mode=OneWay}" />
                     </MenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
@@ -124,6 +146,9 @@
                     <controls:BrowserBarButton
                         AlternateLaunchRequested="BrowserBarButton_AlternateLaunchRequested"
                         BrowserItem="{x:Bind}"
+                        IsEnabled="{x:Bind IsEnabled, Mode=OneWay}"
+                        Opacity="{x:Bind Opacity, Mode=OneWay}"
+                        AreAlternateLaunchesEnabled="{x:Bind AllowAlternateLaunches, Mode=OneWay}"
                         LaunchCommand="{Binding ViewModel.LaunchBrowserCommand, ElementName=SelectorRoot}" />
                 </DataTemplate>
             </ItemsRepeater.ItemTemplate>

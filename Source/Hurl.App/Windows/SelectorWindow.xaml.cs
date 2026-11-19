@@ -4,6 +4,7 @@ using Hurl.App.Services.Interfaces;
 using Hurl.App.ViewModels;
 using Hurl.Library;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
@@ -26,6 +27,7 @@ public sealed partial class SelectorWindow : Window
 
     private WindowManager? windowManager;
     private readonly WindowMessageMonitor windowMessageMonitor;
+    private readonly DispatcherQueueTimer transientDefaultTimer;
 
     private bool isHiddenToTray;
     private bool isSavingWindowSize;
@@ -54,6 +56,9 @@ public sealed partial class SelectorWindow : Window
         Closed += SelectorWindow_Closed;
 
         InitializeComponent();
+        transientDefaultTimer = DispatcherQueue.CreateTimer();
+        transientDefaultTimer.Interval = TimeSpan.FromSeconds(1);
+        transientDefaultTimer.Tick += TransientDefaultTimer_Tick;
         ApplyConfiguredBackground();
         QuickViewButton.IsEnabled = quickViewService.IsQuickViewEnabled;
         settingsService.SettingsChanged += SettingsChanged;
@@ -109,6 +114,8 @@ public sealed partial class SelectorWindow : Window
             return;
         }
 
+        transientDefaultTimer.Stop();
+        transientDefaultTimer.Tick -= TransientDefaultTimer_Tick;
         settingsService.SettingsChanged -= SettingsChanged;
         ViewModel.BrowserLaunched -= ViewModel_BrowserLaunched;
         Activated -= Window_Activated;
@@ -144,6 +151,7 @@ public sealed partial class SelectorWindow : Window
     internal void MinimizeWindow()
     {
         isHiddenToTray = true;
+        transientDefaultTimer.Stop();
         this.Minimize();
         this.Hide();
     }
@@ -151,11 +159,39 @@ public sealed partial class SelectorWindow : Window
     public void ShowWindow()
     {
         isHiddenToTray = false;
+        RefreshTransientDefault();
         this.Show();
         this.Restore();
         PositionWindowUnderTheMouse();
         Activate();
         this.SetForegroundWindow();
+    }
+
+    private void RefreshTransientDefault()
+    {
+        ViewModel.RefreshTransientDefault();
+        if (!isHiddenToTray && ViewModel.HasTransientDefault)
+        {
+            transientDefaultTimer.Start();
+        }
+        else
+        {
+            transientDefaultTimer.Stop();
+        }
+    }
+
+    private void TransientDefaultTimer_Tick(DispatcherQueueTimer sender, object args)
+    {
+        ViewModel.RefreshTransientDefault();
+        if (!ViewModel.HasTransientDefault)
+        {
+            sender.Stop();
+        }
+    }
+
+    private void BrowserDurationFlyout_Opening(object sender, object e)
+    {
+        RefreshTransientDefault();
     }
 
     private void ApplyConfiguredBackground()

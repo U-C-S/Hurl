@@ -106,6 +106,7 @@ public partial class App : Microsoft.UI.Xaml.Application
             if (!string.IsNullOrWhiteSpace(cliArgs.Url)
                 && services.GetRequiredService<ITransientDefaultBrowserService>().GetActiveBrowser() is { } transientBrowser)
             {
+                trayService ??= new TrayService(ShowSelector, () => ShowSettings("settings"), ReloadApp, ExitApp);
                 UriLauncher.Default(cliArgs.Url, transientBrowser);
                 return;
             }

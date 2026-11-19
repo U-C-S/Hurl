@@ -13,6 +13,15 @@ public partial class BrowserItemViewModel(Browser model) : ObservableObject
 
     public string Name => Model.Name;
 
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(Opacity))]
+    public partial bool IsEnabled { get; set; } = true;
+
+    [ObservableProperty]
+    public partial bool AllowAlternateLaunches { get; set; } = true;
+
+    public double Opacity => IsEnabled ? 1.0 : 0.4;
+
     public ObservableCollection<AlternateLaunch>? AlternateLaunches => Model.AlternateLaunches;
 
     [ObservableProperty]
