@@ -1,22 +1,18 @@
-﻿using Microsoft.Windows.AppLifecycle;
+﻿using Hurl.App.Helpers;
+using Microsoft.Windows.AppLifecycle;
 using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 
 namespace Hurl.App;
 
-public partial class Program
+public class Program
 {
-    [LibraryImport("Microsoft.ui.xaml.dll")]
-    [DefaultDllImportSearchPaths(DllImportSearchPath.SafeDirectories)]
-    private static partial void XamlCheckProcessRequirements();
-
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.UI.Xaml.Markup.Compiler", " 3.0.0.2408")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.STAThreadAttribute]
     static void Main(string[] args)
     {
-        XamlCheckProcessRequirements();
+        NativeMethods.XamlCheckProcessRequirements();
         global::WinRT.ComWrappersSupport.InitializeComWrappers();
 
         bool isRedirect = DecideRedirection();
@@ -47,16 +43,12 @@ public partial class Program
         return isRedirect;
     }
 
-    [LibraryImport("user32.dll")]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    private static partial bool SetForegroundWindow(IntPtr hWnd);
-
     public static void RedirectActivationTo(AppActivationArguments args,
                                             AppInstance keyInstance)
     {
         keyInstance.RedirectActivationToAsync(args).AsTask().Wait();
 
         Process process = Process.GetProcessById((int)keyInstance.ProcessId);
-        SetForegroundWindow(process.MainWindowHandle);
+        NativeMethods.SetForegroundWindow(process.MainWindowHandle);
     }
 }
