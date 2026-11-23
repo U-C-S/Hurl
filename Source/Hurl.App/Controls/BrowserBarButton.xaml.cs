@@ -87,18 +87,31 @@ public sealed partial class BrowserBarButton : UserControl
             typeof(BrowserBarButton),
             new PropertyMetadata(null, OnLaunchCommandChanged));
 
+    public bool AreAlternateLaunchesEnabled
+    {
+        get => (bool)GetValue(AreAlternateLaunchesEnabledProperty);
+        set => SetValue(AreAlternateLaunchesEnabledProperty, value);
+    }
+
+    public static readonly DependencyProperty AreAlternateLaunchesEnabledProperty =
+        DependencyProperty.Register(
+            nameof(AreAlternateLaunchesEnabled),
+            typeof(bool),
+            typeof(BrowserBarButton),
+            new PropertyMetadata(true, OnBrowserItemChanged));
+
     public event EventHandler<AlternateLaunchRequestedEventArgs>? AlternateLaunchRequested;
     #endregion
 
     #region AltLaunch Flyout
-    public Visibility AlternateLaunchVisibility => BrowserItem?.AlternateLaunches is { Count: > 0 }
+    public Visibility AlternateLaunchVisibility => AreAlternateLaunchesEnabled && BrowserItem?.AlternateLaunches is { Count: > 0 }
         ? Visibility.Visible
         : Visibility.Collapsed;
 
     private void ConfigureAlternateLaunchFlyouts()
     {
-        var contextFlyout = BrowserItem is null ? null : CreateAlternateLaunchFlyout(BrowserItem.Model);
-        var additionalFlyout = BrowserItem is null ? null : CreateAlternateLaunchFlyout(BrowserItem.Model);
+        var contextFlyout = !AreAlternateLaunchesEnabled || BrowserItem is null ? null : CreateAlternateLaunchFlyout(BrowserItem.Model);
+        var additionalFlyout = !AreAlternateLaunchesEnabled || BrowserItem is null ? null : CreateAlternateLaunchFlyout(BrowserItem.Model);
 
         LaunchButton.ContextFlyout = contextFlyout;
         AdditionalBtn.Flyout = additionalFlyout;

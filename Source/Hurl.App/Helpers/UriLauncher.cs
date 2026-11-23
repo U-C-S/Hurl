@@ -21,15 +21,12 @@ class UriLauncher
 
     public static void Default(string uri, Browser browser)
     {
-        if (!string.IsNullOrEmpty(browser.LaunchArgs) && browser.LaunchArgs.Contains("%URL%"))
-        {
-            var newArg = browser.LaunchArgs.Replace("%URL%", uri);
-            Process.Start(browser.ExePath, newArg);
-        }
-        else
-        {
-            Process.Start(browser.ExePath, uri + " " + browser.LaunchArgs);
-        }
+        Launch(uri, browser.ExePath, browser.LaunchArgs);
+    }
+
+    public static void Default(string uri, TransientBrowser browser)
+    {
+        Launch(uri, browser.ExePath, browser.Arguments);
     }
 
     public static void Alternative(string uri, Browser browser, Guid alternateLaunchId)
@@ -42,15 +39,15 @@ class UriLauncher
 
     public static void Alternative(string uri, Browser browser, AlternateLaunch alt)
     {
-        if (alt.LaunchArgs.Contains("%URL%"))
-        {
-            var args = alt.LaunchArgs.Replace("%URL%", uri);
-            Process.Start(browser.ExePath, args);
-        }
-        else
-        {
-            var args = uri + " " + alt.LaunchArgs;
-            Process.Start(browser.ExePath, args);
-        }
+        Launch(uri, browser.ExePath, alt.LaunchArgs);
+    }
+
+    private static void Launch(string uri, string executablePath, string? launchArgs)
+    {
+        string arguments = !string.IsNullOrEmpty(launchArgs) && launchArgs.Contains("%URL%")
+            ? launchArgs.Replace("%URL%", uri)
+            : uri + " " + launchArgs;
+
+        Process.Start(executablePath, arguments);
     }
 }
