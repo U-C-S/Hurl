@@ -12,11 +12,11 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: rustup toolchain install
         uses: dtolnay/rust-toolchain@stable
       - name: Setup .NET
-        uses: actions/setup-dotnet@v5
+        uses: actions/setup-dotnet@v6
         with:
           dotnet-version: 11.0.x
       - name: Build Hurl and its components
