@@ -56,6 +56,8 @@ Source: "..\LICENSE"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Extensions\*"; Excludes: "package-lock.json,node_modules"; DestDir: "{app}\Extensions"; Flags: ignoreversion recursesubdirs
 
 [InstallDelete]
+; The 0.9.x WinUI index takes precedence over Hurl.pri if left in place.
+Type: files; Name: "{app}\resources.pri"
 Type: files; Name: "{app}\Hurl Settings.exe"
 Type: files; Name: "{app}\Hurl Settings.dll"
 Type: files; Name: "{app}\Hurl.exe"
